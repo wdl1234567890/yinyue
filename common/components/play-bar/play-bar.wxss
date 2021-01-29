@@ -1,0 +1,30 @@
+.play-bar-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(241, 241, 241, 0.4);
+}
+.cover-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 12rpx solid;
+  margin-top: -30rpx;
+  z-index: 100;
+}
+.song-info-container{
+  flex-grow: 1;
+  padding-left: 18rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.song-name{
+  color: #555;
+  letter-spacing: 1px;
+}
+.singer-name{
+  color: #999;
+  font-size: 21rpx;
+  letter-spacing: 1px;
+}

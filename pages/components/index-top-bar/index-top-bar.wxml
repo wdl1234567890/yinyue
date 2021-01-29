@@ -1,0 +1,10 @@
+<view>
+  <top-bar>
+    <view slot="left" style="margin-left:-12rpx;">
+      <i-icon type="other" size="33"/>
+    </view>
+    <view slot="middle">
+      <search-bar />
+    </view>
+  </top-bar>
+</view>

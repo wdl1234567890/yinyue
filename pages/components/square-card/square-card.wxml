@@ -1,0 +1,9 @@
+<view class="square-card-container" style="width:{{size}}rpx">
+  <view class="out-shadow-container" style="height:{{enableShadow?size+12:size}}rpx;">
+    <view style="height:{{size}}rpx;line-height:{{size}}rpx;top:{{enableShadow?12:0}}rpx" class="square-container square-class">
+      <image src="/static/images/common/music-load.svg" style="width:{{size*(3/5)}}rpx"></image>
+      <image mode="aspectFill" src="{{thumb}}" lazy-load class="image-content"></image>
+    </view>
+  </view>
+  <text class="info-content" wx:if="{{info!=''}}">{{info}}</text>
+</view>

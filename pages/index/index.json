@@ -1,0 +1,14 @@
+{
+  "usingComponents": {
+    "index-top-bar": "../components/index-top-bar/index-top-bar",
+    "card-swiper": "../components/card-swiper/card-swiper",
+    "card": "/common/components/card/card",
+    "square-card": "../components/square-card/square-card",
+    "nav-icon": "../components/nav-icon/nav-icon",
+    "play-bar": "/common/components/play-bar/play-bar",
+    "recommend-card": "../components/recommend-card/recommend-card",
+    "circular-card": "../components/circular-card/circular-card",
+    "music-card":"../components/music-card/music-card"
+  },
+  "navigationBarTitleText": "首页"
+}

@@ -1,0 +1,43 @@
+.music-card-container{
+  display: flex;
+  padding: 8rpx 0;
+  position: relative;
+}
+.cover-container{
+  margin-right: 22rpx;
+}
+.play-icon-contanier{
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.song-infos-container{
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1rpx solid rgba(245,245,245,1);
+  flex-grow: 1;
+  justify-content: space-evenly;
+}
+.song-infos-container text{
+  letter-spacing: 1px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.song-name{
+  color: #555;
+  font-size: 30rpx;
+}
+.singer-name{
+  color:#999;
+  font-size: 20rpx;
+}
+.square-cover{
+  border-radius: 20rpx !important;
+  overflow: hidden;
+  background-color: #eee !important;
+  color: rgba(204, 204, 204, 0.726) !important;
+}

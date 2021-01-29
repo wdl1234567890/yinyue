@@ -1,0 +1,68 @@
+.index-container{
+  overflow: hidden;
+}
+.index-top-bar-container{
+  padding-top: 130rpx;
+  padding-bottom: 20rpx;
+}
+.personal-song-sheet-recommend{
+  border-top: 1px solid rgba(242,242,242,0.8);
+}
+.nav-icon-container{
+  padding-bottom: 25rpx;
+}
+.normal-song-sheet-recommend{
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 32rpx;
+  padding-top: 20rpx;
+}
+.hotRe{
+  height: 320rpx;
+  width: 337rpx;
+  padding: 20rpx 30rpx;
+}
+.newRe{
+  height: 200rpx;
+  padding: 28rpx 30rpx;
+}
+.randomRe{
+  height: 100rpx;
+  padding: 20rpx 30rpx;
+  justify-content: center!important;
+}
+.recommend-right-part{
+  width: 337rpx;
+  justify-content: space-between;
+}
+.normal-song-sheet-recommend-title{
+  font-size: 46rpx;
+  color: #666;
+}
+.normal-song-sheet-recommend-content{
+  font-size: 21rpx;
+  color: #888;
+  line-height: 36rpx;
+}
+.normal-song-sheet-recommend-right-title{
+  font-size: 34rpx;
+  color: #666;
+}
+.nav-scroll-content-container{
+  width: 100%;
+  display: flex;
+  max-height: fit-content;
+}
+.square-card-margin-right{
+  margin-right: 18rpx;
+}
+.circular-card-margin-right{
+  margin-right: 34rpx;
+}
+.song-recommend-last-card-margin{
+  padding-right: 75rpx;
+}
+.music-cards-container{
+  width: 675rpx;
+  flex-shrink: 0;
+}

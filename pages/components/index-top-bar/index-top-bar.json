@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "i-icon": "/extend/iview-weapp/icon/index",
+    "top-bar": "/common/components/top-bar/top-bar",
+    "search-bar": "/common/components/search-bar/search-bar"
+  }
+}

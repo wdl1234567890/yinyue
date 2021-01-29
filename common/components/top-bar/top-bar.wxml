@@ -1,0 +1,10 @@
+<!--顶部bar条-->
+<view class="top-bar-container">
+  <view class="top-bar-left">
+    <slot name="left"></slot>
+  </view>
+  <view class="top-bar-middle">
+    <slot name="middle"></slot>
+  </view>
+  <slot name="right"></slot>
+</view>

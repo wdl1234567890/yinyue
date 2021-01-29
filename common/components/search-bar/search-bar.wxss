@@ -1,0 +1,15 @@
+.search-container{
+  width: 600rpx;
+  padding: 12rpx 18rpx;
+  background-color: #fff;
+  border-radius: 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.text-one-row{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #ccc;
+}

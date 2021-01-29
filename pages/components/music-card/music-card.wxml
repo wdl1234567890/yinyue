@@ -1,0 +1,14 @@
+<view class="music-card-container">
+  <!--封面缩略图-->
+  <view class="cover-container">
+    <square-card size="{{size}}" thumb="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" square-class="square-cover" info="" enableShadow="{{false}}"></square-card>
+    <view class="play-icon-contanier" style="width:{{size}}rpx;height:{{size}}rpx">
+      <i-icon type="play_fill" color="#fff" size="{{size/4}}"/>
+    </view>
+  </view>
+  <!--歌曲信息-->
+  <view class="song-infos-container">
+    <text class="song-name">{{songName}}</text>
+    <text class="singer-name">{{singerName}}</text>
+  </view>
+</view>

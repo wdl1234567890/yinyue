@@ -1,0 +1,18 @@
+.nav-icon-container {
+  text-align: center;
+}
+.icon{
+  overflow: hidden;
+  border-width: 6rpx;
+  border-style: solid;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8rpx;
+}
+.label {
+  font-size: 22rpx;
+  color: #777;
+  letter-spacing: 2px;
+}
