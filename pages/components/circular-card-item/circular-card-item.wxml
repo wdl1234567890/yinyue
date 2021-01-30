@@ -1,0 +1,4 @@
+<view class="circular-card-container" style="width:{{size}}rpx">
+  <circular-item src="{{cover}}" size="{{size}}" circular-item-class="cover-item" themeColor="{{themeColor}}"/>
+  <text class="message">{{message}}</text>
+</view>

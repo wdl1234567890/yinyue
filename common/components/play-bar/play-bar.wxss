@@ -28,3 +28,6 @@
   font-size: 21rpx;
   letter-spacing: 1px;
 }
+.cover-item{
+  border:2rpx solid;
+}

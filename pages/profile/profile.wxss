@@ -1,1 +1,39 @@
-/* pages/profile/profile.wxss */
+.profile-container {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.profile-top-bar {
+  padding-top: 130rpx;
+  padding-bottom: 20rpx;
+  transition: all 0.4s;
+}
+
+.show-top-info-container {
+  align-items: center;
+  width: 694rpx;
+  left: -54rpx;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  transition: opacity 0.4s;
+}
+
+.show-top-image{
+  margin-right: 15rpx;
+}
+
+.show-top-info-container text {
+  font-size: 25rpx;
+  color: #777;
+  letter-spacing: 1px; 
+}
+
+.setting-icon {
+  margin-left: -6px;
+  position: relative;
+  z-index: 100;
+}
+.base-info-container{
+  
+}

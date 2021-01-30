@@ -1,5 +1,5 @@
 <view style="width:{{size}}rpx;" class="nav-icon-container">
-  <view class="icon" style="height:{{size}}rpx;border-radius:{{size}}rpx;color:{{color}}">
+  <view class="icon" style="height:{{size}}rpx;border-radius:{{size}}rpx;border-color:{{color}}">
     <i-icon type="{{icon}}" size="{{(size/2)*(3/5)}}" color="{{color}}" />
   </view>
   <text class="label">{{label}}</text>

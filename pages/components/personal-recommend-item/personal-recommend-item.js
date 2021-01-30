@@ -1,5 +1,4 @@
-// pages/components/nav-icon/nav-icon.js
-let app = getApp()
+// pages/components/square-card/square-card.js
 Component({
   /**
    * 组件的属性列表
@@ -7,15 +6,15 @@ Component({
   properties: {
     size: {
       type: Number,
-      value: 80
+      value: 100
     },
-    icon: {
+    thumb: {
       type: String,
-      value: "live_fill"
+      value: ""
     },
-    label: {
+    info: {
       type: String,
-      value: "标签"
+      value: "内容正在加载中，请稍后哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈......"
     }
   },
 
@@ -23,7 +22,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    color: app.globalData.themeColor
+
   },
 
   /**

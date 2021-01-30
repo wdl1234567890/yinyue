@@ -1,21 +1,21 @@
-// pages/components/nav-icon/nav-icon.js
-let app = getApp()
+// pages/components/circular-item/circular-item.js
 Component({
+  externalClasses: ['circular-item-class'],
   /**
    * 组件的属性列表
    */
   properties: {
+    src: {
+      type: String,
+      value: ''
+    },
     size: {
       type: Number,
-      value: 80
+      value: 200
     },
-    icon: {
+    themeColor: {
       type: String,
-      value: "live_fill"
-    },
-    label: {
-      type: String,
-      value: "标签"
+      value: ''
     }
   },
 
@@ -23,7 +23,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    color: app.globalData.themeColor
   },
 
   /**

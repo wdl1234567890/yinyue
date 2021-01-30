@@ -1,0 +1,19 @@
+.circular-card-container{
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.message{
+  letter-spacing: 2px;
+  font-size: 22rpx;
+  color: #777;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+}
+.cover-item{
+  border:2rpx solid;
+  margin-bottom: 12rpx;
+}

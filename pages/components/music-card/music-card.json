@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "square-card": "../square-card/square-card"
+    "square-item": "../components/square-item/square-item"
   }
 }

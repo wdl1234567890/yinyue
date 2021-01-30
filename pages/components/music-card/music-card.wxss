@@ -36,8 +36,5 @@
   font-size: 20rpx;
 }
 .square-cover{
-  border-radius: 20rpx !important;
-  overflow: hidden;
-  background-color: #eee !important;
-  color: rgba(204, 204, 204, 0.726) !important;
+  border: 1px solid #999;
 }

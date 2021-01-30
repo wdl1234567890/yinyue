@@ -1,0 +1,27 @@
+.square-card-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.out-shadow-container{
+  background-color: #eee;
+  border-radius: 40rpx;
+}
+.info-content{
+  margin-top: 18rpx;
+  font-size: 22rpx;
+  color: #777;
+  letter-spacing: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.cover-item{
+  position: relative;
+  background-color: #eee;
+  border: 1px solid #999;
+  top: 12rpx;
+}

@@ -1,21 +1,20 @@
-// pages/components/nav-icon/nav-icon.js
-let app = getApp()
+// pages/components/square-item/square-item.js
 Component({
+  externalClasses: ['square-item-class'],
+  options: {
+    styleIsolation: 'apply-shared'
+  },
   /**
    * 组件的属性列表
    */
   properties: {
     size: {
       type: Number,
-      value: 80
+      value: 100
     },
-    icon: {
+    src: {
       type: String,
-      value: "live_fill"
-    },
-    label: {
-      type: String,
-      value: "标签"
+      value: ""
     }
   },
 
@@ -23,7 +22,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    color: app.globalData.themeColor
+
   },
 
   /**

@@ -2,17 +2,22 @@
 @import "extend/color-ui/colorui/main.wxss";
 @import "extend/color-ui/colorui/icon.wxss";
 
+page{
+  --theme-bg:rgba(253, 253, 253, 0.418);
+  --theme-module-color:rgba(253,253,253,0.8);
+  --theme-color: #ffb5b9;
+}
 /**主题**/
 .theme-color{
-  background-color: #ffb5b9;
+  background-color: var(--theme-color);
 }
 .theme-bg{
   width: 100vw;
   height: 100vh;
-  background-color: rgba(253, 253, 253, 0.418);
+  background-color: var(--theme-bg);
 }
 .theme-module-color{
-  background-color: rgba(253,253,253,0.8);
+  background-color: var(--theme-module-color);
 }
 .theme-module-margin{
   margin-bottom: 20rpx;

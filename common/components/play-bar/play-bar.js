@@ -1,4 +1,5 @@
 // common/components/play-bar/play-bar.js
+let app=getApp()
 Component({
   externalClasses: ['play-bar-class'],
   /**
@@ -12,10 +13,6 @@ Component({
     cover:{
       type:String,
       value:'/static/images/index/musicpink3.svg'
-    },
-    themeColor:{
-      type:String,
-      value:'#ffb5b9'
     }
   },
 
@@ -23,7 +20,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    themeColor: app.globalData.themeColor
   },
 
   /**

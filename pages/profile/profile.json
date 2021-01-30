@@ -1,4 +1,8 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "play-bar": "/common/components/play-bar/play-bar",
+    "top-bar": "/common/components/top-bar/top-bar",
+    "circular-item": "../components/circular-item/circular-item"
+  },
   "navigationBarTitleText": "我的"
 }

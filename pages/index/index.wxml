@@ -14,7 +14,7 @@
     <view class="theme-module-color nav-icon-container">
       <scroll-view scroll-x="true" class="nav-scroll-content-container" enable-flex>
         <view class="theme-margin-left {{index==7?'theme-margin-right':''}}" wx:for="{{[1,2,3,4,5,6,7,8]}}">
-          <nav-icon color="{{themeColor}}" size="100" />
+          <nav-icon size="100" />
         </view>
       </scroll-view>
     </view>
@@ -22,7 +22,7 @@
     <view class="theme-module-color personal-song-sheet-recommend">
       <card card-title-class="theme-padding" cardTitle="推荐歌单">
         <view class="{{index==0?'theme-margin-left':''}} {{index==6?'theme-margin-right':''}} square-card-margin-right" wx:for="{{[1,2,3,4,5,6,7]}}">
-          <square-card thumb="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" size="190" square-class="theme-radius theme-load-slot" />
+          <personal-recommend-item thumb="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" size="190" />
         </view>
       </card>
     </view>
@@ -46,7 +46,7 @@
     <view class="theme-module-color theme-module-margin">
       <card card-title-class="theme-padding" cardTitle="音乐人">
         <view wx:for="{{[1,2,3,4,5]}}" class="circular-card-item {{index==0?'theme-margin-left':''}} {{index==4?'theme-margin-right':''}} circular-card-margin-right">
-          <circular-card themeColor="{{themeColor}}" size="170" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" message="歌手" />
+          <circular-card-item size="170" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" message="歌手" />
         </view>
       </card>
     </view>
@@ -54,7 +54,7 @@
     <view class="theme-module-color theme-module-margin">
       <card card-title-class="theme-padding" cardTitle="风格">
         <view wx:for="{{[1,2,3,4,5]}}" class="circular-card-item {{index==0?'theme-margin-left':''}} {{index==4?'theme-margin-right':''}} circular-card-margin-right">
-          <circular-card themeColor="{{themeColor}}" size="170" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" message="古风" />
+          <circular-card-item size="170" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" message="古风" />
         </view>
       </card>
     </view>
@@ -62,13 +62,13 @@
     <view class="theme-module-color theme-module-margin">
       <card card-title-class="theme-padding" cardTitle="场景">
         <view wx:for="{{[1,2,3,4,5]}}" class="circular-card-item {{index==0?'theme-margin-left':''}} {{index==4?'theme-margin-right':''}} circular-card-margin-right">
-          <circular-card themeColor="{{themeColor}}" size="170" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" message="运动"/>
+          <circular-card-item size="170" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" message="运动"/>
         </view>
       </card>
     </view>
   </scroll-view>
   <!--底部播放条-->
   <view style="background-color: rgba(253,253,253,1);">
-    <play-bar height="108" play-bar-class="theme-padding" themeColor="{{themeColor}}" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
+    <play-bar height="108" play-bar-class="theme-padding" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
   </view>
 </view>

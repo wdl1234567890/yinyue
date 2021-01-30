@@ -1,0 +1,6 @@
+<view class="square-card-container" style="width:{{size}}rpx">
+  <view class="out-shadow-container" style="height:size+12rpx;">
+    <square-item size="{{size}}" src="{{thumb}}" square-item-class="cover-item"/>
+  </view>
+  <text class="info-content" wx:if="{{info!=''}}">{{info}}</text>
+</view>

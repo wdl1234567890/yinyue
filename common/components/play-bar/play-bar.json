@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    
+    "circular-item": "/pages/components/circular-item/circular-item"
   }
 }

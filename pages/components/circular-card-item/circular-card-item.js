@@ -1,21 +1,21 @@
-// pages/components/nav-icon/nav-icon.js
+// pages/components/circular-card/circular-card.js
 let app = getApp()
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    size: {
-      type: Number,
-      value: 80
-    },
-    icon: {
+    cover: {
       type: String,
-      value: "live_fill"
+      value: ''
     },
-    label: {
+    message:{
       type: String,
-      value: "标签"
+      value: '音乐'
+    },
+    size:{
+      type:Number,
+      value:200
     }
   },
 
@@ -23,7 +23,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    color: app.globalData.themeColor
+    themeColor: app.globalData.themeColor
   },
 
   /**

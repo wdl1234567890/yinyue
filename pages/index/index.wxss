@@ -59,10 +59,11 @@
 .circular-card-margin-right{
   margin-right: 34rpx;
 }
-.song-recommend-last-card-margin{
-  padding-right: 75rpx;
-}
 .music-cards-container{
   width: 675rpx;
   flex-shrink: 0;
+}
+.song-recommend-last-card-margin{
+  padding-right: 75rpx;
+  width: 722rpx;
 }
