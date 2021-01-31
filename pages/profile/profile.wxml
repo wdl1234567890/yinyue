@@ -6,40 +6,63 @@
         <i-icon type="other" size="33" />
       </view>
       <view slot="middle" class="show-top-info-container flex-row" style="opacity:{{thumbAvatorOpacity}}">
-        <!-- <image mode="aspectFill" src="{{userAvatar}}"></image>-->
         <view class="show-top-image">
-          <circular-item src="{{userAvatar}}" size="60"/>
+          <circular-item src="{{userAvatar}}" size="60" />
         </view>
-        <text>{{userId}}</text>
+        <text class="one-row-flow">{{userId}}</text>
       </view>
     </top-bar>
   </view>
+  <!--隐形歌单导航条-->
+  <view class="song-list-cp-nav-container theme-padding flex-row fixed-song-list-nav-bar" wx:if="{{navBarIsTop}}">
+      <view class="song-list-nav-item" id="{{item.id}}" data-index="{{index}}" wx:for="{{songListNav}}" wx:key="id" bindtap="tapSongListNavTitle">
+        <text class="{{currentSongListId==index?'song-list-nav-active-text':''}}">{{item.title}}</text>
+        <view class="song-list-nav-active-bar" wx:if="{{currentSongListId==index}}"></view>
+      </view>
+    </view>
   <!--可竖向滚动内容区-->
-  <scroll-view scroll-y="true" upper-threshold="0" enhanced fast-deceleration bindscroll="scrolling" bindscrolltoupper="scrolltoupper" style="height: 914rpx;">
+  <scroll-view scroll-y="true" upper-threshold="0" scroll-with-animation  bindscroll="scrolling" bindscrolltoupper="scrolltoupper" style="height: 914rpx;" class="element-distance" scroll-top="{{scrollDiff}}" bindscrolltolower="scrolltolower">
     <!--个人基本信息显示-->
-    <view>
+    <view class="theme-padding" class="user-info-container theme-padding">
       <top-bar>
-        <view slot="left" class="" style="height:1000px">
-          <circular-item src="{{src}}" size="100"/>
+        <view slot="left" class="avator-icon">
+          <circular-item src="{{src}}" size="114" themeColor="{{themeColor}}" />
         </view>
         <view slot="middle" class="base-info-container">
-          <text></text>
-          <view></view>
+          <text class="user-name one-row-flow">茯苓170603</text>
+          <view class="vip-tip theme-color">开通vip</view>
         </view>
         <view slot="right" class="">
-          <i-icon></i-icon>
+          <i-icon type="enter" size="20" />
         </view>
       </top-bar>
     </view>
     <!--图标导航功能-->
     <!--喜欢，下载，最近，评论，会员-->
-    <view></view>
+    <view class="theme-module-color theme-margin theme-radius module-padding nav-icon-container element-distance">
+      <view wx:for="{{[1,2]}}" class="flex-row nav-icon-row-container" style="margin-bottom:{{index==0?40:0}}rpx">
+        <nav-icon size="110" wx:for="{{[1,2,3]}}" />
+      </view>
+    </view>
+    <!--歌单导航条-->
+    <view class="song-list-nav-container theme-padding flex-row element-distance">
+      <view class="song-list-nav-item" id="{{item.id}}" data-index="{{index}}" wx:for="{{songListNav}}" wx:key="id" bindtap="tapSongListNavTitle">
+        <text class="{{currentSongListId==index?'song-list-nav-active-text':''}}">{{item.title}}</text>
+        <view class="song-list-nav-active-bar" wx:if="{{currentSongListId==index}}"></view>
+      </view>
+    </view>
     <!--最近播放过的歌单-->
-    <view></view>
+    <view class="theme-module-margin theme-module-color theme-margin theme-radius module-padding element-distance">
+      <song-list-card show-add-button/>
+    </view>
     <!--自创歌单-->
-    <view></view>
+    <view class="theme-module-margin theme-module-color theme-margin theme-radius module-padding element-distance">
+      <song-list-card />
+    </view>
     <!--收藏歌单-->
-    <view></view>
+    <view class="theme-module-margin theme-module-color theme-margin theme-radius module-padding element-distance">
+      <song-list-card />
+    </view>
   </scroll-view>
   <!--底部播放条-->
   <view style="background-color: rgba(253,253,253,1);">

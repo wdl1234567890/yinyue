@@ -12,7 +12,7 @@
   margin-bottom: 8rpx;
 }
 .label {
-  font-size: 22rpx;
+  font-size: 25rpx;
   color: #777;
   letter-spacing: 2px;
 }

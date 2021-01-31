@@ -1,0 +1,27 @@
+<view>
+  <!--歌单顶部标题-->
+  <view class="song-list-title">
+    <top-bar>
+      <text slot="left">最近播放歌单(15个)</text>
+      <view slot="right" class="title-action-container">
+        <view class="add-button" wx:if="{{showAddButton}}">
+          <i-icon type="add" size="18" />
+        </view>
+        <i-icon type="switch" size="18" />
+      </view>
+    </top-bar>
+  </view>
+  <!--歌单列表-->
+  <view>
+    <view class="song-list-item" wx:for="{{[1,2,3]}}">
+      <top-bar>
+        <square-item slot="left" size="100" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg"/>
+        <view slot="middle" class="song-list-item-info">
+          <text class="song-list-item-name one-row-flow">茯苓最近听的歌单</text>
+          <text class="song-list-item-count">10首</text>
+        </view>
+        <i-icon slot="right" type="switch" size="18" />
+      </top-bar>
+    </view>
+  </view>
+</view>

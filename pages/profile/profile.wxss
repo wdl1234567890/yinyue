@@ -6,7 +6,7 @@
 .profile-top-bar {
   padding-top: 130rpx;
   padding-bottom: 20rpx;
-  transition: all 0.4s;
+  transition: all 0.2s;
 }
 
 .show-top-info-container {
@@ -16,17 +16,28 @@
   display: flex;
   justify-content: center;
   position: relative;
-  transition: opacity 0.4s;
+  transition: opacity 0.2s;
 }
 
-.show-top-image{
+.song-list-nav-item {
+  letter-spacing: 1px;
+  color: #777;
+}
+
+.song-list-nav-item text {
+  padding: 0 6rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.show-top-image {
   margin-right: 15rpx;
 }
 
 .show-top-info-container text {
   font-size: 25rpx;
   color: #777;
-  letter-spacing: 1px; 
+  letter-spacing: 1px;
 }
 
 .setting-icon {
@@ -34,6 +45,90 @@
   position: relative;
   z-index: 100;
 }
-.base-info-container{
-  
+
+.user-info-container {
+  margin-top: 22rpx;
+  margin-bottom: 45rpx;
+}
+
+.base-info-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10rpx;
+}
+
+.nav-icon-row-container {
+  justify-content: space-between;
+}
+
+.nav-icon-container {
+  padding-top: 55rpx !important;
+  margin-bottom: 33rpx;
+}
+
+.user-name {
+  color: #555;
+  font-size: 35rpx;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 10rpx;
+}
+
+.vip-tip {
+  letter-spacing: 2px;
+  padding: 6rpx 14rpx;
+  border-radius: 50rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #fff;
+  width: fit-content;
+}
+
+.avator-icon {
+  margin: 0 30rpx;
+}
+
+.module-padding {
+  padding: 35rpx;
+}
+
+.one-row-flow {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.song-list-nav-container {
+  padding-top: 24rpx;
+  padding-bottom: 30rpx;
+  justify-content: space-around;
+}
+
+.song-list-cp-nav-container {
+  padding-top: 24rpx;
+  padding-bottom: 10rpx;
+  justify-content: space-around;
+}
+
+.song-list-nav-active-bar {
+  height: 13rpx;
+  border-radius: 50rpx;
+  width: 100%;
+  background: -webkit-linear-gradient(90deg, rgba(255, 181, 185, 1), rgba(255, 181, 185, 0.6));
+  background: linear-gradient(90deg, rgba(255, 181, 185, 1), rgba(255, 181, 185, 0.6));
+  position: relative;
+  top: -9rpx;
+}
+
+.song-list-nav-active-text{
+  font-weight: bold;
+  color: #555;
+}
+
+.fixed-song-list-nav-bar{
+  position: fixed;
+  top: 216rpx;
+  width: 100%;
+  background-color: var(--theme-module-color);
+  z-index: 111;
 }

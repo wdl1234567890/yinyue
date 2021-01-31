@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "square-item": "../square-item/square-item",
+    "top-bar": "/common/components/top-bar/top-bar"
+  }
+}

@@ -5,7 +5,7 @@
 page{
   --theme-bg:rgba(253, 253, 253, 0.418);
   --theme-module-color:rgba(253,253,253,0.8);
-  --theme-color: #ffb5b9;
+  --theme-color: rgb(255,181,185);
 }
 /**主题**/
 .theme-color{
@@ -20,7 +20,7 @@ page{
   background-color: var(--theme-module-color);
 }
 .theme-module-margin{
-  margin-bottom: 20rpx;
+  margin-bottom: 20rpx!important;
 }
 .theme-font{
   font-size: 14rpx;
@@ -30,14 +30,14 @@ page{
 .theme-padding{
   padding: 0 28rpx;
 }
+.theme-margin{
+  margin: 0 28rpx;
+}
 .theme-margin-left{
   margin-left: 28rpx;
 }
 .theme-margin-right{
   padding-right: 28rpx;
-}
-.theme-margin-left{
-  margin-left: 28rpx;
 }
 .theme-radius{
   border-radius: 20rpx !important;

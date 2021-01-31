@@ -1,1 +1,4 @@
-/* pages/components/index-top-bar/index-top-bar.wxss */
+.setting-icon{
+  margin-left:-12rpx;
+  margin-right:10rpx;
+}
