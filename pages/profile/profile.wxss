@@ -4,11 +4,12 @@
 }
 
 .profile-top-bar {
-  padding-top: 130rpx;
   padding-bottom: 20rpx;
-  transition: all 0.2s;
+  transition: background-color 0.2s;
 }
-
+.scroll-smooth{
+  -webkit-overflow-scrolling: touch
+}
 .show-top-info-container {
   align-items: center;
   width: 694rpx;
@@ -21,13 +22,14 @@
 
 .song-list-nav-item {
   letter-spacing: 1px;
-  color: #777;
+  color: #333;
 }
 
 .song-list-nav-item text {
   padding: 0 6rpx;
   position: relative;
   z-index: 1;
+  font-size: 33rpx;
 }
 
 .show-top-image {
@@ -36,7 +38,7 @@
 
 .show-top-info-container text {
   font-size: 25rpx;
-  color: #777;
+  color: #333;
   letter-spacing: 1px;
 }
 
@@ -102,6 +104,7 @@
   padding-top: 24rpx;
   padding-bottom: 30rpx;
   justify-content: space-around;
+  font-size: 31rpx;
 }
 
 .song-list-cp-nav-container {
@@ -127,8 +130,17 @@
 
 .fixed-song-list-nav-bar{
   position: fixed;
-  top: 216rpx;
   width: 100%;
   background-color: var(--theme-module-color);
   z-index: 111;
+}
+.song-list-item-name{
+  font-size: 31rpx;
+}
+
+.not-show-thumb-avator{
+  opacity: 0
+}
+.show-thumb-avator{
+  opacity: 1;
 }

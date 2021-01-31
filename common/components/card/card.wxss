@@ -35,3 +35,7 @@
   letter-spacing: 1px;
   font-weight: bold;
 }
+
+.scroll-smooth{
+  -webkit-overflow-scrolling: touch
+}

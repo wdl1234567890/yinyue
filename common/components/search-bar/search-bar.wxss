@@ -1,7 +1,7 @@
 .search-container{
   width: 600rpx;
-  padding: 12rpx 18rpx;
-  background-color: #fff;
+  padding: 15rpx 20rpx;
+  background-color: rgba(246, 246, 246, 1);
   border-radius: 30rpx;
   display: flex;
   flex-direction: row;

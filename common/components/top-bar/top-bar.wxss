@@ -8,3 +8,6 @@
 .top-bar-middle{
   flex-grow: 1;
 }
+.top-bar-left, .top-bar-right{
+  flex-shrink: 0;
+}

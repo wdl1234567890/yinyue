@@ -1,0 +1,41 @@
+<!--搜索歌曲页面-->
+<view class="search-container">
+  <!--顶部搜索框-->
+  <view class="theme-padding search-bar-container theme-module-color fixed-element">
+    <top-bar>
+      <view slot="left" class="back-icon">
+        <i-icon type="return" size="25" color="#888"/>
+      </view>
+      <view slot="middle">
+        <search-bar />
+      </view>
+    </top-bar>
+  </view>
+  <!--可滚动内容-->
+  <scroll-view scroll-y="true" style="height: {{scrollHeight}}px;" class="theme-module-color">
+    <!--历史搜索-->
+    <view class="theme-padding history-container">
+      <top-bar>
+        <text slot="left" class="search-title">历史</text>
+        <view slot="middle" class="flex-row search-center">
+          <!--透明过渡层-->
+          <view class="opacity-view opacity-before"></view>
+          <scroll-view scroll-x="true" class="flex-row search-scroll-container" enable-flex>
+            <view class="search-label" wx:for="{{[1,2,3]}}">不才女神6666</view>
+          </scroll-view>
+          <!--透明过渡层-->
+          <view class="opacity-view opacity-after"></view>
+        </view>
+        <i-icon type="trash" slot="right" size="20" color="#999"/>
+      </top-bar>
+    </view>
+    <!--推荐索搜-->
+    <view></view>
+    <!--热门搜索-->
+    <view></view>
+  </scroll-view>
+  <!--底部播放条-->
+  <view style="background-color: rgba(253,253,253,1);" class="fixed-element">
+    <play-bar height="108" play-bar-class="theme-padding" themeColor="{{themeColor}}" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
+  </view>
+</view>

@@ -1,5 +1,5 @@
 <!--搜索框-->
-<view class="search-container ">
+<view class="search-container">
   <i-icon type="search" size="17" color="#ccc"/>
   <text class="theme-font text-one-row">干饭人之歌</text>
 </view>

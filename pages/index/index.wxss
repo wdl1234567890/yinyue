@@ -2,7 +2,6 @@
   overflow: hidden;
 }
 .index-top-bar-container{
-  padding-top: 130rpx;
   padding-bottom: 20rpx;
 }
 .personal-song-sheet-recommend{
@@ -37,16 +36,16 @@
 }
 .normal-song-sheet-recommend-title{
   font-size: 46rpx;
-  color: #666;
+  color: #333;
 }
 .normal-song-sheet-recommend-content{
-  font-size: 21rpx;
-  color: #888;
+  font-size: 22rpx;
+  color: #333;
   line-height: 36rpx;
 }
 .normal-song-sheet-recommend-right-title{
   font-size: 34rpx;
-  color: #666;
+  color: #333;
 }
 .nav-scroll-content-container{
   width: 100%;

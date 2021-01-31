@@ -10,7 +10,7 @@
     <text class="singer-name"> - 王贰浪</text>
   </view>
   <!--播放按钮-->
-  <view>
+  <view style="margin-right: 26rpx;">
     <image src="/static/images/index/pause.svg" style="width:{{height-16}}rpx;height:{{height-16}}rpx"></image>
   </view>
   <!--歌单按钮-->

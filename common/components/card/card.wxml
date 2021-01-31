@@ -12,7 +12,7 @@
   </view>
   <!--内容占位，可横向滚动-->
   <view>
-    <scroll-view scroll-x="true" class="scroll-content-container" enable-flex>
+    <scroll-view scroll-x="true" class="scroll-content-container scroll-smooth" enable-flex>
       <slot></slot>
     </scroll-view>
   </view>

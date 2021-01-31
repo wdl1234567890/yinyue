@@ -1,11 +1,11 @@
 <!--pages/index/index.wxml-->
 <view class="theme-bg index-container">
   <!--顶部固定搜索条-->
-  <view class="theme-padding index-top-bar-container theme-module-color">
+  <view class="theme-padding index-top-bar-container theme-module-color fixed-element" style="padding-top:{{topNavMargin}}px">
     <index-top-bar />
   </view>
   <!--可竖向滚动内容区-->
-  <scroll-view scroll-y="true" style="height: 914rpx;">
+  <scroll-view scroll-y="true" style="height: {{scrollHeight}}px;">
     <!--轮播-->
     <view class="theme-module-color">
       <card-swiper swiper-item-class="theme-radius theme-load-slot" indicatorColor="#fadbd9" indicatorActiveColor="{{themeColor}}" />
@@ -68,7 +68,7 @@
     </view>
   </scroll-view>
   <!--底部播放条-->
-  <view style="background-color: rgba(253,253,253,1);">
+  <view style="background-color: rgba(253,253,253,1);" class="fixed-element">
     <play-bar height="108" play-bar-class="theme-padding" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
   </view>
 </view>

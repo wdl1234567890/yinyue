@@ -1,5 +1,6 @@
 // pages/profile/profile.js
 let app = getApp()
+let func = require('../../common/utils/func/wxml-element.js')
 Page({
 
   /**
@@ -9,8 +10,8 @@ Page({
     themeColor: app.globalData.themeColor,
     userAvatar: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
     userId: "茯苓170603",
-    thumbAvatorOpacity: 0,
-    topBarColorOpacity: app.globalData.themeBg,
+    // thumbAvatorOpacity: 0,
+    // topBarColorOpacity: app.globalData.themeBg,
     themeBgAndModuleColorDiffer: app.globalData.themeModuleColorOpacity - app.globalData.themeBgOpacity,
     themeBgAndModuleColorBasicParam: app.globalData.themeBgAndModuleColorBasicParam,
     src: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
@@ -18,6 +19,7 @@ Page({
     isClickSongListINav: false,
     scrollDiff: 0,
     navBarIsTop:false,
+    topBarchange:true,
     currentScrollPosition:0,
     songListNav:[
       {
@@ -39,41 +41,53 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    //设置顶部导航条的上边距
+    this.setData({
+      topNavMargin: app.globalData.topNavMargin
+    })
+
     let that = this
+    //获取滚动容器的高度
+    func.getScrollHeight().then(scrollHeight => {
+      that.setData({
+        scrollHeight
+      })
+    })
 
     //获取页面元素距离顶部的高度
     let query = wx.createSelectorQuery()
-    query.selectAll(".element-distance").boundingClientRect(res=>{
+    query.selectAll(".element-distance").boundingClientRect(res => {
       let baseHeight = res[2].height//获取歌单导航条的高度
       let base = res[0].top//获取滚动容器到窗口顶部的距离
       let calParam = base + baseHeight//滚动参数
-      let showTopBarChangeParam = res[1].top - base + 2//圆形icon导航容器距离顶部高度-base=个人信息容器的高度，即顶部导航条显示头像昵称的滚动距离
+      let showTopBarChangeParam = res[1].top - base - 18//圆形icon导航容器距离顶部高度-base=个人信息容器的高度，即顶部导航条显示头像昵称的滚动距离
       let songListnavBarTopDiff = res[2].top - base//歌单导航条置顶的滚动距离
 
-      let maxScrollDiff = res[res.length - 1].top + (res[res.length - 1].top - res[res.length - 2].top) - base - res[0].height//滚动容器最大的滚动值
+      // let maxScrollDiff = res[res.length - 1].top + (res[res.length - 1].top - res[res.length - 2].top) - base - res[0].height//滚动容器最大的滚动值
 
       let songListNav = that.data.songListNav
-       //获取点击歌单导航条时各歌单容器对应的滚动距离，并设置到data中
-      for(let i=3;i<res.length;i++){
+      //获取点击歌单导航条时各歌单容器对应的滚动距离，并设置到data中
+      for (let i = 3; i < res.length; i++) {
         let diff = res[i].top - calParam//实际对应的滚动距离是对应的歌单模块到窗口顶部距离 - （滚动容器到窗口顶部的距离 + 歌单导航条的高度）
-        songListNav[i-3]['scrollDiff'] = diff
+        songListNav[i - 3]['scrollDiff'] = diff
       }
 
       that.setData({
         showTopBarChangeParam,
         songListnavBarTopDiff,
         songListNav,
-        maxScrollDiff
+        // maxScrollDiff,
       })
-      
+
     }).exec()
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    
   },
 
   /**
@@ -121,27 +135,35 @@ Page({
   scrolling(event) {
     let scrollTop = event.detail.scrollTop
 
-    this.setData({
-      currentScrollPosition: scrollTop
-    })
+    // this.setData({
+    //   currentScrollPosition: scrollTop
+    // })
     //控制滑动时顶部条是否显示头像昵称以及背景颜色变化
-    if (scrollTop <= this.data.showTopBarChangeParam && scrollTop > 4) {
-      let frequencyParam = 1 / this.data.showTopBarChangeParam;
+    if (scrollTop <= this.data.showTopBarChangeParam && this.data.topBarchange) {
+      // let frequencyParam = 1 / this.data.showTopBarChangeParam;
+      // this.setData({
+      //   thumbAvatorOpacity: scrollTop * frequencyParam,
+      //   topBarColorOpacity: app.globalData.themeBgOpacity + this.data.themeBgAndModuleColorDiffer * frequencyParam
+      // })
       this.setData({
-        thumbAvatorOpacity: scrollTop * frequencyParam,
-        topBarColorOpacity: app.globalData.themeBgOpacity + this.data.themeBgAndModuleColorDiffer * frequencyParam
+        topBarchange: false
       })
-    } else if (scrollTop <= 4) {
+    } else if (scrollTop > this.data.showTopBarChangeParam && !this.data.topBarchange){
       this.setData({
-        thumbAvatorOpacity: 0,
-        topBarColorOpacity: app.globalData.themeBg
-      })
-    } else {
-      this.setData({
-        thumbAvatorOpacity: 1,
-        topBarColorOpacity: app.globalData.themeModuleColorOpacity
+        topBarchange: true
       })
     }
+    // else if (scrollTop <= 4) {
+    //   this.setData({
+    //     thumbAvatorOpacity: 0,
+    //     topBarColorOpacity: app.globalData.themeBg
+    //   })
+    // } else {
+    //   this.setData({
+    //     thumbAvatorOpacity: 1,
+    //     topBarColorOpacity: app.globalData.themeModuleColorOpacity
+    //   })
+    // }
 
     //控制滑动时歌单导航行条是否固定在顶部
     if (scrollTop >= this.data.songListnavBarTopDiff && !this.data.navBarIsTop){
@@ -191,14 +213,9 @@ Page({
 
   scrolltoupper() {
     //确保滑动到顶部时顶部头像昵称消失，背景颜色恢复
-    if (this.data.thumbAvatorOpacity !== 0){
+    if (this.data.topBarchange){
       this.setData({
-        thumbAvatorOpacity: 0
-      })
-    }
-    if (this.data.topBarColorOpacity !== app.globalData.themeBg){
-      this.setData({
-        topBarColorOpacity: app.globalData.themeBg
+        topBarchange: false
       })
     }
 
@@ -224,23 +241,25 @@ Page({
   tapSongListNavTitle(event){
     let index = event.currentTarget.dataset.index
     this.setData({
-      currentSongListId: index
+      currentSongListId: index,
+      isClickSongListINav: true,//点击滚动标识
+      scrollDiff: this.data.songListNav[index].scrollDiff
     })
 
     //若当前所在的位置与滚动后所在的位置不同并且不是二次触底滚动，则执行点击滚动
-    if (this.data.currentScrollPosition != this.data.songListNav[index].scrollDiff
-      && !(this.data.currentScrollPosition == this.data.maxScrollDiff && this.data.maxScrollDiff <= this.data.songListNav[index].scrollDiff)
-    ){
-      this.setData({
-        isClickSongListINav: true,//点击滚动标识
-        scrollDiff: this.data.songListNav[index].scrollDiff
-      })
-    }
+    // if (this.data.currentScrollPosition != this.data.songListNav[index].scrollDiff
+    //   && !(this.data.currentScrollPosition == this.data.maxScrollDiff && this.data.maxScrollDiff <= this.data.songListNav[index].scrollDiff)
+    // ){
+    //   this.setData({
+    //     isClickSongListINav: true,//点击滚动标识
+    //     scrollDiff: this.data.songListNav[index].scrollDiff
+    //   })
+    // }
 
   },
 
   scrolltolower(){
-    console.log("ppp")
+
     //滚动到底部时可能由于内容高度不足，未能滚动到目标点击元素的位置，导致点击滚动标识未能自动去除，这里手动调整
     if (this.data.isClickSongListINav){
       this.setData({

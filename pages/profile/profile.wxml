@@ -1,11 +1,11 @@
-<view class="profile-container theme-bg">
+<view class="profile-container">
   <!--顶部设置按钮-->
-  <view class="theme-padding profile-top-bar" style="background-color:rgb({{themeBgAndModuleColorBasicParam}},{{themeBgAndModuleColorBasicParam}},{{themeBgAndModuleColorBasicParam}},{{topBarColorOpacity}})">
+  <view class="theme-padding profile-top-bar fixed-element {{topBarchange?'theme-module-color':'theme-bg'}}" style="padding-top:{{topNavMargin}}px;">
     <top-bar>
       <view slot="left" class="setting-icon">
         <i-icon type="other" size="33" />
       </view>
-      <view slot="middle" class="show-top-info-container flex-row" style="opacity:{{thumbAvatorOpacity}}">
+      <view slot="middle" class="show-top-info-container flex-row {{topBarchange?'show-thumb-avator':'not-show-thumb-avator'}}">
         <view class="show-top-image">
           <circular-item src="{{userAvatar}}" size="60" />
         </view>
@@ -21,7 +21,7 @@
       </view>
     </view>
   <!--可竖向滚动内容区-->
-  <scroll-view scroll-y="true" upper-threshold="0" scroll-with-animation  bindscroll="scrolling" bindscrolltoupper="scrolltoupper" style="height: 914rpx;" class="element-distance" scroll-top="{{scrollDiff}}" bindscrolltolower="scrolltolower">
+  <scroll-view scroll-y="true" upper-threshold="0" scroll-with-animation  bindscroll="scrolling" bindscrolltoupper="scrolltoupper" style="height: {{scrollHeight}}px;" class="element-distance scroll-smooth theme-bg" scroll-top="{{scrollDiff}}" bindscrolltolower="scrolltolower">
     <!--个人基本信息显示-->
     <view class="theme-padding" class="user-info-container theme-padding">
       <top-bar>
@@ -65,7 +65,7 @@
     </view>
   </scroll-view>
   <!--底部播放条-->
-  <view style="background-color: rgba(253,253,253,1);">
+  <view style="background-color: rgba(253,253,253,1);" class="fixed-element">
     <play-bar height="108" play-bar-class="theme-padding" themeColor="{{themeColor}}" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
   </view>
 </view>

@@ -1,10 +1,10 @@
 /**引入外部wxss文件**/
-@import "extend/color-ui/colorui/main.wxss";
-@import "extend/color-ui/colorui/icon.wxss";
+@import "extend/colorui/main.wxss";
+@import "extend/colorui/icon.wxss";
 
 page{
   --theme-bg:rgba(253, 253, 253, 0.418);
-  --theme-module-color:rgba(253,253,253,0.8);
+  --theme-module-color:rgba(253,253,253,1);
   --theme-color: rgb(255,181,185);
 }
 /**主题**/
@@ -12,8 +12,6 @@ page{
   background-color: var(--theme-color);
 }
 .theme-bg{
-  width: 100vw;
-  height: 100vh;
   background-color: var(--theme-bg);
 }
 .theme-module-color{
@@ -56,5 +54,10 @@ page{
 .flex-col{
   display: flex;
   flex-direction: column;
+}
+
+/**滑动更光滑**/
+scroll-view{
+  -webkit-overflow-scrolling: touch
 }
 

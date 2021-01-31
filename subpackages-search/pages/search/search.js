@@ -1,6 +1,6 @@
-// pages/index/index.js
+// subpackages-search/pages/search/search.js
 let app = getApp()
-let func = require('../../common/utils/func/wxml-element.js')
+let func = require('../../../common/utils/func/wxml-element.js')
 Page({
 
   /**
@@ -15,14 +15,8 @@ Page({
    */
   onLoad: function (options) {
     let that = this
-    
-    //设置顶部导航条的上边距
-    this.setData({
-      topNavMargin: app.globalData.topNavMargin
-    })
-
     //获取滚动容器的高度
-    func.getScrollHeight().then(scrollHeight => {
+    func.getScrollHeight().then(scrollHeight=>{
       that.setData({
         scrollHeight
       })

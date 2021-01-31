@@ -1,7 +1,9 @@
 {
   "pages": [
+    
     "pages/profile/profile",
-    "pages/index/index"
+    "pages/index/index",
+    "subpackages-search/pages/search/search"
   ],
   "window": {
     "navigationStyle": "custom",

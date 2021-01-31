@@ -29,7 +29,7 @@
 }
 .song-name{
   color: #555;
-  font-size: 30rpx;
+  font-size: 31rpx;
 }
 .singer-name{
   color:#999;
