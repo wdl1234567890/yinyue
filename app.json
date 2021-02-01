@@ -1,9 +1,9 @@
 {
   "pages": [
-    
+    "subpackages-search/pages/search-result/search-result",
+    "subpackages-search/pages/search/search",
     "pages/profile/profile",
-    "pages/index/index",
-    "subpackages-search/pages/search/search"
+    "pages/index/index"
   ],
   "window": {
     "navigationStyle": "custom",

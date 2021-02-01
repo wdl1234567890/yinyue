@@ -1,0 +1,6 @@
+<view class="tab-bar-container tab-bar-class">
+  <view class="tab-bar-item" id="{{item.id}}" data-index="{{index}}" wx:for="{{tabTitles}}" wx:key="id" bindtap="clickTabItem">
+    <text class="{{currentTabId==index?'tab-bar-item-active-text':''}} tab-bar-titles">{{item.title}}</text>
+    <view class="tab-bar-item-active-line" wx:if="{{currentTabId==index}}"></view>
+  </view>
+</view>

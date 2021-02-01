@@ -1,0 +1,15 @@
+<view class="search-label-scroll-bar-class">
+  <top-bar>
+    <text slot="left" class="search-title">{{title}}</text>
+    <view slot="middle" class="search-center">
+      <!--透明过渡层-->
+      <view class="opacity-view opacity-before"></view>
+      <scroll-view scroll-x="true" class="search-scroll-container" enable-flex>
+        <view class="search-label label-margin {{index==0?'first-label-margin':''}} {{index==2?'last-label-margin':''}}" wx:for="{{[1,2,3]}}">{{label}}</view>
+      </scroll-view>
+      <!--透明过渡层-->
+      <view class="opacity-view opacity-after"></view>
+    </view>
+    <i-icon type="trash" slot="right" size="22" color="#999" />
+  </top-bar>
+</view>

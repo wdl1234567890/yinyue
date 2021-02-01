@@ -1,0 +1,16 @@
+<view>
+  <tab-card tabTitles="{{tabTitles}}" contentHeight="{{contentHeight}}">
+    <!---->
+    <view slot="tab0">
+    1
+    </view>
+    <!---->
+    <view slot="tab1">
+    2
+    </view>
+    <!---->
+    <view slot="tab2">
+    3
+    </view>
+  </tab-card>
+</view>

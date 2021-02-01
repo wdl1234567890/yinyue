@@ -10,8 +10,7 @@ Page({
     themeColor: app.globalData.themeColor,
     userAvatar: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
     userId: "茯苓170603",
-    // thumbAvatorOpacity: 0,
-    // topBarColorOpacity: app.globalData.themeBg,
+    topNavMargin: app.globalData.topNavMargin,
     themeBgAndModuleColorDiffer: app.globalData.themeModuleColorOpacity - app.globalData.themeBgOpacity,
     themeBgAndModuleColorBasicParam: app.globalData.themeBgAndModuleColorBasicParam,
     src: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
@@ -19,8 +18,8 @@ Page({
     isClickSongListINav: false,
     scrollDiff: 0,
     navBarIsTop:false,
-    topBarchange:true,
-    currentScrollPosition:0,
+    topBarchange:false,
+    // currentScrollPosition:0,
     songListNav:[
       {
         id:"recent-play",
@@ -41,10 +40,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    //设置顶部导航条的上边距
-    this.setData({
-      topNavMargin: app.globalData.topNavMargin
-    })
 
     let that = this
     //获取滚动容器的高度
@@ -238,8 +233,8 @@ Page({
   /**
    * 点击歌单导航条，滚动到对应的歌单模块
    */
-  tapSongListNavTitle(event){
-    let index = event.currentTarget.dataset.index
+  clickTabItem(event){
+    let index = event.detail
     this.setData({
       currentSongListId: index,
       isClickSongListINav: true,//点击滚动标识

@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    themeColor: app.globalData.themeColor
+    themeColor: app.globalData.themeColor,
+    topNavMargin: app.globalData.topNavMargin
   },
 
   /**
@@ -15,11 +16,6 @@ Page({
    */
   onLoad: function (options) {
     let that = this
-    
-    //设置顶部导航条的上边距
-    this.setData({
-      topNavMargin: app.globalData.topNavMargin
-    })
 
     //获取滚动容器的高度
     func.getScrollHeight().then(scrollHeight => {

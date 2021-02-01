@@ -1,0 +1,7 @@
+.back-icon{
+  margin-left:-12rpx;
+  margin-right:20rpx;
+}
+.search-bar-container{
+  padding-bottom: 20rpx;
+}

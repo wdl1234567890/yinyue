@@ -3,52 +3,55 @@
   overflow: hidden;
   white-space: nowrap;
 }
-.search-container{
-   
+.search-bar-container{
+  padding-bottom: 20rpx;
 }
 .back-icon{
   margin-left:-12rpx;
   margin-right:20rpx;
 }
-.search-bar-container{
-  padding-top: 130rpx;
-  padding-bottom: 20rpx;
-}
-.search-scroll-container{
-  max-height: fit-content;
-}
-.search-center{
-  position: relative;
-}
-.opacity-before{
-  top: 0;
-  left: 0;
-}
-.opacity-after{
-  top: 0;
-  right: 0;
-}
-.opacity-view{
-  height: 100%;
-  z-index: 100;
-  position: absolute;
-  width: 34rpx;
-  background: -webkit-linear-gradient(180deg, rgba(255,255,255,0), var(--theme-module-color))
-}
 .history-container{
-  margin: 0 20rpx;
+  margin-top: 28rpx;
+  margin-bottom: 28rpx;
 }
-.search-title{
-  color: #555;
+.recommend-search-container{
+  margin-top: 65rpx;
+  margin-bottom: 30rpx;
+}
+.hot-search-title{
+  color: #333;
+  font-size: 35rpx;
   font-weight: bold;
   letter-spacing: 1px;
-  
+  padding: 20rpx 0;
+  border-bottom: 1px solid rgba(242,242,242,0.8);
 }
-.search-label{
-  padding: 14rpx 22rpx;
-  background-color: rgba(238, 238, 238, 0.699);
-  color: #555;
-  border-radius: 30rpx;
-  flex-shrink: 0;
+.hot-search-item{
+  width: 46%;
+  padding: 20rpx 0;
+  align-items: center;
+}
+.hot-search-content-container{
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.song-sort-id{
+  margin-right: 20rpx;
+  font-size: 30rpx;
+  width: 34rpx;
+}
+.song-sort-id-color{
+  color: #888;
+}
+.song-name{
+  font-size: 30rpx;
+  color: #333;
   letter-spacing: 1px;
+}
+.hot-search-container{
+  margin-top: 40rpx;
+  margin-bottom: 30rpx;
+}
+.song-sort-id-theme-color{
+  color: var(--theme-color)
 }

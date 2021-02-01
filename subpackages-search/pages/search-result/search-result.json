@@ -3,6 +3,6 @@
     "search-bar": "/common/components/search-bar/search-bar",
     "play-bar": "/common/components/play-bar/play-bar",
     "top-bar": "/common/components/top-bar/top-bar",
-    "search-label-scroll-bar":"../../components/search-label-scroll-bar/search-label-scroll-bar"
+    "search-tab-card":"../../components/search-tab-card/search-tab-card"
   }
 }

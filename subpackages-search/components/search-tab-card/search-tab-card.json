@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "tab-card": "/common/components/tab-card/tab-card"
+  }
+}

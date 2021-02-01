@@ -1,7 +1,7 @@
 <!--搜索歌曲页面-->
 <view class="search-container">
   <!--顶部搜索框-->
-  <view class="theme-padding search-bar-container theme-module-color fixed-element">
+  <view class="theme-padding search-bar-container theme-module-color fixed-element" style="padding-top:{{topNavMargin}}px">
     <top-bar>
       <view slot="left" class="back-icon">
         <i-icon type="return" size="25" color="#888"/>
@@ -14,25 +14,23 @@
   <!--可滚动内容-->
   <scroll-view scroll-y="true" style="height: {{scrollHeight}}px;" class="theme-module-color">
     <!--历史搜索-->
-    <view class="theme-padding history-container">
-      <top-bar>
-        <text slot="left" class="search-title">历史</text>
-        <view slot="middle" class="flex-row search-center">
-          <!--透明过渡层-->
-          <view class="opacity-view opacity-before"></view>
-          <scroll-view scroll-x="true" class="flex-row search-scroll-container" enable-flex>
-            <view class="search-label" wx:for="{{[1,2,3]}}">不才女神6666</view>
-          </scroll-view>
-          <!--透明过渡层-->
-          <view class="opacity-view opacity-after"></view>
-        </view>
-        <i-icon type="trash" slot="right" size="20" color="#999"/>
-      </top-bar>
+    <view class="theme-margin history-container">
+      <search-label-scroll-bar title="历史" label="天竺鼠车车"/>
     </view>
     <!--推荐索搜-->
-    <view></view>
+    <view class="theme-margin recommend-search-container">
+      <search-label-scroll-bar title="推荐" label="good love your love"/>
+    </view>
     <!--热门搜索-->
-    <view></view>
+    <view class="theme-margin flex-col hot-search-container">
+      <view class="hot-search-title">热搜榜</view>
+      <view class="flex-row hot-search-content-container">
+        <view wx:for="{{hotSearch}}" wx:key="id" class="flex-row hot-search-item">
+          <text class="song-sort-id {{index<=2?'song-sort-id-theme-color':'song-sort-id-color'}}">{{index+1}}</text>
+          <text class="song-name one-row-flow" style="font-weight:{{index<=2?'bold':''}}">{{item.songName}}</text>
+        </view>
+      </view>
+    </view>
   </scroll-view>
   <!--底部播放条-->
   <view style="background-color: rgba(253,253,253,1);" class="fixed-element">

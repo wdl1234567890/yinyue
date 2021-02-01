@@ -1,4 +1,4 @@
-// subpackages-search/pages/search/search.js
+// subpackages-search/pages/search-result/search-result.js
 let app = getApp()
 let func = require('../../../common/utils/func/wxml-element.js')
 Page({
@@ -7,52 +7,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    themeColor: app.globalData.themeColor,
     topNavMargin: app.globalData.topNavMargin,
-    hotSearch:[
+    tabTitles:[
       {
         id:1,
-        songName: "祖娅纳惜"
+        title:"单曲",
       },
       {
         id: 2,
-        songName: "暗恋是一个人的事情"
+        title: "歌手",
       },
       {
         id: 3,
-        songName: "泽野弘之"
-      },
-      {
-        id: 4,
-        songName: "Good Love Your Love"
-      },
-      {
-        id: 5,
-        songName: "産声"
-      },
-      {
-        id: 6,
-        songName: "暗恋是一个人的事情"
-      },
-      {
-        id: 7,
-        songName: "暗恋是一个人的事情"
-      },
-      {
-        id: 8,
-        songName: "暗恋是一个人的事情"
-      },
-      {
-        id: 9,
-        songName: "暗恋是一个人的事情"
-      },
-      {
-        id: 10,
-        songName: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        songName: "暗恋是一个人的事情"
+        title: "歌单",
       }
     ]
   },
@@ -63,7 +30,7 @@ Page({
   onLoad: function (options) {
     let that = this
     //获取滚动容器的高度
-    func.getScrollHeight().then(scrollHeight=>{
+    func.getScrollHeight().then(scrollHeight => {
       that.setData({
         scrollHeight
       })

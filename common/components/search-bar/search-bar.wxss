@@ -1,8 +1,8 @@
 .search-container{
   width: 600rpx;
-  padding: 15rpx 20rpx;
+  padding: 16rpx 30rpx;
   background-color: rgba(246, 246, 246, 1);
-  border-radius: 30rpx;
+  border-radius: 50rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -11,5 +11,6 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  color: #ccc;
+  color: #888;
+  font-size: 30rpx;
 }

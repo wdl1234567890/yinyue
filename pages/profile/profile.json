@@ -4,7 +4,8 @@
     "top-bar": "/common/components/top-bar/top-bar",
     "circular-item": "../components/circular-item/circular-item",
     "nav-icon":"../components/nav-icon/nav-icon",
-    "song-list-card":"../components/song-list-card/song-list-card"
+    "song-list-card":"../components/song-list-card/song-list-card",
+    "tab-bar":"/common/components/tab-bar/tab-bar"
   },
   "navigationBarTitleText": "我的"
 }

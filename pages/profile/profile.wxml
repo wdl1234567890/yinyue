@@ -13,15 +13,11 @@
       </view>
     </top-bar>
   </view>
+
   <!--隐形歌单导航条-->
-  <view class="song-list-cp-nav-container theme-padding flex-row fixed-song-list-nav-bar" wx:if="{{navBarIsTop}}">
-      <view class="song-list-nav-item" id="{{item.id}}" data-index="{{index}}" wx:for="{{songListNav}}" wx:key="id" bindtap="tapSongListNavTitle">
-        <text class="{{currentSongListId==index?'song-list-nav-active-text':''}}">{{item.title}}</text>
-        <view class="song-list-nav-active-bar" wx:if="{{currentSongListId==index}}"></view>
-      </view>
-    </view>
+  <tab-bar tab-bar-class="fixed-song-list-nav-bar song-list-cp-nav-container theme-padding" bindclicktabitem="clickTabItem" currentTabId="{{currentSongListId}}" tabTitles="{{songListNav}}" wx:if="{{navBarIsTop}}" />
   <!--可竖向滚动内容区-->
-  <scroll-view scroll-y="true" upper-threshold="0" scroll-with-animation  bindscroll="scrolling" bindscrolltoupper="scrolltoupper" style="height: {{scrollHeight}}px;" class="element-distance scroll-smooth theme-bg" scroll-top="{{scrollDiff}}" bindscrolltolower="scrolltolower">
+  <scroll-view scroll-y="true" upper-threshold="0" scroll-with-animation bindscroll="scrolling" bindscrolltoupper="scrolltoupper" style="height: {{scrollHeight}}px;" class="element-distance scroll-smooth theme-bg" scroll-top="{{scrollDiff}}" bindscrolltolower="scrolltolower">
     <!--个人基本信息显示-->
     <view class="theme-padding" class="user-info-container theme-padding">
       <top-bar>
@@ -45,12 +41,7 @@
       </view>
     </view>
     <!--歌单导航条-->
-    <view class="song-list-nav-container theme-padding flex-row element-distance">
-      <view class="song-list-nav-item" id="{{item.id}}" data-index="{{index}}" wx:for="{{songListNav}}" wx:key="id" bindtap="tapSongListNavTitle">
-        <text class="{{currentSongListId==index?'song-list-nav-active-text':''}}">{{item.title}}</text>
-        <view class="song-list-nav-active-bar" wx:if="{{currentSongListId==index}}"></view>
-      </view>
-    </view>
+    <tab-bar class="element-distance" tab-bar-class="theme-padding song-list-nav-container" bindclicktabitem="clickTabItem" currentTabId="{{currentSongListId}}" tabTitles="{{songListNav}}" />
     <!--最近播放过的歌单-->
     <view class="theme-module-margin theme-module-color theme-margin theme-radius module-padding element-distance">
       <song-list-card show-add-button/>

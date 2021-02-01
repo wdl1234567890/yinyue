@@ -1,0 +1,27 @@
+.tab-bar-container {
+  justify-content: space-around;
+  font-size: 31rpx;
+  display: flex;
+}
+.tab-bar-item {
+  letter-spacing: 1px;
+  color: #333;
+}
+.tab-bar-item-active-line {
+  height: 13rpx;
+  border-radius: 50rpx;
+  width: 100%;
+  background: -webkit-linear-gradient(90deg, rgba(255, 181, 185, 1), rgba(255, 181, 185, 0.6));
+  background: linear-gradient(90deg, rgba(255, 181, 185, 1), rgba(255, 181, 185, 0.6));
+  position: relative;
+  top: -9rpx;
+}
+.tab-bar-item-active-text{
+  font-weight: bold;
+  color: #555;
+}
+.tab-bar-titles{
+  z-index: 1000;
+  position: relative;
+  padding:0 10rpx;
+}

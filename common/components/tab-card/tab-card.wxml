@@ -1,0 +1,11 @@
+<!--选项卡-->
+<view class="tab-card-container">
+  <!--选项条-->
+  <tab-bar tabTitles="{{tabTitles}}" tab-bar-class="tab-bar-container" currentTabId="{{currentTabId}}" bindclicktabitem="clickTabItem" class="fixed-element"/>
+  <!--可竖向滚动内容区-->
+  <scroll-view scroll-y style="height:{{contentHeight - tabbarHeight}}px">
+    <view wx:for="{{tabTitles}}" wx:key="title" wx:if="{{index==currentTabId}}">
+      <slot name="{{'tab' + index}}"></slot>
+    </view>
+  </scroll-view>
+</view>

@@ -20,11 +20,6 @@
   transition: opacity 0.2s;
 }
 
-.song-list-nav-item {
-  letter-spacing: 1px;
-  color: #333;
-}
-
 .song-list-nav-item text {
   padding: 0 6rpx;
   position: relative;
@@ -94,17 +89,9 @@
   padding: 35rpx;
 }
 
-.one-row-flow {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
 .song-list-nav-container {
   padding-top: 24rpx;
   padding-bottom: 30rpx;
-  justify-content: space-around;
-  font-size: 31rpx;
 }
 
 .song-list-cp-nav-container {
@@ -113,20 +100,6 @@
   justify-content: space-around;
 }
 
-.song-list-nav-active-bar {
-  height: 13rpx;
-  border-radius: 50rpx;
-  width: 100%;
-  background: -webkit-linear-gradient(90deg, rgba(255, 181, 185, 1), rgba(255, 181, 185, 0.6));
-  background: linear-gradient(90deg, rgba(255, 181, 185, 1), rgba(255, 181, 185, 0.6));
-  position: relative;
-  top: -9rpx;
-}
-
-.song-list-nav-active-text{
-  font-weight: bold;
-  color: #555;
-}
 
 .fixed-song-list-nav-bar{
   position: fixed;

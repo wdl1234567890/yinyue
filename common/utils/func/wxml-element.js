@@ -1,18 +1,31 @@
 let app = getApp()
-function getScrollHeight(){
+function getScrollHeight(module){
   return new Promise((resolve, reject)=>{
-    let query = wx.createSelectorQuery()
+    let query
+    if(module == '' || module == undefined)query = wx.createSelectorQuery()
+    else query = module.createSelectorQuery()
     query.selectAll(".fixed-element").boundingClientRect(res => {
-      let topHeight = res[0].height
-      let bottomHeight = res[1].height
-      console.log(topHeight)
-      console.log(bottomHeight)
+      let currentHeight = 0
+      for(let i=0;i<res.length;i++){
+        currentHeight += res[i].height
+      }
       let allHeight = app.globalData.systemInfo.windowHeight
-      let scrollHeight = allHeight - topHeight - bottomHeight
+      let scrollHeight = allHeight - currentHeight
       resolve(scrollHeight)
     }).exec()
   })
 }
+function getElementHeight(module,ele){
+  return new Promise((resolve, reject) => {
+    let query
+    if (module == '' || module == undefined) query = wx.createSelectorQuery()
+    else query = module.createSelectorQuery()
+    query.select(ele).boundingClientRect(res => {
+      resolve(res.height)
+    }).exec()
+  })
+}
 module.exports={
-  getScrollHeight
+  getScrollHeight,
+  getElementHeight
 }
