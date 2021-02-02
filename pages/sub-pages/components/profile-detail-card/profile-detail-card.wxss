@@ -1,0 +1,20 @@
+.music-container{
+  margin-top: 40rpx;
+}
+.profile-detail-card-container{
+  padding-top: 35rpx;
+  padding-bottom: 35rpx; 
+}
+
+.card-container{
+  margin-top: 20rpx;
+}
+
+
+.module-title{
+  color: #333;
+  font-size: 35rpx;
+  font-weight: bold;
+  letter-spacing: 1px;
+  width: 100%;
+}

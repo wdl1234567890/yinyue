@@ -7,6 +7,10 @@ Component({
     isActionIcon: {
       type: Boolean,
       value: false
+    },
+    thumbSize:{
+      type:Number,
+      value:140
     }
   },
 

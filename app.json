@@ -1,11 +1,10 @@
 {
   "pages": [
+    "pages/sub-pages/profile-detail/profile-detail",
     "subpackages-search/pages/search-result/search-result",
     "pages/index/index",
     "pages/profile/profile",
-    "subpackages-search/pages/search/search",
-    
-    "pages/sub-pages/profile-detail/profile-detail"
+    "subpackages-search/pages/search/search"
   ],
   "window": {
     "navigationStyle": "custom",

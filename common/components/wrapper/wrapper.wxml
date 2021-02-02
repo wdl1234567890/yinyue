@@ -8,7 +8,7 @@
       <view slot="middle">
         <slot name="nav-bar-middle"></slot>
       </view>
-      <view>
+      <view slot="right">
         <slot name="nav-bar-right"></slot>
       </view>
     </three-column-bar>

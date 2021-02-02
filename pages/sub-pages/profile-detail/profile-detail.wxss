@@ -1,3 +1,89 @@
-.nav-bar-container{
-  padding-bottom: 20rpx;
+.nav-bar-container {
+  transition: background-color 0.3s; 
+}
+.person-name-opacity{
+  transition: opacity 0.3s;
+  font-size: 38rpx;
+  color: #333;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-left: 20rpx;
+}
+.nav-bar-left{
+  align-items: center;
+}
+.back-icon {
+  margin-left: -12rpx;
+  margin-right: 20rpx;
+}
+
+.show-name {
+  opacity: 1;
+}
+
+.not-show-name {
+  opacity: 0;
+}
+
+.one-row-flow {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.person-bg-view {
+  height: 260rpx;
+  width: 100%;
+  border-bottom-left-radius: 100rpx;
+  border-bottom-right-radius: 100rpx;
+}
+.avator-name-container{
+  height: 300rpx;
+  border-radius: 20rpx;
+  background-color: rgba(253, 253, 253, 0.9);
+  position: relative;
+  top: -40rpx;
+  align-items: center;
+}
+.person-avator{
+  position: relative;
+  top: -90rpx;
+  z-index: 100;
+}
+.person-name{
+  color:#333;
+  font-size: 44rpx;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+
+.style-label-item{
+  padding: 10rpx 15rpx;
+  border-radius: 50rpx;
+  background-color: #eee;
+  color: #333;
+  font-size: 28rpx;
+  letter-spacing: 1px;
+  margin-right: 25rpx;
+  margin-top: 20rpx;
+}
+.style-label-items{
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+}
+.music-card-container,.song-list-card-container,.comment-container{
+  margin-top: 20rpx;
+}
+.song-list-item{
+  margin-top: 20rpx;
+}
+
+.music-module,.song-list-module,.comment--module{
+  margin-top: 30rpx;
+}
+.style-label{
+  margin-top:10rpx;
+}
+.comment--module{
+  margin-bottom: 20rpx;
 }

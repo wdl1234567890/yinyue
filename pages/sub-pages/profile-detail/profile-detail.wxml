@@ -1,0 +1,63 @@
+<wrapper nav-bar-class="nav-bar-container {{topBarchange?'theme-module-color':'theme-color'}}">
+  <view slot="nav-bar-left" class="back-icon nav-bar-left flex-row">
+    <i-icon type="return" size="33" />
+    <text class="{{topBarchange?'show-name':'not-show-name'}} one-row-flow person-name-opacity">茯苓</text>
+  </view>
+  <view slot="nav-bar-right">
+    <i-icon type="switch" size="33" />
+  </view>
+  <scroll-view scroll-y slot="content" style="height:100%" class="theme-bg element-distance" bindscroll="scrolling" upper-threshold="8" scroll-with-animation bindscrolltoupper="scrolltoupper">
+    <view class="theme-color person-bg-view element-distance"></view>
+    <!--头像昵称-->
+    <view class="avator-name-container theme-margin flex-col">
+      <view class="person-avator">
+        <circular-item src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" size="180" />
+      </view>
+      <text class="person-name one-row-flow">茯苓</text>
+    </view>
+    <!--音乐风格标签-->
+    <view class="style-label">
+      <profile-detail-card title="音乐风格标签">
+        <view class="style-label-items flex-row">
+          <view wx:for="{{[1,2,3,4,5,6,7]}}" class="style-label-item">慢歌</view>
+        </view>
+      </profile-detail-card>
+    </view>
+    <!--乐库-->
+    <view class="music-module">
+      <profile-detail-card title="乐库">
+        <view class="music-card-container flex-col">
+          <view class="song-list-item">
+            <song-list-item thumbSize="120" />
+          </view>
+          <view class="song-list-item">
+            <song-list-item thumbSize="120" />
+          </view>
+        </view>
+      </profile-detail-card>
+    </view>
+    <!--歌单-->
+    <view class="song-list-module">
+      <profile-detail-card title="歌单">
+        <view class="song-list-card-container flex-col">
+          <view class="song-list-item">
+            <song-list-item thumbSize="120" />
+          </view>
+          <view class="song-list-item">
+            <song-list-item thumbSize="120" />
+          </view>
+        </view>
+      </profile-detail-card>
+    </view>
+    <!--评论-->
+    <view class="comment--module">
+      <profile-detail-card title="评论">
+        <view class="comment-container flex-col">
+          <view class="song-list-item">
+            <song-list-item thumbSize="120" />
+          </view>
+        </view>
+      </profile-detail-card>
+    </view>
+  </scroll-view>
+</wrapper>

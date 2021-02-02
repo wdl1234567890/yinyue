@@ -1,6 +1,6 @@
 <view>
   <three-column-bar>
-    <square-item slot="left" size="140" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
+    <square-item slot="left" size="{{thumbSize}}" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
     <view slot="middle" class="song-list-item-info">
       <text class="song-list-item-name one-row-flow">茯苓最近听的歌单</text>
       <text class="song-list-item-count">10首</text>

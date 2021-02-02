@@ -1,6 +1,9 @@
 {
   "usingComponents": {
     "three-column-bar": "/common/components/three-column-bar/three-column-bar",
-    "play-bar": "/common/components/play-bar/play-bar"
+    "play-bar": "/common/components/play-bar/play-bar",
+    "circular-item": "/common/components/circular-item/circular-item",
+    "song-list-item": "/common/components/song-list-item/song-list-item",
+    "profile-detail-card":"../components/profile-detail-card/profile-detail-card"
   }
 }

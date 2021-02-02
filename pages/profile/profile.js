@@ -9,8 +9,8 @@ Page({
   data: {
     userAvatar: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
     userId: "茯苓170603",
-    themeBgAndModuleColorDiffer: app.globalData.themeModuleColorOpacity - app.globalData.themeBgOpacity,
-    themeBgAndModuleColorBasicParam: app.globalData.themeBgAndModuleColorBasicParam,
+    // themeBgAndModuleColorDiffer: app.globalData.themeModuleColorOpacity - app.globalData.themeBgOpacity,
+    // themeBgAndModuleColorBasicParam: app.globalData.themeBgAndModuleColorBasicParam,
     src: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
     currentSongListId:0,
     isClickSongListINav: false,

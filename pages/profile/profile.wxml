@@ -11,7 +11,7 @@
   <!--隐形歌单导航条-->
 <tab-bar tab-bar-class="fixed-song-list-nav-bar song-list-cp-nav-container theme-padding" bindclicktabitem="clickTabItem" currentTabId="{{currentSongListId}}" tabTitles="{{songListNav}}" wx:if="{{navBarIsTop}}" slot="other"/>
   <!--可竖向滚动内容区-->
-  <scroll-view scroll-y="true" upper-threshold="0" scroll-with-animation bindscroll="scrolling" bindscrolltoupper="scrolltoupper" style="height:100%" class="element-distance theme-bg" scroll-top="{{scrollDiff}}" bindscrolltolower="scrolltolower"
+  <scroll-view scroll-y="true" upper-threshold="8" scroll-with-animation bindscroll="scrolling" bindscrolltoupper="scrolltoupper" style="height:100%" class="element-distance theme-bg" scroll-top="{{scrollDiff}}" bindscrolltolower="scrolltolower"
     slot="content">
     <!--个人基本信息显示-->
     <view class="theme-padding" class="user-info-container theme-padding">

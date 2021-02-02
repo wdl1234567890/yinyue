@@ -1,0 +1,6 @@
+<view class="profile-detail-card-container theme-radius theme-margin theme-padding theme-module-color profile-detail-card-class">
+  <text class="module-title">{{title}}</text>
+  <view class="card-container">
+    <slot></slot>
+  </view>
+</view>
