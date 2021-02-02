@@ -1,8 +1,8 @@
 <!--播放条-->
-<view class="play-bar-container play-bar-class" style="height:{{height}}rpx;">
+<view class="play-bar-container theme-padding play-bar-class" style="height:{{height}}rpx;">
   <!--音乐封面-->
-  <view class="cover-container" style="width:{{height+10}}rpx;height:{{height+10}}rpx;border-radius:{{height+10}}rpx;border-color:{{themeColor}}">
-    <circular-item src="{{cover}}" size="{{height-21}}" circular-item-class="cover-item" themeColor="{{themeColor}}"/>
+  <view class="cover-container" style="width:{{height+10}}rpx;height:{{height+10}}rpx;border-radius:{{height+10}}rpx;">
+    <circular-item src="{{cover}}" size="{{height-21}}" circular-item-class="cover-item"/>
   </view>
   <!--歌曲名与歌手-->
   <view class="song-info-container">

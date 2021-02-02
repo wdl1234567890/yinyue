@@ -7,10 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    themeColor: app.globalData.themeColor,
     userAvatar: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
     userId: "茯苓170603",
-    topNavMargin: app.globalData.topNavMargin,
     themeBgAndModuleColorDiffer: app.globalData.themeModuleColorOpacity - app.globalData.themeBgOpacity,
     themeBgAndModuleColorBasicParam: app.globalData.themeBgAndModuleColorBasicParam,
     src: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
@@ -42,12 +40,6 @@ Page({
   onLoad: function(options) {
 
     let that = this
-    //获取滚动容器的高度
-    func.getScrollHeight().then(scrollHeight => {
-      that.setData({
-        scrollHeight
-      })
-    })
 
     //获取页面元素距离顶部的高度
     let query = wx.createSelectorQuery()

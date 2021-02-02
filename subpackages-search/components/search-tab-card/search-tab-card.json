@@ -3,7 +3,7 @@
   "usingComponents": {
     "tab-card": "/common/components/tab-card/tab-card",
     "single-item":"../single-item/single-item",
-    "top-bar": "/common/components/top-bar/top-bar",
+    "three-column-bar": "/common/components/three-column-bar/three-column-bar",
     "song-list-item": "/common/components/song-list-item/song-list-item"
   }
 }

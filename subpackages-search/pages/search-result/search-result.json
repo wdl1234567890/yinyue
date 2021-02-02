@@ -1,8 +1,6 @@
 {
   "usingComponents": {
     "search-bar": "/common/components/search-bar/search-bar",
-    "play-bar": "/common/components/play-bar/play-bar",
-    "top-bar": "/common/components/top-bar/top-bar",
     "search-tab-card":"../../components/search-tab-card/search-tab-card"
   }
 }

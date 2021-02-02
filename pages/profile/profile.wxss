@@ -1,15 +1,7 @@
-.profile-container {
-  height: 100vh;
-  overflow: hidden;
-}
-
 .profile-top-bar {
-  padding-bottom: 20rpx;
   transition: background-color 0.2s;
 }
-.scroll-smooth{
-  -webkit-overflow-scrolling: touch
-}
+
 .show-top-info-container {
   align-items: center;
   width: 694rpx;
@@ -99,16 +91,11 @@
   padding-bottom: 10rpx;
   justify-content: space-around;
 }
-
-
 .fixed-song-list-nav-bar{
   position: fixed;
   width: 100%;
   background-color: var(--theme-module-color);
-  z-index: 111;
-}
-.song-list-item-name{
-  font-size: 31rpx;
+  z-index: 1111;
 }
 
 .not-show-thumb-avator{

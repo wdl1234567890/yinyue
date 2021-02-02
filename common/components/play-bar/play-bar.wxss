@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 12rpx solid;
+  border: 12rpx solid var(--theme-color);
   margin-top: -30rpx;
   z-index: 100;
 }
@@ -29,5 +29,8 @@
   letter-spacing: 1px;
 }
 .cover-item{
-  border:2rpx solid;
+  border-width: 2rpx;
+}
+.theme-padding{
+  padding: var(--theme-padding)
 }

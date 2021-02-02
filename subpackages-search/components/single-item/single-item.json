@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "top-bar": "/common/components/top-bar/top-bar"
+    "three-column-bar": "/common/components/three-column-bar/three-column-bar"
   }
 }

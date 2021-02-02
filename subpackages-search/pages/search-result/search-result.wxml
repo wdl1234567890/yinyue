@@ -1,21 +1,12 @@
-<view>
-  <!--顶部搜索框-->
-  <view class="theme-padding search-bar-container theme-module-color fixed-element" style="padding-top:{{topNavMargin}}px">
-    <top-bar>
-      <view slot="left" class="back-icon">
-        <i-icon type="return" size="25" color="#888" />
-      </view>
-      <view slot="middle">
-        <search-bar />
-      </view>
-    </top-bar>
+<wrapper nav-bar-class="theme-module-color" bindgetcontentheight="getContentHeight">
+  <view slot="nav-bar-left" class="back-icon">
+    <i-icon type="return" size="25" color="#888" />
+  </view>
+  <view slot="nav-bar-middle">
+    <search-bar />
   </view>
   <!--滚动内容区-->
-  <view class="theme-module-color">
-    <search-tab-card tabTitles="{{tabTitles}}" contentHeight="{{scrollHeight}}"/>
+  <view slot="content" class="theme-module-color">
+    <search-tab-card tabTitles="{{tabTitles}}" contentHeight="{{contentHeight}}" />
   </view>
-  <!--底部播放条-->
-  <view style="background-color: rgba(253,253,253,1);" class="fixed-element">
-    <play-bar height="108" play-bar-class="theme-padding" themeColor="{{themeColor}}" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
-  </view>
-</view>
+</wrapper>

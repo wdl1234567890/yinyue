@@ -7,8 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    themeColor: app.globalData.themeColor,
-    topNavMargin: app.globalData.topNavMargin,
     hotSearch:[
       {
         id:1,
@@ -53,6 +51,74 @@ Page({
       {
         id: 11,
         songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
+      },
+      {
+        id: 11,
+        songName: "暗恋是一个人的事情"
       }
     ]
   },
@@ -61,13 +127,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this
-    //获取滚动容器的高度
-    func.getScrollHeight().then(scrollHeight=>{
-      that.setData({
-        scrollHeight
-      })
-    })
+    
   },
 
   /**

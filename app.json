@@ -1,9 +1,11 @@
 {
   "pages": [
     "subpackages-search/pages/search-result/search-result",
-    "subpackages-search/pages/search/search",
+    "pages/index/index",
     "pages/profile/profile",
-    "pages/index/index"
+    "subpackages-search/pages/search/search",
+    
+    "pages/sub-pages/profile-detail/profile-detail"
   ],
   "window": {
     "navigationStyle": "custom",
@@ -33,6 +35,7 @@
     ]
   },
   "usingComponents": {
+    "wrapper": "/common/components/wrapper/wrapper",
     "i-icon": "/extend/iview-weapp/icon/index"
   },
   "style": "v2",

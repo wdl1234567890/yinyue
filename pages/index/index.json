@@ -1,14 +1,13 @@
 {
   "usingComponents": {
-    "index-top-bar": "../components/index-top-bar/index-top-bar",
     "card-swiper": "../components/card-swiper/card-swiper",
     "card": "/common/components/card/card",
     "personal-recommend-item": "../components/personal-recommend-item/personal-recommend-item",
     "nav-icon": "../components/nav-icon/nav-icon",
-    "play-bar": "/common/components/play-bar/play-bar",
     "recommend-card": "../components/recommend-card/recommend-card",
     "circular-card-item": "../components/circular-card-item/circular-card-item",
-    "music-card":"../components/music-card/music-card"
+    "music-card":"../components/music-card/music-card",
+    "search-bar": "/common/components/search-bar/search-bar"
   },
   "navigationBarTitleText": "首页"
 }

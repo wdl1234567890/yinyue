@@ -1,8 +1,7 @@
 {
   "usingComponents": {
-    "play-bar": "/common/components/play-bar/play-bar",
-    "top-bar": "/common/components/top-bar/top-bar",
-    "circular-item": "../components/circular-item/circular-item",
+    "three-column-bar": "/common/components/three-column-bar/three-column-bar",
+    "circular-item": "/common/components/circular-item/circular-item",
     "nav-icon":"../components/nav-icon/nav-icon",
     "song-list-card":"../components/song-list-card/song-list-card",
     "tab-bar":"/common/components/tab-bar/tab-bar"

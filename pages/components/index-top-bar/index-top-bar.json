@@ -1,7 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "top-bar": "/common/components/top-bar/top-bar",
-    "search-bar": "/common/components/search-bar/search-bar"
-  }
-}

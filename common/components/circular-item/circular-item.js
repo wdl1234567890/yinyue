@@ -12,10 +12,6 @@ Component({
     size: {
       type: Number,
       value: 200
-    },
-    themeColor: {
-      type: String,
-      value: ''
     }
   },
 

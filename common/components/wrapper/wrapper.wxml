@@ -1,0 +1,25 @@
+<view class="wrapper">
+  <!--顶部导航条-->
+  <view class="theme-padding nav-bar-container fixed-element nav-bar-class" style="padding-top:{{topNavMargin}}px">
+    <three-column-bar>
+      <view slot="left" class="back-icon">
+        <slot name="nav-bar-left"></slot>
+      </view>
+      <view slot="middle">
+        <slot name="nav-bar-middle"></slot>
+      </view>
+      <view>
+        <slot name="nav-bar-right"></slot>
+      </view>
+    </three-column-bar>
+  </view>
+  <slot name="other"></slot>
+  <!--滚动区域-->
+  <view style="height:{{contentHeight}}px">
+    <slot name="content"></slot>
+  </view>
+  <!--底部播放条-->
+  <view style="background-color: rgba(253,253,253,1);" class="play-bar-container fixed-element">
+    <play-bar height="108" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
+  </view>
+</view>

@@ -1,9 +1,3 @@
-.index-container{
-  overflow: hidden;
-}
-.index-top-bar-container{
-  padding-bottom: 20rpx;
-}
 .personal-song-sheet-recommend{
   border-top: 1px solid rgba(242,242,242,0.8);
 }
@@ -15,6 +9,10 @@
   width: 100%;
   padding-bottom: 32rpx;
   padding-top: 20rpx;
+}
+.setting-icon{
+  margin-left:-12rpx;
+  margin-right:20rpx;
 }
 .hotRe{
   height: 320rpx;

@@ -3,15 +3,12 @@
   overflow: hidden;
   white-space: nowrap;
 }
-.search-bar-container{
-  padding-bottom: 20rpx;
-}
 .back-icon{
   margin-left:-12rpx;
   margin-right:20rpx;
 }
 .history-container{
-  margin-top: 28rpx;
+  padding-top: 28rpx;
   margin-bottom: 28rpx;
 }
 .recommend-search-container{

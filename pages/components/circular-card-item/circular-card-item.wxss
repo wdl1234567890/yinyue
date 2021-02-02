@@ -14,6 +14,6 @@
   text-align: center;
 }
 .cover-item{
-  border:2rpx solid;
+  border-width: 2rpx;
   margin-bottom: 12rpx;
 }

@@ -1,5 +1,5 @@
 <view class="search-label-scroll-bar-class">
-  <top-bar>
+  <three-column-bar>
     <text slot="left" class="search-title">{{title}}</text>
     <view slot="middle" class="search-center">
       <!--透明过渡层-->
@@ -11,5 +11,5 @@
       <view class="opacity-view opacity-after"></view>
     </view>
     <i-icon type="trash" slot="right" size="22" color="#999" />
-  </top-bar>
+  </three-column-bar>
 </view>

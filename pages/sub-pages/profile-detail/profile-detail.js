@@ -1,20 +1,18 @@
-// pages/index/index.js
-let app = getApp()
-let func = require('../../common/utils/func/wxml-element.js')
+// pages/sub-pages/profile-detail/profile-detail.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    themeColor: app.globalData.themeColor,
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**

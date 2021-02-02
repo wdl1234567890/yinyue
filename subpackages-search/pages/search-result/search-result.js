@@ -7,7 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    topNavMargin: app.globalData.topNavMargin,
     tabTitles:[
       {
         id:1,
@@ -28,13 +27,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this
-    //获取滚动容器的高度
-    func.getScrollHeight().then(scrollHeight => {
-      that.setData({
-        scrollHeight
-      })
-    })
+   
   },
 
   /**
@@ -84,5 +77,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  getContentHeight(e){
+    this.setData({
+      contentHeight: e.detail
+    })
   }
 })

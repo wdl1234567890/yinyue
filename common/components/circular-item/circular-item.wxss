@@ -3,6 +3,8 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 99% 99%;
+  border-color: var(--theme-color);
+  border-style: solid;
 }
 .cover{
   width: 100%;

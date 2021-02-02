@@ -1,0 +1,3 @@
+<view class="circular-item-class circular-item-container" style="width:{{size}}rpx;height:{{size}}rpx;background-image: url('/static/images/common/tabbar/musicpink.png');border-radius:{{size}}rpx;">
+  <image src="{{src}}" mode="aspectFill" lazy-load style="width:{{size}}rpx;height:{{size}}rpx;" class="cover"></image>
+</view>

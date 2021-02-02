@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
+    "play-bar": "/common/components/play-bar/play-bar",
     "three-column-bar": "/common/components/three-column-bar/three-column-bar"
   }
 }

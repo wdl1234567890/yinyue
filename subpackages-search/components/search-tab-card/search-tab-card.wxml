@@ -4,13 +4,13 @@
     <view slot="tab0" class="single-container">
       <!--操作条-->
       <view class="single-title-container">
-        <top-bar>
+        <three-column-bar>
           <view slot="left" class="left-action-container">
             <i-icon type="playon_fill" color="{{themeColor}}" size="23" />
             <text class="play-all-text">播放全部</text>
           </view>
           <i-icon type="success" size="23" color="#333" slot="right" />
-        </top-bar>
+        </three-column-bar>
       </view>
       <!--单曲列表-->
       <view style="margin-top: 40rpx">
