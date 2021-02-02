@@ -1,6 +1,9 @@
 {
   "component": true,
   "usingComponents": {
-    "tab-card": "/common/components/tab-card/tab-card"
+    "tab-card": "/common/components/tab-card/tab-card",
+    "single-item":"../single-item/single-item",
+    "top-bar": "/common/components/top-bar/top-bar",
+    "song-list-item": "/common/components/song-list-item/song-list-item"
   }
 }

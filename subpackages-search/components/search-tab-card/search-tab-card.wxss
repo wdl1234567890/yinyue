@@ -1,1 +1,26 @@
-/* subpackages-search/components/search-tab-bar/search-tab-bar.wxss */
+.single-item,.song-list-item{
+  margin: 30rpx 0;
+}
+.single-container,.singer-container,.song-list-container{
+  margin: var(--theme-margin);
+}
+.single-container{
+  margin-top: 22rpx;
+}
+.song-list-container{
+  margin-top: 15rpx;
+}
+.play-all-text{
+  color: #333;
+  font-size: 32rpx;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-left: 16rpx;
+}
+.left-action-container{
+  display: flex;
+  align-items: center;
+}
+.single-title-container{
+  margin: 20rpx 0;
+}

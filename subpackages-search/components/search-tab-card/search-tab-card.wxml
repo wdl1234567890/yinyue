@@ -1,16 +1,33 @@
 <view>
-  <tab-card tabTitles="{{tabTitles}}" contentHeight="{{contentHeight}}">
-    <!---->
-    <view slot="tab0">
-    1
+  <tab-card tabTitles="{{tabTitles}}" contentHeight="{{contentHeight}}" bindscrolltolower="scrollToLower">
+    <!--单曲-->
+    <view slot="tab0" class="single-container">
+      <!--操作条-->
+      <view class="single-title-container">
+        <top-bar>
+          <view slot="left" class="left-action-container">
+            <i-icon type="playon_fill" color="{{themeColor}}" size="23" />
+            <text class="play-all-text">播放全部</text>
+          </view>
+          <i-icon type="success" size="23" color="#333" slot="right" />
+        </top-bar>
+      </view>
+      <!--单曲列表-->
+      <view style="margin-top: 40rpx">
+        <view class="single-item" wx:for="{{aa}}">
+          <single-item />
+        </view>
+      </view>
     </view>
-    <!---->
-    <view slot="tab1">
-    2
+    <!--歌手-->
+    <view slot="tab1" class="singer-container">
+
     </view>
-    <!---->
-    <view slot="tab2">
-    3
+    <!--歌单-->
+    <view slot="tab2" class="song-list-container">
+      <view class="song-list-item" wx:for="{{aa}}">
+        <song-list-item />
+      </view>
     </view>
   </tab-card>
 </view>

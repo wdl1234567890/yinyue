@@ -12,16 +12,15 @@
     </top-bar>
   </view>
   <!--歌单列表-->
-  <view>
-    <view class="song-list-item" wx:for="{{[1,2,3]}}">
-      <top-bar>
-        <square-item slot="left" size="140" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg"/>
-        <view slot="middle" class="song-list-item-info">
-          <text class="song-list-item-name one-row-flow">茯苓最近听的歌单</text>
-          <text class="song-list-item-count">10首</text>
-        </view>
-        <i-icon slot="right" type="switch" size="21" />
-      </top-bar>
-    </view>
+  <view class="song-list-item" wx:for="{{[1,2,3]}}">
+    <!-- <top-bar>
+      <square-item slot="left" size="140" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
+      <view slot="middle" class="song-list-item-info">
+        <text class="song-list-item-name one-row-flow">茯苓最近听的歌单</text>
+        <text class="song-list-item-count">10首</text>
+      </view>
+      <i-icon slot="right" type="switch" size="21" wx:if="{{isActionIcon}}" />
+    </top-bar> -->
+    <song-list-item isActionIcon/>
   </view>
 </view>

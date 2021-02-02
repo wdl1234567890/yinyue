@@ -1,7 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "song-list-item": "/common/components/song-list-item/song-list-item",
     "top-bar": "/common/components/top-bar/top-bar"
   }
 }

@@ -8,11 +8,11 @@
   margin-top: 18rpx;
 }
 
-.song-list-item-info {
+/* .song-list-item-info {
   display: flex;
   flex-direction: column;
   margin-left: 24rpx;
-}
+} */
 
 .add-button {
   margin-right: 30rpx;
@@ -27,12 +27,12 @@
   overflow: hidden;
   white-space: nowrap;
 }
-.song-list-item-count{
+/* .song-list-item-count{
   color: #888;
   letter-spacing: 1px;
   font-size: 24rpx;
-}
+} */
 
-.song-list-item-name{
+/* .song-list-item-name{
   font-size: 31rpx;
-}
+} */

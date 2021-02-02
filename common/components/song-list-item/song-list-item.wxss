@@ -1,0 +1,18 @@
+.one-row-flow{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.song-list-item-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 24rpx;
+}
+.song-list-item-name{
+  font-size: 31rpx;
+}
+.song-list-item-count{
+  color: #888;
+  letter-spacing: 1px;
+  font-size: 24rpx;
+}

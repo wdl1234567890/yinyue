@@ -1,0 +1,21 @@
+.one-row-flow {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.song-name{
+  color: #333;
+  font-size: 32rpx;
+  letter-spacing: 1px;
+  line-height: 48rpx;
+  width: 620rpx;
+}
+.singer-name{
+  color: var(--theme-color);
+  font-size: 25rpx;
+}
+.single-item-info-container{
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,4 @@
+<view style="width:{{size}}rpx;height:{{size}}rpx;" class="theme-radius theme-load-slot square-item-container square-item-class">
+  <image src="/static/images/common/music-load.svg" style="width:{{size*(3/5)}}rpx"></image>
+  <image mode="aspectFill" src="{{src}}" lazy-load class="image-content"></image>
+</view>

@@ -47,6 +47,9 @@ Component({
         currentTabId:index
       })
       this.triggerEvent('clicktabitem', index)
+    },
+    scrollToLower(){
+      this.triggerEvent('scrolltolower')
     }
   }
 })

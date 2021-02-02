@@ -1,0 +1,11 @@
+<view>
+  <top-bar>
+    <view slot="left" class="single-item-info-container">
+      <text class="song-name one-row-flow">化身孤岛的鲸</text>
+      <text class="singer-name">不才</text>
+    </view>
+    <view slot="right">
+      <i-icon slot="right" type="switch" size="21" />
+    </view>
+  </top-bar>
+</view>

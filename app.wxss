@@ -6,10 +6,12 @@ page{
   --theme-bg:rgba(253, 253, 253, 0.418);
   --theme-module-color:rgba(253,253,253,1);
   --theme-color: rgb(255,181,185);
+  --theme-margin: 0 28rpx;
 
   height: 100vh;
   overflow: hidden;
 }
+
 /**主题**/
 .theme-color{
   background-color: var(--theme-color);
@@ -32,7 +34,7 @@ page{
   padding: 0 28rpx;
 }
 .theme-margin{
-  margin: 0 28rpx;
+  margin: var(--theme-margin);
 }
 .theme-margin-left{
   margin-left: 28rpx;
