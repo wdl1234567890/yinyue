@@ -19,7 +19,7 @@
     <slot name="content"></slot>
   </view>
   <!--底部播放条-->
-  <view style="background-color: rgba(253,253,253,1);" class="play-bar-container fixed-element">
+  <view style="background-color: rgba(253,253,253,1);" class="play-bar-container {{isShowPlayBar?'fixed-element':''}}" wx:if="{{isShowPlayBar}}">
     <play-bar height="108" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
   </view>
 </view>
