@@ -1,6 +1,6 @@
 // common/component/top-bar/top-bar.js
 Component({
-
+  externalClasses: ['three-column-bar-class'],
   options: {
     multipleSlots: true // 在组件定义时的选项中启用多slot支持
   },

@@ -1,0 +1,61 @@
+<wrapper nav-bar-class="theme-color">
+  <!--返回按钮与歌单名称-->
+  <view slot="nav-bar-left" class="flex-row back-icon-container">
+    <i-icon type="return" size="25" color="#fff" bindtap="clickBack" />
+    <text class="{{topBarchange?'show-name':'not-show-name'}} one-row-flow song-list-name-opacity" wx:if="{{!searchState}}">茯苓最近听的歌单</text>
+  </view>
+  <!--输入框-->
+  <view slot="nav-bar-middle" wx:if="{{searchState}}">
+    <input placeholder="搜索歌单内歌曲" focus confirm-type="search" adjust-position="{{false}}" class="input-container" placeholder-class="input-placeholder" />
+  </view>
+  <!--操作按钮-->
+  <view slot="nav-bar-right" class="nav-bar-right flex-row" wx:if="{{!searchState}}">
+    <i-icon type="search" size="25" color="#fff" class="search-icon" bindtap="clickSearch" />
+    <i-icon type="switch" size="25" color="#fff" />
+  </view>
+  <!--可滚动内容-->
+  <!--不是在搜索的状态下显示-->
+  <scroll-view scroll-y style="height:100%" slot="content" class="theme-module-color" bindscroll="scrolling" upper-threshold="8" scroll-with-animation bindscrolltoupper="scrolltoupper" hidden="{{searchState}}">
+    <!--歌单信息-->
+    <view class="theme-color song-list-bg-view theme-padding">
+      <song-list-item thumbSize="180" song-list-name-class="song-list-name" song-list-bottom-text-class="song-list-bottom-text" class="element-distance" />
+    </view>
+    <!--操作板-->
+    <view class="action-card theme-module-color flex-row" style="top:-{{actionCardHeight/2}}px">
+      <i-icon type="collection" size="24" style="border-right:1rpx solid #eee" />
+      <i-icon type="message" size="24" style="border-right:1rpx solid #eee" />
+      <i-icon type="share" size="24" />
+    </view>
+    <!--歌曲列表-->
+    <view class="single-container theme-margin">
+      <!--操作条-->
+      <view class="single-title-container">
+        <three-column-bar>
+          <view slot="left" class="flex-row left-action-container">
+            <i-icon type="playon_fill" color="{{themeColor}}" size="23" />
+            <text class="play-all-text">播放全部</text>
+          </view>
+          <i-icon type="success" size="23" color="#333" slot="right" />
+        </three-column-bar>
+      </view>
+      <!--单曲列表-->
+      <view style="margin-top: 40rpx">
+        <view class="single-item" wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}">
+          <single-item />
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <!--在搜索的状态下显示-->
+  <scroll-view scroll-y style="height:100%" slot="content" class="theme-module-color" scroll-with-animation wx:if="{{searchState}}">
+    <!--歌曲列表-->
+    <view class="single-container theme-margin">
+      <!--单曲列表-->
+      <view style="margin-top: 40rpx">
+        <view class="single-item" wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20]}}">
+          <single-item />
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</wrapper>

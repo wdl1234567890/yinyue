@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "song-list-item": "/common/components/song-list-item/song-list-item",
+    "single-item": "/common/components/single-item/single-item",
+    "three-column-bar": "/common/components/three-column-bar/three-column-bar"
+  }
+}

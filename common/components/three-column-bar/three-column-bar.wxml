@@ -1,12 +1,12 @@
-<!--顶部bar条-->
-<view class="top-bar-container">
-  <view class="top-bar-left">
+<!--三行布局容器-->
+<view class="three-column-bar-container three-column-bar-class">
+  <view class="three-column-bar-left">
     <slot name="left"></slot>
   </view>
-  <view class="top-bar-middle">
+  <view class="three-column-bar-middle">
     <slot name="middle"></slot>
   </view>
-  <view class="top-bar-right">
+  <view class="three-column-bar-right">
     <slot name="right"></slot>
   </view>
 </view>

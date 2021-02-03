@@ -1,13 +1,13 @@
-.top-bar-container{
+.three-column-bar-container{
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 }
-.top-bar-middle{
+.three-column-bar-middle{
   flex-grow: 1;
 }
-.top-bar-left, .top-bar-right{
+.three-column-bar-left, .three-column-bar-right{
   flex-shrink: 0;
 }

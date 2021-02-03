@@ -1,0 +1,93 @@
+.one-row-flow{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.back-icon-container {
+  margin-left: -12rpx;
+  margin-right: 20rpx;
+  align-items: center;
+}
+
+.show-name{
+  opacity: 1;
+}
+.not-show-name{
+  opacity: 0;
+}
+.nav-bar-right {
+  align-items: center;
+}
+
+.song-list-name-opacity{
+  transition: opacity 0.3s;
+  font-size: 38rpx;
+  color: #fff;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-left: 20rpx;
+}
+
+.search-icon {
+  margin-right: 20rpx;
+}
+
+.song-list-bg-view {
+  width: 100%;
+  border-bottom-left-radius: 80rpx;
+  border-bottom-right-radius: 80rpx;
+  padding-top: 30rpx;
+  padding-bottom: 80rpx;
+}
+.song-list-name{
+  font-size: 38rpx!important;
+  color: #fff;
+  font-weight: bold;
+  margin-left: 10rpx;
+}
+.song-list-bottom-text{
+  font-size: 30rpx!important;
+  color: #fff!important;
+  margin-left: 10rpx;
+}
+.action-card{
+  padding: 20rpx;
+  border-radius: 40rpx;
+  position: relative;
+  width: 400rpx;
+  margin: 0 auto;
+  box-shadow: 1rpx 1rpx 1rpx #eee;
+  z-index: 100;
+}
+.input-container{
+  width: 100%;
+  border-bottom: 1px solid #fff;
+}
+.action-card i-icon{
+  flex-grow: 1;
+  text-align: center;
+}
+
+
+
+.single-title-container{
+  margin: 20rpx 0;
+}
+.left-action-container{
+  align-items: center;
+}
+.play-all-text{
+  color: #333;
+  font-size: 32rpx;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-left: 16rpx;
+}
+.single-item{
+  margin: 30rpx 0;
+}
+.input-placeholder{
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 34rpx;
+}

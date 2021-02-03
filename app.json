@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/sub-pages/profile-detail/profile-detail",
     "subpackages-search/pages/search-result/search-result",
+    "subpackages-song-list/pages/song-list-detail/song-list-detail",
+    "pages/sub-pages/profile-detail/profile-detail",
+    
     "pages/index/index",
     "pages/profile/profile",
     "subpackages-search/pages/search/search"

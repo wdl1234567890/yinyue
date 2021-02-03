@@ -1,11 +1,11 @@
 <!--选项卡-->
 <view class="tab-card-container">
   <!--选项条-->
-  <tab-bar tabTitles="{{tabTitles}}" tab-bar-class="tab-bar-container" currentTabId="{{currentTabId}}" bindclicktabitem="clickTabItem" class="fixed-element"/>
+  <tab-bar tabTitles="{{tabTitles}}" tab-bar-class="tab-bar-container" currentTabId="{{currentTabId}}" bindclicktabitem="clickTabItem" class="fixed-element" />
   <!--可竖向滚动内容区-->
-  <scroll-view scroll-y style="height:{{contentHeight - tabbarHeight}}px" bindscrolltolower="scrollToLower" lower-threshold="10">
-    <view wx:for="{{tabTitles}}" wx:key="title" wx:if="{{index==currentTabId}}">
+  <view wx:for="{{tabTitles}}" wx:key="title" hidden="{{index!=currentTabId}}">
+    <scroll-view scroll-y style="height:{{contentHeight - tabbarHeight}}px" bindscrolltolower="scrollToLower" lower-threshold="10">
       <slot name="{{'tab' + index}}"></slot>
-    </view>
-  </scroll-view>
+    </scroll-view>
+  </view>
 </view>

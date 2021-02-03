@@ -1,5 +1,6 @@
 // common/components/song-list-item/song-list-item.js
 Component({
+  externalClasses: ['song-list-name-class','song-list-bottom-text-class'],
   /**
    * 组件的属性列表
    */
