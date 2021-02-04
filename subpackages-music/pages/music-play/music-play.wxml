@@ -5,7 +5,7 @@
   </view>
   <!--歌名和歌手信息-->
   <view slot="nav-bar-middle" class="song-nane-container">
-    <i-notice-bar loop speed="2500" color="#666" i-class="song-nane">
+    <i-notice-bar loop speed="2500" color="#333" i-class="song-nane">
       我在赶去找你的路上
     </i-notice-bar>
     <text class="singer-name">小时姑娘</text>
@@ -13,13 +13,20 @@
   <!--歌词转换按钮-->
   <i-icon type="createtask" slot="nav-bar-right" size="25" color="#555"/>
   <!--播放内容区-->
-  <view style="height:100%;background-image: url('/static/images/music-play/music-bg.png')" class="content-container" slot="content">
+  <view class="content-container" style="padding-top:{{windowWidth*(20/100)}}px" slot="content">
+    <!--歌曲时间-->
+    <view class="song-time">4:15/<text style="color:#777">4:30</text></view>
     <!--播放圆盘-->
     <view class="flex-row play-cd">
-      <circular-item size="480" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" circular-item-class="circular-play-cd"/>
+      <!--播放条-->
+      <canvas canvas-id="circular-play-cd" id="canvas" style="width:{{windowWidth*(70/100)}}px;height:{{windowWidth*(70/100)}}px;border-radius:{{windowWidth*(70/100)}}px;" class="circular-play-cd"></canvas>
+      <!--音乐封面-->
+      <view class="circular-post">
+        <circular-item size="490" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg"/>
+      </view>
     </view>
     <!--播放操作条-->
-    <view class="play-bar theme-margin">
+    <view class="play-bar theme-margin" style="bottom:{{windowHeight*(16/100)}}px">
       <three-column-bar>
         <image slot="left" src="/static/images/music-play/loop (1).png" class="play-mode-icon" mode="aspectFill"></image>
         <view slot="middle" class="flex-row play-bar-middle">
@@ -31,8 +38,14 @@
       </three-column-bar>
     </view>
     <!--底部功能操作条-->
-    <view class="bottom-action-bar theme-margin flex-row">
-
+    <view class="bottom-action-bar theme-margin flex-row" style="bottom:{{windowHeight*(8/100)}}px">
+      <image src="/static/images/music-play/like.png" mode="aspectFill"></image>
+      <image src="/static/images/music-play/down.png" mode="aspectFill"></image>
+      <view class="comment-container">
+        <view class="comment-count">999+</view>
+        <image src="/static/images/music-play/message.png" mode="aspectFill"></image>
+      </view>
+      <image src="/static/images/music-play/share.png" mode="aspectFill"></image>
     </view>
   </view>
 </wrapper>
