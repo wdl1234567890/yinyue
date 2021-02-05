@@ -101,3 +101,26 @@
   margin-left: -245rpx;
   margin-top: -245rpx;
 }
+.lyric-container{
+  color: #333;
+  font-size: 28rpx;
+  line-height: 52rpx;
+  letter-spacing: 1px;
+  text-align: center;
+  position: relative;
+}
+/* .lyric-border-top,.lyric-border-bottom{
+  width: 100%;
+  height: 30rpx;
+  position: absolute;
+}
+.lyric-border-top{
+  background: -webkit-linear-gradient(270deg, var(--theme-module-color),rgba(253,253,253,0));
+  left: 0;
+  top: 0;
+}
+.lyric-border-bottom{
+  background: -webkit-linear-gradient(90deg, var(--theme-module-color),rgba(253,253,253,0));
+  left: 0;
+  bottom: 0;
+} */

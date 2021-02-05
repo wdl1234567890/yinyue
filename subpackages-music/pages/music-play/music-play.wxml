@@ -11,20 +11,29 @@
     <text class="singer-name">小时姑娘</text>
   </view>
   <!--歌词转换按钮-->
-  <i-icon type="createtask" slot="nav-bar-right" size="25" color="#555"/>
+  <i-icon type="{{showLyric?'unfold':'createtask'}}" slot="nav-bar-right" size="25" color="#555" bindtap="changeLyricStatus" />
   <!--播放内容区-->
-  <view class="content-container" style="padding-top:{{windowWidth*(20/100)}}px" slot="content">
-    <!--歌曲时间-->
-    <view class="song-time">4:15/<text style="color:#777">4:30</text></view>
-    <!--播放圆盘-->
-    <view class="flex-row play-cd">
-      <!--播放条-->
-      <canvas canvas-id="circular-play-cd" id="canvas" style="width:{{windowWidth*(70/100)}}px;height:{{windowWidth*(70/100)}}px;border-radius:{{windowWidth*(70/100)}}px;" class="circular-play-cd"></canvas>
-      <!--音乐封面-->
-      <view class="circular-post">
-        <circular-item size="490" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg"/>
+  <view class="content-container" style="padding-top:{{windowWidth*(12/100)}}px" slot="content">
+    <!--播放器-->
+    <view hidden="{{showLyric}}">
+      <!--歌曲时间-->
+      <view class="song-time">4:15/
+        <text style="color:#777">4:30</text>
+      </view>
+      <!--播放圆盘-->
+      <view class="flex-row play-cd">
+        <!--播放条-->
+        <canvas canvas-id="circular-play-cd" id="canvas" style="width:{{windowWidth*(70/100)}}px;height:{{windowWidth*(70/100)}}px;border-radius:{{windowWidth*(70/100)}}px;" class="circular-play-cd"></canvas>
+        <!--音乐封面-->
+        <view class="circular-post">
+          <circular-item size="490" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
+        </view>
       </view>
     </view>
+    <!--歌词-->
+    <scroll-view scroll-y class="lyric-container theme-padding" style="height:{{windowWidth*(90/100)}}px;" hidden="{{!showLyric}}">
+      <text user-select space="nbsp" decode>{{lyric}}</text>
+    </scroll-view>
     <!--播放操作条-->
     <view class="play-bar theme-margin" style="bottom:{{windowHeight*(16/100)}}px">
       <three-column-bar>
