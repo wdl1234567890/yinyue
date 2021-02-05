@@ -10,9 +10,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    isShowPlayBar:{
-      type:Boolean,
-      value:true
+    //normal:底部有播放条，play:底部没有元素，comment:底部有评论输入条
+    mode:{
+      type:String,
+      value:'normal'
     }
   },
 
@@ -20,7 +21,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    topNavMargin: app.globalData.topNavMargin
+    topNavMargin: app.globalData.topNavMargin,
+    commentInputBarBottom:0
   },
 
   attached() {
@@ -39,6 +41,16 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    focus(e){
+     let keyboardHeight=e.detail.height
+     this.setData({
+       commentInputBarBottom: keyboardHeight
+     })
+    },
+    blur(e){
+      this.setData({
+        commentInputBarBottom: 0
+      })
+    }
   }
 })

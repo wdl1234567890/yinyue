@@ -1,15 +1,39 @@
 .theme-padding{
   padding: var(--theme-padding)
 }
-/* .theme-module-color{
-  background-color: var(--theme-module-color);
-} */
+
 .nav-bar-container{
   padding-bottom: 20rpx;
 }
-.play-bar-container{
+.play-bar-container,.comment-bar-container{
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+}
+.send-button{
+  color: #fff;
+  background-color: var(--theme-color);
+  padding: 10rpx 25rpx;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+  letter-spacing: 1px;
+}
+.comment-bar-container{
+  display: flex;
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  background-color: rgba(253,253,253,1);
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1rpx solid #eee;
+}
+.comment-input{
+  width: 500rpx;
+  height: 80rpx!important;
+  min-height: 80rpx!important;
+}
+.comment-placeholder{
+  color: #999;
+  
 }

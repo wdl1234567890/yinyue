@@ -8,6 +8,7 @@ page{
   --theme-color: rgb(255,181,185);
   --theme-margin: 0 28rpx;
   --theme-padding: 0 28rpx;
+  --theme-gap:28rpx;
   height: 100vh;
   overflow: hidden;
 }

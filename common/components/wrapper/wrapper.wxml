@@ -19,7 +19,14 @@
     <slot name="content"></slot>
   </view>
   <!--底部播放条-->
-  <view style="background-color: rgba(253,253,253,1);" class="play-bar-container {{isShowPlayBar?'fixed-element':''}}" wx:if="{{isShowPlayBar}}">
+  <view style="background-color: rgba(253,253,253,1);" class="play-bar-container fixed-element" wx:if="{{mode=='normal'}}">
     <play-bar height="108" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
+  </view>
+  <!--底部评论条-->
+  <view class="comment-bar-container theme-padding fixed-element" wx:if="{{mode=='comment'}}" style="bottom:{{commentInputBarBottom}}px">
+    <!--编辑框-->
+    <textarea placeholder="留下你此刻的想法吧~" show-confirm-bar="{{false}}" adjust-position="{{false}}" confirm-type="done" placeholder-class="comment-placeholder" class="comment-input" bindfocus="focus" bindblur="blur"/>
+    <!--发送按钮-->
+    <view class="send-button">发送</view>
   </view>
 </view>

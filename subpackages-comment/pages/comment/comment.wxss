@@ -1,0 +1,30 @@
+.content-container{
+  padding-left: var(--theme-gap);
+  height:100%;
+}
+.back-icon{
+  margin-left:-12rpx;
+  margin-right:20rpx;
+}
+.comment-title{
+  margin-left: 20rpx;
+  color: #333;
+  font-size: 34rpx;
+  letter-spacing: 1px;
+}
+
+.all-reply-title{
+  color: #333;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 30rpx;
+  margin-top: 20rpx;
+  
+}
+.all-reply{
+  padding-left: var(--theme-gap);
+  height: 60vh;
+}
+.user-comment{
+  padding-bottom: 20rpx;
+}

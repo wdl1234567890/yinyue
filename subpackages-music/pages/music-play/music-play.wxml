@@ -1,4 +1,4 @@
-<wrapper nav-bar-class="theme-module-color" isShowPlayBar="{{false}}">
+<wrapper nav-bar-class="theme-module-color" mode="play">
   <!--返回按钮-->
   <view slot="nav-bar-left" class="back-icon-container">
     <i-icon type="return" size="25" color="#666" />

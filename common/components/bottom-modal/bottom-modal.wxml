@@ -1,0 +1,13 @@
+<view class="cu-modal bottom-modal {{isShow?'show':''}}">
+  <view class="cu-dialog modal-container">
+    <view class="cu-bar theme-module-color theme-padding modal-title">
+      <view  bindtap="hideModal" class="flex-row back-container">
+        <i-icon type="return" size="25" color="#333" class="back-icon"/>
+        <text class="reply-count">回复(112)</text>
+      </view>
+    </view>
+    <view style="background-color: #eee;">
+      <slot></slot>
+    </view>
+  </view>
+</view>

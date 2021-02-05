@@ -1,5 +1,6 @@
 {
   "pages": [
+    "subpackages-comment/pages/comment/comment",
     "subpackages-music/pages/music-play/music-play",
     "subpackages-search/pages/search-result/search-result",
     "subpackages-song-list/pages/song-list-detail/song-list-detail",

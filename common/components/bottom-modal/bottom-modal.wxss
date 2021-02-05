@@ -1,0 +1,22 @@
+back-icon{
+  margin-left:-12rpx;
+  margin-right: 20rpx;
+}
+.bottom-modal{
+  text-align: left;
+}
+.back-container{
+  align-items: center;
+}
+.modal-title{
+  border-top-left-radius: 50rpx;
+  border-top-right-radius: 50rpx;
+}
+.modal-container{
+  background-color: transparent;
+}
+.reply-count{
+  color: #333;
+  font-size: 30rpx;
+  letter-spacing: 1px;
+}

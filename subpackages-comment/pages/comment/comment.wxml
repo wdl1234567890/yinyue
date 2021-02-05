@@ -1,0 +1,20 @@
+<wrapper nav-bar-class="theme-module-color" mode="comment">
+  <view slot="nav-bar-left" class="back-icon">
+    <i-icon type="return" size="25" color="#333" />
+  </view>
+  <view slot="nav-bar-middle" class="comment-title">评论(14959)</view>
+  <i-icon slot="nav-bar-right" type="share" size="25" color="#888"/>
+  <scroll-view scroll-y slot="content" class="theme-module-color content-container">
+    <comment-item wx:for="{{[1,2,3,4,5,6,7,8,9]}}" bindshowreply="showReply" reply="112"/>
+  </scroll-view>
+</wrapper>
+<!--回复评论底部弹框-->
+<bottom-modal isShow="{{showCommentModal}}">
+  <view class="user-comment theme-module-color theme-padding">
+    <comment-item  isShowBorder="{{false}}"/>
+    <view class="all-reply-title">全部回复</view>
+  </view>
+  <scroll-view class="all-reply theme-module-color" scroll-y>
+    <comment-item wx:for="{{[1,2,3,4]}}" bindshowreply="showReply"/>
+  </scroll-view>
+</bottom-modal>
