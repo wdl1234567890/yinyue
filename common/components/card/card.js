@@ -8,6 +8,14 @@ Component({
     cardTitle: {
       type: String,
       value: '歌单'
+    },
+    enabelMore:{
+      type:Boolean,
+      value:true
+    },
+    enabelTitle:{
+      type:Boolean,
+      value:true
     }
   },
 

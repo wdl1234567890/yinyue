@@ -1,0 +1,7 @@
+<view>
+  <three-column-bar>
+    <image mode="aspectFill" slot="left" class="payment-item-icon" src="/static/images/payment/logo-wxpay.png"></image>
+    <text slot="middle" class="payment-item-title">微信支付</text>
+    <radio-button slot="right" size="40" is-checked="{{isActive}}" bindcheckchange="checkchange" item-id="{{itemId}}"/>
+  </three-column-bar>
+</view>

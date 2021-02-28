@@ -1,0 +1,63 @@
+.close-icon{
+  margin-left:-12rpx;
+}
+.content-container{
+  padding-top: 35rpx;
+  letter-spacing: 1px;
+}
+.login-button{
+  outline: none!important;
+  border: none!important;
+}
+.weixin-icon{
+  width: 100rpx;
+  height: 100rpx;
+}
+.login-container{
+  margin-top: 200rpx;
+  justify-content: center;
+}
+.base-info-container,.style-info-container{
+  width: 88%;
+  padding: 22rpx 20rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 0 6rpx #eee;
+}
+.style-container{
+  padding-top: 20rpx;
+  align-items: center;
+}
+.base-info-title,.choosed-container>text,.all-style-container>text{
+  color: #555;
+  font-size: 26rpx;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+.radio-item{
+  margin-right: 20rpx;
+  color: #333;
+  font-size: 28rpx;
+  width: 20rpx;
+  height: 20rpx;
+}
+.birth{
+  margin-top: 30rpx;
+  color: #333;
+  font-size: 14rpx;
+}
+.style-info-container{
+  margin-top: 30rpx;
+  
+}
+.choosed-container{
+  margin-bottom: 40rpx;
+}
+.choosed-container>view,.all-style-container>view{
+  flex-wrap: wrap;
+  
+}
+info-label{
+  margin-right: 25rpx;
+  margin-bottom: 20rpx;
+}

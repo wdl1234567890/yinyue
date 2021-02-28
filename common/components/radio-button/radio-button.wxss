@@ -1,0 +1,14 @@
+.radio-button-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.no-checked{
+  border-width: 1px;
+  border-color: #999;
+  border-style: solid;
+}
+.checked{
+  background-color: var(--theme-color);
+  border:none;
+}

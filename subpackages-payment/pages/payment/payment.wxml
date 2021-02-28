@@ -1,0 +1,38 @@
+<wrapper nav-bar-class="theme-module-color" mode="payment">
+  <view slot="nav-bar-left" class="back-icon">
+    <i-icon type="return" size="25" color="#333" />
+  </view>
+  <view slot="nav-bar-middle" class="vip-title">VIP</view>
+  <scroll-view style="height:100%;" slot="content" class="bg-color" scroll-y>
+    <!--vip宣传图片-->
+    <view class="theme-module-color" style="padding-top: 30rpx;">
+      <view class="theme-margin vip-image-container theme-radius" style="background-image:url('/static/images/common/music-load.svg');">
+        <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg" class="vip-image" mode="aspectFill"></image>
+      </view>
+    </view>
+    <!--包月选择-->
+    <view class="theme-module-color month-choose-container">
+      <card card-title-class="theme-padding" enabel-more="{{false}}" enabel-title="{{false}}">
+        <view wx:for="{{[1,2,3,4,5]}}" class="vip-month-card margin-right {{index==0?'first-margin-left':''}} {{index==4?'last-margin-right':''}}">
+          <vip-month-card item-id="{{index}}" bindcheckchange="vipmonthchange" is-active="{{index==vipMonthId}}" />
+        </view>
+      </card>
+    </view>
+    <!--支付方式选择-->
+    <view class="theme-module-color payment-choose-container theme-padding">
+      <view wx:for="{{[1,2]}}" class="payment-item">
+        <payment-item bindcheckchange="paymentchange" is-active="{{index==paymentId}}" item-id="{{index}}" />
+      </view>
+    </view>
+    <!--vip特权展示-->
+    <view class="theme-module-color vip-right-container">
+      <card card-title-class="theme-padding" cardTitle="VIP特权" enabel-more="{{false}}">
+        <view class="flex-col vip-right-content">
+          <view class="theme-padding vip-right-item" wx:for="{{[1,2]}}">
+            <vip-right-item />
+          </view>
+        </view>
+      </card>
+    </view>
+  </scroll-view>
+</wrapper>

@@ -1,0 +1,35 @@
+.vip-month-card-container{
+  border-radius: var(--theme-radius);
+  border-width: 1px;
+  border-style: solid;
+  padding: 50rpx 34rpx;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 280rpx;
+}
+.active-border{
+  border-color: var(--theme-color);
+}
+.not-active-border{
+  border-color: #eee;
+}
+.title{
+  color: #333;
+  font-size: 34rpx;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+.price{
+  color: var(--theme-color);
+  font-size: 40rpx;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+.price-per-month{
+  color: #777;
+  font-size: 20rpx;
+  letter-spacing: 1px;
+}

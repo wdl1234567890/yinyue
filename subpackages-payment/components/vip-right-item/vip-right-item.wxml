@@ -1,0 +1,11 @@
+<view class="vip-right-item-container">
+  <three-column-bar>
+    <view slot="left" class="left-part">
+      <text class="title">会员曲库</text>
+      <text class="state">畅听10000+VIP歌曲</text>
+    </view>
+    <view slot="right" class="right-part">
+      <square-item class="thumb" size="120" style="right:-{{(2-index)*60}}rpx;z-index:{{2-index}}" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" wx:for="{{[1,2,3]}}" square-item-class="thumb-item"/>
+    </view>
+  </three-column-bar>
+</view>

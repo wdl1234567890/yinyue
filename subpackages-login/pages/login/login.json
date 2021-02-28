@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "i-steps": "/extend/iview-weapp/steps/index",
+    "i-step": "/extend/iview-weapp//step/index",
+    "info-label":"/common/components/info-label/info-label"
+  }
+}

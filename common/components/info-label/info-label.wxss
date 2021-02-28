@@ -1,0 +1,12 @@
+.info-label-container{
+  border-radius: 30rpx;
+  padding: 10rpx 20rpx;
+  display: flex;
+  align-items: center;
+}
+.cancel-icon{
+  margin-left: 15rpx;
+}
+.label-text{
+  letter-spacing: 2px;
+}

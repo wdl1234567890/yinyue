@@ -29,4 +29,12 @@
     <!--发送按钮-->
     <view class="send-button">发送</view>
   </view>
+  <!--支付条-->
+  <view wx:if="{{mode=='payment'}}" class="payment-bar-container fixed-element">
+    <three-column-bar>
+      <text slot="left" class="sum">总计</text>
+      <text slot="middle" class="price">￥8</text>
+      <view slot="right" class="payment-button">确认支付</view>
+    </three-column-bar>
+  </view>
 </view>

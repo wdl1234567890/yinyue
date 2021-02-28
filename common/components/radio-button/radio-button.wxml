@@ -1,0 +1,3 @@
+<view class="radio-button-container {{isChecked?'checked':'no-checked'}}" style="border-radius:{{size}}rpx;width:{{size}}rpx;height:{{size}}rpx" bindtap="checkChange">
+  <i-icon type="right" size="{{size/2}}" color="#fff"/>
+</view>

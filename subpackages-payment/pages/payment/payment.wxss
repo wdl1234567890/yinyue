@@ -1,0 +1,51 @@
+.back-icon{
+  margin-left:-12rpx;
+}
+.vip-title{
+  font-size: 30rpx;
+  color: #333;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.vip-image-container{
+  overflow: hidden;
+  height: 250rpx;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.vip-image{
+  width: 100%;
+  height: 100%;
+}
+.vip-month-card{
+  flex-shrink: 0;
+}
+.margin-right{
+  margin-right: 20rpx;
+}
+.last-margin-right{
+  padding-right: var(--theme-gap);
+}
+.first-margin-left{
+  margin-left: var(--theme-gap);
+}
+.month-choose-container{
+  padding-top: 50rpx;
+}
+.payment-choose-container{
+  margin-top: 20rpx;
+}
+.payment-item{
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.vip-right-item{
+  margin-top: 15rpx;
+}
+.vip-right-container{
+  padding-bottom: 30rpx;
+  margin-top: 20rpx;
+}
+.vip-right-content{
+  width: 100%;
+}

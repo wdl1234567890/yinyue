@@ -9,6 +9,7 @@ page{
   --theme-margin: 0 28rpx;
   --theme-padding: 0 28rpx;
   --theme-gap:28rpx;
+  --theme-radius:20rpx;
   height: 100vh;
   overflow: hidden;
 }
@@ -44,7 +45,7 @@ page{
   padding-right: 28rpx;
 }
 .theme-radius{
-  border-radius: 20rpx !important;
+  border-radius: var(--theme-radius) !important;
   overflow: hidden;
 }
 .theme-load-slot{

@@ -5,7 +5,7 @@
 .nav-bar-container{
   padding-bottom: 20rpx;
 }
-.play-bar-container,.comment-bar-container{
+.play-bar-container,.comment-bar-container,.payment-bar-container{
   position: fixed;
   bottom: 0;
   left: 0;
@@ -35,5 +35,24 @@
 }
 .comment-placeholder{
   color: #999;
-  
+}
+.sum,.price,.payment-button{ 
+  font-size: 30rpx;
+  letter-spacing: 1px;
+}
+.sum{
+  color: #666;
+  margin-right: 15rpx;
+}
+.price{
+  color: var(--theme-color);
+}
+.payment-button{
+  color: #fff;
+  background-color: var(--theme-color);
+  padding: 25rpx var(--theme-gap);
+}
+.payment-bar-container{
+  padding-left: var(--theme-gap);
+  background-color: var(--theme-module-color);
 }

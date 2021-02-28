@@ -1,0 +1,5 @@
+<view class="vip-month-card-container {{isActive?'active-border':'not-active-border'}}" bindtap="tap">
+  <text class="title">连续包月</text>
+  <text class="price">￥8</text>
+  <text class="price-per-month">￥8/月</text>
+</view>
