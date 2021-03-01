@@ -1,20 +1,31 @@
-<wrapper nav-bar-class="theme-module-color" mode="comment">
+<wrapper nav-bar-class="theme-module-color" mode="comment" focus="{{inputFocus}}" will-reply-item="{{willReplyItem}}" input-value="{{inputValue}}" bindfocus="focusEvent" bindblur="blurEvent">
   <view slot="nav-bar-left" class="back-icon">
     <i-icon type="return" size="25" color="#333" />
   </view>
   <view slot="nav-bar-middle" class="comment-title">评论(14959)</view>
-  <i-icon slot="nav-bar-right" type="share" size="25" color="#888"/>
+  <button open-type="share" plain slot="nav-bar-right" class="share-button">
+    <i-icon type="share" size="25" color="#888" />
+  </button>
   <scroll-view scroll-y slot="content" class="theme-module-color content-container">
-    <comment-item wx:for="{{[1,2,3,4,5,6,7,8,9]}}" bindshowreply="showReply" reply="112"/>
+    <comment-item wx:for="{{commentData}}" bindshowreply="showReply" wx:key="id" reply-count="{{item.replyCount}}" reply-from-info="{{item.replyFromInfo}}" comment-date="{{item.commentDate}}" comment="{{item.comment}}" user-name="{{item.userName}}" up-count="{{item.upCount}}"
+      avator="{{item.avator}}" is-up="{{item.isUp}}" item-id="{{index}}" bindtapitem="tapItem" isFocus="{{inputFocus}}"/>
   </scroll-view>
 </wrapper>
 <!--回复评论底部弹框-->
-<bottom-modal isShow="{{showCommentModal}}">
-  <view class="user-comment theme-module-color theme-padding">
-    <comment-item  isShowBorder="{{false}}"/>
-    <view class="all-reply-title">全部回复</view>
+<bottom-modal isShow="{{showCommentModal}}" bottom-modal-container-class="bottom-modal-container">
+  <view bindtap="hideModal" class="flex-row back-container" slot="title">
+    <i-icon type="return" size="25" color="#333" class="back-icon" />
+    <text class="reply-count">回复({{replyComment.replyCount}})</text>
   </view>
-  <scroll-view class="all-reply theme-module-color" scroll-y>
-    <comment-item wx:for="{{[1,2,3,4]}}" bindshowreply="showReply"/>
-  </scroll-view>
+  <view slot="content">
+    <view class="user-comment theme-module-color theme-padding">
+      <comment-item is-show-border="{{false}}" reply-from-info="{{replyComment.replyFromInfo}}" comment-date="{{replyComment.commentDate}}" comment="{{replyComment.comment}}" user-name="{{replyComment.userName}}" up-count="{{replyComment.upCount}}" avator="{{replyComment.avator}}"
+        is-up="{{replyComment.isUp}}" item-id="{{replyComment.id}}" bindtapitem="tapItem" is-top isFocus="{{inputFocus}}"/>
+      <view class="all-reply-title">全部回复</view>
+    </view>
+    <scroll-view class="all-reply theme-module-color" scroll-y>
+      <comment-item wx:for="{{replyData}}" wx:key="id" reply-count="{{item.replyCount}}" reply-from-info="{{item.replyFromInfo}}" comment-date="{{item.commentDate}}" comment="{{item.comment}}" user-name="{{item.userName}}" up-count="{{item.upCount}}" avator="{{item.avator}}"
+        is-up="{{item.isUp}}" item-id="{{index}}" bindtapitem="tapItem" isFocus="{{inputFocus}}" />
+    </scroll-view>
+  </view>
 </bottom-modal>

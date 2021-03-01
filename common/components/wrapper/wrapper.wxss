@@ -21,16 +21,18 @@
 }
 .comment-bar-container{
   display: flex;
-  padding-top: 30rpx;
-  padding-bottom: 30rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
   background-color: rgba(253,253,253,1);
   align-items: center;
   justify-content: space-between;
   border-top: 1rpx solid #eee;
+  position: relative;
+  z-index: 10000;
 }
 .comment-input{
   width: 500rpx;
-  height: 80rpx!important;
+  height: 100rpx!important;
   min-height: 80rpx!important;
 }
 .comment-placeholder{

@@ -21,10 +21,37 @@
   margin-top: 20rpx;
   
 }
+.share-button{
+  padding: 0!important;
+  margin: 0!important;
+  line-height: 0;
+  border: none!important;
+  outline: none;
+  width: fit-content!important;
+  height: fit-content!important;
+  border-radius: 0;
+}
+.share-button::after{
+  border: none;
+  outline: none;
+  list-style: none;
+}
 .all-reply{
   padding-left: var(--theme-gap);
-  height: 60vh;
+  height: 45vh;
+}
+.back-container{
+  align-items: center;
+}
+.reply-count{
+  color: #333;
+  font-size: 30rpx;
+  letter-spacing: 1px;
+}
+.bottom-modal-container{
+  bottom: 140rpx!important;
 }
 .user-comment{
   padding-bottom: 20rpx;
+  padding-right: 0;
 }

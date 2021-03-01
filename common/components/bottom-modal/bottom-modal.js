@@ -4,6 +4,7 @@ Component({
     styleIsolation: 'apply-shared',
     multipleSlots: true
   },
+  externalClasses: ["bottom-modal-container-class"],
   /**
    * 组件的属性列表
    */
@@ -25,10 +26,15 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    hideModal(e) {
-      this.setData({
-        isShow: false
-      })
+    // hideModal(e) {
+    //   this.setData({
+    //     isShow: false
+    //   })
+    // }
+    bgTap(e){
+      this.triggerEvent('bgtap')
+    },
+    tap(e){
     }
   }
 })

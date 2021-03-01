@@ -1,14 +1,15 @@
 {
   "pages": [
-    "subpackages-payment/pages/payment/payment",
-    "subpackages-login/pages/login/login",
-    "subpackages-comment/pages/comment/comment",
+    
     "subpackages-music/pages/music-play/music-play",
     "subpackages-search/pages/search-result/search-result",
     "subpackages-song-list/pages/song-list-detail/song-list-detail",
     "pages/sub-pages/profile-detail/profile-detail",
     "pages/index/index",
     "pages/profile/profile",
+    "subpackages-login/pages/login/login",
+    "subpackages-comment/pages/comment/comment",
+    "subpackages-payment/pages/payment/payment",
     "subpackages-search/pages/search/search"
   ],
   "window": {

@@ -11,6 +11,18 @@ Component({
     isActive:{
       type:Boolean,
       value:false
+    },
+    title:{
+      type:String,
+      value:'标题'
+    },
+    sumPrice:{
+      type:Number,
+      value:0
+    },
+    perMonthPrice:{
+      type:Number,
+      value:0
     }
   },
 

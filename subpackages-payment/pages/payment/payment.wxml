@@ -1,4 +1,4 @@
-<wrapper nav-bar-class="theme-module-color" mode="payment">
+<wrapper nav-bar-class="theme-module-color" mode="payment" sum-price="{{vipMonthCards[vipMonthId].sumPrice}}">
   <view slot="nav-bar-left" class="back-icon">
     <i-icon type="return" size="25" color="#333" />
   </view>
@@ -13,15 +13,15 @@
     <!--包月选择-->
     <view class="theme-module-color month-choose-container">
       <card card-title-class="theme-padding" enabel-more="{{false}}" enabel-title="{{false}}">
-        <view wx:for="{{[1,2,3,4,5]}}" class="vip-month-card margin-right {{index==0?'first-margin-left':''}} {{index==4?'last-margin-right':''}}">
-          <vip-month-card item-id="{{index}}" bindcheckchange="vipmonthchange" is-active="{{index==vipMonthId}}" />
+        <view wx:for="{{vipMonthCards}}" class="vip-month-card margin-right {{index==0?'first-margin-left':''}} {{index==4?'last-margin-right':''}}" wx:key="id">
+          <vip-month-card item-id="{{index}}" bindcheckchange="vipMonthChange" is-active="{{index==vipMonthId}}" title="{{item.title}}" sum-price="{{item.sumPrice}}" per-month-price="{{item.perMonthPrice}}"/>
         </view>
       </card>
     </view>
     <!--支付方式选择-->
     <view class="theme-module-color payment-choose-container theme-padding">
-      <view wx:for="{{[1,2]}}" class="payment-item">
-        <payment-item bindcheckchange="paymentchange" is-active="{{index==paymentId}}" item-id="{{index}}" />
+      <view wx:for="{{paymentMethod}}" class="payment-item" wx:key="title">
+        <payment-item bindcheckchange="paymentChange" is-active="{{index==paymentId}}" item-id="{{index}}" title="{{item.title}}" icon="{{item.icon}}"/>
       </view>
     </view>
     <!--vip特权展示-->

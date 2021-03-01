@@ -9,6 +9,7 @@
   justify-content: space-between;
   align-items: center;
   height: 280rpx;
+  width: 216rpx;
 }
 .active-border{
   border-color: var(--theme-color);

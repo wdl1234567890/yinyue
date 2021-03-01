@@ -1,3 +1,4 @@
+<wxs src="../../../common/utils/func/tools.wxs" module="tools" />
 <wrapper nav-bar-class="theme-module-color" mode="play">
   <!--返回按钮-->
   <view slot="nav-bar-left" class="back-icon-container">
@@ -6,9 +7,9 @@
   <!--歌名和歌手信息-->
   <view slot="nav-bar-middle" class="song-nane-container">
     <i-notice-bar loop speed="2500" color="#333" i-class="song-nane">
-      我在赶去找你的路上
+      {{musicInfo.singName}}
     </i-notice-bar>
-    <text class="singer-name">小时姑娘</text>
+    <text class="singer-name">{{musicInfo.singerName}}</text>
   </view>
   <!--歌词转换按钮-->
   <i-icon type="{{showLyric?'unfold':'createtask'}}" slot="nav-bar-right" size="25" color="#555" bindtap="changeLyricStatus" />
@@ -17,8 +18,8 @@
     <!--播放器-->
     <view hidden="{{showLyric}}">
       <!--歌曲时间-->
-      <view class="song-time">4:15/
-        <text style="color:#777">4:30</text>
+      <view class="song-time">{{tools.transformSecondToMinute(currentTime)}}/
+        <text style="color:#777">{{tools.transformSecondToMinute(musicInfo.singTime)}}</text>
       </view>
       <!--播放圆盘-->
       <view class="flex-row play-cd">
@@ -32,29 +33,62 @@
     </view>
     <!--歌词-->
     <scroll-view scroll-y class="lyric-container theme-padding" style="height:{{windowWidth*(90/100)}}px;" hidden="{{!showLyric}}">
-      <text user-select space="nbsp" decode>{{lyric}}</text>
+      <text user-select space="nbsp" decode>{{musicInfo.lyric}}</text>
     </scroll-view>
     <!--播放操作条-->
     <view class="play-bar theme-margin" style="bottom:{{windowHeight*(16/100)}}px">
       <three-column-bar>
-        <image slot="left" src="/static/images/music-play/loop (1).png" class="play-mode-icon" mode="aspectFill"></image>
+        <image slot="left" src="{{loopStatus[loopStatusIndex]}}" class="play-mode-icon" mode="aspectFill" bindtap="loopChange"></image>
         <view slot="middle" class="flex-row play-bar-middle">
           <image slot="left" src="/static/images/music-play/presong.png" mode="aspectFill" class="pre-song-icon"></image>
-          <image slot="middle" src="/static/images/music-play/timeout.png" mode="aspectFill" class="play-icon"></image>
+          <image slot="middle" src="{{playStatus?'/static/images/music-play/play.png':'/static/images/music-play/timeout.png'}}" mode="aspectFill" class="play-icon" bindtap="playChange"></image>
           <image slot="right" src="/static/images/music-play/nextsong.png" mode="aspectFill" class="next-song-icon"></image>
         </view>
-        <image slot="right" src="/static/images/music-play/musiclist (1).png" class="music-list-icon" mode="aspectFill"></image>
+        <image slot="right" src="/static/images/music-play/musiclist (1).png" class="music-list-icon" mode="aspectFill" bindtap="showModal"></image>
       </three-column-bar>
     </view>
     <!--底部功能操作条-->
     <view class="bottom-action-bar theme-margin flex-row" style="bottom:{{windowHeight*(8/100)}}px">
-      <image src="/static/images/music-play/like.png" mode="aspectFill"></image>
+      <image src="{{likeStatus?'/static/images/music-play/likactive.png':'/static/images/music-play/like.png'}}" mode="aspectFill" bindtap="likeChange"></image>
       <image src="/static/images/music-play/down.png" mode="aspectFill"></image>
-      <view class="comment-container">
-        <view class="comment-count">999+</view>
+      <view class="comment-container" bindtap="commentDetail">
+        <view class="comment-count">{{tools.commentCountShow(musicInfo.commentCount)}}</view>
         <image src="/static/images/music-play/message.png" mode="aspectFill"></image>
       </view>
-      <image src="/static/images/music-play/share.png" mode="aspectFill"></image>
+      <button open-type="share" plain class="share-button">
+        <image src="/static/images/music-play/share.png" mode="aspectFill"></image>
+      </button>
+
     </view>
   </view>
 </wrapper>
+<!--播放歌单列表-->
+<bottom-modal isShow="{{showSingListModal}}" bottom-modal-container-class="bottom-modal-container" bindbgtap="hideModal">
+  <view slot="title" class="flex-column list-title-container" style="width:100%">
+    <view class="flex-row title-container">
+      <text class="title-name">当前播放</text>
+      <text class="title-count">({{musicList.length}})</text>
+    </view>
+    <three-column-bar>
+      <view class="flex-row collect-all-container" slot="middle">
+        <i-icon type="collection" size="20" color="#999"/>
+        <text class=" collect-all">收藏全部</text>
+      </view>
+      <i-icon type="trash " size="20" slot="right" color="#999"/>  
+    </three-column-bar>
+  </view>
+
+  <view slot="content" class="user-comment theme-module-color theme-padding">
+      <scroll-view class="sing-list-container theme-module-color" scroll-y>
+        <view class="sing-item-container" wx:for="{{musicList}}" wx:key="id">
+          <three-column-bar>
+            <view slot="middle" class="flex-row sing-and-singer-container">
+              <text class="item-sing-name">{{item.singName}}</text>
+              <text class="item-singer-name">-{{item.singerName}}</text>
+            </view>
+            <i-icon type="close" size="20" slot="right" color="#999"/>
+          </three-column-bar>
+        </view>
+      </scroll-view>
+  </view>
+</bottom-modal>

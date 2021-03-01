@@ -1,13 +1,10 @@
-<view class="cu-modal bottom-modal {{isShow?'show':''}}">
-  <view class="cu-dialog modal-container">
+<view class="cu-modal bottom-modal {{isShow?'show':''}} bottom-modal-container-class" catchtap="bgTap">
+  <view class="cu-dialog modal-container" catchtap="tap">
     <view class="cu-bar theme-module-color theme-padding modal-title">
-      <view  bindtap="hideModal" class="flex-row back-container">
-        <i-icon type="return" size="25" color="#333" class="back-icon"/>
-        <text class="reply-count">回复(112)</text>
-      </view>
+      <slot name="title"></slot>
     </view>
     <view style="background-color: #eee;">
-      <slot></slot>
+      <slot name="content"></slot>
     </view>
   </view>
 </view>

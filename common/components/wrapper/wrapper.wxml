@@ -25,15 +25,15 @@
   <!--底部评论条-->
   <view class="comment-bar-container theme-padding fixed-element" wx:if="{{mode=='comment'}}" style="bottom:{{commentInputBarBottom}}px">
     <!--编辑框-->
-    <textarea placeholder="留下你此刻的想法吧~" show-confirm-bar="{{false}}" adjust-position="{{false}}" confirm-type="done" placeholder-class="comment-placeholder" class="comment-input" bindfocus="focus" bindblur="blur"/>
+    <textarea placeholder="{{!willReplyItem.info?'回复'+willReplyItem.userName+' :':'留下你此刻的想法吧~'}}" show-confirm-bar="{{false}}" adjust-position="{{false}}" confirm-type="done" placeholder-class="comment-placeholder" class="comment-input" bindfocus="focus" bindblur="blur" bindinput="inputChange" fixed focus="{{focus}}" value="{{inputValue}}"/>
     <!--发送按钮-->
-    <view class="send-button">发送</view>
+    <view class="send-button" bindtap="sendComment">发送</view>
   </view>
   <!--支付条-->
   <view wx:if="{{mode=='payment'}}" class="payment-bar-container fixed-element">
     <three-column-bar>
       <text slot="left" class="sum">总计</text>
-      <text slot="middle" class="price">￥8</text>
+      <text slot="middle" class="price">￥{{sumPrice}}</text>
       <view slot="right" class="payment-button">确认支付</view>
     </three-column-bar>
   </view>

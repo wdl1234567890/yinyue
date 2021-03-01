@@ -3,7 +3,8 @@ let app = getApp()
 let func = require('../../utils/func/wxml-element.js')
 Component({
   options: {
-    multipleSlots: true // 在组件定义时的选项中启用多slot支持
+    multipleSlots: true // 在组件定义时的选项中启用多slot支持,
+    
   },
   externalClasses: ['nav-bar-class'],
   /**
@@ -14,6 +15,22 @@ Component({
     mode:{
       type:String,
       value:'normal'
+    },
+    sumPrice:{
+      type:Number,
+      value:0
+    },
+    focus:{
+      type:Boolean,
+      value:false
+    },
+    willReplyItem:{
+      type:Object,
+      value:{}
+    },
+    inputValue:{
+      type:String,
+      value:""
     }
   },
 
@@ -22,7 +39,8 @@ Component({
    */
   data: {
     topNavMargin: app.globalData.topNavMargin,
-    commentInputBarBottom:0
+    commentInputBarBottom:0,
+    commentInput:''
   },
 
   attached() {
@@ -46,11 +64,30 @@ Component({
      this.setData({
        commentInputBarBottom: keyboardHeight
      })
+    this.triggerEvent('focus')
     },
     blur(e){
       this.setData({
         commentInputBarBottom: 0
       })
+      this.triggerEvent('blur')
+    },
+    inputChange(e){
+  
+      this.setData({
+        commentInput: e.detail.value.trim()
+      })
+    },
+    sendComment(e){
+      //request back list
+      let content = this.data.commentInput
+      if(content==''){
+        wx.showToast({
+          title: '是不是忘记输入内容啦~',
+          icon:'none'
+        })
+        return;
+      }
     }
   }
 })

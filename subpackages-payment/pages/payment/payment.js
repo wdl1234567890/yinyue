@@ -6,7 +6,43 @@ Page({
    */
   data: {
     vipMonthId:0,
-    paymentId:0
+    paymentId:0,
+    vipMonthCards:[
+      {
+        id:1,
+        title:'连续包月',
+        sumPrice:8,
+        perMonthPrice:8
+      },
+      {
+        id:2,
+        title: '1个月',
+        sumPrice: 8,
+        perMonthPrice: 8
+      },
+      {
+        id:3,
+        title: '6个月',
+        sumPrice: 45,
+        perMonthPrice: 7.5
+      },
+      {
+        id:4,
+        title: '12个月',
+        sumPrice: 88,
+        perMonthPrice: 7.3
+      }
+    ],
+    paymentMethod:[
+      {
+        title:"微信支付",
+        icon:"/static/images/payment/logo-wxpay.png"
+      },
+      {
+        title: "支付宝",
+        icon: "/static/images/payment/logo-alipay.png"
+      }
+    ]
   },
 
   /**
@@ -64,12 +100,12 @@ Page({
   onShareAppMessage: function () {
 
   },
-  vipmonthchange(e){
+  vipMonthChange(e){
     this.setData({
       vipMonthId: e.detail
     })
   },
-  paymentchange(e){
+  paymentChange(e){
     
     this.setData({
       paymentId: e.detail

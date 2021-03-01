@@ -11,7 +11,42 @@ var isArrayInclude=function(array,value){
   }
   return false
 }
+
+var timestampToTime = function(timestamp) {
+  
+  var date = getDate(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+  var Y = date.getFullYear() + '年';
+  var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
+  var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '日';
+
+  strDate = Y + M + D;
+  return strDate;
+
+}
+
+var transformSecondToMinute = function(playTime){
+  var timeStr = '0:'
+  var temp = Math.floor(playTime/60)
+  if(temp > 0)timeStr = temp + ':'
+  var second = playTime % 60
+  if(second < 10){
+    timeStr += ('0'+second)
+  }else{
+    timeStr += second
+  }
+
+  return timeStr
+}
+
+var commentCountShow = function(commentCount){
+  if(commentCount > 999)return '999+'
+  else return commentCount
+}
+
 module.exports = {
   isEmpty: isEmpty,
-  isArrayInclude: isArrayInclude
+  isArrayInclude: isArrayInclude,
+  timestampToTime: timestampToTime,
+  transformSecondToMinute: transformSecondToMinute,
+  commentCountShow: commentCountShow
 }

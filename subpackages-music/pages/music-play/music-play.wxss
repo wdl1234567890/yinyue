@@ -10,7 +10,21 @@
   letter-spacing: 1px;
   background-color: var(--theme-module-color) !important;
 }
-
+.share-button{
+  padding: 0!important;
+  margin: 0!important;
+  line-height: 0;
+  border: none!important;
+  outline: none;
+  width: fit-content!important;
+  height: fit-content!important;
+  border-radius: 0;
+}
+.share-button::after{
+  border: none;
+  outline: none;
+  list-style: none;
+}
 .song-nane-container {
   width: 70%;
   margin: 0 auto;
@@ -108,6 +122,67 @@
   letter-spacing: 1px;
   text-align: center;
   position: relative;
+}
+.title-container{
+  margin-top: 30rpx;
+  margin-bottom: 10rpx;
+  align-items: flex-end;
+}
+.title-name{
+  color: #333;
+  font-size: 36rpx;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.title-count{
+  color: #666;
+  font-size: 26rpx;
+  margin-top: -6rpx;
+  position: relative;
+  top: -6rpx;
+}
+.collect-all-container{
+  margin-right: 60rpx;
+  justify-content: flex-end;
+  align-items: center;
+}
+.collect-all{
+  color: #333;
+  font-size: 30rpx;
+  margin-left: 5rpx;
+  letter-spacing: 1px;
+}
+.sing-list-container{
+  height: 60vh;
+}
+.item-sing-name{
+  color: #333;
+  letter-spacing: 1px;
+  font-size: 30rpx;
+  flex-shrink: 0;
+}
+.list-title-container{
+  width: 100%;
+  margin: 10rpx 0 30rpx;
+}
+.item-singer-name{
+  color: #777;
+  font-size: 20rpx;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  position: relative;
+  margin-top: -5rpx;
+}
+.sing-item-container{
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sing-and-singer-container{
+  margin-right: 15rpx;
+  align-items: flex-end;
 }
 /* .lyric-border-top,.lyric-border-bottom{
   width: 100%;

@@ -11,6 +11,14 @@ Component({
     itemId:{
       type:Number,
       value:-1
+    },
+    title:{
+      type:String,
+      value:"支付方式"
+    },
+    icon:{
+      type:String,
+      value:"/static/images/payment/logo-wxpay.png"
     }
   },
 

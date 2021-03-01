@@ -8,13 +8,71 @@ Page({
    * 页面的初始数据
    */
   data: {
+    musicList:[
+      {
+        id:1,
+        singName: '歌曲1',
+        singerName: '歌手1'
+      },
+      {
+        id:2,
+        singName: '歌曲2',
+        singerName: '歌手2'
+      },
+      {
+        id:3,
+        singName: '歌曲3',
+        singerName: '歌手3'
+      },
+      {
+        id: 3,
+        singName: '歌曲3',
+        singerName: '歌手3'
+      },
+      {
+        id: 3,
+        singName: '歌曲3',
+        singerName: '歌手3'
+      },
+      {
+        id: 3,
+        singName: '歌曲3',
+        singerName: '歌手3'
+      },
+      {
+        id: 3,
+        singName: '歌曲3',
+        singerName: '歌手3'
+      },
+      {
+        id: 3,
+        singName: '歌曲3',
+        singerName: '歌手3'
+      },
+      {
+        id: 3,
+        singName: '歌曲3',
+        singerName: '歌手3'
+      }
+    ],
+    musicInfo:{
+      id:1,
+      singName:'我在赶去找你的路上',
+      singerName:'小时姑娘',
+      singTime:240,
+      lyric:'我在赶去找你的路上 - 小时姑娘\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
+      commentCount:1000
+    },
+    showSingListModal: false,
     currentTime:0,
     perSecondProgress:0,
-    allTime:240,
     windowHeight:app.globalData.systemInfo.windowHeight,
     windowWidth: app.globalData.systemInfo.windowWidth,
     showLyric:false,
-    lyric: '我在赶去找你的路上 - 小时姑娘\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强'
+    playStatus:true,
+    likeStatus:false,
+    loopStatusIndex:0,
+    loopStatus: ["/static/images/music-play/loop.png", "/static/images/music-play/singlecycle.png","/static/images/music-play/random.png"]
   },
 
   /**
@@ -25,7 +83,7 @@ Page({
       //计算每秒钟的进度
       let progressRadius=playCdSize/2-3
       let progressLength = 2 * Math.PI * progressRadius
-      let perSecondProgress=progressLength/this.data.allTime
+      let perSecondProgress=progressLength/this.data.musicInfo.singTime
       this.setData({
         perSecondProgress,
         radius : playCdSize / 2,
@@ -95,7 +153,7 @@ Page({
     let that = this
     //控制进度条变化
     let stopIntervalNum=setInterval(()=>{
-      if(that.data.allTime == that.data.currentTime){
+      if(that.data.musicInfo.singTime == that.data.currentTime){
         clearInterval(that.data.stopIntervalNum)
         return
       }
@@ -154,6 +212,45 @@ Page({
   changeLyricStatus(e){
     this.setData({
       showLyric: !this.data.showLyric
+    })
+  },
+  playChange(e){
+    let playStatus = this.data.playStatus
+    if (playStatus){
+      clearInterval(this.data.stopIntervalNum)
+    }else{
+      this.playMusic()
+    }
+    this.setData({
+      playStatus: !playStatus
+    })
+  },
+  loopChange(e){
+    let loopStatusIndex = this.data.loopStatusIndex+1
+    if(loopStatusIndex > 2)loopStatusIndex=0
+    this.setData({
+      loopStatusIndex
+    })
+  },
+  likeChange(e){
+    let likeStatus = this.data.likeStatus
+    this.setData({
+      likeStatus: !likeStatus
+    })
+  },
+  commentDetail(e){
+    wx.navigateTo({
+      url: '/subpackages-comment/pages/comment/comment?id='+this.data.musicInfo.id
+    })
+  },
+  hideModal(e) {
+    this.setData({
+      showSingListModal: false
+    })
+  },
+  showModal(e) {
+    this.setData({
+      showSingListModal: true
     })
   }
 })
