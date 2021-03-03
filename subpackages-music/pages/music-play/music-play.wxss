@@ -20,22 +20,22 @@
   height: fit-content!important;
   border-radius: 0;
 }
-.vip-icon{
+/* .vip-icon{
   padding: 3rpx 4rpx;
   color: var(--theme-color);
   border-radius: 10rpx;
   border: 1px solid var(--theme-color);
   font-size: 20rpx;
   letter-spacing: 1px;
-}
-.playing-icon{
+} */
+/* .playing-icon{
   margin-right: 10rpx;
   margin-top: -4rpx;
-}
-.music-status-icon-container{
+} */
+/* .music-status-icon-container{
   margin-right: 20rpx;
   align-items: center;
-}
+} */
 .share-button::after{
   border: none;
   outline: none;
@@ -139,39 +139,39 @@
   text-align: center;
   position: relative;
 }
-.title-container{
+/* .title-container{
   margin-top: 30rpx;
   margin-bottom: 10rpx;
   align-items: flex-end;
-}
-.title-name{
+} */
+/* .title-name{
   color: #333;
   font-size: 36rpx;
   font-weight: bold;
   letter-spacing: 1px;
-}
-.title-count{
+} */
+/* .title-count{
   color: #666;
   font-size: 26rpx;
   margin-top: -6rpx;
   position: relative;
   top: -6rpx;
-}
-.collect-all-container{
+} */
+/* .collect-all-container{
   margin-right: 60rpx;
   justify-content: flex-end;
   align-items: center;
-}
-.collect-all{
+} */
+/* .collect-all{
   color: #333;
   font-size: 30rpx;
   margin-left: 5rpx;
   letter-spacing: 1px;
-}
-.sing-list-container{
+} */
+/* .sing-list-container{
   height: 60vh;
-}
-.item-sing-name{
+} */
+/* .item-sing-name{
   color: #333;
   letter-spacing: 1px;
   font-size: 30rpx;
@@ -179,12 +179,12 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-}
-.list-title-container{
+} */
+/* .list-title-container{
   width: 100%;
   margin: 10rpx 0 30rpx;
-}
-.item-singer-name{
+} */
+/* .item-singer-name{
   color: #777;
   font-size: 20rpx;
   letter-spacing: 1px;
@@ -194,24 +194,24 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-}
-.sing-item-container{
+} */
+/* .sing-item-container{
   padding-top: 30rpx;
   padding-bottom: 30rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-.sing-and-singer-container{
+} */
+/* .sing-and-singer-container{
   margin-right: 30rpx;
   align-items: flex-end;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-}
-.three-column-bar-middle{
+} */
+/* .three-column-bar-middle{
   width: 10%;
-}
+} */
 /* .lyric-border-top,.lyric-border-bottom{
   width: 100%;
   height: 30rpx;

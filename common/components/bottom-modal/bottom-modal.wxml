@@ -1,6 +1,6 @@
 <view class="cu-modal bottom-modal {{isShow?'show':''}} bottom-modal-container-class" catchtap="bgTap">
   <view class="cu-dialog modal-container" catchtap="tap">
-    <view class="cu-bar theme-module-color theme-padding modal-title">
+    <view class="cu-bar theme-module-color theme-padding modal-title title-container-class">
       <slot name="title"></slot>
     </view>
     <view style="background-color: #eee;">

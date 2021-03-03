@@ -12,7 +12,21 @@ Component({
     thumbSize:{
       type:Number,
       value:140
+    },
+    srcUrl:{
+      type:String,
+      value:''
+    },
+    topTitle:{
+      type:String,
+      value:'上标题'
+    },
+    bottomTitle:{
+      type:String,
+      value:'下标题'
     }
+    //茯苓最近听的歌单
+    //https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg
   },
 
   /**

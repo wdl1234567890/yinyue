@@ -2,3 +2,27 @@
   margin-left:-12rpx;
   margin-right:20rpx;
 }
+.song-card-container{
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 1px solid #eee;
+}
+.action-item{
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.action-icon{
+  margin-right: 25rpx;
+  position: relative;
+}
+.actions-title-container{
+  padding: 0!important
+}
+.commentCount{
+  font-size: 20rpx;
+  color: #666;
+  position: absolute;
+  top: -12rpx;
+  right: -10rpx;
+  z-index: 10000
+}

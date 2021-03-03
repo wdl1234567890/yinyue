@@ -1,3 +1,4 @@
+let Const = require('../const.js')
 function setStorage(key, value){
   return new Promise((resolve,reject)=>{
     wx.setStorage({
@@ -14,20 +15,20 @@ function setStorage(key, value){
 }
 
 function addStorage(key,value){
-  let styleLabel=[]
+  let store=[]
   return new Promise((resolve, reject) => {
     wx.getStorage({
       key: key,
       success(res) {
-        styleLabel = res.data
+        store = res.data
       },
       complete(res){
-        styleLabel.push(value)
+        store.push(value)
         wx.setStorage({
           key: key,
-          data: styleLabel,
+          data: store,
           success(res){   
-            resolve(styleLabel)
+            resolve(store)
           },
           fail(res){
             reject(res)
@@ -39,15 +40,17 @@ function addStorage(key,value){
   
 }
 
-function getStorage(key){
+function getStorage(key, defalutValue=null){
+  let store = defalutValue
   return new Promise((resolve, reject)=>{
     wx.getStorage({
       key: key,
       success(res) {
-        resolve(res.data)
+        store = res.data
+        resolve(store)
       },
       fail(res){
-        reject(res)
+        resolve(store)
       }
     })
   })
@@ -67,7 +70,7 @@ function removeStorage(key,value){
             resolve(choosedStyles)
           },
           fail(res) {
-            reject(res)
+            resolve(null)
           }
         })
       },
@@ -79,9 +82,72 @@ function removeStorage(key,value){
   })
 }
 
+function clearStorage(key){
+  return new Promise((resolve, reject) => {
+    wx.removeStorage({
+      key:key,
+      success(res){
+        resolve(res)
+      },
+      fail(res){
+        resolve(res)
+      }
+    })
+  })
+  
+}
+
+function getCurrentPlayMusic() {
+  return getStorage(Const.CURRENT_PLAY_MUSIC_STORE_KEY,{})
+}
+function getCurrentMusicList() {
+  return getStorage(Const.MUSIC_LIST_STORE_KEY,[])
+}
+function getMusicListIsCollectionAll(){
+  return getStorage(Const.MUSIC_LIST_IS_COLLECTION_ALL,false)
+}
+
+function getLoopStatusIndex(){
+  return getStorage(Const.LOOP_STATUS_INDEX, 0)
+}
+
+function setMusicList(musicList){
+  setStorage(Const.MUSIC_LIST_STORE_KEY,musicList)
+}
+
+function setCurrentMusic(currentMusic){
+  setStorage(Const.CURRENT_PLAY_MUSIC_STORE_KEY, currentMusic)
+}
+
+function getCurrentPlayMusicIndex(currentMusicList, currentPlayMusic) {
+  let length = currentMusicList.length
+  for (let i = 0; i < length; i++) {
+    if (currentMusicList[i].id == currentPlayMusic.id) return i
+  }
+  return -1;
+}
+
+function clearCurrentMusicList(){
+  return clearStorage(Const.MUSIC_LIST_STORE_KEY)
+}
+
+function clearCurrentMusic() {
+  return clearStorage(Const.CURRENT_PLAY_MUSIC_STORE_KEY)
+}
+
 module.exports = {
   setStorage,
   addStorage,
   getStorage,
-  removeStorage
+  removeStorage,
+  clearStorage,
+  getCurrentPlayMusic,
+  getCurrentMusicList,
+  getCurrentPlayMusicIndex,
+  getMusicListIsCollectionAll,
+  getLoopStatusIndex,
+  setMusicList,
+  setCurrentMusic,
+  clearCurrentMusicList,
+  clearCurrentMusic
 }

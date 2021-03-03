@@ -1,0 +1,34 @@
+<!--播放歌单列表-->
+<bottom-modal isShow="{{showSingListModal}}" bindbgtap="hideModal">
+  <view slot="title" class="flex-column list-title-container" style="width:100%">
+    <view class="flex-row title-container">
+      <text class="title-name">当前播放</text>
+      <text class="title-count">({{musicList.length}})</text>
+    </view>
+    <three-column-bar>
+      <view class="flex-row collect-all-container" slot="middle" bindtap="musicListCollectAllChange">
+        <i-icon type="{{isCollectAll?'collection_fill':'collection'}}" size="20" color="{{isCollectAll?themeColor:'#999'}}"/>
+        <text class="collect-all" style="{{isCollectAll?'color:'+themeColor:''}}">收藏全部</text>
+      </view>
+      <i-icon type="trash " size="20" slot="right" color="#999" bindtap="removeAllListItem"/>  
+    </three-column-bar>
+  </view>
+
+  <view slot="content" class="theme-module-color theme-padding">
+      <scroll-view class="sing-list-container theme-module-color" scroll-y>
+        <view class="sing-item-container" wx:for="{{musicList}}" wx:key="id" bindtap="tapPlay" data-index="{{index}}">
+          <three-column-bar three-column-bar-middle-class="three-column-bar-middle">
+            <view slot="left" class="flex-row music-status-icon-container" wx:if="{{item.id==musicInfo.id || item.isVip}}">
+              <i-icon type="systemprompt_fill" size="20" color="{{themeColor}}" wx:if="{{item.id==musicInfo.id}}" class="playing-icon"/>
+              <view wx:if="{{item.isVip}}" class="vip-icon">VIP</view>
+            </view>
+            <view slot="middle" class="flex-row sing-and-singer-container">
+              <text class="item-sing-name">{{item.singName}}</text>
+              <text class="item-singer-name">-{{item.singerName}}</text>
+            </view>
+            <i-icon type="close" size="20" slot="right" color="#999" catchtap="removeListItem" data-index="{{index}}"/>
+          </three-column-bar>
+        </view>
+      </scroll-view>
+  </view>
+</bottom-modal>

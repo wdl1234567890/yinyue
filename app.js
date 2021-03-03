@@ -1,6 +1,20 @@
 // app.js
 let systemInfo = wx.getSystemInfoSync()
 let menuButtonBoundingClientRect = wx.getMenuButtonBoundingClientRect()
+// let Store = require('./common/utils/store/store.js')
+// let getCurrentPlayMusic = await function(){
+//   return Store.getStorage("currentPlayMusic")
+// }
+// let getCurrentMusicList = await function () {
+//   return Store.getStorage("currentMusicList")
+// }
+// let getCurrentPlayMusicIndex = function(currentMusicList, currentPlayMusic){
+//   let length = currentMusicList.length
+//   for (let i = 0; i < length; i++){
+//     if (currentMusicList[i].id == currentPlayMusic.id)return i
+//   }
+//   return -1;
+// }
 App({
   
   globalData: {

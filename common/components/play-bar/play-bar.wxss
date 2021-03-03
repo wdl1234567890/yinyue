@@ -4,6 +4,7 @@
   align-items: center;
   border-top: 1px solid rgba(241, 241, 241, 0.6);
 }
+
 .cover-container{
   display: flex;
   align-items: center;
@@ -34,3 +35,4 @@
 .theme-padding{
   padding: var(--theme-padding)
 }
+

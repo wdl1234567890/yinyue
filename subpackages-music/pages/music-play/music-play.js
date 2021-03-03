@@ -166,15 +166,6 @@ Page({
       singerName:'歌手',
     },
     
-    // musicInfo:{
-    //   id:1,
-    //   singName:'我在赶去找你的路上',
-    //   singerName:'小时姑娘',
-    //   singTime:240,
-    //   lyric:'我在赶去找你的路上 - 小时姑娘\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
-    //   commentCount: 1000,
-    //   isVip: true
-    // },
     stopIntervalNum:null,
     themeColor: app.globalData.themeColor,
     showSingListModal: false,
@@ -193,6 +184,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let musicId = options.id
+
     func.getElementHeight(this, '#canvas').then(playCdSize => {
       //计算每秒钟的进度
       let progressRadius=playCdSize/2-3
@@ -205,7 +198,7 @@ Page({
         progressLength
       })
 
-      this.musicPlayItemChange(1)
+      this.musicPlayItemChange(musicId)
 
     })
   },
@@ -382,72 +375,72 @@ Page({
       url: '/subpackages-comment/pages/comment/comment?id='+this.data.musicInfo.id
     })
   },
-  hideModal(e) {
-    this.setData({
-      showSingListModal: false
-    })
-  },
+  // hideModal(e) {
+  //   this.setData({
+  //     showSingListModal: false
+  //   })
+  // },
   showModal(e) {
     this.setData({
       showSingListModal: true
     })
   },
-  musicListCollectAllChange(e){
-    let musicListInfo = this.data.musicListInfo
-    musicListInfo.isCollectAll = !musicListInfo.isCollectAll
-    this.setData({
-      musicListInfo
-    })
-  },
-  removeListItem(e){
-    let index = e.currentTarget.dataset.index
+  // musicListCollectAllChange(e){
+  //   let musicListInfo = this.data.musicListInfo
+  //   musicListInfo.isCollectAll = !musicListInfo.isCollectAll
+  //   this.setData({
+  //     musicListInfo
+  //   })
+  // },
+  // removeListItem(e){
+  //   let index = e.currentTarget.dataset.index
     
-    let musicList = this.data.musicListInfo.musicList
-    if (musicList.length<=0)return
+  //   let musicList = this.data.musicListInfo.musicList
+  //   if (musicList.length<=0)return
 
-    if (musicList[index].id == this.data.musicInfo.id){
-      let nextIndex = -1
-      if(this.data.loopStatusIndex==2){
-        nextIndex = this.randomMusicListIndex()
-      }else{
-        nextIndex = index + 1 >= musicList.length?0:index+1
-      }
-      this.musicPlayItemChange(musicList[nextIndex].id)
-    }
+  //   if (musicList[index].id == this.data.musicInfo.id){
+  //     let nextIndex = -1
+  //     if(this.data.loopStatusIndex==2){
+  //       nextIndex = this.randomMusicListIndex()
+  //     }else{
+  //       nextIndex = index + 1 >= musicList.length?0:index+1
+  //     }
+  //     this.musicPlayItemChange(musicList[nextIndex].id)
+  //   }
     
-    let musicListInfo = this.data.musicListInfo
-    musicList.splice(index,1);
-    musicListInfo.musicList.musicList = musicList
-    this.setData({
-      musicListInfo
-    })
-    if (musicList.length == 0){
-      clearInterval(this.data.stopIntervalNum)
-      this.setData({
-        showSingListModal: false
-      })
-    }
-  },
-  removeAllListItem(e){
-    let that = this
-    wx.showModal({
-      title: '确定要清空播放列表？',
-      confirmText:'清空',
-      success(res){
-        if (res.confirm){
-          let musicListInfo = that.data.musicListInfo
-          musicListInfo.musicList = []
-          musicListInfo.isCollectAll=false
-          clearInterval(that.data.stopIntervalNum)
-          that.setData({
-            musicListInfo,
-            showSingListModal: false
-          })
-        }
-      }
-    })
+  //   let musicListInfo = this.data.musicListInfo
+  //   musicList.splice(index,1);
+  //   musicListInfo.musicList.musicList = musicList
+  //   this.setData({
+  //     musicListInfo
+  //   })
+  //   if (musicList.length == 0){
+  //     clearInterval(this.data.stopIntervalNum)
+  //     this.setData({
+  //       showSingListModal: false
+  //     })
+  //   }
+  // },
+  // removeAllListItem(e){
+  //   let that = this
+  //   wx.showModal({
+  //     title: '确定要清空播放列表？',
+  //     confirmText:'清空',
+  //     success(res){
+  //       if (res.confirm){
+  //         let musicListInfo = that.data.musicListInfo
+  //         musicListInfo.musicList = []
+  //         musicListInfo.isCollectAll=false
+  //         clearInterval(that.data.stopIntervalNum)
+  //         that.setData({
+  //           musicListInfo,
+  //           showSingListModal: false
+  //         })
+  //       }
+  //     }
+  //   })
     
-  },
+  // },
   randomMusicListIndex(){
     let musicList = this.data.musicListInfo.musicList
     let currentPlayId = this.data.musicInfo.id
@@ -502,6 +495,10 @@ Page({
 
     this.musicPlayItemChange(musicList[nextIndex].id)
     
+  },
+  musicPlayItemChangeInner(e){
+    let id = e.detail
+    this.musicPlayItemChange(id)
   },
   musicPlayItemChange(id){
 

@@ -1,10 +1,13 @@
 <view>
   <three-column-bar>
-    <view slot="left" class="single-item-info-container">
-      <text class="song-name one-row-flow">化身孤岛的鲸</text>
-      <text class="singer-name">不才</text>
+    <view slot="left" class="single-item-info-container" bindtap="tapPlay">
+      <text class="song-name one-row-flow">{{singName}}</text>
+      <view class="vip-and-singer-name-container">
+        <view wx:if="{{isVip}}" class="vip-icon">VIP</view>
+        <text class="singer-name one-row-flow">{{singerName}}</text>
+      </view>
     </view>
-    <view slot="right">
+    <view slot="right" catchtap="tapSwitch">
       <i-icon slot="right" type="switch" size="21" />
     </view>
   </three-column-bar>

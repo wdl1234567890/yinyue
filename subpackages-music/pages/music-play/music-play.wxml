@@ -1,5 +1,5 @@
 <wxs src="../../../common/utils/func/tools.wxs" module="tools" />
-<wrapper nav-bar-class="theme-module-color" mode="play">
+<wrapper nav-bar-class="theme-module-color" mode="play" bindmusicplayitemchange="musicPlayItemChangeInner">
   <!--返回按钮-->
   <view slot="nav-bar-left" class="back-icon-container">
     <i-icon type="return" size="25" color="#666" />
@@ -62,8 +62,8 @@
     </view>
   </view>
 </wrapper>
-<!--播放歌单列表-->
-<bottom-modal isShow="{{showSingListModal}}" bottom-modal-container-class="bottom-modal-container" bindbgtap="hideModal">
+<!-- 播放歌单列表
+<bottom-modal isShow="{{showSingListModal}}" bindbgtap="hideModal">
   <view slot="title" class="flex-column list-title-container" style="width:100%">
     <view class="flex-row title-container">
       <text class="title-name">当前播放</text>
@@ -78,7 +78,7 @@
     </three-column-bar>
   </view>
 
-  <view slot="content" class="user-comment theme-module-color theme-padding">
+  <view slot="content" class="theme-module-color theme-padding">
       <scroll-view class="sing-list-container theme-module-color" scroll-y>
         <view class="sing-item-container" wx:for="{{musicListInfo.musicList}}" wx:key="id" bindtap="tapPlay" data-index="{{index}}">
           <three-column-bar three-column-bar-middle-class="three-column-bar-middle">
@@ -95,4 +95,4 @@
         </view>
       </scroll-view>
   </view>
-</bottom-modal>
+</bottom-modal> -->

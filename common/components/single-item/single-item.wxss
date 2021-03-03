@@ -10,9 +10,24 @@
   line-height: 48rpx;
   width: 620rpx;
 }
+.vip-and-singer-name-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 5rpx;
+}
 .singer-name{
   color: var(--theme-color);
   font-size: 25rpx;
+}
+.vip-icon{
+  padding: 3rpx 4rpx;
+  color: var(--theme-color);
+  border-radius: 10rpx;
+  border: 1px solid var(--theme-color);
+  font-size: 20rpx;
+  letter-spacing: 1px;
+  margin-right: 18rpx;
 }
 .single-item-info-container{
   text-align: left;

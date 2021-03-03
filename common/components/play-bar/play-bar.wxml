@@ -14,7 +14,8 @@
     <image src="/static/images/index/pause.svg" style="width:{{height-16}}rpx;height:{{height-16}}rpx"></image>
   </view>
   <!--歌单按钮-->
-  <view style="margin-right: -15rpx;">
+  <view style="margin-right: -15rpx;" catchtap="showModal">
     <image src="/static/images/index/musiclist.svg" style="width:{{height-26}}rpx;height:{{height-26}}rpx"></image>
   </view>
 </view>
+<song-list-bottom wx:if="{{showSingListModal}}" show-sing-list-modal="{{showSingListModal}}" bindhidemodal="hideModal" bindmusicplayitemchange="musicPlayItemChange"/>

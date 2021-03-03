@@ -1,6 +1,7 @@
 // common/components/wrapper/wrapper.js
 let app = getApp()
 let func = require('../../utils/func/wxml-element.js')
+let Store = require('../../utils/store/store.js')
 Component({
   options: {
     multipleSlots: true // 在组件定义时的选项中启用多slot支持,
@@ -31,6 +32,10 @@ Component({
     inputValue:{
       type:String,
       value:""
+    },
+    hasMusicList:{
+      type:Boolean,
+      value:false
     }
   },
 
@@ -53,6 +58,15 @@ Component({
       })
       that.triggerEvent('getcontentheight', contentHeight)
     })
+  },
+
+  pageLifetimes: {
+    async show () {
+     let musicList = await Store.getCurrentMusicList()
+     this.setData({
+       hasMusicList: musicList.length!=0
+     })
+    },
   },
 
   /**
@@ -88,6 +102,17 @@ Component({
         })
         return;
       }
+    },
+   async musicPlayItemChange(e){
+      let musicList = await Store.getCurrentMusicList()
+     if (musicList.length==0){
+        
+        this.setData({
+          hasMusicList:false
+        })
+        return
+      }
+      this.triggerEvent('musicplayitemchange', e.detail)
     }
   }
 })

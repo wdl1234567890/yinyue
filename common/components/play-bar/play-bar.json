@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "circular-item": "../circular-item/circular-item"
+    "circular-item": "../circular-item/circular-item",
+    "song-list-bottom":"../song-list-bottom/song-list-bottom"
   }
 }

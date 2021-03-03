@@ -11,6 +11,10 @@ Component({
     contentHeight:{
       type:Number,
       value:200
+    },
+    singDatas:{
+      type:Array,
+      value:[]
     }
   },
 
@@ -18,8 +22,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    themeColor: app.globalData.themeColor,
-    aa: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    themeColor: app.globalData.themeColor
   },
 
   /**
@@ -30,12 +33,20 @@ Component({
       wx.showLoading({
         title: '加载中',
       })
-      let aa = this.data.aa
-      let newaa = aa.concat([1,2,3])
-      this.setData({
-        aa:newaa
-      })
+      // let aa = this.data.aa
+      // let newaa = aa.concat([1,2,3])
+      // this.setData({
+      //   aa:newaa
+      // })
       wx.hideLoading()
+    },
+    tapSwitch(e){
+      this.triggerEvent('tapswitch', e.currentTarget.dataset.index)
+    },
+    tapPlayMusic(e){
+      wx.navigateTo({
+        url: '/subpackages-music/pages/music-play/music-play?id='+e.detail
+      })
     }
   }
 })

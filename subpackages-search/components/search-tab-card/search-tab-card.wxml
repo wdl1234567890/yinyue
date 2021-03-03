@@ -14,8 +14,8 @@
       </view>
       <!--单曲列表-->
       <view style="margin-top: 40rpx">
-        <view class="single-item" wx:for="{{aa}}">
-          <single-item />
+        <view class="single-item" wx:for="{{singDatas}}">
+          <single-item catchtapswitch="tapSwitch" item-id="{{item.id}}" sing-name="{{item.singName}}" singer-name="{{item.singerName}}" data-index="{{index}}" bindtapplay="tapPlayMusic" is-vip="{{item.isVip}}"/>
         </view>
       </view>
     </view>

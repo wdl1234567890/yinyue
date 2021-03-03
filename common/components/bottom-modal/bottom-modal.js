@@ -4,14 +4,14 @@ Component({
     styleIsolation: 'apply-shared',
     multipleSlots: true
   },
-  externalClasses: ["bottom-modal-container-class"],
+  externalClasses: ["bottom-modal-container-class","title-container-class"],
   /**
    * 组件的属性列表
    */
   properties: {
     isShow:{
       type:Boolean,
-      value:true
+      value:false
     }
   },
 

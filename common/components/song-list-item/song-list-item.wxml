@@ -1,9 +1,9 @@
 <view>
   <three-column-bar three-column-bar-class="song-list-three-column">
-    <square-item slot="left" size="{{thumbSize}}" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
+    <square-item slot="left" size="{{thumbSize}}" src="{{srcUrl}}" />
     <view slot="middle" class="song-list-item-info">
-      <text class="song-list-item-name one-row-flow song-list-name-class">茯苓最近听的歌单</text>
-      <text class="song-list-item-count song-list-bottom-text-class">10首</text>
+      <text class="song-list-item-name one-row-flow song-list-name-class">{{topTitle}}</text>
+      <text class="song-list-item-count song-list-bottom-text-class">{{bottomTitle}}</text>
     </view>
     <i-icon slot="right" type="switch" size="21" wx:if="{{isActionIcon}}" />
   </three-column-bar>
