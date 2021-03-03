@@ -10,6 +10,7 @@
     "subpackages-login/pages/login/login",
     "subpackages-comment/pages/comment/comment",
     "subpackages-payment/pages/payment/payment",
+    
     "subpackages-search/pages/search/search"
   ],
   "window": {

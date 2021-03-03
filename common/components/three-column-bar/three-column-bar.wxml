@@ -3,7 +3,7 @@
   <view class="three-column-bar-left">
     <slot name="left"></slot>
   </view>
-  <view class="three-column-bar-middle">
+  <view class="three-column-bar-middle three-column-bar-middle-class">
     <slot name="middle"></slot>
   </view>
   <view class="three-column-bar-right">

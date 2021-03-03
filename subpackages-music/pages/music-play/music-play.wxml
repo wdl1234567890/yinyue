@@ -24,7 +24,7 @@
       <!--播放圆盘-->
       <view class="flex-row play-cd">
         <!--播放条-->
-        <canvas canvas-id="circular-play-cd" id="canvas" style="width:{{windowWidth*(70/100)}}px;height:{{windowWidth*(70/100)}}px;border-radius:{{windowWidth*(70/100)}}px;" class="circular-play-cd"></canvas>
+        <canvas canvas-id="circular-play-cd" id="canvas" style="width:{{windowWidth*(70/100)}}px;height:{{windowWidth*(70/100)}}px;border-radius:{{windowWidth*(70/100)}}px;" class="circular-play-cd" bindtouchmove="canvasTouchend"></canvas>
         <!--音乐封面-->
         <view class="circular-post">
           <circular-item size="490" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
@@ -40,9 +40,9 @@
       <three-column-bar>
         <image slot="left" src="{{loopStatus[loopStatusIndex]}}" class="play-mode-icon" mode="aspectFill" bindtap="loopChange"></image>
         <view slot="middle" class="flex-row play-bar-middle">
-          <image slot="left" src="/static/images/music-play/presong.png" mode="aspectFill" class="pre-song-icon"></image>
+          <image slot="left" src="/static/images/music-play/presong.png" mode="aspectFill" class="pre-song-icon" bindtap="preSong"></image>
           <image slot="middle" src="{{playStatus?'/static/images/music-play/play.png':'/static/images/music-play/timeout.png'}}" mode="aspectFill" class="play-icon" bindtap="playChange"></image>
-          <image slot="right" src="/static/images/music-play/nextsong.png" mode="aspectFill" class="next-song-icon"></image>
+          <image slot="right" src="/static/images/music-play/nextsong.png" mode="aspectFill" class="next-song-icon" bindtap="nextSong"></image>
         </view>
         <image slot="right" src="/static/images/music-play/musiclist (1).png" class="music-list-icon" mode="aspectFill" bindtap="showModal"></image>
       </three-column-bar>
@@ -50,7 +50,7 @@
     <!--底部功能操作条-->
     <view class="bottom-action-bar theme-margin flex-row" style="bottom:{{windowHeight*(8/100)}}px">
       <image src="{{likeStatus?'/static/images/music-play/likactive.png':'/static/images/music-play/like.png'}}" mode="aspectFill" bindtap="likeChange"></image>
-      <image src="/static/images/music-play/down.png" mode="aspectFill"></image>
+      <image src="/static/images/music-play/down.png" mode="aspectFill" bindtap="downMusic"></image>
       <view class="comment-container" bindtap="commentDetail">
         <view class="comment-count">{{tools.commentCountShow(musicInfo.commentCount)}}</view>
         <image src="/static/images/music-play/message.png" mode="aspectFill"></image>
@@ -67,26 +67,30 @@
   <view slot="title" class="flex-column list-title-container" style="width:100%">
     <view class="flex-row title-container">
       <text class="title-name">当前播放</text>
-      <text class="title-count">({{musicList.length}})</text>
+      <text class="title-count">({{musicListInfo.musicList.length}})</text>
     </view>
     <three-column-bar>
-      <view class="flex-row collect-all-container" slot="middle">
-        <i-icon type="collection" size="20" color="#999"/>
-        <text class=" collect-all">收藏全部</text>
+      <view class="flex-row collect-all-container" slot="middle" bindtap="musicListCollectAllChange">
+        <i-icon type="{{musicListInfo.isCollectAll?'collection_fill':'collection'}}" size="20" color="{{musicListInfo.isCollectAll?themeColor:'#999'}}"/>
+        <text class="collect-all" style="{{musicListInfo.isCollectAll?'color:'+themeColor:''}}">收藏全部</text>
       </view>
-      <i-icon type="trash " size="20" slot="right" color="#999"/>  
+      <i-icon type="trash " size="20" slot="right" color="#999" bindtap="removeAllListItem"/>  
     </three-column-bar>
   </view>
 
   <view slot="content" class="user-comment theme-module-color theme-padding">
       <scroll-view class="sing-list-container theme-module-color" scroll-y>
-        <view class="sing-item-container" wx:for="{{musicList}}" wx:key="id">
-          <three-column-bar>
+        <view class="sing-item-container" wx:for="{{musicListInfo.musicList}}" wx:key="id" bindtap="tapPlay" data-index="{{index}}">
+          <three-column-bar three-column-bar-middle-class="three-column-bar-middle">
+            <view slot="left" class="flex-row music-status-icon-container" wx:if="{{item.id==musicInfo.id || item.isVip}}">
+              <i-icon type="systemprompt_fill" size="20" color="{{themeColor}}" wx:if="{{item.id==musicInfo.id}}" class="playing-icon"/>
+              <view wx:if="{{item.isVip}}" class="vip-icon">VIP</view>
+            </view>
             <view slot="middle" class="flex-row sing-and-singer-container">
               <text class="item-sing-name">{{item.singName}}</text>
               <text class="item-singer-name">-{{item.singerName}}</text>
             </view>
-            <i-icon type="close" size="20" slot="right" color="#999"/>
+            <i-icon type="close" size="20" slot="right" color="#999" catchtap="removeListItem" data-index="{{index}}"/>
           </three-column-bar>
         </view>
       </scroll-view>

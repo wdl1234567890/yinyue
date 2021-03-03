@@ -20,6 +20,22 @@
   height: fit-content!important;
   border-radius: 0;
 }
+.vip-icon{
+  padding: 3rpx 4rpx;
+  color: var(--theme-color);
+  border-radius: 10rpx;
+  border: 1px solid var(--theme-color);
+  font-size: 20rpx;
+  letter-spacing: 1px;
+}
+.playing-icon{
+  margin-right: 10rpx;
+  margin-top: -4rpx;
+}
+.music-status-icon-container{
+  margin-right: 20rpx;
+  align-items: center;
+}
 .share-button::after{
   border: none;
   outline: none;
@@ -160,6 +176,9 @@
   letter-spacing: 1px;
   font-size: 30rpx;
   flex-shrink: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .list-title-container{
   width: 100%;
@@ -172,6 +191,9 @@
   flex-shrink: 0;
   position: relative;
   margin-top: -5rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .sing-item-container{
   padding-top: 30rpx;
@@ -181,8 +203,14 @@
   white-space: nowrap;
 }
 .sing-and-singer-container{
-  margin-right: 15rpx;
+  margin-right: 30rpx;
   align-items: flex-end;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.three-column-bar-middle{
+  width: 10%;
 }
 /* .lyric-border-top,.lyric-border-bottom{
   width: 100%;
