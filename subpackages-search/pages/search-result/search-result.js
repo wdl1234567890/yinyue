@@ -216,6 +216,7 @@ Page({
     let index = e.currentTarget.dataset.index
     switch(this.data.actions[index].text){
       case "播放":
+        // Store.setCurrentMusic(this.data.musicInfo)
         wx.navigateTo({
           url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.musicInfo.id
         })
@@ -251,6 +252,11 @@ Page({
       })
     }
   },
+  tapPlayMusic(e){
+    // this.setData({
+    //   musicInfo:Store.getCurrentPlayMusic()
+    // })
+  },
   async nextPlay(){
     let oldMusicList
     let currentPlayMusic
@@ -262,11 +268,11 @@ Page({
     //如果当前没有播放的歌曲，则直接将歌曲加入到列表的最前面,并且设置为当前播放歌曲，开始播放
     if (Object.keys(currentPlayMusic).length == 0){
       oldMusicList.unshift(this.data.musicInfo)
-      Store.setCurrentMusic(this.data.musicInfo)
+      // Store.setCurrentMusic(this.data.musicInfo)
       //显示播放条
-      this.setData({
-        hasMusicList:true
-      })
+      // this.setData({
+      //   hasMusicList:true
+      // })
       //TODO开始播放
     }else{
       //检查将要加入的歌曲是否已经在“当前播放列表”里
@@ -326,8 +332,16 @@ Page({
       title: '已添加到下一首播放',
       icon:'none'
     })
+
+    if (Object.keys(currentPlayMusic).length == 0){
+      wx.navigateTo({
+        url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.musicInfo.id
+      })
+    }
   },
   musicPlayItemChangeInner(e){
-    
+    wx.navigateTo({
+      url: '/subpackages-music/pages/music-play/music-play?id=' + e.detail
+    })
   }
 })

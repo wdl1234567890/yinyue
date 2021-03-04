@@ -39,9 +39,11 @@ Component({
         showSingListModal: false
       })
     },
+    musiclistChange(e){
+      this.triggerEvent('musiclistchange', e.detail)
+    },
     musicPlayItemChange(e){
-      console.log("8888")
-      this.triggerEvent('musicplayitemchange', e.detail)
+      this.triggerEvent('musicplayitemchange',e.detail)
     }
   }
 })

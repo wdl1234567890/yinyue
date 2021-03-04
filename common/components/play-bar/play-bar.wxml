@@ -18,4 +18,4 @@
     <image src="/static/images/index/musiclist.svg" style="width:{{height-26}}rpx;height:{{height-26}}rpx"></image>
   </view>
 </view>
-<song-list-bottom wx:if="{{showSingListModal}}" show-sing-list-modal="{{showSingListModal}}" bindhidemodal="hideModal" bindmusicplayitemchange="musicPlayItemChange"/>
+<song-list-bottom wx:if="{{showSingListModal}}" show-sing-list-modal="{{showSingListModal}}" bindhidemodal="hideModal" bindmusiclistchange="musicListChange" bindmusicplayitemchange="musicPlayItemChange"/>

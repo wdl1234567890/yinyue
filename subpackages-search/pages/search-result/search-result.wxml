@@ -8,7 +8,7 @@
   </view>
   <!--滚动内容区-->
   <view slot="content" class="theme-module-color">
-    <search-tab-card tabTitles="{{tabTitles}}" contentHeight="{{contentHeight}}" catchtapswitch="tapSwitch" sing-datas="{{singDatas}}"/>
+    <search-tab-card tabTitles="{{tabTitles}}" contentHeight="{{contentHeight}}" catchtapswitch="tapSwitch" sing-datas="{{singDatas}}" catchtapplaymusic="tapPlayMusic"/>
   </view>
 </wrapper>
 <!-- 歌曲底部操作功能弹框 -->

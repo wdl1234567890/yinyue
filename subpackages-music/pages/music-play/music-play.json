@@ -2,6 +2,7 @@
   "usingComponents": {
      "i-notice-bar": "/extend/iview-weapp/notice-bar/index",
      "circular-item": "/common/components/circular-item/circular-item",
-     "three-column-bar": "/common/components/three-column-bar/three-column-bar"
+     "three-column-bar": "/common/components/three-column-bar/three-column-bar",
+     "song-list-bottom": "/common/components/song-list-bottom/song-list-bottom"
   }
 }

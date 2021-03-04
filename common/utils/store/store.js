@@ -111,12 +111,45 @@ function getLoopStatusIndex(){
   return getStorage(Const.LOOP_STATUS_INDEX, 0)
 }
 
+function getCurrentPlayTime(){
+  return getStorage(Const.CURRENT_PLAY_TIME,0)
+}
+
+function getCurrentPlayStatus(){
+  return getStorage(Const.CURRENT_PLAY_STATUS, false)
+}
+
+function getStopIntervalNumber(){
+  return getStorage(Const.STOP_INTERVAL_NUMBER,null)
+}
+
+function setStopIntervalNumber(stopInervalNumber){
+  setStorage(Const.STOP_INTERVAL_NUMBER,stopInervalNumber)
+}
 function setMusicList(musicList){
   setStorage(Const.MUSIC_LIST_STORE_KEY,musicList)
 }
 
+function setLoopStatusIndex(loopStatusIndex) {
+  return setStorage(Const.LOOP_STATUS_INDEX, loopStatusIndex)
+}
+
+function setCurrentPlayStatus(status){
+  setStorage(Const.CURRENT_PLAY_STATUS, status)
+}
+
 function setCurrentMusic(currentMusic){
   setStorage(Const.CURRENT_PLAY_MUSIC_STORE_KEY, currentMusic)
+}
+
+function setCurrentPlayTime(time){
+  setStorage(Const.CURRENT_PLAY_TIME, time)
+}
+
+async function addCurrentPlayTimeStepOne(){
+  let time = await getStorage(Const.CURRENT_PLAY_TIME, 0)
+  time = time+1
+  setStorage(Const.CURRENT_PLAY_TIME, time)
 }
 
 function getCurrentPlayMusicIndex(currentMusicList, currentPlayMusic) {
@@ -146,8 +179,16 @@ module.exports = {
   getCurrentPlayMusicIndex,
   getMusicListIsCollectionAll,
   getLoopStatusIndex,
+  getCurrentPlayTime,
+  getCurrentPlayStatus,
+  getStopIntervalNumber,
   setMusicList,
   setCurrentMusic,
+  setCurrentPlayStatus,
+  setLoopStatusIndex,
+  setCurrentPlayTime,
+  setStopIntervalNumber,
+  addCurrentPlayTimeStepOne,
   clearCurrentMusicList,
   clearCurrentMusic
 }

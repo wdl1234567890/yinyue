@@ -105,14 +105,16 @@ Component({
     },
    async musicPlayItemChange(e){
       let musicList = await Store.getCurrentMusicList()
-     if (musicList.length==0){
-        
+      if (musicList.length==0){  
         this.setData({
           hasMusicList:false
         })
         return
       }
       this.triggerEvent('musicplayitemchange', e.detail)
+    },
+    musicListChange(e){
+      this.triggerEvent('musiclistchange',null)
     }
   }
 })

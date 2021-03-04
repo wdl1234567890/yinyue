@@ -62,10 +62,14 @@ Component({
             clearInterval(that.data.stopIntervalNum)
             that.setData({
               musicList: [],
+              musicInfo:{},
               isCollectAll: false,
               showSingListModal: false
             })
             Store.clearCurrentMusicList()
+            Store.clearCurrentMusic()
+            that.triggerEvent('musicplayitemchange', null)
+            this.triggerEvent('musiclistchange', null)
           }
         }
       })
@@ -83,6 +87,7 @@ Component({
           musicList:[]
         })
         this.triggerEvent('musicplayitemchange',null)
+        this.triggerEvent('musiclistchange', null)
       }else{
         let index = e.currentTarget.dataset.index
 
@@ -92,16 +97,17 @@ Component({
         if (musicList[index].id == this.data.musicInfo.id) {
           let nextIndex = -1
           let loopStatusIndex = await Store.getLoopStatusIndex()
+          let currentPlayIndex = this.findCurrentMusicIndex()
           if (loopStatusIndex == 2) {
-            nextIndex = this.randomMusicListIndex()
+            while ((nextIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
           } else {
             nextIndex = index + 1 >= musicList.length ? 0 : index + 1
           }
-          this.triggerEvent('musicplayitemchange', musicList[nextIndex].id)
           this.setData({
             musicInfo: musicList[nextIndex]
           })
           Store.setCurrentMusic(musicList[nextIndex])
+          this.triggerEvent('musicplayitemchange', musicList[nextIndex].id)
         }
 
         musicList.splice(index, 1);
@@ -109,7 +115,7 @@ Component({
           musicList
         })
         Store.setMusicList(musicList)
-
+        this.triggerEvent('musiclistchange',null)
         // if (musicList.length == 0) {
         //   clearInterval(this.data.stopIntervalNum)
         //   this.setData({
@@ -123,13 +129,16 @@ Component({
     tapPlay(e) {
       let index = e.currentTarget.dataset.index
       let item = this.data.musicList[index]
-      this.musicPlayItemChange(item.id)
+      // Store.setCurrentMusic(item)
+      this.triggerEvent('hidemodal')
+      this.triggerEvent('musicplayitemchange', item.id)
+      // this.musicPlayItemChange(item.id)
       this.setData({
         showSingListModal: false
       })
 
     },
-    randomMusicListIndex() {
+    findCurrentMusicIndex() {
       let musicList = this.data.musicList
       let currentPlayId = this.data.musicInfo.id
       let currentPlayIndex = -1
