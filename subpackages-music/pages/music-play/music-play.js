@@ -397,6 +397,10 @@ Page({
   },
   async musicListChange(e){
     let musicList = await Store.getCurrentMusicList()
+    if(musicList.length==0){
+      wx.navigateBack()
+      return
+    }
     this.setData({
       musicList
     })
@@ -518,8 +522,11 @@ Page({
     
   },
   musicPlayItemChangeInner(e){
-    let id = e.detail
-    this.musicPlayItemChange(id)
+    if(e!=null && e.detail!=null){
+      let id = e.detail
+      this.musicPlayItemChange(id)
+    }
+    
   },
   async musicPlayItemChange(id,isFirst=false){
     let newItem = {}

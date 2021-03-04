@@ -51,6 +51,22 @@ Component({
         isCollectAll: !this.data.isCollectAll
       })
     },
+    async clearAllStorage(){
+      clearInterval(await Store.getStopIntervalNumber())
+      Store.setStopIntervalNumber(null)
+      Store.clearCurrentMusicList()
+      Store.clearCurrentMusic()
+      Store.setCurrentPlayTime(0)
+      that.setData({
+        musicList: [],
+        musicInfo: {},
+        isCollectAll: false,
+        showSingListModal: false
+      })
+      this.triggerEvent('hidemodal')
+      this.triggerEvent('musicplayitemchange', null)
+      this.triggerEvent('musiclistchange', null)
+    },
     removeAllListItem(e) {
       if(this.data.musicList.length == 0)return
       let that = this
@@ -59,17 +75,7 @@ Component({
         confirmText: '清空',
         success(res) {
           if (res.confirm) {
-            clearInterval(that.data.stopIntervalNum)
-            that.setData({
-              musicList: [],
-              musicInfo:{},
-              isCollectAll: false,
-              showSingListModal: false
-            })
-            Store.clearCurrentMusicList()
-            Store.clearCurrentMusic()
-            that.triggerEvent('musicplayitemchange', null)
-            this.triggerEvent('musiclistchange', null)
+            this.clearAllStorage()
           }
         }
       })
@@ -78,16 +84,7 @@ Component({
     async removeListItem(e) {
 
       if(this.data.musicList.length==1){
-        Store.clearCurrentMusicList()
-        Store.clearCurrentMusic()
-        clearInterval(this.data.stopIntervalNum)
-        this.setData({
-          showSingListModal: false,
-          musicInfo:{},
-          musicList:[]
-        })
-        this.triggerEvent('musicplayitemchange',null)
-        this.triggerEvent('musiclistchange', null)
+        this.clearAllStorage()
       }else{
         let index = e.currentTarget.dataset.index
 
@@ -106,7 +103,7 @@ Component({
           this.setData({
             musicInfo: musicList[nextIndex]
           })
-          Store.setCurrentMusic(musicList[nextIndex])
+          // Store.setCurrentMusic(musicList[nextIndex])
           this.triggerEvent('musicplayitemchange', musicList[nextIndex].id)
         }
 

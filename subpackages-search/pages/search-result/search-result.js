@@ -340,8 +340,11 @@ Page({
     }
   },
   musicPlayItemChangeInner(e){
-    wx.navigateTo({
-      url: '/subpackages-music/pages/music-play/music-play?id=' + e.detail
-    })
+    if(e!=null &&e.detail!=null){
+      wx.navigateTo({
+        url: '/subpackages-music/pages/music-play/music-play?id=' + e.detail
+      })
+    }
+    
   }
 })

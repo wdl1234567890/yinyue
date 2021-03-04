@@ -111,6 +111,7 @@ Component({
         })
         return
       }
+      // let datas = e ==null||e.detail==null?null:e.detail
       this.triggerEvent('musicplayitemchange', e.detail)
     },
     musicListChange(e){
