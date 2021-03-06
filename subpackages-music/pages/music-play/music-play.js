@@ -18,6 +18,7 @@ Page({
         singTime: 240,
         lyric: '我在赶去找你的路上 - 小时姑娘\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
         commentCount: 1000,
+        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
         isVip:true
       },
       {
@@ -26,6 +27,7 @@ Page({
         singerName: '歌手2',
         isVip: true,
         singTime: 260,
+        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
         lyric: '歌曲2 - 歌手2\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
         commentCount: 900,
         isVip: true
@@ -36,6 +38,7 @@ Page({
         singerName: '歌手3',
         isVip: false,
         singTime: 100,
+        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
         lyric: '歌曲3 - 歌手3\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
         commentCount: 10,
         isVip: false
@@ -43,6 +46,7 @@ Page({
       {
         id: 4,
         singName: '歌曲4',
+        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
         singerName: '歌手4',
         isVip: false,
         singTime: 190,
@@ -54,6 +58,7 @@ Page({
         id: 5,
         singName: '歌曲5',
         singerName: '歌手5',
+        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
         isVip: true,
         singTime: 244,
         lyric: '歌曲5 - 歌手5\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
@@ -64,11 +69,13 @@ Page({
         id: 6,
         singName: '歌曲6',
         singerName: '歌手6',
+        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
         isVip: false,
         singTime: 205,
         lyric: '歌曲6 - 歌手6\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
         commentCount: 20,
-        isVip: false
+        isVip: false,
+        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
       },
       {
         id: 7,
@@ -76,12 +83,14 @@ Page({
         singerName: '歌手7',
         isVip: false,
         singTime: 220,
+        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
         lyric: '歌曲7 - 歌手7\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
         commentCount: 195,
         isVip: false
       },
       {
         id: 8,
+        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
         singName: '歌曲8',
         singerName: '歌手8',
         isVip: false,
@@ -96,6 +105,7 @@ Page({
         singerName: '歌手9',
         isVip: false,
         singTime: 120,
+        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
         lyric: '歌曲9 - 歌手9\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
         commentCount: 1744,
         isVip: false
@@ -183,26 +193,33 @@ Page({
    */
   async onLoad(options) {
     let musicId = options.id
-    let currentTime = await Store.getCurrentPlayTime()
     let musicList = await Store.getCurrentMusicList()
-    let loopStatusIndex = await Store.getLoopStatusIndex()
-    // let playStatus = await Store.getStopIntervalNumber()!=null
-    func.getElementHeight(this, '#canvas').then(playCdSize => {
+    let currentPlayTime = app.globalData.currentPlayTime
+    let loopStatusIndex = app.globalData.loopStatusIndex
+    func.getElementHeight(this, '#canvas').then(async(playCdSize) => {
       //计算每秒钟的进度
       let progressRadius=playCdSize/2-3
       let progressLength = 2 * Math.PI * progressRadius
+      
+      this.calPerSecondProgress()
+      app.globalData.doSomething = this.drawPlayProgress
+      app.globalData.obj = this
+      app.globalData.endSomething = this.calPerSecondProgress
+      app.globalData.playMusicById(musicId)
+      
+      // let musicInfo = await Store.getCurrentPlayMusic()
+
       this.setData({
-        currentTime,
+        currentPlayTime,
         musicList,
+        // musicInfo,
         loopStatusIndex,
-        // playStatus,
-        radius : playCdSize / 2,
+        playStatus:false,
+        radius: playCdSize / 2,
         progressRadius,
         progressLength
       })
-
-      this.musicPlayItemChange(musicId,true)
-
+      // this.musicPlayItemChange(musicId,true)
     })
     //app.globalData.calPlayTime()
   },
@@ -232,7 +249,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    app.globalData.doSomething = null
+    app.globalData.obj = null
+    app.globalData.endSomething = null
   },
 
   /**
@@ -257,39 +276,42 @@ Page({
   },
 
   //播放音乐
-  async playMusic(){
-    if(await Store.getStopIntervalNumber()==null){
-      app.globalData.calPlayTime()
-      let that = this
-      //控制进度条变化
-      let stopIntervalNum = setInterval(async () => {
-        if (that.data.musicInfo.singTime == await Store.getCurrentPlayTime()) {
-          if (that.data.loopStatusIndex == 1) {
-            that.musicPlayItemChange(that.data.musicInfo.id)
-          } else {
-            that.nextSong()
-          }
-          return
-        }
-        that.drawPlayProgress()
-      }, 1000)
+  // async playMusic(){
+  //   // if(await Store.getStopIntervalNumber()==null){
+  //     // app.globalData.calPlayTime()
+  //     // let that = this
+  //     //控制进度条变化
 
-      this.setData({
-        stopIntervalNum
-      })
-    }
-    let playStatus = await Store.getStopIntervalNumber() != null
-    this.setData({playStatus})
-  },
+  //     // let stopIntervalNum = setInterval(async () => {
+  //     //   if (that.data.musicInfo.singTime == await Store.getCurrentPlayTime()) {
+  //     //     if (that.data.loopStatusIndex == 1) {
+  //     //       that.musicPlayItemChange(that.data.musicInfo.id)
+  //     //     } else {
+  //     //       that.nextSong()
+  //     //     }
+  //     //     return
+  //     //   }
+  //     //   that.drawPlayProgress()
+  //     // }, 1000)
+
+  //     // this.setData({
+  //     //   stopIntervalNum
+  //     // })
+  //   // }
+  //   let playStatus = await Store.getStopIntervalNumber() != null
+  //   this.setData({playStatus})
+  // },
 
   //计算并绘制当前播放进度条
-  async drawPlayProgress(){
-    let currentTime = await Store.getCurrentPlayTime()
+  drawPlayProgress(){
+    // let currentPlayTime = await Store.getCurrentPlayTime()
+    let currentPlayTime = app.globalData.currentPlayTime
     this.setData({
-      currentTime
+      currentPlayTime
     })
+    if (currentPlayTime == 0) return
     //当前进度条弧长
-    let currentProgressLength = currentTime * this.data.perSecondProgress
+    let currentProgressLength = currentPlayTime * this.data.perSecondProgress
     //计算进度条当前弧长的两倍与周长的比值(0~2)
     let deg = currentProgressLength*2/ this.data.progressLength
     //由于是以三点钟方向为0度，故这里在绘制时的真实弧度需要减去90
@@ -306,6 +328,7 @@ Page({
 
     //开始绘制
     this.drawPlayCd(drawDeg, yuanX, yuanY)
+    
     
   },
 
@@ -354,17 +377,17 @@ Page({
       showLyric: !this.data.showLyric
     })
   },
-  async playChange(e){
+  playChange(e){
+    
     let playStatus = this.data.playStatus
     if (playStatus){
-      clearInterval(this.data.stopIntervalNum)
-      let stopNumber = await Store.getStopIntervalNumber()
-      if (stopNumber != null) clearInterval(stopNumber)
-      Store.setStopIntervalNumber(null)
-      this.setData({playStatus:false})
+      // clearInterval(this.data.stopIntervalNum)
+      app.globalData.pausePlayMusic()
+      // this.setData({playStatus:false})
     }else{
-      this.playMusic()
+      app.globalData.playMusic()
     }
+    
     playStatus = !playStatus
     this.setData({
       playStatus
@@ -377,7 +400,7 @@ Page({
     this.setData({
       loopStatusIndex
     })
-    Store.setLoopStatusIndex(loopStatusIndex)
+    app.globalData.loopStatusIndex=loopStatusIndex
   },
   likeChange(e){
     let likeStatus = this.data.likeStatus
@@ -409,6 +432,12 @@ Page({
     this.setData({
       showSingListModal: true
     })
+  },
+  nextSong(e){
+    app.globalData.nextSong()
+  },
+  preSong(e){
+    app.globalData.preSong()
   },
   // musicListCollectAllChange(e){
   //   let musicListInfo = this.data.musicListInfo
@@ -466,134 +495,140 @@ Page({
   //   })
     
   // },
-  findCurrentMusicIndex(){
-    let musicList = this.data.musicList
-    let currentPlayId = this.data.musicInfo.id
-    let currentPlayIndex = -1
-    for (let i = 0; i < musicList.length; i++) {
-      if (musicList[i].id == currentPlayId) {
-        currentPlayIndex = i
-        break
-      }
-    }
-    return currentPlayIndex
-  },
-  preSong(e){
-    let preIndex = -1
-    let musicList = this.data.musicList
-    let currentPlayId = this.data.musicInfo.id
-    let currentPlayIndex = this.findCurrentMusicIndex()
+  // findCurrentMusicIndex(){
+  //   let musicList = this.data.musicList
+  //   let currentPlayId = this.data.musicInfo.id
+  //   let currentPlayIndex = -1
+  //   for (let i = 0; i < musicList.length; i++) {
+  //     if (musicList[i].id == currentPlayId) {
+  //       currentPlayIndex = i
+  //       break
+  //     }
+  //   }
+  //   return currentPlayIndex
+  // },
+  // preSong(e){
+  //   let preIndex = -1
+  //   let musicList = this.data.musicList
+  //   let currentPlayId = this.data.musicInfo.id
+  //   let currentPlayIndex = this.findCurrentMusicIndex()
 
-    if(currentPlayIndex==-1)return
+  //   if(currentPlayIndex==-1)return
 
-    if (this.data.loopStatusIndex == 2) {
-      if (musicList.length != 1) {
-        while ((preIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
-      } else {
-        preIndex = currentPlayIndex
-      }
+  //   if (this.data.loopStatusIndex == 2) {
+  //     if (musicList.length != 1) {
+  //       while ((preIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
+  //     } else {
+  //       preIndex = currentPlayIndex
+  //     }
 
-    } else {
-      preIndex = currentPlayIndex - 1 <= -1 ? musicList.length - 1 : currentPlayIndex - 1
-    }
-    this.musicPlayItemChange(musicList[preIndex].id)
-  },
-  nextSong(e){
-    let nextIndex = -1
-    let musicList = this.data.musicList
-    let currentPlayId = this.data.musicInfo.id
-    let currentPlayIndex = this.findCurrentMusicIndex()
+  //   } else {
+  //     preIndex = currentPlayIndex - 1 <= -1 ? musicList.length - 1 : currentPlayIndex - 1
+  //   }
+  //   this.musicPlayItemChange(musicList[preIndex].id)
+  // },
+  // nextSong(e){
+  //   let nextIndex = -1
+  //   let musicList = this.data.musicList
+  //   let currentPlayId = this.data.musicInfo.id
+  //   let currentPlayIndex = this.findCurrentMusicIndex()
 
-    if (currentPlayIndex == -1) return
+  //   if (currentPlayIndex == -1) return
 
     
-    if (this.data.loopStatusIndex==2){
-      if(musicList.length!=1){
-        while ((nextIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
-      }else{
-        nextIndex=currentPlayIndex
-      }
+  //   if (this.data.loopStatusIndex==2){
+  //     if(musicList.length!=1){
+  //       while ((nextIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
+  //     }else{
+  //       nextIndex=currentPlayIndex
+  //     }
       
-    }else{
-      nextIndex = currentPlayIndex + 1 >= musicList.length ? 0 : currentPlayIndex + 1
-    }
+  //   }else{
+  //     nextIndex = currentPlayIndex + 1 >= musicList.length ? 0 : currentPlayIndex + 1
+  //   }
 
-    this.musicPlayItemChange(musicList[nextIndex].id)
+  //   this.musicPlayItemChange(musicList[nextIndex].id)
     
-  },
-  musicPlayItemChangeInner(e){
+  // },
+  async musicPlayItemChangeInner(e){
     if(e!=null && e.detail!=null){
-      let id = e.detail
-      this.musicPlayItemChange(id)
+      // let id = e.detail
+      // this.musicPlayItemChange(id)
+      let musicInfo = await Store.getCurrentPlayMusic()
+      this.setData({
+        musicInfo
+      })
+
     }
     
   },
-  async musicPlayItemChange(id,isFirst=false){
-    let newItem = {}
-    let ctime = await Store.getCurrentPlayTime()
-    if(id==this.data.musicInfo.id){
-      if (this.data.musicInfo.singTime >= ctime - 1 && this.data.musicInfo.singTime <= ctime + 1){
-        newItem = this.data.musicInfo
-      }else return
-    }else{
-      //TODO request 
-      for (let i = 0; i < this.data.musicListData.length; i++) {
-        if (this.data.musicListData[i].id == id) {
-          newItem = this.data.musicListData[i]
-          break
-        }
-      }
+  // async musicPlayItemChange(id,isFirst=false){
+  //   let newItem = {}
+  //   let ctime = await Store.getCurrentPlayTime()
+  //   if(id==this.data.musicInfo.id){
+  //     if (this.data.musicInfo.singTime >= ctime - 1 && this.data.musicInfo.singTime <= ctime + 1){
+  //       newItem = this.data.musicInfo
+  //     }else return
+  //   }else{
+  //     //TODO request 
+  //     for (let i = 0; i < this.data.musicListData.length; i++) {
+  //       if (this.data.musicListData[i].id == id) {
+  //         newItem = this.data.musicListData[i]
+  //         break
+  //       }
+  //     }
       
-    }
+  //   }
 
   
-    //TODO user is vip?
-    if (newItem.isVip) {
-      wx.showModal({
-        title: '该曲需要开通vip才能听完整首哦',
-        confirmText: '立即开通',
-        cancelText: '暂不开通',
-        success(res) {
-          if (res.confirm) {
-            wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
-          }
-        }
-      })
-    }
+  //   //TODO user is vip?
+  //   if (newItem.isVip) {
+  //     wx.showModal({
+  //       title: '该曲需要开通vip才能听完整首哦',
+  //       confirmText: '立即开通',
+  //       cancelText: '暂不开通',
+  //       success(res) {
+  //         if (res.confirm) {
+  //           wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
+  //         }
+  //       }
+  //     })
+  //   }
     
-    this.setData({
-      musicInfo: newItem,
-      currentTime: 0,
-      playStatus:true,
-      perSecondProgress: this.data.progressLength / newItem.singTime
-    })
+  //   this.setData({
+  //     musicInfo: newItem,
+  //     currentPlayTime: 0,
+  //     playStatus:true,
+  //     perSecondProgress: this.data.progressLength / newItem.singTime
+  //   })
 
-    let currentMusic = await Store.getCurrentPlayMusic()
+  //   let currentMusic = await Store.getCurrentPlayMusic()
     
-    if (!isFirst || (isFirst && id != currentMusic.id)){
-      this.setData({
-        currentTime: 0
-      })
-      Store.setCurrentPlayTime(0)
-      let stopNumber = await Store.getStopIntervalNumber()
-      clearInterval(this.data.stopIntervalNum)
-      if (stopNumber != null) clearInterval(stopNumber)
-      Store.setStopIntervalNumber(null)
-    }
+  //   if (!isFirst || (isFirst && id != currentMusic.id)){
+  //     this.setData({
+  //       currentPlayTime: 0
+  //     })
+  //     Store.setCurrentPlayTime(0)
+  //     let stopNumber = await Store.getStopIntervalNumber()
+  //     clearInterval(this.data.stopIntervalNum)
+  //     if (stopNumber != null) clearInterval(stopNumber)
+  //     Store.setStopIntervalNumber(null)
+  //   }
     
-    Store.setCurrentMusic(newItem)
-    this.clearAndDrawBackground()
-    this.playMusic()
-  },
-  tapPlay(e){
-    let index = e.currentTarget.dataset.index
-    let item = this.data.musicList[index]
-    this.musicPlayItemChange(item.id)
-    this.setData({
-      showSingListModal:false
-    })
+  //   Store.setCurrentMusic(newItem)
+  //   this.clearAndDrawBackground()
+  //   this.playMusic()
+  // },
+  // tapPlay(e){
+  //   let index = e.currentTarget.dataset.index
+  //   let item = this.data.musicList[index]
+  //   app.global.playMusicById()
+  //   this.musicPlayItemChange(item.id)
+  //   this.setData({
+  //     showSingListModal:false
+  //   })
 
-  },
+  // },
   downMusic(e){
     //TODO user is vip?
     if (this.data.musicInfo.isVip) {
@@ -608,6 +643,17 @@ Page({
         }
       })
     }
+  },
+ async calPerSecondProgress(){
+    let musicInfo = await Store.getCurrentPlayMusic()
+    let perSecondProgress= this.data.progressLength / musicInfo.singTime
+    let playStatus = app.globalData.stopIntervalNumber != null
+    this.setData({
+      musicInfo,
+      perSecondProgress,
+      playStatus
+    })
+    this.clearAndDrawBackground()
   },
   canvasTouchend(e){
     console.log(e)

@@ -10,6 +10,10 @@ Component({
       type: Boolean,
       value: false
     },
+    musicInfo:{
+      type:Object,
+      value:{}
+    }
   },
 
   /**
@@ -18,7 +22,6 @@ Component({
   data: {
     themeColor: app.globalData.themeColor,
     musicList: [],
-    musicInfo: {},
     isCollectAll: false
   },
   // observers: {
@@ -51,13 +54,14 @@ Component({
         isCollectAll: !this.data.isCollectAll
       })
     },
-    async clearAllStorage(){
-      clearInterval(await Store.getStopIntervalNumber())
-      Store.setStopIntervalNumber(null)
-      Store.clearCurrentMusicList()
-      Store.clearCurrentMusic()
-      Store.setCurrentPlayTime(0)
-      that.setData({
+    clearAllStorage(){
+      // clearInterval(await Store.getStopIntervalNumber())
+      // Store.setStopIntervalNumber(null)
+      app.globalData.stopPlayMusic()
+      // Store.clearCurrentMusicList()
+      // Store.clearCurrentMusic()
+      // Store.setCurrentPlayTime(0)
+      this.setData({
         musicList: [],
         musicInfo: {},
         isCollectAll: false,
@@ -75,7 +79,7 @@ Component({
         confirmText: '清空',
         success(res) {
           if (res.confirm) {
-            this.clearAllStorage()
+            that.clearAllStorage()
           }
         }
       })
@@ -93,8 +97,8 @@ Component({
 
         if (musicList[index].id == this.data.musicInfo.id) {
           let nextIndex = -1
-          let loopStatusIndex = await Store.getLoopStatusIndex()
-          let currentPlayIndex = this.findCurrentMusicIndex()
+          let loopStatusIndex = app.globalData.loopStatusIndex
+          let currentPlayIndex = app.globalData.findCurrentMusicIndex()
           if (loopStatusIndex == 2) {
             while ((nextIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
           } else {
@@ -104,6 +108,7 @@ Component({
             musicInfo: musicList[nextIndex]
           })
           // Store.setCurrentMusic(musicList[nextIndex])
+          app.globalData.playMusicById(musicList[nextIndex].id)
           this.triggerEvent('musicplayitemchange', musicList[nextIndex].id)
         }
 
@@ -127,6 +132,7 @@ Component({
       let index = e.currentTarget.dataset.index
       let item = this.data.musicList[index]
       // Store.setCurrentMusic(item)
+      app.globalData.playMusicById(item.id)
       this.triggerEvent('hidemodal')
       this.triggerEvent('musicplayitemchange', item.id)
       // this.musicPlayItemChange(item.id)
@@ -135,17 +141,17 @@ Component({
       })
 
     },
-    findCurrentMusicIndex() {
-      let musicList = this.data.musicList
-      let currentPlayId = this.data.musicInfo.id
-      let currentPlayIndex = -1
-      for (let i = 0; i < musicList.length; i++) {
-        if (musicList[i].id == currentPlayId) {
-          currentPlayIndex = i
-          break
-        }
-      }
-      return currentPlayIndex
-    },
+    // findCurrentMusicIndex() {
+    //   let musicList = this.data.musicList
+    //   let currentPlayId = this.data.musicInfo.id
+    //   let currentPlayIndex = -1
+    //   for (let i = 0; i < musicList.length; i++) {
+    //     if (musicList[i].id == currentPlayId) {
+    //       currentPlayIndex = i
+    //       break
+    //     }
+    //   }
+    //   return currentPlayIndex
+    // },
   }
 })

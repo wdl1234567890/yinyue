@@ -124,10 +124,10 @@ function getStopIntervalNumber(){
 }
 
 function setStopIntervalNumber(stopInervalNumber){
-  setStorage(Const.STOP_INTERVAL_NUMBER,stopInervalNumber)
+  return setStorage(Const.STOP_INTERVAL_NUMBER,stopInervalNumber)
 }
 function setMusicList(musicList){
-  setStorage(Const.MUSIC_LIST_STORE_KEY,musicList)
+  return setStorage(Const.MUSIC_LIST_STORE_KEY,musicList)
 }
 
 function setLoopStatusIndex(loopStatusIndex) {
@@ -135,15 +135,15 @@ function setLoopStatusIndex(loopStatusIndex) {
 }
 
 function setCurrentPlayStatus(status){
-  setStorage(Const.CURRENT_PLAY_STATUS, status)
+  return setStorage(Const.CURRENT_PLAY_STATUS, status)
 }
 
 function setCurrentMusic(currentMusic){
-  setStorage(Const.CURRENT_PLAY_MUSIC_STORE_KEY, currentMusic)
+  return setStorage(Const.CURRENT_PLAY_MUSIC_STORE_KEY, currentMusic)
 }
 
 function setCurrentPlayTime(time){
-  setStorage(Const.CURRENT_PLAY_TIME, time)
+  return setStorage(Const.CURRENT_PLAY_TIME, time)
 }
 
 async function addCurrentPlayTimeStepOne(){
@@ -152,8 +152,11 @@ async function addCurrentPlayTimeStepOne(){
   setStorage(Const.CURRENT_PLAY_TIME, time)
 }
 
-function getCurrentPlayMusicIndex(currentMusicList, currentPlayMusic) {
+async function getCurrentPlayMusicIndex() {
+  let currentMusicList = await getCurrentMusicList()
+  let currentPlayMusic = await getCurrentPlayMusic()
   let length = currentMusicList.length
+
   for (let i = 0; i < length; i++) {
     if (currentMusicList[i].id == currentPlayMusic.id) return i
   }

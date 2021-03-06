@@ -18,7 +18,7 @@
     <!--播放器-->
     <view hidden="{{showLyric}}">
       <!--歌曲时间-->
-      <view class="song-time">{{tools.transformSecondToMinute(currentTime)}}/
+      <view class="song-time">{{tools.transformSecondToMinute(currentPlayTime)}}/
         <text style="color:#777">{{tools.transformSecondToMinute(musicInfo.singTime)}}</text>
       </view>
       <!--播放圆盘-->
@@ -27,7 +27,7 @@
         <canvas canvas-id="circular-play-cd" id="canvas" style="width:{{windowWidth*(70/100)}}px;height:{{windowWidth*(70/100)}}px;border-radius:{{windowWidth*(70/100)}}px;" class="circular-play-cd" bindtouchmove="canvasTouchend"></canvas>
         <!--音乐封面-->
         <view class="circular-post">
-          <circular-item size="490" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" />
+          <circular-item size="490" src="{{musicInfo.cover}}" />
         </view>
       </view>
     </view>
@@ -63,4 +63,4 @@
   </view>
 </wrapper>
 <!--底部播放列表弹框-->
-<song-list-bottom wx:if="{{showSingListModal}}" show-sing-list-modal="{{showSingListModal}}" bindhidemodal="hideModal" bindmusiclistchange="musicListChange" bindmusicplayitemchange="musicPlayItemChangeInner"/>
+<song-list-bottom wx:if="{{showSingListModal}}" show-sing-list-modal="{{showSingListModal}}" bindhidemodal="hideModal" bindmusiclistchange="musicListChange" bindmusicplayitemchange="musicPlayItemChangeInner" music-info="{{musicInfo}}"/>

@@ -2,20 +2,20 @@
 <view class="play-bar-container theme-padding play-bar-class" style="height:{{height}}rpx;">
   <!--音乐封面-->
   <view class="cover-container" style="width:{{height+10}}rpx;height:{{height+10}}rpx;border-radius:{{height+10}}rpx;">
-    <circular-item src="{{cover}}" size="{{height-21}}" circular-item-class="cover-item"/>
+    <circular-item src="{{musicInfo.cover}}" size="{{height-21}}" circular-item-class="cover-item"/>
   </view>
   <!--歌曲名与歌手-->
   <view class="song-info-container">
-    <text class="song-name">梦游症梦</text>
-    <text class="singer-name"> - 王贰浪</text>
+    <text class="song-name">{{musicInfo.singName}}</text>
+    <text class="singer-name"> - {{musicInfo.singerName}}</text>
   </view>
   <!--播放按钮-->
-  <view style="margin-right: 26rpx;">
-    <image src="/static/images/index/pause.svg" style="width:{{height-16}}rpx;height:{{height-16}}rpx"></image>
+  <view style="margin-right: 26rpx;" catchtap="tapPlay">
+    <image src="{{playStatus?'/static/images/music-play/play.png':'/static/images/music-play/timeout.png'}}" style="width:{{height-16}}rpx;height:{{height-16}}rpx"></image>
   </view>
   <!--歌单按钮-->
   <view style="margin-right: -15rpx;" catchtap="showModal">
     <image src="/static/images/index/musiclist.svg" style="width:{{height-26}}rpx;height:{{height-26}}rpx"></image>
   </view>
 </view>
-<song-list-bottom wx:if="{{showSingListModal}}" show-sing-list-modal="{{showSingListModal}}" bindhidemodal="hideModal" bindmusiclistchange="musicListChange" bindmusicplayitemchange="musicPlayItemChange"/>
+<song-list-bottom wx:if="{{showSingListModal}}" show-sing-list-modal="{{showSingListModal}}" bindhidemodal="hideModal" bindmusiclistchange="musicListChange" bindmusicplayitemchange="musicPlayItemChange" music-info="{{musicInfo}}"/>

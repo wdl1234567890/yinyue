@@ -60,11 +60,11 @@ Component({
         Store.setMusicList(musicList)
         // Store.setCurrentPlayStatus(true)
       }
-    
-      this.triggerEvent('tapplaymusic')
+      // app.globalData.playMusicById(this.data.singDatas[index].id)
       wx.navigateTo({
         url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.singDatas[index].id
       })
+      this.triggerEvent('tapplaymusic')
     }
   }
 })

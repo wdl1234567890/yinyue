@@ -11,6 +11,7 @@ Page({
     showActionModal:false,
     hasMusicList:false,
     musicInfo:{},
+    cmusicInfo:{},
     actions:[
       {
         id:1,
@@ -139,8 +140,10 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    
+  async onLoad(options) {
+    this.setData({
+      cmusicInfo:await Store.getCurrentPlayMusic()
+    })
   },
 
   /**
@@ -216,9 +219,12 @@ Page({
     let index = e.currentTarget.dataset.index
     switch(this.data.actions[index].text){
       case "播放":
-        // Store.setCurrentMusic(this.data.musicInfo)
+        app.globalData.playMusicById(this.data.musicInfo.id)
+        this.setData({
+          cmusicInfo: this.data.musicInfo
+        })
         wx.navigateTo({
-          url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.musicInfo.id
+          url: '/subpackages-music/pages/music-play/music-play'
         })
         break
       case "下一首播放":
@@ -226,7 +232,8 @@ Page({
         break
       case "收藏到歌单":
         break
-      case "下载": this.downMusic()
+      case "下载": 
+        this.downMusic()
         break
       case "评论":
         wx.navigateTo({
@@ -237,6 +244,7 @@ Page({
         break
     }
   },
+  
   downMusic() {
     //TODO user is vip?
     if (this.data.musicInfo.isVip) {
@@ -252,10 +260,10 @@ Page({
       })
     }
   },
-  tapPlayMusic(e){
-    // this.setData({
-    //   musicInfo:Store.getCurrentPlayMusic()
-    // })
+  async tapPlayMusic(e){
+    this.setData({
+      cmusicInfo: await Store.getCurrentPlayMusic()
+    })
   },
   async nextPlay(){
     let oldMusicList
@@ -286,7 +294,7 @@ Page({
             //删除和“将要加入的下一首”相同的歌曲
             oldMusicList.splice(i, 1)
             //找到当前播放歌曲在播放列表里的位置
-            currentPlayMusicIndex = Store.getCurrentPlayMusicIndex(oldMusicList, currentPlayMusic)
+            currentPlayMusicIndex = Store.getCurrentPlayMusicIndex()
             console.log(currentPlayMusicIndex)
             //将歌曲加入“下一首播放”
             oldMusicList.splice(currentPlayMusicIndex+1, 0, this.data.musicInfo)
@@ -313,7 +321,7 @@ Page({
           oldMusicList.push(this.data.musicInfo)
         } else {
           //找到当前播放歌曲在播放列表里的位置
-          let currentPlayMusicIndex = Store.getCurrentPlayMusicIndex(oldMusicList, currentPlayMusic)
+          let currentPlayMusicIndex = Store.getCurrentPlayMusicIndex()
           //将歌曲加入“下一首播放”
           oldMusicList.splice(currentPlayMusicIndex+1, 0, this.data.musicInfo)
         }
@@ -334,16 +342,23 @@ Page({
     })
 
     if (Object.keys(currentPlayMusic).length == 0){
+      app.globalData.playMusicById(currentPlayMusic.id)
+      this.setData({
+        cmusicInfo: currentPlayMusic
+      })
       wx.navigateTo({
-        url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.musicInfo.id
+        url: '/subpackages-music/pages/music-play/music-play'
       })
     }
   },
-  musicPlayItemChangeInner(e){
+  async musicPlayItemChangeInner(e){
     if(e!=null &&e.detail!=null){
-      wx.navigateTo({
-        url: '/subpackages-music/pages/music-play/music-play?id=' + e.detail
+      this.setData({
+        cmusicInfo:await Store.getCurrentPlayMusic()
       })
+      // wx.navigateTo({
+      //   url: '/subpackages-music/pages/music-play/music-play'
+      // })
     }
     
   }

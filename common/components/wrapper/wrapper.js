@@ -36,7 +36,23 @@ Component({
     hasMusicList:{
       type:Boolean,
       value:false
+    },
+    musicInfo:{
+      type:Object,
+      value:{}
     }
+    // cover:{
+    //   type:String,
+    //   value:''
+    // },
+    // singName: {
+    //   type: String,
+    //   value: '歌名'
+    // },
+    // singerName: {
+    //   type: String,
+    //   value: '歌手'
+    // }
   },
 
   /**
