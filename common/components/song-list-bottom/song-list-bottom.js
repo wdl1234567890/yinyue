@@ -98,7 +98,7 @@ Component({
         if (musicList[index].id == this.data.musicInfo.id) {
           let nextIndex = -1
           let loopStatusIndex = app.globalData.loopStatusIndex
-          let currentPlayIndex = app.globalData.findCurrentMusicIndex()
+          let currentPlayIndex = await Store.getCurrentPlayMusicIndex()
           if (loopStatusIndex == 2) {
             while ((nextIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
           } else {

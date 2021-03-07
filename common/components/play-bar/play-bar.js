@@ -52,7 +52,7 @@ Component({
   pageLifetimes: {
     async show() {
       let musicInfo = await Store.getCurrentPlayMusic()
-      console.log(musicInfo)
+    
       // this.setData({
       //   cover: musicInfo.cover,
       //   singName: musicInfo.singName,
@@ -98,7 +98,7 @@ Component({
       })
       this.triggerEvent('musicplayitemchange', e.detail)
       wx.navigateTo({
-        url: '/subpackages-music/pages/music-play/music-play'
+        url: '/subpackages-music/pages/music-play/music-play?id=' + e.detail
       })
     },
     async tapPlay(e) {
@@ -108,7 +108,7 @@ Component({
         app.globalData.pausePlayMusic()
         // this.setData({playStatus:false})
       } else {
-        app.globalData.playMusic()
+        app.globalData.playMusic() 
       }
       playStatus = !playStatus
       this.setData({

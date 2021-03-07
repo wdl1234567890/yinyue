@@ -305,8 +305,10 @@ Page({
   //计算并绘制当前播放进度条
   drawPlayProgress(){
     // let currentPlayTime = await Store.getCurrentPlayTime()
+    let playStatus = app.globalData.stopIntervalNumber != null
     let currentPlayTime = app.globalData.currentPlayTime
     this.setData({
+      playStatus,
       currentPlayTime
     })
     if (currentPlayTime == 0) return
@@ -433,11 +435,27 @@ Page({
       showSingListModal: true
     })
   },
-  nextSong(e){
+  async nextSong(e){    
+
     app.globalData.nextSong()
+    if ((await Store.getCurrentMusicList()).length == 1) {
+      this.clearAndDrawBackground()
+      app.globalData.currentPlayTime = -1
+      this.setData({
+        currentPlayTime: 0
+      })
+    }
   },
-  preSong(e){
+  async preSong(e){
+    app.globalData.currentPlayTime = -1
     app.globalData.preSong()
+    if ((await Store.getCurrentMusicList()).length == 1) {
+      this.clearAndDrawBackground()
+      app.globalData.currentPlayTime = -1
+      this.setData({
+        currentPlayTime: 0
+      })
+    }
   },
   // musicListCollectAllChange(e){
   //   let musicListInfo = this.data.musicListInfo
@@ -648,12 +666,13 @@ Page({
     let musicInfo = await Store.getCurrentPlayMusic()
     let perSecondProgress= this.data.progressLength / musicInfo.singTime
     let playStatus = app.globalData.stopIntervalNumber != null
+    this.clearAndDrawBackground()
     this.setData({
       musicInfo,
       perSecondProgress,
       playStatus
     })
-    this.clearAndDrawBackground()
+   
   },
   canvasTouchend(e){
     console.log(e)

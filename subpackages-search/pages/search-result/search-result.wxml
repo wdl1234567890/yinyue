@@ -1,7 +1,7 @@
 <wxs src="../../../common/utils/func/tools.wxs" module="tools"/>
 <wrapper nav-bar-class="theme-module-color" bindgetcontentheight="getContentHeight" has-music-list="{{hasMusicList}}" bindmusicplayitemchange="musicPlayItemChangeInner" music-info="{{cmusicInfo}}">
   <view slot="nav-bar-left" class="back-icon">
-    <i-icon type="return" size="25" color="#888" />
+    <back-button />
   </view>
   <view slot="nav-bar-middle">
     <search-bar />

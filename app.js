@@ -250,7 +250,7 @@ App({
       if (musicInfo.singTime == ctime) {
         newItem = musicInfo
       } else {
-        if (this.globalData.endSomething != null) this.globalData.endSomething.apply(this.globalData.obj)
+        //if (this.globalData.endSomething != null) this.globalData.endSomething.apply(this.globalData.obj)
         this.calPlayTime()
         return
       }

@@ -2,7 +2,7 @@
 <wrapper nav-bar-class="theme-module-color" mode="play">
   <!--返回按钮-->
   <view slot="nav-bar-left" class="back-icon-container">
-    <i-icon type="return" size="25" color="#666" />
+    <back-button />
   </view>
   <!--歌名和歌手信息-->
   <view slot="nav-bar-middle" class="song-nane-container">

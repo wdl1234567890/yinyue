@@ -219,13 +219,8 @@ Page({
     let index = e.currentTarget.dataset.index
     switch(this.data.actions[index].text){
       case "播放":
-        app.globalData.playMusicById(this.data.musicInfo.id)
-        this.setData({
-          cmusicInfo: this.data.musicInfo
-        })
-        wx.navigateTo({
-          url: '/subpackages-music/pages/music-play/music-play'
-        })
+        // app.globalData.playMusicById(this.data.musicInfo.id)
+        this.tapPlayButton()
         break
       case "下一首播放":
         this.nextPlay()
@@ -259,6 +254,29 @@ Page({
         }
       })
     }
+  },
+
+  async tapPlayButton(){
+    this.setData({
+      cmusicInfo: this.data.musicInfo
+    })
+
+    let musicList = await Store.getCurrentMusicList()
+    let isInclude = false
+    for (let i = 0; i < musicList.length; i++) {
+      if (musicList[i].id == this.data.musicInfo.id) {
+        isInclude = true
+        break
+      }
+    }
+    if (!isInclude) {
+      musicList.unshift(this.data.musicInfo)
+      Store.setMusicList(musicList)
+    }
+
+    wx.navigateTo({
+      url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.musicInfo.id
+    })
   },
   async tapPlayMusic(e){
     this.setData({
@@ -294,8 +312,8 @@ Page({
             //删除和“将要加入的下一首”相同的歌曲
             oldMusicList.splice(i, 1)
             //找到当前播放歌曲在播放列表里的位置
-            currentPlayMusicIndex = Store.getCurrentPlayMusicIndex()
-            console.log(currentPlayMusicIndex)
+            currentPlayMusicIndex = await Store.getCurrentPlayMusicIndex()
+            
             //将歌曲加入“下一首播放”
             oldMusicList.splice(currentPlayMusicIndex+1, 0, this.data.musicInfo)
           }else{
@@ -321,7 +339,7 @@ Page({
           oldMusicList.push(this.data.musicInfo)
         } else {
           //找到当前播放歌曲在播放列表里的位置
-          let currentPlayMusicIndex = Store.getCurrentPlayMusicIndex()
+          let currentPlayMusicIndex = await Store.getCurrentPlayMusicIndex()
           //将歌曲加入“下一首播放”
           oldMusicList.splice(currentPlayMusicIndex+1, 0, this.data.musicInfo)
         }
@@ -342,12 +360,12 @@ Page({
     })
 
     if (Object.keys(currentPlayMusic).length == 0){
-      app.globalData.playMusicById(currentPlayMusic.id)
+      // app.globalData.playMusicById(currentPlayMusic.id)
       this.setData({
-        cmusicInfo: currentPlayMusic
+        cmusicInfo: this.data.musicInfo
       })
       wx.navigateTo({
-        url: '/subpackages-music/pages/music-play/music-play'
+        url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.musicInfo.id
       })
     }
   },
