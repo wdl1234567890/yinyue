@@ -5,5 +5,6 @@ module.exports = {
   LOOP_STATUS_INDEX:"loopStatusIndex",
   CURRENT_PLAY_TIME:"currentPlayTime",
   CURRENT_PLAY_STATUS:"currentPlayStatus",
-  STOP_INTERVAL_NUMBER:"stopIntervalNumber"
+  STOP_INTERVAL_NUMBER:"stopIntervalNumber",
+  SELF_SONG_LIST:"selfSongList"
 }

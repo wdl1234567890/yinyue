@@ -1,0 +1,35 @@
+.sing-info{
+  display: flex;
+  flex-direction: column;
+  margin-left: 35rpx;
+}
+.sing-name{
+  color: #333;
+  font-size: 30rpx;
+  letter-spacing: 1px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 10rpx;
+}
+.vip-icon{
+  padding: 3rpx 4rpx;
+  color: var(--theme-color);
+  border-radius: 10rpx;
+  border: 1px solid var(--theme-color);
+  font-size: 20rpx;
+  letter-spacing: 1px;
+  margin-right: 18rpx;
+}
+.singer-name-and-sing-info{
+  display: flex;
+  align-items: center;
+}
+.singer-name{
+  color: #888;
+  font-size: 24rpx;
+  letter-spacing: 1px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

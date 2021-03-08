@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "square-item": "/common/components/square-item/square-item",
+    "three-column-bar": "/common/components/three-column-bar/three-column-bar",
+    "my-radio": "/common/components/my-radio/my-radio"
+  }
+}

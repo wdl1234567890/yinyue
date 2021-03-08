@@ -1,0 +1,16 @@
+<wxs src="../../../common/utils/func/tools.wxs" module="tools"/>
+<wrapper nav-bar-class="theme-module-color" bindgetcontentheight="getContentHeight" catchtapaddnextsong="tapAddNextSong" catchtapaddtosonglist="tapAddToSongList" catchtapdownload="tapDownload" mode="batch">
+  <view slot="nav-bar-left" class="back-icon">
+    <back-button />
+  </view>
+  <view slot="nav-bar-middle">
+    
+  </view>
+  <text slot="nav-bar-right" class="all-select" catchtap="allChecked">{{checkedIds.length==singDatas.length?'取消全选':'全选'}}</text>
+  <!--滚动内容区-->
+  <scroll-view scroll-y slot="content" class="theme-module-color theme-padding" style="height:100%">
+    <view wx:for="{{singDatas}}" wx:key="id" class="sing-data-item">
+      <batch-action-sing-item sing-name="{{item.singName}}" singer-name="{{item.singerName}}" is-vip="{{item.isVip}}" item-id="{{item.id}}" catchhandlecheckchange="handleCheckChange" checked="{{tools.isArrayInclude(checkedIds,item.id)}}"/>
+    </view>
+  </scroll-view>
+</wrapper>

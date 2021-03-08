@@ -5,10 +5,13 @@
 }
 
 .song-nane {
+  color: #333;
   font-size: 34rpx !important;
   font-weight: bold;
   letter-spacing: 1px;
   background-color: var(--theme-module-color) !important;
+  margin-bottom: 10rpx;
+
 }
 .share-button{
   padding: 0!important;

@@ -1,0 +1,8 @@
+.all-select{
+  color: #333;
+  font-size: 28rpx;
+  letter-spacing: 1px;
+}
+.sing-data-item{
+  margin-bottom: 45rpx;
+}

@@ -97,6 +97,10 @@ function clearStorage(key){
   
 }
 
+function getSelfSongList(){
+  return getStorage(Const.SELF_SONG_LIST, [])
+}
+
 function getCurrentPlayMusic() {
   return getStorage(Const.CURRENT_PLAY_MUSIC_STORE_KEY,{})
 }
@@ -146,6 +150,10 @@ function setCurrentPlayTime(time){
   return setStorage(Const.CURRENT_PLAY_TIME, time)
 }
 
+function addSelfSongList(value){
+  return addStorage(Const.SELF_SONG_LIST,value)
+}
+
 async function addCurrentPlayTimeStepOne(){
   let time = await getStorage(Const.CURRENT_PLAY_TIME, 0)
   time = time+1
@@ -177,6 +185,7 @@ module.exports = {
   getStorage,
   removeStorage,
   clearStorage,
+  getSelfSongList,
   getCurrentPlayMusic,
   getCurrentMusicList,
   getCurrentPlayMusicIndex,
@@ -191,6 +200,7 @@ module.exports = {
   setLoopStatusIndex,
   setCurrentPlayTime,
   setStopIntervalNumber,
+  addSelfSongList,
   addCurrentPlayTimeStepOne,
   clearCurrentMusicList,
   clearCurrentMusic

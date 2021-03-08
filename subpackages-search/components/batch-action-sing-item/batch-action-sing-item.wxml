@@ -1,0 +1,12 @@
+<view>
+  <three-column-bar>
+    <my-radio bindchange="handleCheckChange" size="{{thumbSize/8}}" slot="left" checked="{{checked}}" innerHandle="{{false}}"/>
+    <view slot="middle" class="sing-info">
+      <text class="sing-name">{{singName}}</text>
+      <view class="singer-name-and-sing-info">
+        <view wx:if="{{isVip}}" class="vip-icon">VIP</view>
+        <text class="singer-name">{{singerName}}</text>
+      </view>
+    </view>
+  </three-column-bar>
+</view>

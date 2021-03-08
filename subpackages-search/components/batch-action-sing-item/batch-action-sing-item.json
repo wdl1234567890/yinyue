@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "info-label":"/common/components/info-label/info-label",
+    "my-radio": "/common/components/my-radio/my-radio",
+    "three-column-bar": "/common/components/three-column-bar/three-column-bar"
+  }
+}

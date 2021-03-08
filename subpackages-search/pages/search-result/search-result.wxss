@@ -11,9 +11,19 @@
   padding-top: 20rpx;
   padding-bottom: 20rpx;
 }
+.collect-song-list-container{
+  
+}
+.song-list-add-new{
+  margin-bottom: 15rpx;
+  padding: 0 15rpx;
+}
+.collect-song-list-item{
+  margin-bottom: var(--theme-gap)
+}
 .action-icon{
   margin-right: 25rpx;
-  position: relative;
+  position: relative; 
 }
 .actions-title-container{
   padding: 0!important

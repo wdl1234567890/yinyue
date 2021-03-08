@@ -9,7 +9,7 @@
             <i-icon type="playon_fill" color="{{themeColor}}" size="23" />
             <text class="play-all-text">播放全部</text>
           </view>
-          <i-icon type="success" size="23" color="#333" slot="right" />
+          <i-icon type="success" size="23" color="#333" slot="right" catchtap="goToBatch"/>
         </three-column-bar>
       </view>
       <!--单曲列表-->

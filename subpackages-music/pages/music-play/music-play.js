@@ -205,27 +205,42 @@ Page({
       app.globalData.doSomething = this.drawPlayProgress
       app.globalData.obj = this
       app.globalData.endSomething = this.calPerSecondProgress
-      app.globalData.playMusicById(musicId)
-      
-      // let musicInfo = await Store.getCurrentPlayMusic()
-
       this.setData({
         currentPlayTime,
         musicList,
         // musicInfo,
         loopStatusIndex,
-        playStatus:false,
         radius: playCdSize / 2,
         progressRadius,
         progressLength
       })
+      if(musicId!=-1){
+        app.globalData.playMusicById(musicId)
+        // this.setData({
+        //   playStatus: false
+        // })
+      }
+      else{
+        let musicInfo = await Store.getCurrentPlayMusic()
+        let perSecondProgress = progressLength / musicInfo.singTime
+        let playStatus = app.globalData.stopIntervalNumber != null
+        this.setData({
+          musicInfo,
+          perSecondProgress,
+          playStatus
+        })
+        this.drawPlayProgress()
+      }
+      // let musicInfo = await Store.getCurrentPlayMusic()
+
+      
       // this.musicPlayItemChange(musicId,true)
     })
     //app.globalData.calPlayTime()
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   *  生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
 
@@ -304,6 +319,12 @@ Page({
 
   //计算并绘制当前播放进度条
   drawPlayProgress(){
+    if(this.data.currentPlayTime==-1){
+      this.setData({
+        currentPlayTime:0
+      })
+      return
+    }
     // let currentPlayTime = await Store.getCurrentPlayTime()
     let playStatus = app.globalData.stopIntervalNumber != null
     let currentPlayTime = app.globalData.currentPlayTime
@@ -330,7 +351,6 @@ Page({
 
     //开始绘制
     this.drawPlayCd(drawDeg, yuanX, yuanY)
-    
     
   },
 

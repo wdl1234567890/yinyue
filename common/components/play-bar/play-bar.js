@@ -11,18 +11,6 @@ Component({
       type: Number,
       value: 200
     },
-    cover: {
-      type: String,
-      value: ''
-    },
-    singName: {
-      type: String,
-      value: '歌名'
-    },
-    singerName: {
-      type: String,
-      value: '歌手'
-    },
     musicInfo:{
       type:Object,
       value:{}
@@ -39,30 +27,39 @@ Component({
     playStatus:app.globalData.stopIntervalNumber!=null
   },
 
-  onReady(){
-    app.globalData.endSomething=this.endPlay
-    app.globalData.obj=this
+  async onReady(){
+    // app.globalData.doSomething = this.doSomething
+    
+    let musicInfo = await Store.getCurrentPlayMusic()
+    let playStatus = app.globalData.stopIntervalNumber != null
+    this.setData({
+      musicInfo,
+      playStatus
+    })
   },
 
   detached(){
     app.globalData.endSomething=null
+    // app.globalData.doSomething=null
     app.globalData.obj = null
   },
 
   pageLifetimes: {
     async show() {
+      app.globalData.endSomething = this.endPlay
+      app.globalData.obj = this
       let musicInfo = await Store.getCurrentPlayMusic()
-    
+      let playStatus = app.globalData.stopIntervalNumber != null
       // this.setData({
       //   cover: musicInfo.cover,
       //   singName: musicInfo.singName,
       //   singerName: musicInfo.singerName
       // })
       this.setData({
-        musicInfo
+        musicInfo,
+        playStatus
       })
-    },
-    
+    }
   },
   /**
    * 组件的方法列表
@@ -78,25 +75,40 @@ Component({
         showSingListModal: false
       })
     },
-    async endPlay(){
-      let musicInfo = await Store.getCurrentPlayMusic()
-      this.setData({
-        cover:musicInfo.cover,
-        singName:musicInfo.singName,
-        singerName:musicInfo.singerName
+    toPlayPage(e){
+      wx.navigateTo({
+        url: '/subpackages-music/pages/music-play/music-play?id=-1'
       })
     },
+    async endPlay(){
+      let musicInfo = await Store.getCurrentPlayMusic()
+      let playStatus = app.globalData.stopIntervalNumber!=null
+      this.setData({
+        musicInfo,
+        playStatus
+      })
+      
+    },
+    // async doSomething(){
+    //   console.log("****")
+    //   let musicInfo = await Store.getCurrentPlayMusic()
+    //   let playStatus = app.globalData.stopIntervalNumber != null
+    //   this.setData({
+    //     musicInfo,
+    //     playStatus
+    //   })
+    // },
     musiclistChange(e) {
       this.triggerEvent('musiclistchange', e.detail)
     },
     async musicPlayItemChange(e) {
       let musicInfo = await Store.getCurrentPlayMusic()
       this.setData({
-        cover: musicInfo.cover,
-        singName: musicInfo.singName,
-        singerName: musicInfo.singerName
+        musicInfo
       })
+      
       this.triggerEvent('musicplayitemchange', e.detail)
+      if (Object.keys(musicInfo).length == 0) return
       wx.navigateTo({
         url: '/subpackages-music/pages/music-play/music-play?id=' + e.detail
       })
@@ -114,7 +126,6 @@ Component({
       this.setData({
         playStatus
       })
-
 
       // if (stopIntervalNumber == null) {
       //   app.globalData.calPlayTime()

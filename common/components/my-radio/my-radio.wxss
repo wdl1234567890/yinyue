@@ -1,0 +1,13 @@
+.my-radio{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checked{
+  background-color: var(--theme-color);
+  border: none;
+}
+.not-check{
+  border: 1px solid #999;
+  background-color: #fff;
+}

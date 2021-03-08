@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "back-button": "/common/components/back-button/back-button",
+    "batch-action-sing-item":"../../components/batch-action-sing-item/batch-action-sing-item"
+  }
+}

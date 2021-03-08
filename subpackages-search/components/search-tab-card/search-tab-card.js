@@ -65,6 +65,12 @@ Component({
         url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.singDatas[index].id
       })
       this.triggerEvent('tapplaymusic')
+    },
+    goToBatch(e){
+      app.globalData.searchResult=this.data.singDatas
+      wx.navigateTo({
+        url: '/subpackages-search/pages/batch-action-page/batch-action-page'
+      })
     }
   }
 })

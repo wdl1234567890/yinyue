@@ -11,6 +11,24 @@
   left: 0;
   right: 0;
 }
+.batch-action-bar-container{
+  display: flex;
+  padding:10rpx var(--theme-gap);
+  background-color: var(--theme-module-color);
+  justify-content: space-between;
+  border-top: 1px solid #eee;
+}
+.action-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 33%;
+}
+.action-item-text{
+  color: #777;
+  font-size: 28rpx;
+  margin-top: 14rpx;
+}
 .send-button{
   color: #fff;
   background-color: var(--theme-color);

@@ -19,7 +19,7 @@
     <slot name="content"></slot>
   </view>
   <!--底部播放条-->
-  <view style="background-color: rgba(253,253,253,1);" class="play-bar-container fixed-element" wx:if="{{mode=='normal' && hasMusicList}}">
+  <view style="background-color: rgba(253,253,253,1);" class="play-bar-container fixed-element" hidden="{{!(mode=='normal' && hasMusicList)}}">
     <play-bar height="108" bindmusicplayitemchange="musicPlayItemChange" bindmusiclistchange="musicListChange" music-info="{{musicInfo}}"/>
   </view>
   <!--底部评论条-->
@@ -36,5 +36,20 @@
       <text slot="middle" class="price">￥{{sumPrice}}</text>
       <view slot="right" class="payment-button">确认支付</view>
     </three-column-bar>
+  </view>
+  <!--批量操作页面底部操作条-->
+  <view wx:if="{{mode=='batch'}}" class="batch-action-bar-container fixed-element">
+    <view class="action-item" catchtap="tapAddNextSong">
+      <i-icon type="offline" size="28" color="#333"/>
+      <text class="action-item-text">下一首播放</text>
+    </view>
+    <view class="action-item" catchtap="tapAddToSongList">
+      <i-icon type="offline" size="28" color="#333"/>
+      <text class="action-item-text">加入歌单</text>
+    </view>
+    <view class="action-item" catchtap="tapDownload">
+      <i-icon type="offline" size="28" color="#333"/>
+      <text class="action-item-text">下载</text>
+    </view>
   </view>
 </view>

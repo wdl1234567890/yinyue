@@ -6,9 +6,10 @@
   </view>
   <!--歌名和歌手信息-->
   <view slot="nav-bar-middle" class="song-nane-container">
-    <i-notice-bar loop speed="2500" color="#333" i-class="song-nane">
-      {{musicInfo.singName}}
-    </i-notice-bar>
+    <!-- <i-notice-bar loop speed="2500" color="#333" i-class="song-nane">
+      
+    </i-notice-bar>-->
+    <view class="song-nane">{{musicInfo.singName}}</view>
     <text class="singer-name">{{musicInfo.singerName}}</text>
   </view>
   <!--歌词转换按钮-->
