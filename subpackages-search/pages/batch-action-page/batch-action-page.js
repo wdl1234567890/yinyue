@@ -8,7 +8,10 @@ Page({
    */
   data: {
     singDatas:[],
-    checkedIds:[]
+    checkedIds:[],
+    showSongListAction:false,
+    musicInfos:[],
+    themeColor: app.globalData.themeColor,
   },
 
   /**
@@ -68,6 +71,7 @@ Page({
   onShareAppMessage: function () {
 
   },
+  
   allChecked(e){
     let checkedIds = []
     if (this.data.checkedIds.length!=this.data.singDatas.length){
@@ -87,6 +91,7 @@ Page({
     })
   },
   addNextSong(infos,index,isFirst){
+
     app.globalData.nextPlay(infos[index], null, null,res=>{
       console.log(res)
       if(index!=infos.length-1){
@@ -107,6 +112,7 @@ Page({
     },this,false)
   },
   async tapAddNextSong(e){
+    if (!this.checkIsHasChecked()) return
     //获取当前播放歌曲
     let currentPlayMusic = await Store.getCurrentPlayMusic()
     let musicInfos = this.data.singDatas.reverse().filter(e => {
@@ -117,11 +123,51 @@ Page({
     this.addNextSong(musicInfos, index, Object.keys(currentPlayMusic).length==0)
     
   },
+  checkIsHasChecked(){
+    if (this.data.checkedIds.length == 0) {
+      wx.showToast({
+        title: '还没有选择歌曲！',
+        icon: 'none'
+      })
+      return false;
+    }
+    return true
+  },
   tapAddToSongList(e){
+    
+    if (!this.checkIsHasChecked())return
 
+    let musicInfos = this.data.singDatas.filter(e=>{
+      if(this.data.checkedIds.indexOf(e.id)!=-1)return true
+      return false
+    })
+    this.setData({
+      musicInfos,
+      showSongListAction:true
+    })
   },
   tapDownload(e){
+    if (!this.checkIsHasChecked()) return
+    let isHasVip = this.data.singDatas.find(e => {
+      if (this.data.checkedIds.indexOf(e.id) != -1 && e.isVip)return true
+      return false
+    })
+    if(isHasVip){
+      wx.showModal({
+        title: "购买VIP",
+        content: '包含VIP歌曲，是否购买VIP?',
+        confirmText: "购买VIP",
+        confirmColor: this.data.themeColor,
+        success(e) {
+          if (e.confirm) {
+            wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
+          }
+        }
+      })
+    }else{
 
+    }
+    
   },
   handleCheckChange(e){
     

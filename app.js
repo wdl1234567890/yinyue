@@ -151,7 +151,7 @@ App({
       id: 1,
       srcUrl: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
       title: "我喜欢的音乐",
-      songCount: 0
+      list: []
     }
     let value1 = await Store.getSelfSongList()
     if (value1.length == 0) {

@@ -11,12 +11,9 @@ Page({
     showActionModal:false,
     hasMusicList:false,
     showSongListAction:false,
-    showModal:'songListModal',
-    newSongListName:'',
     themeColor: app.globalData.themeColor,
     musicInfo:{},
     cmusicInfo:{},
-    checkedIdList:[],
     actions:[
       {
         id:1,
@@ -139,8 +136,7 @@ Page({
         commentCount: 640,
         isVip: false,
       },
-    ],
-    selfSongList:[]
+    ]
   },
 
   /**
@@ -252,9 +248,9 @@ Page({
   },
 
   async collectionToList(e){
-    this.setData({
-      selfSongList: await Store.getSelfSongList()
-    })
+    // this.setData({
+    //   selfSongList: await Store.getSelfSongList()
+    // })
     this.setData({
       showActionModal:false,
       showSongListAction:true
@@ -269,6 +265,7 @@ Page({
         title: '该曲需要开通vip才能下载哦',
         confirmText: '立即开通',
         cancelText: '暂不开通',
+        confirmColor:this.data.themeColor,
         success(res) {
           if (res.confirm) {
             wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
@@ -300,30 +297,30 @@ Page({
       url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.musicInfo.id
     })
   },
-  collection(e){
-    const index = e.detail.index;
-    let modal = this.data.showModal
-    if (index === 0) {
+  // collection(e){
+  //   const index = e.detail.index;
+  //   let modal = this.data.showModal
+  //   if (index === 0) {
 
-      if (modal == 'songListModal') {
-        this.setData({
-          showSongListAction: false,
-          checkedIdList:[]
-        })
-      } else if (modal == 'inputModal') {
-        this.setData({
-          showModal:'songListModal'
-        })
-      }
-    } else if (index === 1) {
+  //     if (modal == 'songListModal') {
+  //       this.setData({
+  //         showSongListAction: false,
+  //         checkedIdList:[]
+  //       })
+  //     } else if (modal == 'inputModal') {
+  //       this.setData({
+  //         showModal:'songListModal'
+  //       })
+  //     }
+  //   } else if (index === 1) {
       
-      if (modal =='songListModal'){
+  //     if (modal =='songListModal'){
 
-      } else if (modal =='inputModal'){
-        this.songListConfirm()
-      }
-    }
-  },
+  //     } else if (modal =='inputModal'){
+  //       this.songListConfirm()
+  //     }
+  //   }
+  // },
   async tapPlayMusic(e){
     this.setData({
       cmusicInfo: await Store.getCurrentPlayMusic()
@@ -436,47 +433,47 @@ Page({
     }
     
   },
-  addNewSongList(e){
-    this.setData({
-      showModal:'inputModal',
-      newSongListName:this.data.musicInfo.singName
-    })
-  },
-  songListInput(e){
+  // addNewSongList(e){
+  //   this.setData({
+  //     showModal:'inputModal',
+  //     newSongListName:this.data.musicInfo.singName
+  //   })
+  // },
+  // songListInput(e){
     
-    this.setData({
-      newSongListName:e.detail.value
-    })
-  },
-  songListConfirm(e){
-    let newId = this.data.selfSongList.length + 1
-    let value = { title: this.data.newSongListName, srcUrl: this.data.musicInfo.cover, id: newId, songCount:0}
-    Store.addSelfSongList(value).then(res=>{
-      wx.showToast({
-        title: '新建歌单完成!',
-        icon: 'none'
-      })
-      let oldSelfSongList = this.data.selfSongList
-      oldSelfSongList.push(value)
-      this.setData({
-        selfSongList: oldSelfSongList,
-        showModal: 'songListModal'
-      })
-    })
+  //   this.setData({
+  //     newSongListName:e.detail.value
+  //   })
+  // },
+  // songListConfirm(e){
+  //   let newId = this.data.selfSongList.length + 1
+  //   let value = { title: this.data.newSongListName, srcUrl: this.data.musicInfo.cover, id: newId, songCount:0}
+  //   Store.addSelfSongList(value).then(res=>{
+  //     wx.showToast({
+  //       title: '新建歌单完成!',
+  //       icon: 'none'
+  //     })
+  //     let oldSelfSongList = this.data.selfSongList
+  //     oldSelfSongList.push(value)
+  //     this.setData({
+  //       selfSongList: oldSelfSongList,
+  //       showModal: 'songListModal'
+  //     })
+  //   })
     
-  },
-  handleCheckChange(e){
-    let checked = e.detail.checked
-    let id = e.detail.id
-    let checkedIdList = this.data.checkedIdList
-    if(checked){
-      checkedIdList.push(id)
+  // },
+  // handleCheckChange(e){
+  //   let checked = e.detail.checked
+  //   let id = e.detail.id
+  //   let checkedIdList = this.data.checkedIdList
+  //   if(checked){
+  //     checkedIdList.push(id)
       
-    }else{
-      checkedIdList.splice(checkedIdList.indexOf(id),1)
-    }
-    this.setData({
-      checkedIdList
-    })
-  }
+  //   }else{
+  //     checkedIdList.splice(checkedIdList.indexOf(id),1)
+  //   }
+  //   this.setData({
+  //     checkedIdList
+  //   })
+  // }
 })

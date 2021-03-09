@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "back-button": "/common/components/back-button/back-button",
-    "batch-action-sing-item":"../../components/batch-action-sing-item/batch-action-sing-item"
+    "batch-action-sing-item":"../../components/batch-action-sing-item/batch-action-sing-item",
+    "song-list-action-card": "../../components/song-list-action-card/song-list-action-card"
   }
 }

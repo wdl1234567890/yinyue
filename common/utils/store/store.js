@@ -138,6 +138,10 @@ function setLoopStatusIndex(loopStatusIndex) {
   return setStorage(Const.LOOP_STATUS_INDEX, loopStatusIndex)
 }
 
+function setSelfSongList(selfSongList){
+  return setStorage(Const.SELF_SONG_LIST, selfSongList)
+}
+
 function setCurrentPlayStatus(status){
   return setStorage(Const.CURRENT_PLAY_STATUS, status)
 }
@@ -194,6 +198,7 @@ module.exports = {
   getCurrentPlayTime,
   getCurrentPlayStatus,
   getStopIntervalNumber,
+  setSelfSongList,
   setMusicList,
   setCurrentMusic,
   setCurrentPlayStatus,

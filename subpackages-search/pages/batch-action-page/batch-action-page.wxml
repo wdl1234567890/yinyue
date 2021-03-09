@@ -14,3 +14,5 @@
     </view>
   </scroll-view>
 </wrapper>
+<!--添加到歌单弹框-->
+<song-list-action-card show-song-list-action="{{showSongListAction}}" musicInfos="{{musicInfos}}"/>

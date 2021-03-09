@@ -30,13 +30,15 @@ Component({
    */
   methods: {
     change(e){
+      let checked = this.data.checked
       if(this.data.innerHandle){
         this.setData({
-          checked: !this.data.checked
+          checked: !checked
         })
       }
-      
-      this.triggerEvent('change', !this.data.checked)
+
+      this.triggerEvent('change', !checked)
+    
     }
   }
 })

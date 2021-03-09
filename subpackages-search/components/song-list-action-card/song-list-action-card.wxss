@@ -1,0 +1,13 @@
+.theme-padding{
+  padding: var(--theme-padding)
+}
+.collect-song-list-container{
+  
+}
+.collect-song-list-item{
+  margin-bottom: var(--theme-gap)
+}
+.song-list-add-new{
+  margin-bottom: 15rpx;
+  padding: 0 15rpx;
+}

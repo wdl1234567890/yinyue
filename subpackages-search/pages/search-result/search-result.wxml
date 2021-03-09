@@ -28,7 +28,7 @@
     </view>
   </view>
 </bottom-modal>
-<song-list-action visible="{{showSongListAction}}" wx:if="{{showSongListAction}}" bind:click="collection" actions="{{[{name: '取   消',color:'#fff'},{name: '完   成',color:themeColor}]}}">
+<!-- <song-list-action visible="{{showSongListAction}}" wx:if="{{showSongListAction}}" bind:click="collection" actions="{{[{name: '取   消',color:'#fff'},{name: '完   成',color:themeColor}]}}">
   <view class="theme-padding collect-song-list-container" wx:if="{{showModal=='songListModal'}}">
     <view class="collect-song-list-item">
       <collect-song-list-item top-title="新建歌单" src-url="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" bindtapitem="addNewSongList"/>
@@ -41,4 +41,6 @@
   <view wx:if="{{showModal=='inputModal'}}" class="song-list-add-new">
     <input placeholder="输入新建歌单标题" value="{{newSongListName}}" focus bindinput="songListInput" bindconfirm="songListConfirm"/>
   </view>
-</song-list-action>
+</song-list-action> -->
+<!--添加到歌单弹框-->
+<song-list-action-card show-song-list-action="{{showSongListAction}}" musicInfos="{{[musicInfo]}}"/>
