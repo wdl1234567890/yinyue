@@ -370,47 +370,7 @@ Page({
     }
     
   },
-  // addNewSongList(e){
-  //   this.setData({
-  //     showModal:'inputModal',
-  //     newSongListName:this.data.musicInfo.singName
-  //   })
-  // },
-  // songListInput(e){
-    
-  //   this.setData({
-  //     newSongListName:e.detail.value
-  //   })
-  // },
-  // songListConfirm(e){
-  //   let newId = this.data.selfSongList.length + 1
-  //   let value = { title: this.data.newSongListName, srcUrl: this.data.musicInfo.cover, id: newId, songCount:0}
-  //   Store.addSelfSongList(value).then(res=>{
-  //     wx.showToast({
-  //       title: '新建歌单完成!',
-  //       icon: 'none'
-  //     })
-  //     let oldSelfSongList = this.data.selfSongList
-  //     oldSelfSongList.push(value)
-  //     this.setData({
-  //       selfSongList: oldSelfSongList,
-  //       showModal: 'songListModal'
-  //     })
-  //   })
-    
-  // },
-  // handleCheckChange(e){
-  //   let checked = e.detail.checked
-  //   let id = e.detail.id
-  //   let checkedIdList = this.data.checkedIdList
-  //   if(checked){
-  //     checkedIdList.push(id)
-      
-  //   }else{
-  //     checkedIdList.splice(checkedIdList.indexOf(id),1)
-  //   }
-  //   this.setData({
-  //     checkedIdList
-  //   })
-  // }
+  search(e){
+    let value=e.detail
+  }
 })

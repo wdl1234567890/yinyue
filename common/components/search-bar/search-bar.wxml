@@ -1,5 +1,6 @@
 <!--搜索框-->
 <view class="search-container">
   <i-icon type="search" size="20" color="#888"/>
-  <text class="theme-font text-one-row">干饭人之歌</text>
+  <input class="text-one-row theme-font" confirm-type="search" adjust-position="{{false}}" bindinput="inputChange" placeholder="请输入搜索内容" value="{{searchValue}}" bindconfirm="search" style="flex-grow:1;margin-left:10rpx"/>
+  <!-- <text class="theme-font text-one-row">干饭人之歌</text> -->
 </view>
