@@ -4,7 +4,7 @@
     <back-button />
   </view>
   <view slot="nav-bar-middle">
-    <search-bar catchsearch="search"/>
+    <search-bar catchsearch="search" search-value="{{searchValue}}"/>
   </view>
   <!--滚动内容区-->
   <view slot="content" class="theme-module-color">

@@ -6,7 +6,7 @@ Component({
   properties: {
     searchValue: {
       type:String,
-      value:'干饭人之歌'
+      value:''
     }
   },
 

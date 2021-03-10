@@ -10,6 +10,7 @@ Page({
   data: {
     showActionModal:false,
     hasMusicList:false,
+    searchValue:'',
     // showSongListAction:false,
     themeColor: app.globalData.themeColor,
     musicInfo:{},
@@ -163,7 +164,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
+    let searchValue = options.search ?options.search.trim():''
     this.setData({
+      searchValue,
       musicInfo:await Store.getCurrentPlayMusic()
     })
   },

@@ -45,7 +45,7 @@
           <image slot="middle" src="{{playStatus?'/static/images/music-play/play.png':'/static/images/music-play/timeout.png'}}" mode="aspectFill" class="play-icon" bindtap="playChange"></image>
           <image slot="right" src="/static/images/music-play/nextsong.png" mode="aspectFill" class="next-song-icon" bindtap="nextSong"></image>
         </view>
-        <image slot="right" src="/static/images/music-play/musiclist (1).png" class="music-list-icon" mode="aspectFill" bindtap="showModal"></image>
+        <image slot="right" src="/static/images/music-play/musiclist.png" class="music-list-icon" mode="aspectFill" bindtap="showModal"></image>
       </three-column-bar>
     </view>
     <!--底部功能操作条-->

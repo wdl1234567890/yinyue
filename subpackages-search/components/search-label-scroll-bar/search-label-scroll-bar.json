@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "three-column-bar": "/common/components/three-column-bar/three-column-bar"
+    "three-column-bar": "/common/components/three-column-bar/three-column-bar",
+    "info-label": "/common/components/info-label/info-label"
   }
 }

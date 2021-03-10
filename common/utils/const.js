@@ -6,5 +6,6 @@ module.exports = {
   CURRENT_PLAY_TIME:"currentPlayTime",
   CURRENT_PLAY_STATUS:"currentPlayStatus",
   STOP_INTERVAL_NUMBER:"stopIntervalNumber",
-  SELF_SONG_LIST:"selfSongList"
+  SELF_SONG_LIST:"selfSongList",
+  HISTORY_SEARCH:"hitorySearch"
 }

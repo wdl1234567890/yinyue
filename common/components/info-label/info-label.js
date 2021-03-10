@@ -55,7 +55,7 @@ Component({
    */
   methods: {
     cancel(e){
-      this.triggerEvent('cancel', e)
+      this.triggerEvent('cancel', this.data.value)
     },
     tapLabel(e){
       if (this.data.enabelActive){

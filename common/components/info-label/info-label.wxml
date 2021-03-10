@@ -1,4 +1,4 @@
 <view class="info-label-container" style="background-color:{{isActive?activeLabelColor:labelColor}}">
   <text class="label-text" style="font-size:{{size}}rpx;color:{{isActive?activeTextColor:textColor}};" bindtap="tapLabel">{{value}}</text>
-  <i-icon type="close" wx:if="{{enabelCancel}}" class="cancel-icon" size="{{size/2}}" bindtap="cancel" />
+  <i-icon type="close" wx:if="{{enabelCancel}}" class="cancel-icon" size="{{size/2}}" catchtap="cancel" />
 </view>

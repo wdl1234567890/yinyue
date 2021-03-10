@@ -115,6 +115,10 @@ function getLoopStatusIndex(){
   return getStorage(Const.LOOP_STATUS_INDEX, 0)
 }
 
+function getHistorySearch(){
+  return getStorage(Const.HISTORY_SEARCH, [])
+}
+
 function getCurrentPlayTime(){
   return getStorage(Const.CURRENT_PLAY_TIME,0)
 }
@@ -154,8 +158,16 @@ function setCurrentPlayTime(time){
   return setStorage(Const.CURRENT_PLAY_TIME, time)
 }
 
+function setHistorySearch(historySearch){
+  return setStorage(Const.HISTORY_SEARCH,historySearch)
+}
+
 function addSelfSongList(value){
   return addStorage(Const.SELF_SONG_LIST,value)
+}
+
+function addHistorySearch(value){
+  return addStorage(Const.HISTORY_SEARCH, value)
 }
 
 async function addCurrentPlayTimeStepOne(){
@@ -190,6 +202,7 @@ module.exports = {
   removeStorage,
   clearStorage,
   getSelfSongList,
+  getHistorySearch,
   getCurrentPlayMusic,
   getCurrentMusicList,
   getCurrentPlayMusicIndex,
@@ -200,6 +213,7 @@ module.exports = {
   getStopIntervalNumber,
   setSelfSongList,
   setMusicList,
+  setHistorySearch,
   setCurrentMusic,
   setCurrentPlayStatus,
   setLoopStatusIndex,
@@ -207,6 +221,7 @@ module.exports = {
   setStopIntervalNumber,
   addSelfSongList,
   addCurrentPlayTimeStepOne,
+  addHistorySearch,
   clearCurrentMusicList,
   clearCurrentMusic
 }
