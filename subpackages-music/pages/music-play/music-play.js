@@ -231,12 +231,10 @@ Page({
         })
         this.drawPlayProgress()
       }
-      // let musicInfo = await Store.getCurrentPlayMusic()
-
       
-      // this.musicPlayItemChange(musicId,true)
+      this.setLikeStatus()
     })
-    //app.globalData.calPlayTime()
+    
   },
 
   /**
@@ -424,11 +422,27 @@ Page({
     })
     app.globalData.loopStatusIndex=loopStatusIndex
   },
-  likeChange(e){
+  async likeChange(e){
+    let selfSongList = await Store.getSelfSongList()
     let likeStatus = this.data.likeStatus
     this.setData({
       likeStatus: !likeStatus
     })
+
+    if (!likeStatus){
+      selfSongList[0].list.unshift(this.data.musicInfo)
+    }else{
+      for (let i = 0; i < selfSongList[0].list.length;i++){
+        // console.log(selfSongList[0].list[i].id)
+        // console.log(this.data.musicInfo.id)
+        if (selfSongList[0].list[i].id==this.data.musicInfo.id){
+          selfSongList[0].list.splice(i,1)
+          break
+        }
+      }
+    }
+    Store.setSelfSongList(selfSongList)
+
   },
   commentDetail(e){
     wx.navigateTo({
@@ -596,9 +610,26 @@ Page({
       this.setData({
         musicInfo
       })
-
+      let selfSongList = await Store.getSelfSongList()
+      this.setLikeStatus()
     }
     
+  },
+
+  async setLikeStatus(){
+    let selfSongList = await Store.getSelfSongList()
+    for (let i = 0; i < selfSongList[0].list.length; i++) {
+      if (selfSongList[0].list[i].id == this.data.musicInfo.id) {
+        this.setData({
+          likeStatus: true
+        })
+        break
+      } else {
+        this.setData({
+          likeStatus: false
+        })
+      }
+    }
   },
   // async musicPlayItemChange(id,isFirst=false){
   //   let newItem = {}
@@ -692,6 +723,8 @@ Page({
       perSecondProgress,
       playStatus
     })
+
+   this.setLikeStatus()
    
   },
   canvasTouchend(e){

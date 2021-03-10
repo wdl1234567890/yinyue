@@ -8,6 +8,63 @@
   margin-right: 20rpx;
   align-items: center;
 }
+.share-button{
+  padding: 0!important;
+  margin: 0!important;
+  line-height: 0;
+  border: none!important;
+  outline: none;
+  width: fit-content!important;
+  height: fit-content!important;
+  border-radius: 0;
+  flex-grow: 1;
+}
+.switch-nav-card{
+  position: absolute;
+  top: 60rpx;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  width: 300rpx;
+
+}
+.select-item-icon{
+  margin-right: 20rpx;
+}
+
+.select-item-text{
+  color: #333;
+  font-size: 30rpx;
+  letter-spacing: 1px;
+  text-align: left;
+}
+.select-items-container{
+  margin: 0 30rpx;
+
+}
+.select-card-title{
+  color: #333;
+  font-size: 32rpx;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+.select-item{
+  padding: 20rpx 0;
+  align-items: center;
+}
+.no-search-result{
+  color: #666;
+  letter-spacing: 1px;
+  font-size: 28rpx;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+.share-button::after{
+  border: none;
+  outline: none;
+  list-style: none;
+}
 
 .show-name{
   opacity: 1;
@@ -17,6 +74,7 @@
 }
 .nav-bar-right {
   align-items: center;
+  position: relative;
 }
 
 .song-list-name-opacity{

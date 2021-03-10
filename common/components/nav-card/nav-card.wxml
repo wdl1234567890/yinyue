@@ -1,0 +1,6 @@
+<view class="nav-items-container">
+  <view wx:for="{{navItems}}" wx:key="text" class="nav-item" data-index="{{index}}" catchtap="tapNavItem">
+    <i-icon type="{{item.icon}}" color="#666" size="20" class="item-icon"/>
+    <text class="item-text">{{item.text}}</text>
+  </view>
+</view>

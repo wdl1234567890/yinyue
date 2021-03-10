@@ -1,30 +1,37 @@
 <wrapper nav-bar-class="theme-color">
   <!--返回按钮与歌单名称-->
   <view slot="nav-bar-left" class="flex-row back-icon-container">
-    <back-button color="#fff"/>
+    <back-button color="#fff" disabled-auto-back="{{searchState}}" catchtap="closeSearch"/>
     <text class="{{topBarchange?'show-name':'not-show-name'}} one-row-flow song-list-name-opacity" wx:if="{{!searchState}}">{{musicListInfo.title}}</text>
   </view>
   <!--输入框-->
   <view slot="nav-bar-middle" wx:if="{{searchState}}">
-    <input placeholder="搜索歌单内歌曲" focus confirm-type="search" adjust-position="{{false}}" class="input-container" placeholder-class="input-placeholder" />
+    <input placeholder="搜索歌单内歌曲" focus confirm-type="search" adjust-position="{{false}}" class="input-container" placeholder-class="input-placeholder" focus adjust-position="{{false}}" bindinput="searchInput"/>
   </view>
   <!--操作按钮-->
   <view slot="nav-bar-right" class="nav-bar-right flex-row" wx:if="{{!searchState}}">
     <i-icon type="search" size="25" color="#fff" class="search-icon" bindtap="clickSearch" />
-    <i-icon type="switch" size="25" color="#fff" />
+    <i-icon type="switch" size="25" color="#fff" catchtap="tapSwitch"/>
+    <!--开关选择面板-->
+    <view class="switch-nav-card" wx:if="{{showSwitch}}">
+      <nav-card nav-items="{{navItems}}" catchtapnavitem="tapNavItem"/>
+    </view>
   </view>
   <!--可滚动内容-->
   <!--不是在搜索的状态下显示-->
   <scroll-view scroll-y style="height:100%" slot="content" class="theme-module-color" bindscroll="scrolling" upper-threshold="8" scroll-with-animation bindscrolltoupper="scrolltoupper" hidden="{{searchState}}">
     <!--歌单信息-->
     <view class="theme-color song-list-bg-view theme-padding">
-      <song-list-item thumbSize="180" song-list-name-class="song-list-name" song-list-bottom-text-class="song-list-bottom-text" class="element-distance" src-url="{{musicListInfo.srcUrl}}" top-title="{{musicListInfo.title}}" bottomTitle="{{musicListInfo.list.length+'首'}}"/>
+      <song-list-item thumbSize="180" song-list-name-class="song-list-name" song-list-bottom-text-class="song-list-bottom-text" class="element-distance" src-url="{{musicListInfo.srcUrl}}" top-title="{{musicListInfo.title}}" bottomTitle="{{musicListInfo.list.length+'首'}}"
+      />
     </view>
     <!--操作板-->
     <view class="action-card theme-module-color flex-row" style="top:-{{actionCardHeight/2}}px">
-      <i-icon type="collection" size="24" style="border-right:1rpx solid #eee" />
-      <i-icon type="message" size="24" style="border-right:1rpx solid #eee" />
-      <i-icon type="share" size="24" />
+      <i-icon type="{{musicListInfo.isCollect?'collection_fill':'collection'}}" color="{{musicListInfo.isCollect?themeColor:'#333'}}" size="24" style="border-right:1rpx solid #eee" catchtap="collect" />
+      <i-icon type="message" size="24" style="border-right:1rpx solid #eee" catchtap="toComment"/>
+      <button open-type="share" plain class="share-button">
+        <i-icon type="share" size="24" />
+      </button>
     </view>
     <!--歌曲列表-->
     <view class="single-container theme-margin">
@@ -35,13 +42,13 @@
             <i-icon type="playon_fill" color="{{themeColor}}" size="23" />
             <text class="play-all-text">播放全部</text>
           </view>
-          <i-icon type="success" size="23" color="#333" slot="right" catchtap="goToBatch"/>
+          <i-icon type="success" size="23" color="#333" slot="right" catchtap="goToBatch" />
         </three-column-bar>
       </view>
       <!--单曲列表-->
       <view style="margin-top: 40rpx">
-        <view class="single-item" wx:for="{{musicListInfo.list}}" wx:key="id">
-          <single-item item-id="{{item.id}}" sing-name="{{item.singName}}" singer-name="{{item.singerName}}" is-vip="{{item.isVip}}"/>
+        <view class="single-item" wx:for="{{sortData}}" wx:key="id">
+          <single-item item-id="{{item.id}}" sing-name="{{item.singName}}" singer-name="{{item.singerName}}" is-vip="{{item.isVip}}" />
         </view>
       </view>
     </view>
@@ -52,10 +59,24 @@
     <view class="single-container theme-margin">
       <!--单曲列表-->
       <view style="margin-top: 40rpx">
-        <view class="single-item" wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20]}}">
-          <single-item />
+        <view class="single-item" wx:for="{{searchResult}}" wx:if="{{searchResult.length!=0}}">
+          <single-item item-id="{{item.id}}" sing-name="{{item.singName}}" singer-name="{{item.singerName}}" data-index="{{index}}" is-vip="{{item.isVip}}" comment-count="{{item.commentCount}}"/>
         </view>
+        <view class="no-search-result" wx:if="{{searchResult.length==0}}">未找到相关的内容</view>
       </view>
     </view>
   </scroll-view>
 </wrapper>
+<!--排序选择面板-->
+<sort-select-card show-ok="{{false}}" show-cancel="{{false}}" visible="{{showSortSelectCard}}">
+  <view class="select-card-title">选择歌曲排序</view>
+  <view class="select-items-container">
+    <view wx:for="{{selectItems}}" wx:key="text" class="select-item" data-index="{{index}}" catchtap="tapSelectItem">
+      <three-column-bar>
+        <i-icon slot="left" type="{{item.icon}}" size="25" color="{{themeColor}}" class="select-item-icon"/>
+        <view slot="middle" class="select-item-text">{{item.text}}</view>
+        <i-icon type="right" color="{{themeColor}}" size="25" slot="right" wx:if="{{sortIndex==index}}"/>
+      </three-column-bar>
+    </view>
+  </view>
+</sort-select-card>

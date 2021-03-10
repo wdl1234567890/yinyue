@@ -1,6 +1,7 @@
 // subpackages-song-list/pages/song-list-detail/song-list-detail.js
 let app = getApp()
 let func = require('../../../common/utils/func/wxml-element.js')
+let Store = require('../../../common/utils/store/store.js')
 Page({
 
   /**
@@ -9,7 +10,27 @@ Page({
   data: {
     themeColor: app.globalData.themeColor,
     searchState:false,
+    showSwitch:false,
+    showSortSelectCard:false,
+    navItems:[{icon:'trash',text:'选择歌曲排序'}],
     musicListInfo:{},
+    sortData:[],
+    searchResult:[],
+    sortIndex:0,
+    selectItems:[
+      {
+        icon:'barrage',
+        text:'默认'
+      },
+      {
+        icon: 'remind',
+        text: '按单曲名'
+      },
+      {
+        icon: 'group',
+        text: '按歌手名'
+      }
+    ],
     singListDatas: [
       {
         id: 1,
@@ -18,7 +39,7 @@ Page({
         list: [
           {
             id: 4,
-            singName: "歌曲4",
+            singName: "孤梦",
             singerName: "歌手4",
             cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
             commentCount: 504,
@@ -26,7 +47,7 @@ Page({
           },
           {
             id: 6,
-            singName: "歌曲6",
+            singName: "天问",
             singerName: "歌手6",
             cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
             commentCount: 152,
@@ -34,7 +55,7 @@ Page({
           },
           {
             id: 3,
-            singName: "歌曲3",
+            singName: "爱殇",
             singerName: "歌手3",
             cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
             commentCount: 1,
@@ -105,8 +126,12 @@ Page({
       else return false
     })
 
-    this.setData({
-      musicListInfo
+    Store.isMusicListCollect(musicListInfo.id).then(res=>{
+      musicListInfo.isCollect=res
+      this.setData({
+        musicListInfo,
+        sortData: musicListInfo.list
+      })
     })
 
     let that = this
@@ -223,4 +248,106 @@ Page({
       url: '/subpackages-search/pages/batch-action-page/batch-action-page'
     })
   },
+
+  //收藏歌单
+  collect(e){
+    let musicListInfo = this.data.musicListInfo
+    musicListInfo.isCollect = !musicListInfo.isCollect
+    if (musicListInfo.isCollect){
+      Store.addCollectMusicList(this.data.musicListInfo).then(res=>{
+        wx.showToast({
+          title: '歌单收藏成功！',
+          icon:'none'
+        })
+      })
+    }else{
+      Store.removeCollectMusicList(this.data.musicListInfo.id).then(res => {
+        wx.showToast({
+          title: '歌单已取消收藏！',
+          icon: 'none'
+        })
+      })
+    }
+    this.setData({
+      musicListInfo
+    })
+  },
+  toComment(e){
+    wx.navigateTo({
+      url: '/subpackages-comment/pages/comment/comment?id=' + this.data.musicListInfo.id
+    })
+  },
+  closeSearch(e){
+    if(this.data.searchState){
+      this.setData({
+        searchState:false
+      })
+    }
+  },
+  searchInput(e){
+    let value = e.detail.value.trim()
+    if(value==''){
+      this.setData({
+        searchResult:[]
+      })
+      return
+    }
+    let searchResult = this.data.musicListInfo.list.filter(e=>{
+      if(e.singName.indexOf(value)!=-1)return true
+      else if(e.singerName.indexOf(value)!=-1)return true
+      return false
+    })
+    this.setData({
+      searchResult
+    })
+  },
+  tapSwitch(e){
+    this.setData({
+      showSwitch: !this.data.showSwitch
+    })
+  },
+  tapNavItem(e){
+    let index=e.detail
+    switch(this.data.navItems[index].icon){
+      case "trash":
+      this.setData({
+        showSwitch:false,
+        showSortSelectCard:true
+      })
+      break
+      default:
+    }
+  },
+  tapSelectItem(e){
+    let index = e.currentTarget.dataset.index
+    let sortData = [...this.data.musicListInfo.list]
+    this.setData({
+      showSortSelectCard:false,
+      sortIndex:index
+    })
+    switch (this.data.selectItems[index].icon) {
+      case "barrage":
+        this.setData({
+          sortData
+        })
+        break
+      case "remind":
+        sortData.sort((a, b) => {
+          return a.singName.localeCompare(b.singName)
+        })
+        this.setData({
+          sortData
+        })
+        break
+      case "group":
+        sortData.sort((a, b) => {
+          return a.singerName.localeCompare(b.singerName)
+        })
+        this.setData({
+          sortData
+        })
+        break
+      default:
+    }
+  }
 })

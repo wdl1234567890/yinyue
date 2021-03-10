@@ -1,0 +1,19 @@
+.nav-item{
+  display: flex;
+  align-items: center;
+  margin: 20rpx;
+}
+.item-icon{
+  margin-right: 20rpx;
+}
+.item-text{
+  color: #666;
+  font-size: 30rpx;
+  letter-spacing: 1px;
+}
+.nav-items-container{
+  display: flex;
+  flex-direction: column;
+  background-color: var(--theme-module-color);
+  border-radius: var(--theme-radius)
+}

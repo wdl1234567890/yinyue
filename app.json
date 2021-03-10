@@ -1,6 +1,6 @@
 {
   "pages": [
-    "subpackages-search/pages/search/search",
+    "subpackages-search/pages/search-result/search-result",
     "subpackages-song-list/pages/song-list-detail/song-list-detail",
     "pages/sub-pages/profile-detail/profile-detail",
     "pages/index/index",
@@ -9,7 +9,7 @@
     "subpackages-comment/pages/comment/comment",
     "subpackages-payment/pages/payment/payment",
     "subpackages-music/pages/music-play/music-play",
-    "subpackages-search/pages/search-result/search-result",
+    "subpackages-search/pages/search/search",
     "subpackages-search/pages/batch-action-page/batch-action-page"
   ],
   "window": {

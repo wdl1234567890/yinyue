@@ -7,6 +7,10 @@ Component({
     color:{
       type:String,
       value:'#888'
+    },
+    disabledAutoBack:{
+      type:Boolean,
+      value:false
     }
   },
 
@@ -22,7 +26,8 @@ Component({
    */
   methods: {
     back(e){
-      wx.navigateBack()
+      if (!this.data.disabledAutoBack)wx.navigateBack()
+      
     }
   }
 })

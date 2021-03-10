@@ -40,6 +40,43 @@ function addStorage(key,value){
   
 }
 
+function addStorageIfNotIncluded(key, value) {
+  let store = []
+  return new Promise((resolve, reject) => {
+    wx.getStorage({
+      key: key,
+      success(res) {
+        store = res.data
+      },
+      complete(res) {
+        
+        let isInclud = store.find(e=>{
+          if(e.id==value.id)return true
+          return false
+        })
+
+        if (isInclud){
+          resolve(store)
+          return
+        }
+
+        store.push(value)
+        wx.setStorage({
+          key: key,
+          data: store,
+          success(res) {
+            resolve(store)
+          },
+          fail(res) {
+            resolve(res)
+          }
+        })
+      }
+    })
+  })
+
+}
+
 function getStorage(key, defalutValue=null){
   let store = defalutValue
   return new Promise((resolve, reject)=>{
@@ -53,6 +90,55 @@ function getStorage(key, defalutValue=null){
         resolve(store)
       }
     })
+  })
+}
+
+function isIncludeById(key,id){
+  return new Promise((resolve, reject) => {
+    wx.getStorage({
+      key: key,
+      success(res) {
+        let data = res.data
+        let isInclude = data.find(e => {
+          if (e.id == id) return true
+          return false
+        })
+        resolve(isInclude)
+      },
+      fail(res) {
+        resolve(false)
+      }
+    })
+
+  })
+}
+
+function removeStorageById(key,id){
+  return new Promise((resolve, reject) => {
+    wx.getStorage({
+      key: key,
+      success(res) {
+        let data = res.data
+        let newData=data.filter(e=>{
+          if(e.id==id)return false
+          return true
+        })
+        wx.setStorage({
+          key: key,
+          data: newData,
+          success(res) {
+            resolve(newData)
+          },
+          fail(res) {
+            resolve(null)
+          }
+        })
+      },
+      fail(res) {
+        reject(res)
+      }
+    })
+
   })
 }
 
@@ -127,6 +213,10 @@ function getCurrentPlayStatus(){
   return getStorage(Const.CURRENT_PLAY_STATUS, false)
 }
 
+function getCollectMusicList(){
+  return getStorage(Const.COLLECT_MUSIC_LIST, [])
+}
+
 function getStopIntervalNumber(){
   return getStorage(Const.STOP_INTERVAL_NUMBER,null)
 }
@@ -158,6 +248,10 @@ function setCurrentPlayTime(time){
   return setStorage(Const.CURRENT_PLAY_TIME, time)
 }
 
+function setCollectMusicList(musicLists){
+  return setStorage(Const.COLLECT_MUSIC_LIST, musicLists)
+}
+
 function setHistorySearch(historySearch){
   return setStorage(Const.HISTORY_SEARCH,historySearch)
 }
@@ -176,6 +270,14 @@ async function addCurrentPlayTimeStepOne(){
   setStorage(Const.CURRENT_PLAY_TIME, time)
 }
 
+function addCollectMusicList(musicList){
+  return addStorageIfNotIncluded(Const.COLLECT_MUSIC_LIST,musicList)
+}
+
+function removeCollectMusicList(id){
+  return removeStorageById(Const.COLLECT_MUSIC_LIST,id)
+}
+
 async function getCurrentPlayMusicIndex() {
   let currentMusicList = await getCurrentMusicList()
   let currentPlayMusic = await getCurrentPlayMusic()
@@ -185,6 +287,10 @@ async function getCurrentPlayMusicIndex() {
     if (currentMusicList[i].id == currentPlayMusic.id) return i
   }
   return -1;
+}
+
+function isMusicListCollect(id){
+  return isIncludeById(Const.COLLECT_MUSIC_LIST,id)
 }
 
 function clearCurrentMusicList(){
@@ -198,8 +304,11 @@ function clearCurrentMusic() {
 module.exports = {
   setStorage,
   addStorage,
+  addStorageIfNotIncluded,
   getStorage,
   removeStorage,
+  removeStorageById,
+  isIncludeById,
   clearStorage,
   getSelfSongList,
   getHistorySearch,
@@ -211,6 +320,7 @@ module.exports = {
   getCurrentPlayTime,
   getCurrentPlayStatus,
   getStopIntervalNumber,
+  getCollectMusicList,
   setSelfSongList,
   setMusicList,
   setHistorySearch,
@@ -219,9 +329,13 @@ module.exports = {
   setLoopStatusIndex,
   setCurrentPlayTime,
   setStopIntervalNumber,
+  setCollectMusicList,
   addSelfSongList,
   addCurrentPlayTimeStepOne,
+  addCollectMusicList,
   addHistorySearch,
+  removeCollectMusicList,
+  isMusicListCollect,
   clearCurrentMusicList,
   clearCurrentMusic
 }
