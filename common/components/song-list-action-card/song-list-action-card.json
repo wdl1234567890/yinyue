@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "collect-song-list-item": "/common/components/collect-song-list-item/collect-song-list-item",
+    "song-list-action": "/extend/iview-weapp/modal/index"
+  }
+}

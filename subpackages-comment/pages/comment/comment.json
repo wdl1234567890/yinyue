@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "comment-item": "../../components/comment-item/comment-item",
-    "bottom-modal": "/common/components/bottom-modal/bottom-modal"
+    "bottom-modal": "/common/components/bottom-modal/bottom-modal",
+    "back-button": "/common/components/back-button/back-button"
   }
 }

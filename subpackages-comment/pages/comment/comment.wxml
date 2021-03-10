@@ -1,6 +1,6 @@
 <wrapper nav-bar-class="theme-module-color" mode="comment" focus="{{inputFocus}}" will-reply-item="{{willReplyItem}}" input-value="{{inputValue}}" bindfocus="focusEvent" bindblur="blurEvent">
   <view slot="nav-bar-left" class="back-icon">
-    <i-icon type="return" size="25" color="#333" />
+    <back-button />
   </view>
   <view slot="nav-bar-middle" class="comment-title">评论(14959)</view>
   <button open-type="share" plain slot="nav-bar-right" class="share-button">

@@ -8,13 +8,107 @@ Page({
    */
   data: {
     themeColor: app.globalData.themeColor,
-    searchState:false
+    searchState:false,
+    musicListInfo:{},
+    singListDatas: [
+      {
+        id: 1,
+        srcUrl: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+        title: "歌单1",
+        list: [
+          {
+            id: 4,
+            singName: "歌曲4",
+            singerName: "歌手4",
+            cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+            commentCount: 504,
+            isVip: false
+          },
+          {
+            id: 6,
+            singName: "歌曲6",
+            singerName: "歌手6",
+            cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+            commentCount: 152,
+            isVip: false
+          },
+          {
+            id: 3,
+            singName: "歌曲3",
+            singerName: "歌手3",
+            cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+            commentCount: 1,
+            isVip: false
+          }
+        ]
+      },
+      {
+        id: 2,
+        srcUrl: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+        title: "歌单2",
+        list: [
+          {
+            id: 6,
+            singName: "歌曲6",
+            singerName: "歌手6",
+            cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+            commentCount: 152,
+            isVip: false
+          },
+          {
+            id: 3,
+            singName: "歌曲3",
+            singerName: "歌手3",
+            cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+            commentCount: 1,
+            isVip: false
+          }
+        ]
+      },
+      {
+        id: 3,
+        srcUrl: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+        title: "歌单3",
+        list: [
+          {
+            id: 6,
+            singName: "歌曲6",
+            singerName: "歌手6",
+            cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+            commentCount: 152,
+            isVip: false
+          },
+          {
+            id: 3,
+            singName: "歌曲3",
+            singerName: "歌手3",
+            cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+            commentCount: 1,
+            isVip: false
+          }
+        ]
+      }
+    ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    //获取参数里的歌单id
+    let musicListId= options.id
+
+    //request
+    let musicListInfo = this.data.singListDatas.find(e=>{
+      if (e.id == musicListId)return true
+      else return false
+    })
+
+    this.setData({
+      musicListInfo
+    })
+
     let that = this
 
     //获取顶部导航栏改变样式的高度参数
@@ -121,5 +215,12 @@ Page({
         searchState:false
       })
     }
-  }
+  },
+  //进入批量操作页面
+  goToBatch(e) {
+    app.globalData.searchResult = this.data.musicListInfo.list
+    wx.navigateTo({
+      url: '/subpackages-search/pages/batch-action-page/batch-action-page'
+    })
+  },
 })

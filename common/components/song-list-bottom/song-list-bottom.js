@@ -22,7 +22,7 @@ Component({
   data: {
     themeColor: app.globalData.themeColor,
     musicList: [],
-    isCollectAll: false
+    showCollectAction: false
   },
   // observers: {
   //   'showSingListModal': function (newValue) {   
@@ -35,7 +35,7 @@ Component({
     this.setData({
       musicList: await Store.getCurrentMusicList(),
       musicInfo: await Store.getCurrentPlayMusic(),
-      isCollectAll: await Store.getMusicListIsCollectionAll()
+      showCollectAction: await Store.getMusicListIsCollectionAll()
     })
   },
 
@@ -49,9 +49,11 @@ Component({
       })
       this.triggerEvent('hidemodal')
     },
-    musicListCollectAllChange(e) {
+    async musicListCollectAllChange(e) {
       this.setData({
-        isCollectAll: !this.data.isCollectAll
+        musicListDatas:await Store.getCurrentMusicList(),
+        showSingListModal:false,
+        showCollectAction: true
       })
     },
     clearAllStorage(){
@@ -64,7 +66,7 @@ Component({
       this.setData({
         musicList: [],
         musicInfo: {},
-        isCollectAll: false,
+        showCollectAction: false,
         showSingListModal: false
       })
       this.triggerEvent('hidemodal')

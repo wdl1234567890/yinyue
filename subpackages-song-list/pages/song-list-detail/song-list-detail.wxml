@@ -1,8 +1,8 @@
 <wrapper nav-bar-class="theme-color">
   <!--返回按钮与歌单名称-->
   <view slot="nav-bar-left" class="flex-row back-icon-container">
-    <i-icon type="return" size="25" color="#fff" bindtap="clickBack" />
-    <text class="{{topBarchange?'show-name':'not-show-name'}} one-row-flow song-list-name-opacity" wx:if="{{!searchState}}">茯苓最近听的歌单</text>
+    <back-button color="#fff"/>
+    <text class="{{topBarchange?'show-name':'not-show-name'}} one-row-flow song-list-name-opacity" wx:if="{{!searchState}}">{{musicListInfo.title}}</text>
   </view>
   <!--输入框-->
   <view slot="nav-bar-middle" wx:if="{{searchState}}">
@@ -18,7 +18,7 @@
   <scroll-view scroll-y style="height:100%" slot="content" class="theme-module-color" bindscroll="scrolling" upper-threshold="8" scroll-with-animation bindscrolltoupper="scrolltoupper" hidden="{{searchState}}">
     <!--歌单信息-->
     <view class="theme-color song-list-bg-view theme-padding">
-      <song-list-item thumbSize="180" song-list-name-class="song-list-name" song-list-bottom-text-class="song-list-bottom-text" class="element-distance" />
+      <song-list-item thumbSize="180" song-list-name-class="song-list-name" song-list-bottom-text-class="song-list-bottom-text" class="element-distance" src-url="{{musicListInfo.srcUrl}}" top-title="{{musicListInfo.title}}" bottomTitle="{{musicListInfo.list.length+'首'}}"/>
     </view>
     <!--操作板-->
     <view class="action-card theme-module-color flex-row" style="top:-{{actionCardHeight/2}}px">
@@ -35,13 +35,13 @@
             <i-icon type="playon_fill" color="{{themeColor}}" size="23" />
             <text class="play-all-text">播放全部</text>
           </view>
-          <i-icon type="success" size="23" color="#333" slot="right" />
+          <i-icon type="success" size="23" color="#333" slot="right" catchtap="goToBatch"/>
         </three-column-bar>
       </view>
       <!--单曲列表-->
       <view style="margin-top: 40rpx">
-        <view class="single-item" wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}">
-          <single-item />
+        <view class="single-item" wx:for="{{musicListInfo.list}}" wx:key="id">
+          <single-item item-id="{{item.id}}" sing-name="{{item.singName}}" singer-name="{{item.singerName}}" is-vip="{{item.isVip}}"/>
         </view>
       </view>
     </view>

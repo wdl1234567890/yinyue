@@ -16,8 +16,13 @@ Component({
     singDatas:{
       type:Array,
       value:[]
+    },
+    singListDatas:{
+      type:Array,
+      value:[]
     }
   },
+
 
   /**
    * 组件的初始数据
@@ -41,35 +46,52 @@ Component({
       // })
       wx.hideLoading()
     },
-    tapSwitch(e){
-      this.triggerEvent('tapswitch', e.currentTarget.dataset.index)
+    musicplayitemchange(e){
+      this.triggerEvent('musicplayitemchange', e.detail)
     },
-    async tapPlayMusic(e){
-      let index = e.currentTarget.dataset.index
-      // Store.setCurrentMusic(this.data.singDatas[index])
-      let musicList = await Store.getCurrentMusicList()
-      let isInclude = false
-      for (let i = 0; i < musicList.length;i++){
-        if (musicList[i].id == this.data.singDatas[index].id){
-          isInclude=true
-          break
-        }
-      }
-      if (!isInclude){
-        musicList.unshift(this.data.singDatas[index])
-        Store.setMusicList(musicList)
-        // Store.setCurrentPlayStatus(true)
-      }
-      // app.globalData.playMusicById(this.data.singDatas[index].id)
-      wx.navigateTo({
-        url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.singDatas[index].id
-      })
-      this.triggerEvent('tapplaymusic')
-    },
+    // tapSwitch(e){
+    //   this.triggerEvent('tapswitch', e.currentTarget.dataset.index)
+    // },
+    // async tapPlayMusic(e){
+    //   let index = e.currentTarget.dataset.index
+    //   // Store.setCurrentMusic(this.data.singDatas[index])
+    //   let musicList = await Store.getCurrentMusicList()
+    //   let isInclude = false
+    //   for (let i = 0; i < musicList.length;i++){
+    //     if (musicList[i].id == this.data.singDatas[index].id){
+    //       isInclude=true
+    //       break
+    //     }
+    //   }
+    //   if (!isInclude){
+    //     musicList.unshift(this.data.singDatas[index])
+    //     Store.setMusicList(musicList)
+    //     // Store.setCurrentPlayStatus(true)
+    //   }
+    //   // app.globalData.playMusicById(this.data.singDatas[index].id)
+    //   wx.navigateTo({
+    //     url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.singDatas[index].id
+    //   })
+    //   this.triggerEvent('tapplaymusic')
+    // },
     goToBatch(e){
       app.globalData.searchResult=this.data.singDatas
       wx.navigateTo({
         url: '/subpackages-search/pages/batch-action-page/batch-action-page'
+      })
+    },
+    tapToDetail(e){
+      let id = e.currentTarget.dataset.id
+      wx.navigateTo({
+        url: '/subpackages-song-list/pages/song-list-detail/song-list-detail?id='+id
+      })
+    },
+    playAllSong(e){
+      //将搜索结果全部加入当前播放歌单列表
+      Store.setMusicList(this.data.singDatas)
+      //开始播放第一首
+      wx.navigateTo({
+        url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.singDatas[0].id
       })
     }
   }

@@ -7,8 +7,8 @@
     </view>
     <three-column-bar>
       <view class="flex-row collect-all-container" slot="middle" bindtap="musicListCollectAllChange">
-        <i-icon type="{{isCollectAll?'collection_fill':'collection'}}" size="20" color="{{isCollectAll?themeColor:'#999'}}"/>
-        <text class="collect-all" style="{{isCollectAll?'color:'+themeColor:''}}">收藏全部</text>
+        <i-icon type="collection" size="20" color="#999"/>
+        <text class="collect-all">收藏全部</text>
       </view>
       <i-icon type="trash " size="20" slot="right" color="#999" bindtap="removeAllListItem"/>  
     </three-column-bar>
@@ -32,3 +32,5 @@
       </scroll-view>
   </view>
 </bottom-modal>
+<!--添加到歌单弹框-->
+<song-list-action-card show-song-list-action="{{showCollectAction}}" musicInfos="{{musicListDatas}}"/>

@@ -1,5 +1,5 @@
 .single-item,.song-list-item{
-  margin: 30rpx 0;
+  padding: 10rpx 0;
 }
 .single-container,.singer-container,.song-list-container{
   margin: var(--theme-margin);

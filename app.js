@@ -252,10 +252,10 @@ App({
         // this.setData({
         //   cmusicInfo: this.data.musicInfo
         // })
-        if (onePlayCallback) onePlayCallback.apply(obj)
         wx.navigateTo({
           url: '/subpackages-music/pages/music-play/music-play?id=' + musicInfo.id
         })
+        if (onePlayCallback) onePlayCallback.apply(obj)
       }
     }
     

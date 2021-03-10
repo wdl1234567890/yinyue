@@ -1,6 +1,9 @@
 {
   "component": true,
   "usingComponents": {
-    "three-column-bar": "/common/components/three-column-bar/three-column-bar"
+    "three-column-bar": "/common/components/three-column-bar/three-column-bar",
+    "song-list-item":"/common/components/song-list-item/song-list-item",
+    "bottom-modal": "/common/components/bottom-modal/bottom-modal",
+    "song-list-action-card":"/common/components/song-list-action-card/song-list-action-card"
   }
 }

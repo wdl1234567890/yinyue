@@ -10,6 +10,41 @@
   line-height: 48rpx;
   width: 620rpx;
 }
+.actions-title-container{
+  padding: 0!important
+}
+.action-icon{
+  margin-right: 25rpx;
+  position: relative; 
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+.comment-count{
+  font-size: 20rpx;
+  color: #666;
+  position: absolute;
+  top: -12rpx;
+  right: -10rpx;
+  z-index: 10000
+}
+.theme-padding{
+  padding: var(--theme-padding)
+}
+.action-item{
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.theme-module-color{
+  background-color: var(--theme-module-color)
+}
+.song-card-container{
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 1px solid #eee;
+}
+
 .vip-and-singer-name-container{
   display: flex;
   flex-direction: row;

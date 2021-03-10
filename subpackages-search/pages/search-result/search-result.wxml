@@ -1,5 +1,5 @@
 <wxs src="../../../common/utils/func/tools.wxs" module="tools"/>
-<wrapper nav-bar-class="theme-module-color" bindgetcontentheight="getContentHeight" has-music-list="{{hasMusicList}}" bindmusicplayitemchange="musicPlayItemChangeInner" music-info="{{cmusicInfo}}">
+<wrapper nav-bar-class="theme-module-color" bindgetcontentheight="getContentHeight" has-music-list="{{hasMusicList}}" bindmusicplayitemchange="musicPlayItemChangeInner" music-info="{{musicInfo}}">
   <view slot="nav-bar-left" class="back-icon">
     <back-button />
   </view>
@@ -8,39 +8,6 @@
   </view>
   <!--滚动内容区-->
   <view slot="content" class="theme-module-color">
-    <search-tab-card tabTitles="{{tabTitles}}" contentHeight="{{contentHeight}}" catchtapswitch="tapSwitch" sing-datas="{{singDatas}}" catchtapplaymusic="tapPlayMusic"/>
+    <search-tab-card tabTitles="{{tabTitles}}" contentHeight="{{contentHeight}}" sing-datas="{{singDatas}}" sing-list-datas="{{singListDatas}}" catchmusicplayitemchange="musicPlayItemChangeInner"/>
   </view>
 </wrapper>
-<!-- 歌曲底部操作功能弹框 -->
-<bottom-modal isShow="{{showActionModal}}" bindbgtap="hideModal" title-container-class="actions-title-container">
-  <view slot="title" class="flex-column theme-padding song-card-container" style="width:100%">
-    <song-list-item src-url="{{musicInfo.cover}}" topTitle="{{musicInfo.singName}}" bottomTitle="{{musicInfo.singerName}}"/>
-  </view>
-  <view slot="content" class="theme-module-color theme-padding">
-    <view class="action-item" wx:for="{{actions}}" wx:key="id" catchtap="tapAction" data-index="{{index}}">
-      <three-column-bar>
-        <view slot="left" class="action-icon">
-          <i-icon type="{{item.icon}}" color="#666" size="24"/>
-          <text class="commentCount" wx:if="{{item.text=='评论'}}">{{tools.commentCountShow(musicInfo.commentCount)}}</text>
-        </view>
-        <text slot="middle">{{item.text}}</text>
-      </three-column-bar>
-    </view>
-  </view>
-</bottom-modal>
-<!-- <song-list-action visible="{{showSongListAction}}" wx:if="{{showSongListAction}}" bind:click="collection" actions="{{[{name: '取   消',color:'#fff'},{name: '完   成',color:themeColor}]}}">
-  <view class="theme-padding collect-song-list-container" wx:if="{{showModal=='songListModal'}}">
-    <view class="collect-song-list-item">
-      <collect-song-list-item top-title="新建歌单" src-url="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" bindtapitem="addNewSongList"/>
-    </view>
-    <view wx:for="{{selfSongList}}" wx:key="id" class="collect-song-list-item">
-      <collect-song-list-item itemId="{{item.id}}" src-url="{{item.srcUrl}}" top-title="{{item.title}}" bottom-title="{{item.songCount}}首" has-action has-bottom-title catchhandlecheckchange="handleCheckChange"/>
-    </view>
-  </view>
-  
-  <view wx:if="{{showModal=='inputModal'}}" class="song-list-add-new">
-    <input placeholder="输入新建歌单标题" value="{{newSongListName}}" focus bindinput="songListInput" bindconfirm="songListConfirm"/>
-  </view>
-</song-list-action> -->
-<!--添加到歌单弹框-->
-<song-list-action-card show-song-list-action="{{showSongListAction}}" musicInfos="{{[musicInfo]}}"/>

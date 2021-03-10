@@ -4,8 +4,6 @@
     "three-column-bar": "/common/components/three-column-bar/three-column-bar",
     "search-tab-card":"../../components/search-tab-card/search-tab-card",
     "song-list-item": "/common/components/song-list-item/song-list-item",
-    "bottom-modal": "/common/components/bottom-modal/bottom-modal",
-    "back-button":"/common/components/back-button/back-button",
-    "song-list-action-card":"../../components/song-list-action-card/song-list-action-card"
+    "back-button":"/common/components/back-button/back-button"
   }
 }
