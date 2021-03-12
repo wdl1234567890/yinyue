@@ -4,7 +4,10 @@
     "circular-item": "/common/components/circular-item/circular-item",
     "nav-icon":"../components/nav-icon/nav-icon",
     "song-list-card":"../components/song-list-card/song-list-card",
-    "tab-bar":"/common/components/tab-bar/tab-bar"
+    "tab-bar":"/common/components/tab-bar/tab-bar",
+    "info-label":"/common/components/info-label/info-label",
+    "song-list-action": "/extend/iview-weapp/modal/index",
+    "bottom-modal": "/common/components/bottom-modal/bottom-modal"
   },
   "navigationBarTitleText": "我的"
 }

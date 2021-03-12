@@ -5,7 +5,7 @@
       <collect-song-list-item top-title="新建歌单" src-url="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" bindtapitem="addNewSongList"/>
     </view>
     <view wx:for="{{selfSongList}}" wx:key="id" class="collect-song-list-item">
-      <collect-song-list-item itemId="{{item.id}}" src-url="{{item.srcUrl}}" top-title="{{item.title}}" bottom-title="{{item.list.length}}首" has-action has-bottom-title catchhandlecheckchange="handleCheckChange"/>
+      <collect-song-list-item item-id="{{item.id}}" src-url="{{item.cover}}" top-title="{{item.title}}" bottom-title="{{item.list.length}}首" has-action has-bottom-title catchhandlecheckchange="handleCheckChange"/>
     </view>
   </view>
   <!--新建歌单弹框-->

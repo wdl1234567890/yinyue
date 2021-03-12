@@ -1,0 +1,13 @@
+.music-list-info{
+  display: flex;
+  flex-direction: column;
+  margin-left: 35rpx;
+}
+.right-part{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sort-up{
+  margin-bottom: 20rpx;
+}

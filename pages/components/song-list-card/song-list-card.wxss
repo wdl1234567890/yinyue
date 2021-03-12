@@ -13,6 +13,13 @@
   flex-direction: column;
   margin-left: 24rpx;
 } */
+.no-content{
+  color: #666;
+  letter-spacing: 1px;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
 
 .add-button {
   margin-right: 30rpx;

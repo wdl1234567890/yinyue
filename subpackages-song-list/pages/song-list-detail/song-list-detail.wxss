@@ -43,6 +43,13 @@
   margin: 0 30rpx;
 
 }
+.no-content{
+  color: #666;
+  letter-spacing: 1px;
+  font-size: 28rpx;
+  margin-top: 50rpx;
+  text-align: center;
+}
 .select-card-title{
   color: #333;
   font-size: 32rpx;

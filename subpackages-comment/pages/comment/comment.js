@@ -7,7 +7,10 @@ Page({
   data: {
     singInfo:{
       id:-1,
-      info:"info"
+      info:"info",
+      cover:"https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+      singName:"歌曲名",
+      singerName:"歌手"
     },
     showCommentModal:false,
     commentData:[
@@ -92,16 +95,22 @@ Page({
     replyComment: null,
     inputFocus:false,
     willReplyItem:null,
-    inputValue:""
+    inputValue:"",
+    flag:1
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    //flag:1,从播放页面进入;2,从个人评论主页进入
+    let flag = options.flag
+
     let singInfo = this.data.singInfo
     singInfo.id = options.id
     this.setData({
+      flag,
       singInfo,
       replyComment: this.data.singInfo,
       willReplyItem: this.data.singInfo
@@ -221,6 +230,11 @@ Page({
   blurEvent(e){
     this.setData({
       inputFocus:false
+    })
+  },
+  goToMusicPlayPage(e){
+    wx.navigateTo({
+      url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.singInfo.id
     })
   }
 })

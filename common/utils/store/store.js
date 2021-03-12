@@ -217,6 +217,10 @@ function getCollectMusicList(){
   return getStorage(Const.COLLECT_MUSIC_LIST, [])
 }
 
+function getLastPlayList(){
+  return getStorage(Const.LAST_PLAY_LIST,[])
+}
+
 function getStopIntervalNumber(){
   return getStorage(Const.STOP_INTERVAL_NUMBER,null)
 }
@@ -274,8 +278,16 @@ function addCollectMusicList(musicList){
   return addStorageIfNotIncluded(Const.COLLECT_MUSIC_LIST,musicList)
 }
 
+function addLastPlayList(lastPlayList){
+  return addStorageIfNotIncluded(Const.LAST_PLAY_LIST, lastPlayList)
+}
+
 function removeCollectMusicList(id){
   return removeStorageById(Const.COLLECT_MUSIC_LIST,id)
+}
+
+function removeLastPlayList(id){
+  return removeStorageById(Const.LAST_PLAY_LIST, id)
 }
 
 async function getCurrentPlayMusicIndex() {
@@ -321,6 +333,7 @@ module.exports = {
   getCurrentPlayStatus,
   getStopIntervalNumber,
   getCollectMusicList,
+  getLastPlayList,
   setSelfSongList,
   setMusicList,
   setHistorySearch,
@@ -333,8 +346,10 @@ module.exports = {
   addSelfSongList,
   addCurrentPlayTimeStepOne,
   addCollectMusicList,
+  addLastPlayList,
   addHistorySearch,
   removeCollectMusicList,
+  removeLastPlayList,
   isMusicListCollect,
   clearCurrentMusicList,
   clearCurrentMusic

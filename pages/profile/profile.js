@@ -1,5 +1,6 @@
 // pages/profile/profile.js
 let app = getApp()
+let Store = require('../../common/utils/store/store.js')
 let func = require('../../common/utils/func/wxml-element.js')
 Page({
 
@@ -7,6 +8,15 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showAddInput: false,
+    newSongListName: '',
+    switchInfos: {
+      musicListCardIndex: -1,
+      id:-1,
+      index:-1,
+      title: '',
+      actions: []
+    },
     userAvatar: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
     userId: "茯苓170603",
     // themeBgAndModuleColorDiffer: app.globalData.themeModuleColorOpacity - app.globalData.themeBgOpacity,
@@ -17,6 +27,34 @@ Page({
     scrollDiff: 0,
     navBarIsTop:false,
     topBarchange:false,
+    isVip:false,
+    themeColor: app.globalData.themeColor,
+    iconNavs:[
+      {
+        icon:'like_fill',
+        text:'喜欢'
+      },
+      {
+        icon: 'unfold',
+        text: '下载'
+      },
+      {
+        icon: 'time_fill',
+        text: '最近'
+      },
+      {
+        icon: 'message_fill',
+        text: '评论'
+      },
+      {
+        icon: 'integral_fill',
+        text: '会员'
+      },
+      {
+        icon: 'label_fill',
+        text: '标签'
+      }
+    ],
     // currentScrollPosition:0,
     songListNav:[
       {
@@ -31,7 +69,9 @@ Page({
         id: "collect-song-list",
         title: "收藏歌单"
       }
-    ]
+    ],
+    allMusicListInfo:[]
+    
   },
 
   /**
@@ -65,6 +105,8 @@ Page({
         songListNav,
         // maxScrollDiff,
       })
+
+      this.initMusicListInfo()
 
     }).exec()
 
@@ -116,6 +158,43 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
+
+  },
+
+  //初始化歌单信息
+  async initMusicListInfo(){
+    //初始化我的歌单信息
+    let myMusicList = []
+    let selfSongList = await Store.getSelfSongList()
+    for (let i = 3; i < selfSongList.length;i++){
+      myMusicList.push(selfSongList[i])
+    }
+
+    let myMusicListInfo={
+      title:'我的歌单',
+      list:myMusicList
+    }
+
+    //初始化收藏歌单信息
+    let collectionMusicListInfo = {
+      title:'收藏歌单',
+      list : await Store.getCollectMusicList()
+    }
+
+    //初始化最近播放歌单信息
+    let lastPlayMusicListInfo = {
+      title:'最近播放',
+      list :await Store.getLastPlayList()
+    }
+
+    this.setData({
+      allMusicListInfo:[
+        lastPlayMusicListInfo,
+        myMusicListInfo,
+        collectionMusicListInfo
+      ]
+      
+    })
 
   },
 
@@ -253,6 +332,292 @@ Page({
         isClickSongListINav: false
       })
     }
-  }
+  },
+  goToPayment(e){
+    wx.navigateTo({
+      url: '/subpackages-payment/pages/payment/payment'
+    })
+  },
+  goToProfileDetail(e){
+    wx.navigateTo({
+      url: '/pages/sub-pages/profile-detail/profile-detail'
+    })
+  },
+  tapNavItem(e){
+    let index = e.currentTarget.dataset.index
+    switch(this.data.iconNavs[index].icon){
+      case 'like_fill':
+      wx.navigateTo({
+        url: '/subpackages-song-list/pages/song-list-detail/song-list-detail?flag=1&id=3'
+      })
+    break
+      case 'unfold':
+        wx.navigateTo({
+          url: '/subpackages-song-list/pages/song-list-detail/song-list-detail?flag=1&id=2'
+        })
+    break
+      case 'time_fill':
+      wx.navigateTo({
+        url: '/subpackages-song-list/pages/song-list-detail/song-list-detail?flag=1&id=1'
+      })
+    break
+      case 'message_fill':
 
+    break
+      case 'integral_fill':
+      wx.navigateTo({
+        url: '/subpackages-payment/pages/payment/payment'
+      })
+    break
+      case 'label_fill':
+    break
+    default:
+    break
+    }
+    this.setData({
+      switchInfos: {
+        musicListCardIndex: -1,
+        title: '',
+        actions: []
+      },
+    })
+  },
+  tapAdd(e) {
+    this.setData({
+      newSongListName:'',
+      showAddInput: true
+    })
+  },
+  tapSwitch(e){
+    let musicListCardIndex = e.currentTarget.dataset.index
+    let actions = []
+    if (musicListCardIndex==0){
+      actions = [
+        {
+          id:1,
+          icon:'createtask',
+          text:'歌单管理'
+        }
+      ]
+    } else if (musicListCardIndex==1){
+      actions = [
+        {
+          id: 1,
+          icon: 'add',
+          text: '新建歌单'
+        },
+        {
+          id:2,
+          icon:'createtask',
+          text:'歌单管理'
+        }
+      ]
+    } else if (musicListCardIndex==2){
+      actions = [
+        {
+          id: 1,
+          icon: 'createtask',
+          text: '歌单管理'
+        }
+      ]
+    }
+    this.setData({
+      switchInfos: {
+        musicListCardIndex,
+        title:this.data.allMusicListInfo[musicListCardIndex].title,
+        actions
+      }
+
+    })
+  },
+  songListInput(e) {
+    let value = e.detail.value.trim()
+    this.setData({
+      newSongListName: value
+    })
+  },
+  songListConfirm(e) {
+
+    if(this.data.newSongListName==''){
+      wx.showToast({
+        title: '歌单名称不能为空！',
+        icon:'none'
+      })
+      return
+    }
+
+    let myMusicList = this.data.allMusicListInfo[1].list
+
+    let isIncludeTitle = myMusicList.find(e=>{
+      if(e.title == this.data.newSongListName)return true
+      return false
+    })
+    if (isIncludeTitle){
+      wx.showToast({
+        title: '歌单已经存在！',
+        icon: 'none'
+      })
+      return
+    }
+
+    let newMusicList = { id: myMusicList.length + 4, cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg', title: this.data.newSongListName,list:[]}
+    myMusicList.unshift(newMusicList)
+    this.data.allMusicListInfo[1].list=myMusicList
+    this.setData({
+      allMusicListInfo: this.data.allMusicListInfo,
+      showAddInput: false,
+      newSongListName:''
+    })
+    wx.showToast({
+      title: '新建歌单成功！',
+      icon: 'none'
+    })
+  },
+  tapButton(e){
+    const index = e.detail.index;
+    if(index==0){
+      this.setData({
+        showAddInput:false
+      })
+    }else{
+      this.songListConfirm(e)
+    }
+  },
+  tapItemSwitch(e){
+    let id = e.detail.id
+    let type=e.detail.type
+    let title = e.detail.title
+    let index = e.detail.index
+    let musicListCardIndex = e.currentTarget.dataset.index
+    let actions=[]
+    if (musicListCardIndex==0){
+      actions = [
+        {
+          id: 1,
+          icon: "unfold",
+          text: "下载"
+        },
+        {
+          id: 2,
+          icon: "trash",
+          text: "删除"
+        }
+      ]
+    } else if (musicListCardIndex==1){
+      actions = [
+        {
+          id: 1,
+          icon: "unfold",
+          text: "下载"
+        },
+        {
+          id: 2,
+          icon: "trash",
+          text: "删除"
+        },
+        {
+          id: 3,
+          icon: "editor",
+          text: "编辑歌单信息"
+        }
+      ]
+    } else if (musicListCardIndex==2){
+      actions = [
+        {
+          id: 1,
+          icon: "unfold",
+          text: "下载"
+        },
+        {
+          id: 2,
+          icon: "trash",
+          text: "删除"
+        }
+      ]
+    }
+
+    this.setData({
+      switchInfos:{
+        musicListCardIndex,
+        id,
+        index,
+        title,
+        actions
+      },
+    })
+    
+  },
+  hideModal(e){
+    this.setData({
+      switchInfos: {
+        musicListCardIndex:-1,
+        title:'',
+        actions:[]
+      },
+    })
+  },
+  tapAction(e){
+    let index = e.currentTarget.dataset.index
+    switch (this.data.switchInfos.actions[index].icon){
+      case 'add':
+      this.setData({
+        showAddInput:true,
+      })
+      break
+      case 'trash':
+        this.removeMusicList()
+      break
+      case 'editor':
+        wx.navigateTo({
+          url: '/pages/sub-pages/edit-music-list/edit-music-list?id='+this.data.switchInfos.id
+        })
+      
+      break
+      case 'unfold':
+      break
+      case 'createtask':
+        wx.navigateTo({
+          url: '/pages/sub-pages/batch-music-list/batch-music-list?title=' + this.data.switchInfos.title
+        })
+      break
+      default:
+      break
+    }
+    this.setData({
+      switchInfos: {
+        musicListCardIndex: -1,
+        title: '',
+        actions: []
+      },
+    })
+  },
+  removeMusicList(){
+    let that = this
+    wx.showModal({
+      title: '是否删除歌单',
+      content: '歌单：' + this.data.switchInfos.title,
+      success(res){
+        if (res.confirm) {
+          
+          that.data.allMusicListInfo[that.data.switchInfos.musicListCardIndex].list.splice(that.data.switchInfos.index,1)
+          that.setData({
+            allMusicListInfo: that.data.allMusicListInfo
+          })
+          wx.showToast({
+            title: '歌单删除成功！',
+            icon:'none'
+          })
+        } else if(res.cancel) {
+          
+        }
+        that.setData({
+          switchInfos: {
+            musicListCardIndex: -1,
+            title: '',
+            actions: []
+          },
+        })
+      }
+    })
+  }
 })

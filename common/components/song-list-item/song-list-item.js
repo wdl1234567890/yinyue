@@ -5,6 +5,14 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    itemId:{
+      type:Number,
+      value:-1
+    },
+    icon:{
+      type:String,
+      value:'switch'
+    },
     isActionIcon: {
       type: Boolean,
       value: false
@@ -40,6 +48,14 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    tapIcon(e){
+      this.triggerEvent('tapicon', { id: this.data.itemId, title: this.data.topTitle})
+    },
+    tapItem(e){
+      wx.navigateTo({
+        url: '/subpackages-song-list/pages/song-list-detail/song-list-detail?id=' + this.data.itemId
+      })
+      this.triggerEvent('tapitem',this.data.itemId)
+    }
   }
 })

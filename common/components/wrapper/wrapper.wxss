@@ -19,6 +19,14 @@
   justify-content: space-between;
   border-top: 1px solid #eee;
 }
+.batch-list-action-bar-container{
+  display: flex;
+  padding:10rpx var(--theme-gap);
+  background-color: var(--theme-module-color);
+  justify-content: center;
+  border-top: 1px solid #eee;
+  align-items: center;
+}
 .action-item{
   display: flex;
   flex-direction: column;

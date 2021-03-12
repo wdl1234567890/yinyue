@@ -15,7 +15,7 @@
       <!--单曲列表-->
       <view style="margin-top: 40rpx">
         <view class="single-item" wx:for="{{singDatas}}">
-          <single-item item-id="{{item.id}}" sing-name="{{item.singName}}" singer-name="{{item.singerName}}" data-index="{{index}}" is-vip="{{item.isVip}}" catchmusicplayitemchange="musicplayitemchange" comment-count="{{item.commentCount}}"/>
+          <single-item item-id="{{item.id}}" cover="{{item.cover}}" sing-name="{{item.singName}}" singer-name="{{item.singerName}}" data-index="{{index}}" is-vip="{{item.isVip}}" catchmusicplayitemchange="musicplayitemchange" comment-count="{{item.commentCount}}"/>
         </view>
       </view>
     </view>
@@ -25,8 +25,8 @@
     </view>
     <!--歌单-->
     <view slot="tab2" class="song-list-container">
-      <view class="song-list-item" wx:for="{{singListDatas}}" wx:key="id" catchtap="tapToDetail" data-id="{{item.id}}">
-        <song-list-item src-url="{{item.srcUrl}}" top-title="{{item.title}}" bottomTitle="{{item.count+'首'}}"/>
+      <view class="song-list-item" wx:for="{{singListDatas}}" wx:key="id">
+        <song-list-item src-url="{{item.cover}}" top-title="{{item.title}}" bottomTitle="{{item.count+'首'}}" item-id="{{item.id}}"/>
       </view>
     </view>
   </tab-card>

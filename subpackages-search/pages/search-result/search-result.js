@@ -140,19 +140,19 @@ Page({
     singListDatas: [
       { 
         id: 1, 
-        srcUrl: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg", 
+        cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg", 
         title: "歌单1", 
         count:3
       },
       {
         id: 2,
-        srcUrl: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+        cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
         title: "歌单2",
         count:2
       },
       {
         id: 3,
-        srcUrl: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+        cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
         title: "歌单3",
         count:2
       }

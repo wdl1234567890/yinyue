@@ -1,5 +1,5 @@
 .content-container{
-  padding-left: var(--theme-gap);
+  /* padding-left: var(--theme-gap); */
   height:100%;
 }
 .back-icon{
@@ -11,6 +11,15 @@
   color: #333;
   font-size: 34rpx;
   letter-spacing: 1px;
+}
+.music-card{
+  padding: 40rpx var(--theme-gap);
+  margin-bottom: 20rpx;
+  border-bottom: 10px solid #eee;
+}
+
+.comment-item{
+  margin-left: var(--theme-gap);
 }
 
 .all-reply-title{

@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "my-radio": "/common/components/my-radio/my-radio",
+    "song-list-item": "/common/components/song-list-item/song-list-item",
+    "three-column-bar": "/common/components/three-column-bar/three-column-bar"
+  }
+}

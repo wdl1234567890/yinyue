@@ -7,8 +7,15 @@
     <i-icon type="share" size="25" color="#888" />
   </button>
   <scroll-view scroll-y slot="content" class="theme-module-color content-container">
-    <comment-item wx:for="{{commentData}}" bindshowreply="showReply" wx:key="id" reply-count="{{item.replyCount}}" reply-from-info="{{item.replyFromInfo}}" comment-date="{{item.commentDate}}" comment="{{item.comment}}" user-name="{{item.userName}}" up-count="{{item.upCount}}"
+    <!--歌曲card-->
+    <view class="music-card" wx:if="{{flag==2}}" catchtap="goToMusicPlayPage">
+      <song-list-item is-action-icon icon="enter" src-url="{{singInfo.cover}}" top-title="{{singInfo.singName}}" bottom-title="{{singInfo.singerName}}"/>
+    </view>
+    <!--评论item-->
+    <view wx:for="{{commentData}}" wx:key="id" class="comment-item">
+      <comment-item  bindshowreply="showReply" reply-count="{{item.replyCount}}" reply-from-info="{{item.replyFromInfo}}" comment-date="{{item.commentDate}}" comment="{{item.comment}}" user-name="{{item.userName}}" up-count="{{item.upCount}}"
       avator="{{item.avator}}" is-up="{{item.isUp}}" item-id="{{index}}" bindtapitem="tapItem" isFocus="{{inputFocus}}"/>
+    </view>
   </scroll-view>
 </wrapper>
 <!--回复评论底部弹框-->

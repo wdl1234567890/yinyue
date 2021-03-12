@@ -147,15 +147,32 @@ App({
 
   //初始化自建歌单信息
   async initSelfSongList(){
-    let value = {
+    let lastList = {
       id: 1,
-      srcUrl: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+      cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+      title: "最近播放",
+      list: []
+    }
+    let downloadList = {
+      id: 2,
+      cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+      title: "已下载歌曲",
+      list: []
+    }
+    let likeList = {
+      id: 3,
+      cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
       title: "我喜欢的音乐",
       list: []
     }
+    let listInfos=[
+      lastList,
+      downloadList,
+      likeList
+    ]
     let value1 = await Store.getSelfSongList()
     if (value1.length == 0) {
-      Store.addSelfSongList(value)
+      Store.setSelfSongList(listInfos)
     }
   },
 

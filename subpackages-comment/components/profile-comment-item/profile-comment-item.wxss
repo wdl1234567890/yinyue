@@ -1,0 +1,69 @@
+.comment-item-container {
+  padding-top: 26rpx;
+}
+.comment-title {
+  padding-right: var(--theme-gap);
+}
+.song-singer-name { 
+  color: rgb(189, 187, 187);
+  font-size: 28rpx;
+  letter-spacing: 1px;
+  line-height: 40rpx;
+  margin-left: 18rpx;
+}
+.comment-date{
+  margin-top: 18rpx;
+  padding-bottom: 25rpx;
+}
+.one-row-flow {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.thumb-up-container {
+  display: flex;
+  align-items: center;
+}
+.thumb-up-count {
+  color: #999;
+  font-size: 28rpx;
+  letter-spacing: 1px;
+  margin-right: 15rpx;
+}
+.comment-container {
+  margin-left: 100rpx;
+  padding-right: var(--theme-gap);
+  padding-top: 28rpx;
+  padding-bottom: 28rpx;
+}
+
+.comment-content {
+  color: #333;
+  font-size: 28rpx;
+  letter-spacing: 1px;
+  line-height: 45rpx;
+}
+.hidden-comment,.more-button{
+  margin-left: 10rpx;
+  color: var(--theme-color);
+}
+.comment-from-comment {
+  border-left: 2px solid #eee;
+  padding-left: 18rpx;
+  margin-top: 20rpx;
+  color: #999;
+  font-size: 25rpx;
+  letter-spacing: 1px;
+  line-height: 37rpx;
+}
+.comment-name {
+  color: var(--theme-color);
+}
+.comment-time {
+  color: rgb(189, 187, 187);
+  font-size: 20rpx;
+  letter-spacing: 1px;
+}
+.is-up{
+  color: var(--theme-color)!important;
+}

@@ -1,0 +1,27 @@
+<wrapper nav-bar-class="theme-module-color">
+  <view slot="nav-bar-left" class="back-icon">
+    <back-button />
+  </view>
+  <view slot="nav-bar-middle" class="nav-title">编辑歌单信息</view>
+  <view slot="content" class="edit-container theme-module-color" style="height:100%">
+    <view class="edit-item" catchtap="tapChangeCover">
+      <three-column-bar>
+        <text slot="left">更换封面</text>
+        <square-item slot="right" src="{{musicList.cover}}" />
+      </three-column-bar>
+    </view>
+    <view class="edit-item" catchtap="tapEditTitle">
+      <three-column-bar>
+        <text slot="left">名称</text>
+        <text slot="right" class="title">{{musicList.title}}</text>
+      </three-column-bar>
+    </view>
+  </view>
+</wrapper>
+
+<!--修改歌单名称弹框-->
+<song-list-action  visible="{{showInput}}" wx:if="{{showInput}}" bind:click="tapButton" actions="{{[{name: '取   消',color:'#fff'},{name: '修   改',color:themeColor}]}}">
+  <view class="song-list-edit-title">
+    <input value="{{musicList.title}}" placeholder="请输入新的歌单名称" focus bindinput="songListInput" bindconfirm="songListConfirm"/>
+  </view>
+</song-list-action>

@@ -11,6 +11,7 @@ Page({
     themeColor: app.globalData.themeColor,
     searchState:false,
     showSwitch:false,
+    flag:2,
     showSortSelectCard:false,
     navItems:[{icon:'trash',text:'选择歌曲排序'}],
     musicListInfo:{},
@@ -34,7 +35,7 @@ Page({
     singListDatas: [
       {
         id: 1,
-        srcUrl: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+        cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
         title: "歌单1",
         list: [
           {
@@ -65,7 +66,7 @@ Page({
       },
       {
         id: 2,
-        srcUrl: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+        cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
         title: "歌单2",
         list: [
           {
@@ -88,7 +89,7 @@ Page({
       },
       {
         id: 3,
-        srcUrl: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+        cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
         title: "歌单3",
         list: [
           {
@@ -115,15 +116,31 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  async onLoad(options) {
 
     //获取参数里的歌单id
     let musicListId= options.id
 
-    //request
-    let musicListInfo = this.data.singListDatas.find(e=>{
-      if (e.id == musicListId)return true
-      else return false
+    //获取参数里的标识，1代表本地歌单，2代表网站歌单
+    let flag = options.flag ? options.flag : 2
+
+    let musicListInfo
+    if(flag==1){
+      let musicLists = await Store.getSelfSongList()
+      musicListInfo = musicLists.find(e=>{
+        if(e.id==musicListId)return true
+        return false
+      })
+    }else if(flag==2){
+      //request
+      musicListInfo = this.data.singListDatas.find(e => {
+        if (e.id == musicListId) return true
+        else return false
+      })
+    }
+
+    this.setData({
+      flag
     })
 
     Store.isMusicListCollect(musicListInfo.id).then(res=>{

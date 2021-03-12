@@ -1,10 +1,10 @@
 <wrapper nav-bar-class="nav-bar-container {{topBarchange?'theme-module-color':'theme-color'}}">
   <view slot="nav-bar-left" class="back-icon nav-bar-left flex-row">
-    <i-icon type="return" size="33" />
+    <back-button color="#fff"/>
     <text class="{{topBarchange?'show-name':'not-show-name'}} one-row-flow person-name-opacity">茯苓</text>
   </view>
   <view slot="nav-bar-right">
-    <i-icon type="switch" size="33" />
+    <i-icon type="switch" size="33" color="#fff"/>
   </view>
   <scroll-view scroll-y slot="content" style="height:100%" class="theme-bg element-distance" bindscroll="scrolling" upper-threshold="8" scroll-with-animation bindscrolltoupper="scrolltoupper">
     <view class="theme-color person-bg-view element-distance"></view>

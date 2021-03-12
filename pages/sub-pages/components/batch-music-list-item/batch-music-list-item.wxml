@@ -1,0 +1,12 @@
+<view>
+  <three-column-bar>
+    <my-radio bindchange="handleCheckChange" size="{{thumbSize/8}}" slot="left" checked="{{checked}}" innerHandle="{{false}}" />
+    <view slot="middle" class="music-list-info">
+      <song-list-item src-url="{{cover}}" top-title="{{title}}" bottom-title="{{count}}" item-id="{{item.id}}" />
+    </view>
+    <view slot="right" class="right-part">
+      <i-icon type="packup" size="20" color="{{themeColor}}" class="sort-up" catchtap="tapUp"/>
+      <i-icon type="unfold" size="20" color="{{themeColor}}" class="sort-down" catchtap="tapDown"/>
+    </view>
+  </three-column-bar>
+</view>

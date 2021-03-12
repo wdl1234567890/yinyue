@@ -1,0 +1,26 @@
+.back-icon {
+  margin-left: -12rpx;
+  margin-right: 20rpx;
+}
+.nav-title{
+  margin-left: 20rpx;
+  color: #333;
+  font-size: 34rpx;
+  letter-spacing: 1px;
+}
+.all-select{
+  color: #333;
+  font-size: 28rpx;
+  letter-spacing: 1px;
+}
+.music-list-item{
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.no-content{
+  color: #666;
+  font-size: 28rpx;
+  letter-spacing: 1px;
+  text-align: center;
+  padding-top: 300rpx;
+}

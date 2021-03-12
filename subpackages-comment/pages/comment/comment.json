@@ -2,6 +2,7 @@
   "usingComponents": {
     "comment-item": "../../components/comment-item/comment-item",
     "bottom-modal": "/common/components/bottom-modal/bottom-modal",
-    "back-button": "/common/components/back-button/back-button"
+    "back-button": "/common/components/back-button/back-button",
+    "song-list-item":"/common/components/song-list-item/song-list-item"
   }
 }

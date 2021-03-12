@@ -2,17 +2,18 @@
   <!--歌单顶部标题-->
   <view class="song-list-title">
     <three-column-bar>
-      <text slot="left">最近播放歌单(15个)</text>
+      <text slot="left">{{title}}({{musicLists.length}}个)</text>
       <view slot="right" class="title-action-container">
         <view class="add-button" wx:if="{{showAddButton}}">
-          <i-icon type="add" size="21" />
+          <i-icon type="add" size="21" catchtap="tapAdd"/>
         </view>
-        <i-icon type="switch" size="21" />
+        <i-icon type="switch" size="21" catchtap="tapSwitch"/>
       </view>
     </three-column-bar>
   </view>
   <!--歌单列表-->
-  <view class="song-list-item" wx:for="{{[1,2,3]}}">
-    <song-list-item isActionIcon/>
+  <view class="song-list-item" wx:for="{{musicLists}}" wx:key="id">
+    <song-list-item isActionIcon src-url="{{item.cover}}" top-title="{{item.title}}" bottom-title="{{item.list.count}}" item-id="{{item.id}}" data-index="{{index}}" catchtapicon="tapItemSwitch"/>
   </view>
+  <view wx:if="{{musicLists.length==0}}" class="no-content">还没有任何内容</view>
 </view>

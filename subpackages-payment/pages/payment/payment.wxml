@@ -1,6 +1,6 @@
 <wrapper nav-bar-class="theme-module-color" mode="payment" sum-price="{{vipMonthCards[vipMonthId].sumPrice}}">
   <view slot="nav-bar-left" class="back-icon">
-    <i-icon type="return" size="25" color="#333" />
+    <back-button/>
   </view>
   <view slot="nav-bar-middle" class="vip-title">VIP</view>
   <scroll-view style="height:100%;" slot="content" class="bg-color" scroll-y>

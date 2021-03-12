@@ -1,0 +1,55 @@
+<wxs src="../../../common/utils/func/tools.wxs" module="tools" />
+<view class="comment-item-container">
+  <!--歌曲信息-->
+  <view class="comment-title" catchtap="goToSongCommentPage">
+    <three-column-bar>
+      <!--封面-->
+      <square-item size="80" src="{{musicInfo.cover}}" slot="left" />
+      <!--歌名和歌手名-->
+      <text class="song-singer-name one-row-flow" slot="middle">单曲 [{{musicInfo.singName}}] - {{musicInfo.singerName}}</text>
+      <!-- <view slot="middle" class="name-and-time-container">
+        <text class="user-name one-row-flow">{{userName}}</text>
+        <text class="comment-time">{{tools.timestampToTime(commentDate)}}</text>
+      </view> -->
+      <!--点赞-->
+      <view slot="right" class="thumb-up-container">
+        <text class="thumb-up-count {{isUp?'is-up':''}}">{{upCount}}</text>
+        <i-icon type="praise" size="20" color="#999" wx:if="{{!isUp}}" catchtap="changeUp"/>
+        <i-icon type="praise" size="20" color="{{themeColor}}" wx:else catchtap="changeUp"/>
+      </view>
+    </three-column-bar>
+  </view>
+  <!--评论内容-->
+  <view class="comment-container">
+    <view class="comment-content" catchtap="tapItem">
+      <block wx:if="{{!isMore && shortComment!=''}}">
+        <text space="nbsp" decode>{{shortComment}}</text><text space="nbsp" decode class="more-button" catchtap="changeIsMore">更多</text>
+      </block>
+      <block wx:elif="{{isMore && shortComment!=''}}">
+        <text>{{comment}}</text><text class="hidden-comment" catchtap="changeIsMore">收起</text>
+      </block>
+      <block wx:else>{{comment}}</block>
+    </view>
+    <!--依据不同情况显示不同内容或者不显示-->
+    <!-- 如果本条评论有回复
+    <block wx:if="{{replyCount}}">
+      <view class="comment-to-comment" bindtap="showReply">
+        <text>{{replyCount}}条回复</text>
+        <i-icon type="enter" size="12" color="{{themeColor}}" />
+      </view>
+    </block> -->
+    <!--对回复的回复-->
+    <block wx:if="{{!tools.isEmpty(replyFromInfo)}}">
+      <view class="comment-from-comment">
+        <text>
+          <text class="comment-name">@{{replyFromInfo.userName}}:</text>
+        {{replyFromInfo.comment}}
+        </text>
+      </view>
+    </block>
+  </view>
+  <!--评论时间-->
+  <view class="comment-date" style="border-bottom:{{isShowBorder?'1rpx solid #eee':'none'}}">
+    <text class="comment-time">{{tools.timestampToTime(commentDate)}}</text>
+  </view>
+</view>

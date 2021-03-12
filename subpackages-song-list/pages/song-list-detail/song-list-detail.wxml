@@ -22,12 +22,12 @@
   <scroll-view scroll-y style="height:100%" slot="content" class="theme-module-color" bindscroll="scrolling" upper-threshold="8" scroll-with-animation bindscrolltoupper="scrolltoupper" hidden="{{searchState}}">
     <!--歌单信息-->
     <view class="theme-color song-list-bg-view theme-padding">
-      <song-list-item thumbSize="180" song-list-name-class="song-list-name" song-list-bottom-text-class="song-list-bottom-text" class="element-distance" src-url="{{musicListInfo.srcUrl}}" top-title="{{musicListInfo.title}}" bottomTitle="{{musicListInfo.list.length+'首'}}"
+      <song-list-item thumbSize="180" song-list-name-class="song-list-name" song-list-bottom-text-class="song-list-bottom-text" class="element-distance" src-url="{{musicListInfo.cover}}" top-title="{{musicListInfo.title}}" bottomTitle="{{musicListInfo.list.length+'首'}}"
       />
     </view>
     <!--操作板-->
     <view class="action-card theme-module-color flex-row" style="top:-{{actionCardHeight/2}}px">
-      <i-icon type="{{musicListInfo.isCollect?'collection_fill':'collection'}}" color="{{musicListInfo.isCollect?themeColor:'#333'}}" size="24" style="border-right:1rpx solid #eee" catchtap="collect" />
+      <i-icon type="{{musicListInfo.isCollect?'collection_fill':'collection'}}" color="{{musicListInfo.isCollect?themeColor:'#333'}}" size="24" style="border-right:1rpx solid #eee" catchtap="collect" wx:if="{{flag==2}}" />
       <i-icon type="message" size="24" style="border-right:1rpx solid #eee" catchtap="toComment"/>
       <button open-type="share" plain class="share-button">
         <i-icon type="share" size="24" />
@@ -36,7 +36,7 @@
     <!--歌曲列表-->
     <view class="single-container theme-margin">
       <!--操作条-->
-      <view class="single-title-container">
+      <view class="single-title-container"wx:if="{{sortData.length!=0}}">
         <three-column-bar>
           <view slot="left" class="flex-row left-action-container">
             <i-icon type="playon_fill" color="{{themeColor}}" size="23" />
@@ -47,9 +47,10 @@
       </view>
       <!--单曲列表-->
       <view style="margin-top: 40rpx">
-        <view class="single-item" wx:for="{{sortData}}" wx:key="id">
+        <view class="single-item" wx:for="{{sortData}}" wx:key="id" wx:if="{{sortData.length!=0}}">
           <single-item item-id="{{item.id}}" sing-name="{{item.singName}}" singer-name="{{item.singerName}}" is-vip="{{item.isVip}}" />
         </view>
+        <view wx:if="{{sortData.length==0}}" class="no-content">暂时还没有任何歌曲信息</view>
       </view>
     </view>
   </scroll-view>

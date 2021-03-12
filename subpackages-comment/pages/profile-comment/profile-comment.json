@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "back-button": "/common/components/back-button/back-button",
+    "profile-comment-item":"../../components/profile-comment-item/profile-comment-item"
+  }
+}

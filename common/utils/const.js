@@ -8,5 +8,6 @@ module.exports = {
   STOP_INTERVAL_NUMBER:"stopIntervalNumber",
   SELF_SONG_LIST:"selfSongList",
   HISTORY_SEARCH:"hitorySearch",
-  COLLECT_MUSIC_LIST:"collectMusicList"
+  COLLECT_MUSIC_LIST:"collectMusicList",
+  LAST_PLAY_LIST:"lastPlayList"
 }

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "batch-music-list-item":"../components/batch-music-list-item/batch-music-list-item",
+    "back-button": "/common/components/back-button/back-button"
+  }
+}

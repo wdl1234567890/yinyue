@@ -1,0 +1,15 @@
+<wxs src="../../../common/utils/func/tools.wxs" module="tools"/>
+<wrapper nav-bar-class="theme-module-color" mode="batchMusicList" catchtapremove="tapRemove">
+  <view slot="nav-bar-left" class="back-icon">
+    <back-button />
+  </view>
+  <view slot="nav-bar-middle" class="nav-title">已选择项</view>
+  <text slot="nav-bar-right" class="all-select" catchtap="allChecked">{{checkedIds.length==musicListDatas.length?'取消全选':'全选'}}</text>
+
+  <view slot="content" class="theme-module-color theme-padding" style="height:100%">
+    <view wx:for="{{musicListDatas}}" wx:key="id" class="music-list-item">
+      <batch-music-list-item item-id="{{item.id}}" title="{{item.title}}" count="{{item.count}}" cover="{{item.cover}}" checked="{{tools.isArrayInclude(checkedIds,item.id)}}" catchhandlecheckchange="handleCheckChange" catchtapup="tapUp" catchtapdown="tapDown"/>
+    </view>
+    <view wx:if="{{musicListDatas.length==0}}" class="no-content">还没有任何内容</view>
+  </view>
+</wrapper>

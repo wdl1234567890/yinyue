@@ -1,0 +1,13 @@
+<wrapper nav-bar-class="theme-module-color">
+  <view slot="nav-bar-left" class="back-icon">
+    <back-button />
+  </view>
+  <view slot="nav-bar-middle" class="comment-title">评论({{commentDatas.length}})</view>
+  <scroll-view scroll-y slot="content" class="theme-module-color content-container" style="height:100%">
+    <!-- <comment-item wx:for="{{commentData}}" bindshowreply="showReply" wx:key="id" reply-count="{{item.replyCount}}" reply-from-info="{{item.replyFromInfo}}" comment-date="{{item.commentDate}}" comment="{{item.comment}}" user-name="{{item.userName}}" up-count="{{item.upCount}}"
+      avator="{{item.avator}}" is-up="{{item.isUp}}" item-id="{{index}}" bindtapitem="tapItem" isFocus="{{inputFocus}}"/> -->
+    <view wx:for="{{commentDatas}}" wx:key="id" class="comment-item-container">
+      <profile-comment-item is-up="{{item.isUp}}" item-id="{{item.id}}" up-count="{{item.upCount}}" comment-date="{{item.commentDate}}" comment="{{item.comment}}" music-info="{{item.musicInfo}}" reply-from-info="{{item.replyFromInfo}}"/>
+    </view>
+  </scroll-view>
+</wrapper>

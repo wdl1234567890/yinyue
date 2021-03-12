@@ -19,7 +19,7 @@
     <slot name="content"></slot>
   </view>
   <!--底部播放条-->
-  <view style="background-color: rgba(253,253,253,1);" class="play-bar-container fixed-element" hidden="{{!(mode=='normal' && hasMusicList)}}">
+  <view style="background-color: rgba(253,253,253,1);" class="play-bar-container fixed-element" hidden="{{!hasMusicList}}" wx:if="{{mode=='normal'}}">
     <play-bar height="108" bindmusicplayitemchange="musicPlayItemChange" bindmusiclistchange="musicListChange" music-info="{{musicInfo}}"/>
   </view>
   <!--底部评论条-->
@@ -37,8 +37,8 @@
       <view slot="right" class="payment-button">确认支付</view>
     </three-column-bar>
   </view>
-  <!--批量操作页面底部操作条-->
-  <view wx:if="{{mode=='batch'}}" class="batch-action-bar-container fixed-element">
+  <!--单曲批量操作页面底部操作条-->
+  <view wx:if="{{mode=='batchMusicItem'}}" class="batch-action-bar-container fixed-element">
     <view class="action-item" catchtap="tapAddNextSong">
       <i-icon type="offline" size="28" color="#333"/>
       <text class="action-item-text">下一首播放</text>
@@ -50,6 +50,13 @@
     <view class="action-item" catchtap="tapDownload">
       <i-icon type="offline" size="28" color="#333"/>
       <text class="action-item-text">下载</text>
+    </view>
+  </view>
+  <!--歌单批量操作页面底部操作条-->
+  <view wx:if="{{mode=='batchMusicList'}}" class="batch-list-action-bar-container fixed-element">
+    <view class="action-item" catchtap="tapRemove">
+      <i-icon type="trash" size="28" color="#333"/>
+      <text class="action-item-text">删除</text>
     </view>
   </view>
 </view>

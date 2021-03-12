@@ -1,6 +1,5 @@
 .info-label-container{
   border-radius: 30rpx;
-  padding: 10rpx 20rpx;
   display: flex;
   align-items: center;
 }

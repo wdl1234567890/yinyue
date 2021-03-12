@@ -1,0 +1,16 @@
+.back-icon{
+  margin-left:-12rpx;
+  margin-right:20rpx;
+}
+.comment-title{
+  margin-left: 20rpx;
+  color: #333;
+  font-size: 34rpx;
+  letter-spacing: 1px;
+}
+.content-container{
+  padding-left: var(--theme-gap)
+}
+.comment-item-container{
+  padding-top: 20rpx;
+}

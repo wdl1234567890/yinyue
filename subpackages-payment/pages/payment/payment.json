@@ -3,6 +3,7 @@
     "card": "/common/components/card/card",
     "vip-month-card":"../../components/vip-month-card/vip-month-card",
     "payment-item":"../../components/payment-item/payment-item",
-    "vip-right-item":"../../components/vip-right-item/vip-right-item"
+    "vip-right-item":"../../components/vip-right-item/vip-right-item",
+    "back-button": "/common/components/back-button/back-button"
   }
 }

@@ -80,12 +80,6 @@ Component({
         url: '/subpackages-search/pages/batch-action-page/batch-action-page'
       })
     },
-    tapToDetail(e){
-      let id = e.currentTarget.dataset.id
-      wx.navigateTo({
-        url: '/subpackages-song-list/pages/song-list-detail/song-list-detail?id='+id
-      })
-    },
     playAllSong(e){
       //将搜索结果全部加入当前播放歌单列表
       Store.setMusicList(this.data.singDatas)

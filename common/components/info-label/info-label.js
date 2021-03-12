@@ -21,6 +21,10 @@ Component({
       type:Number,
       value: 20
     },
+    padding:{
+      type:String,
+      value:"10rpx 20rpx"
+    },
     textColor:{
       type:String,
       value:"#333"

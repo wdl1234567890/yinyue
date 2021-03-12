@@ -1,16 +1,19 @@
 {
   "pages": [
-    "subpackages-search/pages/search-result/search-result",
-    "subpackages-song-list/pages/song-list-detail/song-list-detail",
+    "pages/profile/profile",
+    "subpackages-comment/pages/profile-comment/profile-comment",
+    "subpackages-comment/pages/comment/comment",
     "pages/sub-pages/profile-detail/profile-detail",
     "pages/index/index",
-    "pages/profile/profile",
     "subpackages-login/pages/login/login",
-    "subpackages-comment/pages/comment/comment",
     "subpackages-payment/pages/payment/payment",
     "subpackages-music/pages/music-play/music-play",
+    "subpackages-song-list/pages/song-list-detail/song-list-detail",
     "subpackages-search/pages/search/search",
-    "subpackages-search/pages/batch-action-page/batch-action-page"
+    "subpackages-search/pages/search-result/search-result",
+    "subpackages-search/pages/batch-action-page/batch-action-page",
+    "pages/sub-pages/edit-music-list/edit-music-list",
+    "pages/sub-pages/batch-music-list/batch-music-list"
   ],
   "window": {
     "navigationStyle": "custom",

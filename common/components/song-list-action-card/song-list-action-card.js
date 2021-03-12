@@ -19,7 +19,7 @@ Component({
   async ready(){
     
     this.setData({
-      selfSongList: await Store.getSelfSongList()
+      selfSongList: (await Store.getSelfSongList()).slice(2)
     })
   },
 
@@ -36,7 +36,7 @@ Component({
   pageLifetimes: {
     async show() {
       this.setData({
-        selfSongList: await Store.getSelfSongList()
+        selfSongList: (await Store.getSelfSongList()).slice(2)
       })
     }
   },
@@ -163,7 +163,7 @@ Component({
         return
       }
       let newId = this.data.selfSongList.length + 1
-      let value = { title: this.data.newSongListName, srcUrl: this.data.musicInfos[0].cover, id: newId ,list:[]}
+      let value = { title: this.data.newSongListName, cover: this.data.musicInfos[0].cover, id: newId ,list:[]}
       Store.addSelfSongList(value).then(res => {
         wx.showToast({
           title: '新建歌单完成!',
@@ -173,7 +173,8 @@ Component({
         oldSelfSongList.push(value)
         this.setData({
           selfSongList: oldSelfSongList,
-          showModal: 'songListModal'
+          showModal: 'songListModal',
+          newSongListName:''
         })
       })
       this.triggerEvent('songlistconfirm', e)

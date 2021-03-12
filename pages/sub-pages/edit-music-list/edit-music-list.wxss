@@ -1,0 +1,29 @@
+.back-icon {
+  margin-left: -12rpx;
+  margin-right: 20rpx;
+}
+
+.nav-title{
+  margin-left: 20rpx;
+  color: #333;
+  font-size: 34rpx;
+  letter-spacing: 1px;
+}
+.edit-container{
+  margin-top: 20rpx;
+  padding-left: var(--theme-gap)
+}
+.edit-item{
+  padding: 40rpx 0;
+  border-bottom: 1px solid #eee;
+  padding-right: var(--theme-gap)
+}
+.title{
+  color: #888;
+  font-size: 28rpx;
+  letter-spacing: 1px;
+}
+.song-list-edit-title{
+  margin-bottom: 15rpx;
+  padding: 0 15rpx;
+}
