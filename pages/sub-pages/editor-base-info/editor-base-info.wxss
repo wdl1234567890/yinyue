@@ -1,0 +1,42 @@
+.back-icon {
+  margin-left: -12rpx;
+  margin-right: 20rpx;
+}
+.nav-title{
+  margin-left: 20rpx;
+  color: #333;
+  font-size: 34rpx;
+  letter-spacing: 1px;
+}
+
+.edit-item{
+  padding: 40rpx var(--theme-gap);
+  border-bottom: 1px solid #eee;
+  background-color: var(--theme-module-color);
+  margin-top:25rpx;
+}
+.user-name{
+  color: #888;
+  font-size: 28rpx;
+  letter-spacing: 1px;
+  text-align: right;
+}
+.choosed-container{
+  margin-bottom: 40rpx;
+}
+.choosed-container>view,.all-style-container>view{
+  flex-wrap: wrap; 
+  align-items: center;
+
+}
+info-label {
+  margin-right: 25rpx;
+  margin-bottom: 20rpx;
+}
+.choosed-container>text,.all-style-container>text{
+  color: #555;
+  font-size: 26rpx;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}

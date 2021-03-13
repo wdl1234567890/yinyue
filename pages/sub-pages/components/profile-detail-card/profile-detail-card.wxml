@@ -1,5 +1,8 @@
 <view class="profile-detail-card-container theme-radius theme-margin theme-padding theme-module-color profile-detail-card-class">
-  <text class="module-title">{{title}}</text>
+  <three-column-bar>
+    <text class="module-title" slot="left">{{title}}</text>
+    <i-icon type="editor" size="20" color="#666" slot="right" bindtap="tapEditor"/>
+  </three-column-bar>
   <view class="card-container">
     <slot></slot>
   </view>

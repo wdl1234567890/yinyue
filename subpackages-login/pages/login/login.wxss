@@ -35,11 +35,12 @@
   margin-bottom: 20rpx;
 }
 .radio-item{
-  margin-right: 20rpx;
+  margin-right: 60rpx;
   color: #333;
   font-size: 28rpx;
-  width: 20rpx;
-  height: 20rpx;
+  height: fit-content;
+  align-items: center;
+  width: fit-content;
 }
 .birth{
   margin-top: 30rpx;
@@ -54,9 +55,14 @@
   margin-bottom: 40rpx;
 }
 .choosed-container>view,.all-style-container>view{
-  flex-wrap: wrap;
-  
+  flex-wrap: wrap; 
+  align-items: center;
+
 }
+.radio-item my-radio{
+  margin-right: 12rpx;
+}
+
 info-label{
   margin-right: 25rpx;
   margin-bottom: 20rpx;

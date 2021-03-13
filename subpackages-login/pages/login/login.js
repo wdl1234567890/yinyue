@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    checkedIndex:-1,
     current:0,
     themeColor: app.globalData.themeColor,
     styleLabels:["流行","古风","摇滚","乡村","AGC","英文","草原"],
@@ -74,7 +75,6 @@ Page({
 
   },
   getUserInfo(res){
-    console.log(res)
     let userInfo=res.detail.userInfo
     //用户已授权
     if (userInfo!=undefined){
@@ -91,7 +91,11 @@ Page({
     }
   },
   sexChange(e){
-
+    
+    let index = e.currentTarget.dataset.index
+    this.setData({
+      checkedIndex:index
+    })
   },
   dateChange(e){
     this.setData({

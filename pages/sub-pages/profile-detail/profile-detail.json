@@ -5,6 +5,8 @@
     "circular-item": "/common/components/circular-item/circular-item",
     "song-list-item": "/common/components/song-list-item/song-list-item",
     "profile-detail-card":"../components/profile-detail-card/profile-detail-card",
-    "back-button": "/common/components/back-button/back-button"
+    "back-button": "/common/components/back-button/back-button",
+    "bottom-modal":"/common/components/bottom-modal/bottom-modal",
+    "info-label": "/common/components/info-label/info-label"
   }
 }

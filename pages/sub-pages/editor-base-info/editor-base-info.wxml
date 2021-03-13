@@ -1,0 +1,40 @@
+<wxs src="../../../common/utils/func/tools.wxs" module="tools" />
+<wrapper mode="edit" nav-bar-class="theme-module-color" catchtapsave="tapSave">
+  <view slot="nav-bar-left" class="back-icon">
+    <back-button />
+  </view>
+  <view slot="nav-bar-middle" class="nav-title">编辑个人信息</view>
+  <view style="height:100%" slot="content">
+    <!--头像修改-->
+    <view class="edit-item" catchtap="tapChangeAvator">
+      <three-column-bar>
+        <text slot="left">头像</text>
+        <circular-item slot="right" src="{{userInfo.avator}}" size="140" />
+      </three-column-bar>
+    </view>
+    <!--用户名修改-->
+    <view class="edit-item">
+      <three-column-bar>
+        <text slot="left">用户名</text>
+        <input slot="right" class="user-name" placeholder="用户名" value="{{userInfo.userName}}" bindinput="tapEditUserName"/>
+      </three-column-bar>
+    </view>
+    <!--选择听歌风格-->
+    <view class="edit-item style-info-container">
+      <!--已选-->
+      <view class="choosed-container flex-col">
+        <text>已选</text>
+        <view class="flex-row">
+          <info-label isActive="true" wx:for="{{userInfo.choosedStyles}}" value="{{item}}" wx:key="index" />
+        </view>
+      </view>
+      <!--可选标签-->
+      <view class="all-style-container flex-col">
+        <text>风格标签</text>
+        <view class="flex-row">
+          <info-label enabel-active wx:for="{{styleLabels}}" value="{{item}}" bindtaplabel="tapLabel" wx:key="index" isActive="{{tools.isArrayInclude(userInfo.choosedStyles,item)}}" />
+        </view>
+      </view>
+    </view>
+  </view>
+</wrapper>

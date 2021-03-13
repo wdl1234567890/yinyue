@@ -13,7 +13,8 @@
     "subpackages-search/pages/search-result/search-result",
     "subpackages-search/pages/batch-action-page/batch-action-page",
     "pages/sub-pages/edit-music-list/edit-music-list",
-    "pages/sub-pages/batch-music-list/batch-music-list"
+    "pages/sub-pages/batch-music-list/batch-music-list",
+    "pages/sub-pages/editor-base-info/editor-base-info"
   ],
   "window": {
     "navigationStyle": "custom",

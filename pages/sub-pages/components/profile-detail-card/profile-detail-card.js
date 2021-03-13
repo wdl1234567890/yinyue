@@ -25,6 +25,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    tapEditor(e){
+      wx.navigateTo({
+        url: '/pages/sub-pages/editor-base-info/editor-base-info'
+      })
+    }
   }
 })

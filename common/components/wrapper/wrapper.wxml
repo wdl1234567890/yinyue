@@ -59,4 +59,11 @@
       <text class="action-item-text">删除</text>
     </view>
   </view>
+  <!--修改保存按钮操作条-->
+  <view wx:if="{{mode=='edit'}}" class="edit-action-bar-container fixed-element">
+    <view class="action-item" catchtap="tapSave">
+      <i-icon type="task" size="28" color="#333"/>
+      <text class="action-item-text">保存</text>
+    </view>
+  </view>
 </view>

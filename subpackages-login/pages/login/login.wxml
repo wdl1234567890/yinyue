@@ -31,15 +31,13 @@
         <view class="base-info-container">
           <view class="base-info-title">基本信息</view>
           <!--性别-->
-          <view>
-            <radio-group bindchange="sexChange">
-              <label class="radio" class="radio-item">
-                <radio value="r1" checked="true" />男
-              </label>
-              <label class="radio" class="radio-item">
-                <radio value="r2" />女
-              </label>
-            </radio-group>
+          <view class="flex-row">
+            <view class="flex-row radio-item" catchtap="sexChange" data-index="0">
+              <my-radio checked="{{checkedIndex==0}}" inner-handle="{{false}}" size="15"/>男
+            </view>
+            <view class="flex-row radio-item" catchtap="sexChange" data-index="1">
+              <my-radio checked="{{checkedIndex==1}}" inner-handle="{{false}}" size="15"/>女
+            </view>
           </view>
           <!--年龄-->
           <view>

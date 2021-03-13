@@ -87,3 +87,50 @@
 .comment--module{
   margin-bottom: 20rpx;
 }
+
+.actions-title-container{
+  padding: 0!important
+}
+
+.title-container{
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.action-item{
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  width: 100%;
+}
+.share-button{
+  padding: 0!important;
+  margin: 0!important;
+  line-height: 0;
+  border: none!important;
+  outline: none;
+  height: fit-content!important;
+  border-radius: 0;
+}
+.editor-icon{
+  position: relative;
+  top: -30rpx;
+}
+info-label {
+  margin-right: 25rpx;
+  margin-bottom: 20rpx;
+}
+.action-container{
+  align-items: center;
+  font-weight: normal;
+  font-size: 28rpx;
+}
+.share-button::after{
+  border: none;
+  outline: none;
+  list-style: none;
+}
+.action-icon{
+  margin-right: 25rpx;
+  position: relative; 
+}

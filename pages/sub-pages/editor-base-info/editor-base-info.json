@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "three-column-bar": "/common/components/three-column-bar/three-column-bar",
+    "circular-item":"/common/components/circular-item/circular-item",
+    "back-button": "/common/components/back-button/back-button",
+    "info-label": "/common/components/info-label/info-label"
+  }
+}

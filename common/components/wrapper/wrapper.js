@@ -12,7 +12,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    //normal:底部有播放条，play:底部没有元素，comment:底部有评论输入条，login:底部没有元素，payment:底部支付条,batchMusicItem:单曲批量操作页面底部操作条,batchMusicList歌单批量操作页面底部条
+    //normal:底部有播放条，play:底部没有元素，comment:底部有评论输入条，login:底部没有元素，payment:底部支付条,batchMusicItem:单曲批量操作页面底部操作条,batchMusicList歌单批量操作页面底部条,edit编辑保存按钮
     mode:{
       type:String,
       value:'normal'
@@ -146,6 +146,9 @@ Component({
     },
     tapRemove(e){
       this.triggerEvent('tapremove', null)
+    },
+    tapSave(e){
+      this.triggerEvent('tapsave', null)
     }
   }
 })

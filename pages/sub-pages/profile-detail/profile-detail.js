@@ -5,7 +5,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    showActionModal:false,
+    userInfo:{
+      avator:'',
+      userName:'',
+      choosedStyles:[]
+    },
+    actions: [
+      {
+        id: 1,
+        icon: 'editor',
+        text: '修改信息',
+      },
+      {
+        id: 2,
+        icon: 'share',
+        text: '分享',
+      },
+      {
+        id: 3,
+        icon: 'offline',
+        text: '注销',
+      }
+    ]
   },
 
   /**
@@ -13,6 +35,14 @@ Page({
    */
   onLoad: function (options) {
     let that = this
+
+    this.data.userInfo.avator = 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
+    this.data.userInfo.userName = '茯苓'
+    this.data.userInfo.choosedStyles = ["流行", "古风", "摇滚"]
+
+    this.setData({
+      userInfo:this.data.userInfo
+    })
 
     //获取顶部导航栏改变样式的高度参数
     let query = wx.createSelectorQuery()
@@ -98,5 +128,37 @@ Page({
         topBarchange: true
       })
     }
+  },
+  hideModal(e){
+    this.setData({
+      showActionModal:false
+    })
+  },
+  tapSwitch(e){
+    this.setData({
+      showActionModal: true
+    })
+  },
+  tapAction(e){
+    let index = e.currentTarget.dataset.index
+    if(index == 0){
+      wx.navigateTo({
+        url: '/pages/sub-pages/editor-base-info/editor-base-info'
+      })
+      this.setData({
+        showActionModal:false
+      })
+    }else if(index == 1){
+
+    }else if(index == 2){
+      wx.navigateTo({
+        url: '/pages/sub-pages/editor-base-info/editor-base-info'
+      })
+    }
+  },
+  tapEditor(e){
+    wx.navigateTo({
+      url: '/pages/sub-pages/editor-base-info/editor-base-info'
+    })
   }
 })
