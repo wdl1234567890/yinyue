@@ -17,11 +17,7 @@ Page({
       title: '',
       actions: []
     },
-    userAvatar: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
-    userId: "茯苓170603",
-    // themeBgAndModuleColorDiffer: app.globalData.themeModuleColorOpacity - app.globalData.themeBgOpacity,
-    // themeBgAndModuleColorBasicParam: app.globalData.themeBgAndModuleColorBasicParam,
-    src: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
+    userInfo:{},
     currentSongListId:0,
     isClickSongListINav: false,
     scrollDiff: 0,
@@ -55,7 +51,6 @@ Page({
         text: '标签'
       }
     ],
-    // currentScrollPosition:0,
     songListNav:[
       {
         id:"recent-play",
@@ -106,51 +101,7 @@ Page({
         // maxScrollDiff,
       })
 
-      this.initMusicListInfo()
-
     }).exec()
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
 
   },
 
@@ -161,56 +112,69 @@ Page({
 
   },
 
-  //初始化歌单信息
-  async initMusicListInfo(){
-    //初始化我的歌单信息
-    let myMusicList = []
-    let selfSongList = await Store.getSelfSongList()
-    for (let i = 3; i < selfSongList.length;i++){
-      myMusicList.push(selfSongList[i])
-    }
+  onShow(){
+    this.initUserInfo()
+    this.initMusicListInfo()
+  },
 
-    let myMusicListInfo={
-      title:'我的歌单',
-      list:myMusicList
-    }
-
-    //初始化收藏歌单信息
-    let collectionMusicListInfo = {
-      title:'收藏歌单',
-      list : await Store.getCollectMusicList()
-    }
-
-    //初始化最近播放歌单信息
-    let lastPlayMusicListInfo = {
-      title:'最近播放',
-      list :await Store.getLastPlayList()
-    }
-
-    this.setData({
-      allMusicListInfo:[
-        lastPlayMusicListInfo,
-        myMusicListInfo,
-        collectionMusicListInfo
-      ]
+  //初始化用户信息
+  initUserInfo(){
+    Store.getUserInfo().then(res => {
       
+      this.data.userInfo.avator = res.avator
+      this.data.userInfo.userName = res.userName
+      this.data.userInfo.choosedStyles = res.choosedStyles
+      this.setData({
+        userInfo: this.data.userInfo
+      })
+    })
+  },
+
+  //初始化歌单信息
+  initMusicListInfo(){
+    //初始化我的歌单信息
+    let selfSongList = []
+    let myMusicListInfo = {}
+    let collectionMusicListInfo = {}
+    let lastPlayMusicListInfo = {}
+    Store.getMyMusicList().then(res=>{
+      //初始化我的歌单
+      myMusicListInfo = {
+        title: '我的歌单',
+        list: res
+      }
+      return Store.getCollectMusicList()
+
+    }).then(res=>{
+      //初始化收藏歌单信息
+      collectionMusicListInfo = {
+        title: '收藏歌单',
+        list: res
+      }
+      return Store.getLastPlayList()
+    }).then(res=>{
+      //初始化最近播放歌单信息
+      lastPlayMusicListInfo = {
+        title: '最近播放',
+        list: res
+      }
+      return Promise.resolve(true)
+    }).then(res=>{
+      this.setData({
+        allMusicListInfo: [
+          lastPlayMusicListInfo,
+          myMusicListInfo,
+          collectionMusicListInfo
+        ]
+      })
     })
 
   },
 
   scrolling(event) {
     let scrollTop = event.detail.scrollTop
-
-    // this.setData({
-    //   currentScrollPosition: scrollTop
-    // })
     //控制滑动时顶部条是否显示头像昵称以及背景颜色变化
     if (scrollTop <= this.data.showTopBarChangeParam && this.data.topBarchange) {
-      // let frequencyParam = 1 / this.data.showTopBarChangeParam;
-      // this.setData({
-      //   thumbAvatorOpacity: scrollTop * frequencyParam,
-      //   topBarColorOpacity: app.globalData.themeBgOpacity + this.data.themeBgAndModuleColorDiffer * frequencyParam
-      // })
       this.setData({
         topBarchange: false
       })
@@ -219,17 +183,6 @@ Page({
         topBarchange: true
       })
     }
-    // else if (scrollTop <= 4) {
-    //   this.setData({
-    //     thumbAvatorOpacity: 0,
-    //     topBarColorOpacity: app.globalData.themeBg
-    //   })
-    // } else {
-    //   this.setData({
-    //     thumbAvatorOpacity: 1,
-    //     topBarColorOpacity: app.globalData.themeModuleColorOpacity
-    //   })
-    // }
 
     //控制滑动时歌单导航行条是否固定在顶部
     if (scrollTop >= this.data.songListnavBarTopDiff && !this.data.navBarIsTop){
@@ -311,16 +264,6 @@ Page({
       isClickSongListINav: true,//点击滚动标识
       scrollDiff: this.data.songListNav[index].scrollDiff
     })
-
-    //若当前所在的位置与滚动后所在的位置不同并且不是二次触底滚动，则执行点击滚动
-    // if (this.data.currentScrollPosition != this.data.songListNav[index].scrollDiff
-    //   && !(this.data.currentScrollPosition == this.data.maxScrollDiff && this.data.maxScrollDiff <= this.data.songListNav[index].scrollDiff)
-    // ){
-    //   this.setData({
-    //     isClickSongListINav: true,//点击滚动标识
-    //     scrollDiff: this.data.songListNav[index].scrollDiff
-    //   })
-    // }
 
   },
 
@@ -460,14 +403,15 @@ Page({
       return
     }
 
-    let newMusicList = { id: myMusicList.length + 4, cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg', title: this.data.newSongListName,list:[]}
-    myMusicList.unshift(newMusicList)
+    let newMusicList = { id: Math.max.apply(Math, myMusicList.map(e => e.id)) + 1, cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg', title: this.data.newSongListName,list:[]}
+    myMusicList.push(newMusicList)
     this.data.allMusicListInfo[1].list=myMusicList
     this.setData({
       allMusicListInfo: this.data.allMusicListInfo,
       showAddInput: false,
       newSongListName:''
     })
+    Store.addSelfSongList(newMusicList)
     wx.showToast({
       title: '新建歌单成功！',
       icon: 'none'
@@ -577,19 +521,21 @@ Page({
       break
       case 'createtask':
         wx.navigateTo({
-          url: '/pages/sub-pages/batch-music-list/batch-music-list?title=' + this.data.switchInfos.title
+          url: '/pages/sub-pages/batch-music-list/batch-music-list?id=' + this.data.switchInfos.musicListCardIndex
         })
       break
       default:
       break
     }
-    this.setData({
-      switchInfos: {
-        musicListCardIndex: -1,
-        title: '',
-        actions: []
-      },
-    })
+    if (this.data.switchInfos.actions[index].icon!='trash'){
+      this.setData({
+        switchInfos: {
+          musicListCardIndex: -1,
+          title: '',
+          actions: []
+        },
+      })
+    }
   },
   removeMusicList(){
     let that = this
@@ -603,10 +549,20 @@ Page({
           that.setData({
             allMusicListInfo: that.data.allMusicListInfo
           })
+
+          if (that.data.switchInfos.musicListCardIndex==0){
+            Store.removeLastPlayList(that.data.switchInfos.id)
+          } else if (that.data.switchInfos.musicListCardIndex == 1){
+            Store.removeSelfSongList(that.data.switchInfos.id)
+          } else if (that.data.switchInfos.musicListCardIndex==2){
+            Store.removeCollectMusicList(that.data.switchInfos.id)
+          }
+
           wx.showToast({
             title: '歌单删除成功！',
             icon:'none'
           })
+          
         } else if(res.cancel) {
           
         }

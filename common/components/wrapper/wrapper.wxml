@@ -38,18 +38,22 @@
     </three-column-bar>
   </view>
   <!--单曲批量操作页面底部操作条-->
-  <view wx:if="{{mode=='batchMusicItem'}}" class="batch-action-bar-container fixed-element">
-    <view class="action-item" catchtap="tapAddNextSong">
+  <view wx:if="{{mode=='batchMusicItem' || mode=='batchMusicItemWithRemove'}}" class="batch-action-bar-container fixed-element">
+    <view class="action-item" catchtap="tapAddNextSong" style="width:{{mode=='batchMusicItemWithRemove'?'25%':'33%'}}">
       <i-icon type="offline" size="28" color="#333"/>
       <text class="action-item-text">下一首播放</text>
     </view>
-    <view class="action-item" catchtap="tapAddToSongList">
+    <view class="action-item" catchtap="tapAddToSongList" style="width:{{mode=='batchMusicItemWithRemove'?'25%':'33%'}}">
       <i-icon type="offline" size="28" color="#333"/>
       <text class="action-item-text">加入歌单</text>
     </view>
-    <view class="action-item" catchtap="tapDownload">
+    <view class="action-item" catchtap="tapDownload" style="width:{{mode=='batchMusicItemWithRemove'?'25%':'33%'}}">
       <i-icon type="offline" size="28" color="#333"/>
       <text class="action-item-text">下载</text>
+    </view>
+    <view class="action-item" catchtap="tapRemove" wx:if="{{mode=='batchMusicItemWithRemove'}}" style="width:{{mode=='batchMusicItemWithRemove'?'25%':'33%'}}">
+      <i-icon type="offline" size="28" color="#333"/>
+      <text class="action-item-text">删除</text>
     </view>
   </view>
   <!--歌单批量操作页面底部操作条-->

@@ -1,6 +1,7 @@
 // subpackages-song-list/pages/song-list-detail/song-list-detail.js
 let app = getApp()
 let func = require('../../../common/utils/func/wxml-element.js')
+let Const = require('../../../common/utils/const.js')
 let Store = require('../../../common/utils/store/store.js')
 Page({
 
@@ -116,40 +117,16 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  async onLoad(options) {
-
+  onLoad(options) {
     //获取参数里的歌单id
-    let musicListId= options.id
-
-    //获取参数里的标识，1代表本地歌单，2代表网站歌单
-    let flag = options.flag ? options.flag : 2
-
-    let musicListInfo
-    if(flag==1){
-      let musicLists = await Store.getSelfSongList()
-      musicListInfo = musicLists.find(e=>{
-        if(e.id==musicListId)return true
-        return false
-      })
-    }else if(flag==2){
-      //request
-      musicListInfo = this.data.singListDatas.find(e => {
-        if (e.id == musicListId) return true
-        else return false
-      })
-    }
-
+    this.data.musicListInfo.id = options.id
+    //获取参数里的标识，1代表本地歌单，4代表网站歌单，2代表最近播放歌单，3代表已收藏歌单
+    let flag = options.flag ? options.flag : 4
     this.setData({
+      musicListInfo:this.data.musicListInfo,
       flag
     })
 
-    Store.isMusicListCollect(musicListInfo.id).then(res=>{
-      musicListInfo.isCollect=res
-      this.setData({
-        musicListInfo,
-        sortData: musicListInfo.list
-      })
-    })
 
     let that = this
 
@@ -171,45 +148,42 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  onShow(){
+    let flagConst = [Const.SELF_SONG_LIST, Const.LAST_PLAY_LIST, Const.COLLECT_MUSIC_LIST]
+    let musicListInfo = null
+    if (this.data.flag != 4) {
+      Store.getObjectById(flagConst[this.data.flag - 1], this.data.musicListInfo.id).then(res => {
+        musicListInfo = res
+        return Store.isMusicListCollect(musicListInfo.id)
+      }).then(res => {
+        musicListInfo.isCollect = res
+        this.setData({
+          musicListInfo,
+          sortData: musicListInfo.list
+        })
+      })
 
-  },
+    } else if (this.data.flag == 4) {
+      //request
+      musicListInfo = this.data.singListDatas.find(e => {
+        if (e.id == this.data.musicListInfo.id) return true
+        else return false
+      })
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+      Store.isMusicListCollect(musicListInfo.id).then(res => {
+        musicListInfo.isCollect = res
+        this.setData({
+          musicListInfo,
+          sortData: musicListInfo.list
+        })
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
   },
 
@@ -262,7 +236,7 @@ Page({
   goToBatch(e) {
     app.globalData.searchResult = this.data.musicListInfo.list
     wx.navigateTo({
-      url: '/subpackages-search/pages/batch-action-page/batch-action-page'
+      url: '/subpackages-search/pages/batch-action-page/batch-action-page?flag='+this.data.flag + '&id='+this.data.musicListInfo.id
     })
   },
 
@@ -334,6 +308,27 @@ Page({
       break
       default:
     }
+  },
+  removeMusic(e){
+    let id = e.detail
+    Store.removeMusicFromSelfSongList(this.data.musicListInfo.id,id).then(res=>{
+      wx.showToast({
+        title: '删除成功！',
+        icon:'none'
+      })
+      this.data.musicListInfo.list = this.data.musicListInfo.list.filter(e=>{
+        if(e.id==id)return false
+        return true
+      })
+      this.data.sortData = this.data.sortData.filter(e=>{
+        if (e.id == id) return false
+        return true
+      })
+      this.setData({
+        musicListInfo:this.data.musicListInfo,
+        sortData:this.data.sortData
+      })
+    })
   },
   tapSelectItem(e){
     let index = e.currentTarget.dataset.index

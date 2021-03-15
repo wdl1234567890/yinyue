@@ -5,6 +5,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    flag:{
+      type:Number,
+      value:-1
+    },
     title: {
       type: String,
       value: "歌单名"

@@ -111,66 +111,6 @@ Page({
         isVip: false
       }
     ],
-
-    // musicListInfo:{
-    //   isCollectAll:true,
-    //   musicList: [
-    //     {
-    //       id: 1,
-    //       singName: '我在赶去找你的路上',
-    //       singerName: '小时姑娘',
-    //       isVip: true
-    //     },
-    //     {
-    //       id: 2,
-    //       singName: '歌曲2',
-    //       singerName: '歌手2',
-    //       isVip: true
-    //     },
-    //     {
-    //       id: 3,
-    //       singName: '歌曲3',
-    //       singerName: '歌手3',
-    //       isVip: false
-    //     },
-    //     {
-    //       id: 4,
-    //       singName: '歌曲4',
-    //       singerName: '歌手4',
-    //       isVip: false
-    //     },
-    //     {
-    //       id: 5,
-    //       singName: '歌曲5',
-    //       singerName: '歌手5',
-    //       isVip: true
-    //     },
-    //     {
-    //       id: 6,
-    //       singName: '歌曲6',
-    //       singerName: '歌手6',
-    //       isVip: false
-    //     },
-    //     {
-    //       id: 7,
-    //       singName: '歌曲7',
-    //       singerName: '歌手7',
-    //       isVip: false
-    //     },
-    //     {
-    //       id: 8,
-    //       singName: '歌曲8',
-    //       singerName: '歌手8',
-    //       isVip: false
-    //     },
-    //     {
-    //       id: 9,
-    //       singName: '歌曲9',
-    //       singerName: '歌手9',
-    //       isVip: false
-    //     }
-    //   ],
-    // },
     musicInfo:{
       id:-1,
       singName:'歌名',
@@ -191,12 +131,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  async onLoad(options) {
+  onLoad(options) {
     let musicId = options.id
-    let musicList = await Store.getCurrentMusicList()
+    let musicList = []
+    let musicInfo = {}
     let currentPlayTime = app.globalData.currentPlayTime
     let loopStatusIndex = app.globalData.loopStatusIndex
-    func.getElementHeight(this, '#canvas').then(async(playCdSize) => {
+    func.getElementHeight(this, '#canvas').then(playCdSize => {
       //计算每秒钟的进度
       let progressRadius=playCdSize/2-3
       let progressLength = 2 * Math.PI * progressRadius
@@ -205,58 +146,38 @@ Page({
       app.globalData.doSomething = this.drawPlayProgress
       app.globalData.obj = this
       app.globalData.endSomething = this.calPerSecondProgress
-      this.setData({
-        currentPlayTime,
-        musicList,
-        // musicInfo,
-        loopStatusIndex,
-        radius: playCdSize / 2,
-        progressRadius,
-        progressLength
-      })
-      if(musicId!=-1){
-        app.globalData.playMusicById(musicId)
-        // this.setData({
-        //   playStatus: false
-        // })
-      }
-      else{
-        let musicInfo = await Store.getCurrentPlayMusic()
-        let perSecondProgress = progressLength / musicInfo.singTime
-        let playStatus = app.globalData.stopIntervalNumber != null
+
+      Promise.all([Store.getCurrentMusicList(), Store.getCurrentPlayMusic()]).then(res=>{
+        musicList = res[0]
+        musicInfo = res[1]
         this.setData({
-          musicInfo,
-          perSecondProgress,
-          playStatus
+          currentPlayTime,
+          musicList,
+          loopStatusIndex,
+          radius: playCdSize / 2,
+          progressRadius,
+          progressLength
         })
-        this.drawPlayProgress()
-      }
-      
-      this.setLikeStatus()
+        if (musicId != -1) {
+          app.globalData.playMusicById(musicId)
+        }
+        else {
+
+          let perSecondProgress = progressLength / musicInfo.singTime
+          let playStatus = app.globalData.stopIntervalNumber != null
+          this.setData({
+            musicInfo,
+            perSecondProgress,
+            playStatus
+          })
+          this.drawPlayProgress()
+        }
+        this.setLikeStatus()
+      })
     })
     
   },
 
-  /**
-   *  生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
 
   /**
    * 生命周期函数--监听页面卸载
@@ -268,52 +189,11 @@ Page({
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
 
   },
-
-  //播放音乐
-  // async playMusic(){
-  //   // if(await Store.getStopIntervalNumber()==null){
-  //     // app.globalData.calPlayTime()
-  //     // let that = this
-  //     //控制进度条变化
-
-  //     // let stopIntervalNum = setInterval(async () => {
-  //     //   if (that.data.musicInfo.singTime == await Store.getCurrentPlayTime()) {
-  //     //     if (that.data.loopStatusIndex == 1) {
-  //     //       that.musicPlayItemChange(that.data.musicInfo.id)
-  //     //     } else {
-  //     //       that.nextSong()
-  //     //     }
-  //     //     return
-  //     //   }
-  //     //   that.drawPlayProgress()
-  //     // }, 1000)
-
-  //     // this.setData({
-  //     //   stopIntervalNum
-  //     // })
-  //   // }
-  //   let playStatus = await Store.getStopIntervalNumber() != null
-  //   this.setData({playStatus})
-  // },
 
   //计算并绘制当前播放进度条
   drawPlayProgress(){
@@ -323,7 +203,6 @@ Page({
       })
       return
     }
-    // let currentPlayTime = await Store.getCurrentPlayTime()
     let playStatus = app.globalData.stopIntervalNumber != null
     let currentPlayTime = app.globalData.currentPlayTime
     this.setData({
@@ -401,9 +280,7 @@ Page({
     
     let playStatus = this.data.playStatus
     if (playStatus){
-      // clearInterval(this.data.stopIntervalNum)
       app.globalData.pausePlayMusic()
-      // this.setData({playStatus:false})
     }else{
       app.globalData.playMusic()
     }
@@ -422,26 +299,17 @@ Page({
     })
     app.globalData.loopStatusIndex=loopStatusIndex
   },
-  async likeChange(e){
-    let selfSongList = await Store.getSelfSongList()
+  likeChange(e){
     let likeStatus = this.data.likeStatus
     this.setData({
       likeStatus: !likeStatus
     })
 
     if (!likeStatus){
-      selfSongList[0].list.unshift(this.data.musicInfo)
+      Store.addMusicToSelfSongList(3, this.data.musicInfo)
     }else{
-      for (let i = 0; i < selfSongList[0].list.length;i++){
-        // console.log(selfSongList[0].list[i].id)
-        // console.log(this.data.musicInfo.id)
-        if (selfSongList[0].list[i].id==this.data.musicInfo.id){
-          selfSongList[0].list.splice(i,1)
-          break
-        }
-      }
+      Store.removeMusicFromSelfSongList(3, this.data.musicInfo.id)
     }
-    Store.setSelfSongList(selfSongList)
 
   },
   commentDetail(e){
@@ -454,250 +322,72 @@ Page({
       showSingListModal: false
     })
   },
-  async musicListChange(e){
-    let musicList = await Store.getCurrentMusicList()
-    if(musicList.length==0){
-      wx.navigateBack()
-      return
-    }
-    this.setData({
-      musicList
+  musicListChange(e){
+    Store.getCurrentMusicList().then(res=>{
+      let musicList = res
+      if (musicList.length == 0) {
+        wx.navigateBack()
+        return
+      }
+      this.setData({
+        musicList
+      })
     })
+    
   },
   showModal(e) {
     this.setData({
       showSingListModal: true
     })
   },
-  async nextSong(e){    
+  nextSong(e){    
 
     app.globalData.nextSong()
-    if ((await Store.getCurrentMusicList()).length == 1) {
-      this.clearAndDrawBackground()
-      app.globalData.currentPlayTime = -1
-      this.setData({
-        currentPlayTime: 0
-      })
-    }
-  },
-  async preSong(e){
-    app.globalData.currentPlayTime = -1
-    app.globalData.preSong()
-    if ((await Store.getCurrentMusicList()).length == 1) {
-      this.clearAndDrawBackground()
-      app.globalData.currentPlayTime = -1
-      this.setData({
-        currentPlayTime: 0
-      })
-    }
-  },
-  // musicListCollectAllChange(e){
-  //   let musicListInfo = this.data.musicListInfo
-  //   musicListInfo.isCollectAll = !musicListInfo.isCollectAll
-  //   this.setData({
-  //     musicListInfo
-  //   })
-  // },
-  // removeListItem(e){
-  //   let index = e.currentTarget.dataset.index
-    
-  //   let musicList = this.data.musicListInfo.musicList
-  //   if (musicList.length<=0)return
-
-  //   if (musicList[index].id == this.data.musicInfo.id){
-  //     let nextIndex = -1
-  //     if(this.data.loopStatusIndex==2){
-  //       nextIndex = this.findCurrentMusicIndex()
-  //     }else{
-  //       nextIndex = index + 1 >= musicList.length?0:index+1
-  //     }
-  //     this.musicPlayItemChange(musicList[nextIndex].id)
-  //   }
-    
-  //   let musicListInfo = this.data.musicListInfo
-  //   musicList.splice(index,1);
-  //   musicListInfo.musicList.musicList = musicList
-  //   this.setData({
-  //     musicListInfo
-  //   })
-  //   if (musicList.length == 0){
-  //     clearInterval(this.data.stopIntervalNum)
-  //     this.setData({
-  //       showSingListModal: false
-  //     })
-  //   }
-  // },
-  // removeAllListItem(e){
-  //   let that = this
-  //   wx.showModal({
-  //     title: '确定要清空播放列表？',
-  //     confirmText:'清空',
-  //     success(res){
-  //       if (res.confirm){
-  //         let musicListInfo = that.data.musicListInfo
-  //         musicListInfo.musicList = []
-  //         musicListInfo.isCollectAll=false
-  //         clearInterval(that.data.stopIntervalNum)
-  //         that.setData({
-  //           musicListInfo,
-  //           showSingListModal: false
-  //         })
-  //       }
-  //     }
-  //   })
-    
-  // },
-  // findCurrentMusicIndex(){
-  //   let musicList = this.data.musicList
-  //   let currentPlayId = this.data.musicInfo.id
-  //   let currentPlayIndex = -1
-  //   for (let i = 0; i < musicList.length; i++) {
-  //     if (musicList[i].id == currentPlayId) {
-  //       currentPlayIndex = i
-  //       break
-  //     }
-  //   }
-  //   return currentPlayIndex
-  // },
-  // preSong(e){
-  //   let preIndex = -1
-  //   let musicList = this.data.musicList
-  //   let currentPlayId = this.data.musicInfo.id
-  //   let currentPlayIndex = this.findCurrentMusicIndex()
-
-  //   if(currentPlayIndex==-1)return
-
-  //   if (this.data.loopStatusIndex == 2) {
-  //     if (musicList.length != 1) {
-  //       while ((preIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
-  //     } else {
-  //       preIndex = currentPlayIndex
-  //     }
-
-  //   } else {
-  //     preIndex = currentPlayIndex - 1 <= -1 ? musicList.length - 1 : currentPlayIndex - 1
-  //   }
-  //   this.musicPlayItemChange(musicList[preIndex].id)
-  // },
-  // nextSong(e){
-  //   let nextIndex = -1
-  //   let musicList = this.data.musicList
-  //   let currentPlayId = this.data.musicInfo.id
-  //   let currentPlayIndex = this.findCurrentMusicIndex()
-
-  //   if (currentPlayIndex == -1) return
-
-    
-  //   if (this.data.loopStatusIndex==2){
-  //     if(musicList.length!=1){
-  //       while ((nextIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
-  //     }else{
-  //       nextIndex=currentPlayIndex
-  //     }
-      
-  //   }else{
-  //     nextIndex = currentPlayIndex + 1 >= musicList.length ? 0 : currentPlayIndex + 1
-  //   }
-
-  //   this.musicPlayItemChange(musicList[nextIndex].id)
-    
-  // },
-  async musicPlayItemChangeInner(e){
-    if(e!=null && e.detail!=null){
-      // let id = e.detail
-      // this.musicPlayItemChange(id)
-      let musicInfo = await Store.getCurrentPlayMusic()
-      this.setData({
-        musicInfo
-      })
-      let selfSongList = await Store.getSelfSongList()
-      this.setLikeStatus()
-    }
-    
-  },
-
-  async setLikeStatus(){
-    let selfSongList = await Store.getSelfSongList()
-    for (let i = 0; i < selfSongList[0].list.length; i++) {
-      if (selfSongList[0].list[i].id == this.data.musicInfo.id) {
+    Store.getCurrentMusicList().then(res=>{
+      if(res.length==1){
+        this.clearAndDrawBackground()
+        app.globalData.currentPlayTime = -1
         this.setData({
-          likeStatus: true
-        })
-        break
-      } else {
-        this.setData({
-          likeStatus: false
+          currentPlayTime: 0
         })
       }
-    }
+    })
   },
-  // async musicPlayItemChange(id,isFirst=false){
-  //   let newItem = {}
-  //   let ctime = await Store.getCurrentPlayTime()
-  //   if(id==this.data.musicInfo.id){
-  //     if (this.data.musicInfo.singTime >= ctime - 1 && this.data.musicInfo.singTime <= ctime + 1){
-  //       newItem = this.data.musicInfo
-  //     }else return
-  //   }else{
-  //     //TODO request 
-  //     for (let i = 0; i < this.data.musicListData.length; i++) {
-  //       if (this.data.musicListData[i].id == id) {
-  //         newItem = this.data.musicListData[i]
-  //         break
-  //       }
-  //     }
-      
-  //   }
-
+  preSong(e){
+    app.globalData.currentPlayTime = -1
+    app.globalData.preSong()
+    Store.getCurrentMusicList().then(res=>{
+      if(res.length==1){
+        this.clearAndDrawBackground()
+        app.globalData.currentPlayTime = -1
+        this.setData({
+          currentPlayTime: 0
+        })
+      }
+    })
+  },
   
-  //   //TODO user is vip?
-  //   if (newItem.isVip) {
-  //     wx.showModal({
-  //       title: '该曲需要开通vip才能听完整首哦',
-  //       confirmText: '立即开通',
-  //       cancelText: '暂不开通',
-  //       success(res) {
-  //         if (res.confirm) {
-  //           wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
-  //         }
-  //       }
-  //     })
-  //   }
+  musicPlayItemChangeInner(e){
+    if(e!=null && e.detail!=null){
+      Store.getCurrentPlayMusic().then(res=>{
+        let musicInfo = res
+        this.setData({
+          musicInfo
+        })
+        this.setLikeStatus()
+      })
+    }
     
-  //   this.setData({
-  //     musicInfo: newItem,
-  //     currentPlayTime: 0,
-  //     playStatus:true,
-  //     perSecondProgress: this.data.progressLength / newItem.singTime
-  //   })
+  },
 
-  //   let currentMusic = await Store.getCurrentPlayMusic()
-    
-  //   if (!isFirst || (isFirst && id != currentMusic.id)){
-  //     this.setData({
-  //       currentPlayTime: 0
-  //     })
-  //     Store.setCurrentPlayTime(0)
-  //     let stopNumber = await Store.getStopIntervalNumber()
-  //     clearInterval(this.data.stopIntervalNum)
-  //     if (stopNumber != null) clearInterval(stopNumber)
-  //     Store.setStopIntervalNumber(null)
-  //   }
-    
-  //   Store.setCurrentMusic(newItem)
-  //   this.clearAndDrawBackground()
-  //   this.playMusic()
-  // },
-  // tapPlay(e){
-  //   let index = e.currentTarget.dataset.index
-  //   let item = this.data.musicList[index]
-  //   app.global.playMusicById()
-  //   this.musicPlayItemChange(item.id)
-  //   this.setData({
-  //     showSingListModal:false
-  //   })
+  setLikeStatus(){
+    Store.isLike(this.data.musicInfo.id).then(res=>{
+      this.setData({
+        likeStatus: res
+      })
+    })
+  },
 
-  // },
   downMusic(e){
     //TODO user is vip?
     if (this.data.musicInfo.isVip) {
@@ -713,18 +403,21 @@ Page({
       })
     }
   },
- async calPerSecondProgress(){
-    let musicInfo = await Store.getCurrentPlayMusic()
-    let perSecondProgress= this.data.progressLength / musicInfo.singTime
-    let playStatus = app.globalData.stopIntervalNumber != null
-    this.clearAndDrawBackground()
-    this.setData({
-      musicInfo,
-      perSecondProgress,
-      playStatus
-    })
+ calPerSecondProgress(){
+    let musicInfo = []
+   Store.getCurrentPlayMusic().then(res=>{
+     musicInfo = res
+     let perSecondProgress = this.data.progressLength / musicInfo.singTime
+     let playStatus = app.globalData.stopIntervalNumber != null
+     this.clearAndDrawBackground()
+     this.setData({
+       musicInfo,
+       perSecondProgress,
+       playStatus
+     })
 
-   this.setLikeStatus()
+     this.setLikeStatus()
+   })
    
   },
   canvasTouchend(e){

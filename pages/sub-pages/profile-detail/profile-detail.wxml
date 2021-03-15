@@ -1,7 +1,7 @@
 <wrapper nav-bar-class="nav-bar-container {{topBarchange?'theme-module-color':'theme-color'}}">
   <view slot="nav-bar-left" class="back-icon nav-bar-left flex-row">
     <back-button color="#fff" />
-    <text class="{{topBarchange?'show-name':'not-show-name'}} one-row-flow person-name-opacity">茯苓</text>
+    <text class="{{topBarchange?'show-name':'not-show-name'}} one-row-flow person-name-opacity">{{userInfo.userName}}</text>
   </view>
   <view slot="nav-bar-right">
     <i-icon type="switch" size="33" color="#fff" catchtap="tapSwitch" />

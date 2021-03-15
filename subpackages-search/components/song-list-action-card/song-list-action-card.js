@@ -16,11 +16,20 @@ Component({
     }
   },
 
-  async ready(){
-    
-    this.setData({
-      selfSongList: await Store.getSelfSongList()
+  ready(){
+    Store.getSelfSongList().then(res => {
+      let items = []
+      let otherSongList = []
+      items.push(res[0])
+      otherSongList.push(res[1])
+      otherSongList.push(res[2])
+      for (let i = 3; i < res.length; i++)items.push(res[i])
+      this.setData({
+        otherSongList,
+        selfSongList: items
+      })
     })
+    
   },
 
   /**
@@ -30,14 +39,25 @@ Component({
     themeColor: app.globalData.themeColor,
     showModal:'songListModal',
     selfSongList: [],
+    otherSongList:[],
     newSongListName:'',
     checkedIdList:[]
   },
   pageLifetimes: {
-    async show() {
-      this.setData({
-        selfSongList: await Store.getSelfSongList()
+    show() {
+      Store.getSelfSongList().then(res=>{
+        let items = []
+        let otherSongList = []
+        items.push(res[0])
+        otherSongList.push(res[1])
+        otherSongList.push(res[2])
+        for(let i=3;i<res.length;i++)items.push(res[i])
+        this.setData({
+          otherSongList,
+          selfSongList: items
+        })
       })
+      
     }
   },
 
@@ -139,6 +159,9 @@ Component({
         selfSongList:newSelfSongList,
         showSongListAction:false
       })
+
+      newSelfSongList.splice(1,0,this.data.otherSongList[0])
+      newSelfSongList.splice(2, 0, this.data.otherSongList[1])
 
       Store.setSelfSongList(newSelfSongList).then(res=>{
         wx.showToast({

@@ -1,4 +1,5 @@
 // pages/sub-pages/profile-detail/profile-detail.js
+let Store = require('../../../common/utils/store/store.js')
 Page({
 
   /**
@@ -35,14 +36,13 @@ Page({
    */
   onLoad: function (options) {
     let that = this
+    // this.data.userInfo.avator = 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
+    // this.data.userInfo.userName = '茯苓'
+    // this.data.userInfo.choosedStyles = ["流行", "古风", "摇滚"]
 
-    this.data.userInfo.avator = 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-    this.data.userInfo.userName = '茯苓'
-    this.data.userInfo.choosedStyles = ["流行", "古风", "摇滚"]
-
-    this.setData({
-      userInfo:this.data.userInfo
-    })
+    // this.setData({
+    //   userInfo:this.data.userInfo
+    // })
 
     //获取顶部导航栏改变样式的高度参数
     let query = wx.createSelectorQuery()
@@ -56,47 +56,30 @@ Page({
     }).exec()
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  //初始化用户信息
+  initUserInfo(){
+    Store.getUserInfo().then(res=>{
+      this.data.userInfo.avator = res.avator
+      this.data.userInfo.userName = res.userName
+      this.data.userInfo.choosedStyles = res.choosedStyles
 
+      this.setData({
+        userInfo: this.data.userInfo
+      })
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  onShow(){
+    this.initUserInfo()
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
 
   /**
    * 用户点击右上角分享
@@ -104,6 +87,8 @@ Page({
   onShareAppMessage: function () {
 
   },
+
+
 
   scrolltoupper(){
     //如果滚动到顶部后顶部导航栏样式没有恢复，则手动恢复

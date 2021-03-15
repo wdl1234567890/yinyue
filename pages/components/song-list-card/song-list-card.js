@@ -15,6 +15,10 @@ Component({
     musicLists:{
       type:Array,
       value:[]
+    },
+    flag:{
+      type:Number,
+      value:4
     }
   },
 

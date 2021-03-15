@@ -49,31 +49,7 @@ Component({
     musicplayitemchange(e){
       this.triggerEvent('musicplayitemchange', e.detail)
     },
-    // tapSwitch(e){
-    //   this.triggerEvent('tapswitch', e.currentTarget.dataset.index)
-    // },
-    // async tapPlayMusic(e){
-    //   let index = e.currentTarget.dataset.index
-    //   // Store.setCurrentMusic(this.data.singDatas[index])
-    //   let musicList = await Store.getCurrentMusicList()
-    //   let isInclude = false
-    //   for (let i = 0; i < musicList.length;i++){
-    //     if (musicList[i].id == this.data.singDatas[index].id){
-    //       isInclude=true
-    //       break
-    //     }
-    //   }
-    //   if (!isInclude){
-    //     musicList.unshift(this.data.singDatas[index])
-    //     Store.setMusicList(musicList)
-    //     // Store.setCurrentPlayStatus(true)
-    //   }
-    //   // app.globalData.playMusicById(this.data.singDatas[index].id)
-    //   wx.navigateTo({
-    //     url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.singDatas[index].id
-    //   })
-    //   this.triggerEvent('tapplaymusic')
-    // },
+    
     goToBatch(e){
       app.globalData.searchResult=this.data.singDatas
       wx.navigateTo({

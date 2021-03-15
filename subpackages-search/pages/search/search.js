@@ -130,10 +130,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  async onLoad(options) {
-    this.setData({
-      historyLabels : await Store.getHistorySearch()
+  onLoad(options) {
+    Store.getHistorySearch().then(res=>{
+      this.setData({
+        historyLabels: res
+      })
     })
+    
   },
 
   /**

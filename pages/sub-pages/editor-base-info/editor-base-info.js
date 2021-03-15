@@ -21,34 +21,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this
-    this.data.userInfo.avator ='https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-    this.data.userInfo.userName = '茯苓'
-    this.data.userInfo.choosedStyles = []
-    this.setData({
-      userInfo:this.data.userInfo
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+    // let that = this
+    // this.data.userInfo.avator ='https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
+    // this.data.userInfo.userName = '茯苓'
+    // this.data.userInfo.choosedStyles = []
+    // this.setData({
+    //   userInfo:this.data.userInfo
+    // })
+    this.initUserInfo()
   },
 
   /**
@@ -58,18 +38,17 @@ Page({
 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
+  //初始化用户信息
+  initUserInfo() {
+    Store.getUserInfo().then(res => {
+      this.data.userInfo.avator = res.avator
+      this.data.userInfo.userName = res.userName
+      this.data.userInfo.choosedStyles = res.choosedStyles
 
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+      this.setData({
+        userInfo: this.data.userInfo
+      })
+    })
   },
 
   /**
@@ -93,10 +72,19 @@ Page({
       })
       return
     }
-    wx.showToast({
-      title: '保存成功！',
-      icon:'none'
+
+    Store.setUserInfo(this.data.userInfo).then(res=>{
+      wx.showToast({
+        title: '保存成功！',
+        icon: 'none'
+      })
+    }).catch(res=>{
+      wx.showToast({
+        title: '保存失败！',
+        icon: 'none'
+      })
     })
+    
   },
   tapEditUserName(e){
     this.data.userInfo.userName=e.detail.value.trim()
@@ -118,21 +106,11 @@ Page({
       this.setData({
         userInfo:this.data.userInfo
       })
-      // Store.addStorage("styleLabel", e.detail.value).then(res => {
-      //   that.setData({
-      //     choosedStyles: res
-      //   })
-      // })
     } else {
-      this.data.userInfo.choosedStyles.splice(this.data.userInfo.indexOf(e.detail.value),1)
+      this.data.userInfo.choosedStyles.splice(this.data.userInfo.choosedStyles.indexOf(e.detail.value),1)
       this.setData({
         userInfo: this.data.userInfo
       })
-      // Store.removeStorage("styleLabel", e.detail.value).then(res => {
-      //   that.setData({
-      //     choosedStyles: res
-      //   })
-      // })
     }
   },
   tapChangeAvator(e) {
@@ -144,13 +122,6 @@ Page({
         that.setData({
           userInfo: that.data.userInfo
         })
-        wx.showToast({
-          title: '头像更新成功！',
-          icon: 'none'
-        })
-      },
-      fail(e) {
-        
       }
     })
   },

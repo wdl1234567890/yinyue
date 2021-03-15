@@ -27,15 +27,18 @@ Component({
     playStatus:app.globalData.stopIntervalNumber!=null
   },
 
-  async onReady(){
+  onReady(){
     // app.globalData.doSomething = this.doSomething
     
-    let musicInfo = await Store.getCurrentPlayMusic()
-    let playStatus = app.globalData.stopIntervalNumber != null
-    this.setData({
-      musicInfo,
-      playStatus
+    Store.getCurrentPlayMusic().then(res=>{
+      let musicInfo = res
+      let playStatus = app.globalData.stopIntervalNumber != null
+      this.setData({
+        musicInfo,
+        playStatus
+      })
     })
+
   },
 
   detached(){
@@ -45,20 +48,18 @@ Component({
   },
 
   pageLifetimes: {
-    async show() {
+    show() {
       app.globalData.endSomething = this.endPlay
       app.globalData.obj = this
-      let musicInfo = await Store.getCurrentPlayMusic()
-      let playStatus = app.globalData.stopIntervalNumber != null
-      // this.setData({
-      //   cover: musicInfo.cover,
-      //   singName: musicInfo.singName,
-      //   singerName: musicInfo.singerName
-      // })
-      this.setData({
-        musicInfo,
-        playStatus
+      Store.getCurrentPlayMusic().then(res=>{
+        let musicInfo = res
+        let playStatus = app.globalData.stopIntervalNumber != null
+        this.setData({
+          musicInfo,
+          playStatus
+        })
       })
+      
     }
   },
   /**
@@ -80,40 +81,35 @@ Component({
         url: '/subpackages-music/pages/music-play/music-play?id=-1'
       })
     },
-    async endPlay(){
-      let musicInfo = await Store.getCurrentPlayMusic()
-      let playStatus = app.globalData.stopIntervalNumber!=null
-      this.setData({
-        musicInfo,
-        playStatus
+    endPlay(){
+      Store.getCurrentPlayMusic().then(res=>{
+        let musicInfo = res
+        let playStatus = app.globalData.stopIntervalNumber != null
+        this.setData({
+          musicInfo,
+          playStatus
+        })
       })
       
     },
-    // async doSomething(){
-    //   console.log("****")
-    //   let musicInfo = await Store.getCurrentPlayMusic()
-    //   let playStatus = app.globalData.stopIntervalNumber != null
-    //   this.setData({
-    //     musicInfo,
-    //     playStatus
-    //   })
-    // },
+
     musiclistChange(e) {
       this.triggerEvent('musiclistchange', e.detail)
     },
-    async musicPlayItemChange(e) {
-      let musicInfo = await Store.getCurrentPlayMusic()
-      this.setData({
-        musicInfo
-      })
-      
-      this.triggerEvent('musicplayitemchange', e.detail)
-      if (Object.keys(musicInfo).length == 0) return
-      wx.navigateTo({
-        url: '/subpackages-music/pages/music-play/music-play?id=' + e.detail
+    musicPlayItemChange(e) {
+      Store.getCurrentPlayMusic().then(res=>{
+        let musicInfo = res
+        this.setData({
+          musicInfo
+        })
+        this.triggerEvent('musicplayitemchange', e.detail)
+        if (Object.keys(musicInfo).length == 0) return
+        wx.navigateTo({
+          url: '/subpackages-music/pages/music-play/music-play?id=' + e.detail
+        })
       })
     },
-    async tapPlay(e) {
+    tapPlay(e) {
       let playStatus = this.data.playStatus
       if(playStatus) {
         // clearInterval(this.data.stopIntervalNum)
@@ -127,12 +123,6 @@ Component({
         playStatus
       })
 
-      // if (stopIntervalNumber == null) {
-      //   app.globalData.calPlayTime()
-      // } else {
-      //   clearInterval(stopIntervalNumber)
-      //   Store.setStopIntervalNumber(null)
-      // }
     }
   }
 })

@@ -13,7 +13,7 @@
   </view>
   <!--歌单列表-->
   <view class="song-list-item" wx:for="{{musicLists}}" wx:key="id">
-    <song-list-item isActionIcon src-url="{{item.cover}}" top-title="{{item.title}}" bottom-title="{{item.list.count}}" item-id="{{item.id}}" data-index="{{index}}" catchtapicon="tapItemSwitch"/>
+    <song-list-item flag="{{flag}}" isActionIcon src-url="{{item.cover}}" top-title="{{item.title}}" bottom-title="{{item.list.count}}" item-id="{{item.id}}" data-index="{{index}}" catchtapicon="tapItemSwitch"/>
   </view>
   <view wx:if="{{musicLists.length==0}}" class="no-content">还没有任何内容</view>
 </view>

@@ -32,6 +32,14 @@ Component({
     bottomTitle:{
       type:String,
       value:'下标题'
+    },
+    flag:{
+      type:Number,
+      value:4
+    },
+    isActive:{
+      type:Boolean,
+      value:true
     }
     //茯苓最近听的歌单
     //https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg
@@ -52,8 +60,9 @@ Component({
       this.triggerEvent('tapicon', { id: this.data.itemId, title: this.data.topTitle})
     },
     tapItem(e){
+      if(this.data.isActive)
       wx.navigateTo({
-        url: '/subpackages-song-list/pages/song-list-detail/song-list-detail?id=' + this.data.itemId
+        url: '/subpackages-song-list/pages/song-list-detail/song-list-detail?flag='+this.data.flag+'&id=' + this.data.itemId
       })
       this.triggerEvent('tapitem',this.data.itemId)
     }

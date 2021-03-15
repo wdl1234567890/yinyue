@@ -3,14 +3,6 @@ let systemInfo = wx.getSystemInfoSync()
 let menuButtonBoundingClientRect = wx.getMenuButtonBoundingClientRect()
 let Store = require('./common/utils/store/store.js')
 
-// let currentPlayTime = 0
-// let loopStatusIndex = 0
-// let stopIntervalNumber = null
-
-// let doSomething = null
-// let obj = null
-// let endSomething=null
-
 let musicListData= [
   {
     id: 1,
@@ -142,11 +134,11 @@ App({
     this.globalData.stopPlayMusic = this.stopPlayMusic
     this.globalData.nextPlay = this.nextPlay
     this.initSelfSongList()
-
+    this.initUserInfo()
   },
 
   //初始化自建歌单信息
-  async initSelfSongList(){
+  initSelfSongList(){
     let lastList = {
       id: 1,
       cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
@@ -170,10 +162,22 @@ App({
       downloadList,
       likeList
     ]
-    let value1 = await Store.getSelfSongList()
-    if (value1.length == 0) {
-      Store.setSelfSongList(listInfos)
+    Store.getSelfSongList().then(res=>{
+      if (res.length == 0) {
+        Store.setSelfSongList(listInfos)
+      }
+    })
+    
+  },
+
+  //方便测试
+  initUserInfo(){
+    let userInfo={
+     avator:'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
+     userName : '茯苓',
+     choosedStyles : ["流行", "古风", "摇滚"]
     }
+    Store.setUserInfo(userInfo)
   },
 
   //下一首播放

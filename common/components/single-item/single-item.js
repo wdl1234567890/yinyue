@@ -6,6 +6,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    flag:{
+      type:Number,
+      value:2
+    },
     itemId:{
       type:Number,
       value:-1
@@ -73,6 +77,17 @@ Component({
     this.setData({
       musicInfo
     })
+
+    if(this.data.flag==1){
+      this.data.actions.push({
+        id: 5,
+        icon: 'trash',
+        text: '删除'
+      })
+      this.setData({
+        actions: this.data.actions
+      })
+    }
   },
 
   /**
@@ -90,50 +105,48 @@ Component({
       })
       this.triggerEvent('tapswitch',this.data.itemId)
     },
-    async tapPlay(e){
-      let musicList = await Store.getCurrentMusicList()
-      let isInclude = false
-      for (let i = 0; i < musicList.length; i++) {
-        if (musicList[i].id == this.data.itemId) {
-          isInclude = true
-          break
+    tapPlay(e){
+      Store.getCurrentMusicList().then(res=>{
+        let musicList = res
+        let isInclude = false
+        for (let i = 0; i < musicList.length; i++) {
+          if (musicList[i].id == this.data.itemId) {
+            isInclude = true
+            break
+          }
         }
-      }
-      if (!isInclude) {
-        
-        musicList.unshift(this.data.musicInfo)
-        Store.setMusicList(musicList)
-        // Store.setCurrentPlayStatus(true)
-      }
-      // app.globalData.playMusicById(this.data.singDatas[index].id)
-      wx.navigateTo({
-        url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.itemId
+        if (!isInclude) {
+          musicList.unshift(this.data.musicInfo)
+          Store.setMusicList(musicList)
+        }
+        wx.navigateTo({
+          url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.itemId
+        })
+        this.triggerEvent('musicplayitemchange', this.data.musicInfo)
       })
-      this.triggerEvent('musicplayitemchange', this.data.musicInfo)
     },
-    async tapPlayButton() {
-      // this.setData({
-      //   musicInfo: this.data.musicInfo
-      // })
+    tapPlayButton() {
 
-
-      let musicList = await Store.getCurrentMusicList()
-      let isInclude = false
-      for (let i = 0; i < musicList.length; i++) {
-        if (musicList[i].id == this.data.itemId) {
-          isInclude = true
-          break
+      Store.getCurrentMusicList().then(res=>{
+        let musicList = res
+        let isInclude = false
+        for (let i = 0; i < musicList.length; i++) {
+          if (musicList[i].id == this.data.itemId) {
+            isInclude = true
+            break
+          }
         }
-      }
-      if (!isInclude) {
-        musicList.unshift(this.data.musicInfo)
-        Store.setMusicList(musicList)
-      }
+        if (!isInclude) {
+          musicList.unshift(this.data.musicInfo)
+          Store.setMusicList(musicList)
+        }
 
-      wx.navigateTo({
-        url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.itemId
+        wx.navigateTo({
+          url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.itemId
+        })
+        this.triggerEvent('musicplayitemchange', this.data.musicInfo)
       })
-      this.triggerEvent('musicplayitemchange', this.data.musicInfo)
+      
     },
     nextPlay() {
       
@@ -147,7 +160,7 @@ Component({
       }, null, this, true)
 
     },
-    async collectionToList(e) {
+    collectionToList(e) {
       this.setData({
         showActionModal: false,
         showSongListAction: true
@@ -187,6 +200,21 @@ Component({
         case "评论":
           wx.navigateTo({
             url: '/subpackages-comment/pages/comment/comment?id=' + this.data.itemId
+          })
+          break
+        case "删除":
+          let that = this
+          wx.showModal({
+            title: '删除歌曲',
+            content: '是否要删除：'+ this.data.musicInfo.singName,
+            success(res){
+              if(res.confirm){
+                that.setData({
+                  showActionModal:false
+                })
+                that.triggerEvent('removemusic', that.data.musicInfo.id)
+              }
+            }
           })
           break
         default:

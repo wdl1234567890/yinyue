@@ -1,5 +1,6 @@
 // subpackages-search/pages/batch-action-page/batch-action-page.js
 let app = getApp()
+let Const = require('../../../common/utils/const.js')
 let Store = require('../../../common/utils/store/store.js')
 Page({
 
@@ -7,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    flag:0,
     singDatas:[],
     checkedIds:[],
     showSongListAction:false,
@@ -18,51 +20,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let id = options.id
+    if(id){
+      Store.getObjectById(Const.SELF_SONG_LIST,id).then(res=>{
+        this.setData({
+          musicListInfo:res
+        })
+      })
+    }
     this.setData({
+      flag: options.flag ?options.flag:0,
       singDatas: app.globalData.searchResult
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
   },
 
   /**
@@ -111,16 +80,21 @@ Page({
       }
     },this,false)
   },
-  async tapAddNextSong(e){
+  tapAddNextSong(e){
     if (!this.checkIsHasChecked()) return
-    //获取当前播放歌曲
-    let currentPlayMusic = await Store.getCurrentPlayMusic()
+    let currentPlayMusic =  {}
+    let index = 0
     let musicInfos = this.data.singDatas.reverse().filter(e => {
-      if (this.data.checkedIds.indexOf(e.id) != -1)return true
+      if (this.data.checkedIds.indexOf(e.id) != -1) return true
       return false
     })
-    let index = 0
-    this.addNextSong(musicInfos, index, Object.keys(currentPlayMusic).length==0)
+    //获取当前播放歌曲
+    Store.getCurrentPlayMusic().then(res=>{
+      currentPlayMusic = res
+      this.addNextSong(musicInfos, index, Object.keys(currentPlayMusic).length == 0)
+    })
+    // let currentPlayMusic = await Store.getCurrentPlayMusic()
+  
     
   },
   checkIsHasChecked(){
@@ -181,6 +155,38 @@ Page({
     }
     this.setData({
       checkedIds
+    })
+  },
+  tapRemove(e){
+    console.log("**")
+    if (!this.checkIsHasChecked()) return
+    let that = this
+    wx.showModal({
+      title: '删除歌曲',
+      content: '确定要删除所选歌曲吗?',
+      success(res){
+        if(res.confirm){
+          let singDatas = that.data.singDatas.filter(e => {
+            if (that.data.checkedIds.indexOf(e.id) != -1) return false
+            return true
+          })
+          that.setData({
+            singDatas
+          })
+          that.data.musicListInfo.list = singDatas
+          Store.updateMyMusicList(that.data.musicListInfo).then(res => {
+            wx.showToast({
+              title: '删除成功！',
+              icon: 'none'
+            })
+          }).catch(res => {
+            wx.showToast({
+              title: '删除失败！',
+              icon: 'none'
+            })
+          })
+        }
+      }
     })
   }
 })

@@ -1,4 +1,4 @@
-<wrapper nav-bar-class="theme-module-color">
+<wrapper nav-bar-class="theme-module-color" mode="edit" catchtapsave="tapSave">
   <view slot="nav-bar-left" class="back-icon">
     <back-button />
   </view>

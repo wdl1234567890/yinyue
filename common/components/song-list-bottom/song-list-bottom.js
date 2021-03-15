@@ -31,12 +31,15 @@ Component({
   //     })
   //   }
   // },
-  async ready(e) {
-    this.setData({
-      musicList: await Store.getCurrentMusicList(),
-      musicInfo: await Store.getCurrentPlayMusic(),
-      showCollectAction: await Store.getMusicListIsCollectionAll()
+  ready(e) {
+    Promise.all([Store.getCurrentMusicList(), Store.getCurrentPlayMusic()]).then(res=>{
+      this.setData({
+        musicList: res[0],
+        musicInfo: res[1],
+        // showCollectAction: await Store.getMusicListIsCollectionAll()
+      })
     })
+    
   },
 
   /**
@@ -49,20 +52,20 @@ Component({
       })
       this.triggerEvent('hidemodal')
     },
-    async musicListCollectAllChange(e) {
+    musicListCollectAllChange(e) {
+      Store.getCurrentMusicList().then(res=>{
+        this.setData({
+          musicListDatas: res
+        })
+      })
       this.setData({
-        musicListDatas:await Store.getCurrentMusicList(),
-        showSingListModal:false,
+        showSingListModal: false,
         showCollectAction: true
       })
+      
     },
     clearAllStorage(){
-      // clearInterval(await Store.getStopIntervalNumber())
-      // Store.setStopIntervalNumber(null)
       app.globalData.stopPlayMusic()
-      // Store.clearCurrentMusicList()
-      // Store.clearCurrentMusic()
-      // Store.setCurrentPlayTime(0)
       this.setData({
         musicList: [],
         musicInfo: {},
@@ -87,7 +90,7 @@ Component({
       })
 
     },
-    async removeListItem(e) {
+    removeListItem(e) {
 
       if(this.data.musicList.length==1){
         this.clearAllStorage()
@@ -100,40 +103,43 @@ Component({
         if (musicList[index].id == this.data.musicInfo.id) {
           let nextIndex = -1
           let loopStatusIndex = app.globalData.loopStatusIndex
-          let currentPlayIndex = await Store.getCurrentPlayMusicIndex()
-          if (loopStatusIndex == 2) {
-            while ((nextIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
-          } else {
-            nextIndex = index + 1 >= musicList.length ? 0 : index + 1
-          }
-          this.setData({
-            musicInfo: musicList[nextIndex]
+          Store.getCurrentPlayMusicIndex().then(res=>{
+            let currentPlayIndex = res
+            if (loopStatusIndex == 2) {
+              while ((nextIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
+            } else {
+              nextIndex = index + 1 >= musicList.length ? 0 : index + 1
+            }
+
+            this.setData({
+              musicInfo: musicList[nextIndex]
+            })
+            app.globalData.playMusicById(musicList[nextIndex].id)
+            this.triggerEvent('musicplayitemchange', musicList[nextIndex].id)
+            musicList.splice(index, 1);
+            this.setData({
+              musicList
+            })
+            Store.setMusicList(musicList)
+            this.triggerEvent('musiclistchange', null)
           })
-          // Store.setCurrentMusic(musicList[nextIndex])
-          app.globalData.playMusicById(musicList[nextIndex].id)
-          this.triggerEvent('musicplayitemchange', musicList[nextIndex].id)
+          
+        }else{
+          musicList.splice(index, 1);
+          this.setData({
+            musicList
+          })
+          Store.setMusicList(musicList)
+          this.triggerEvent('musiclistchange', null)
         }
 
-        musicList.splice(index, 1);
-        this.setData({
-          musicList
-        })
-        Store.setMusicList(musicList)
-        this.triggerEvent('musiclistchange',null)
-        // if (musicList.length == 0) {
-        //   clearInterval(this.data.stopIntervalNum)
-        //   this.setData({
-        //     showSingListModal: false
-        //   })
-        //   this.triggerEvent('hidemodal')
-        // }
+        
       }
       
     },
     tapPlay(e) {
       let index = e.currentTarget.dataset.index
       let item = this.data.musicList[index]
-      // Store.setCurrentMusic(item)
       app.globalData.playMusicById(item.id)
       this.triggerEvent('hidemodal')
       this.triggerEvent('musicplayitemchange', item.id)

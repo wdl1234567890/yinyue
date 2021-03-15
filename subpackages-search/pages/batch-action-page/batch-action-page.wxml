@@ -1,5 +1,5 @@
 <wxs src="../../../common/utils/func/tools.wxs" module="tools"/>
-<wrapper nav-bar-class="theme-module-color" bindgetcontentheight="getContentHeight" catchtapaddnextsong="tapAddNextSong" catchtapaddtosonglist="tapAddToSongList" catchtapdownload="tapDownload" mode="batchMusicItem">
+<wrapper nav-bar-class="theme-module-color" bindgetcontentheight="getContentHeight" catchtapaddnextsong="tapAddNextSong" catchtapaddtosonglist="tapAddToSongList" catchtapdownload="tapDownload" mode="{{flag==0?'batchMusicItem':'batchMusicItemWithRemove'}}" bindtapremove="tapRemove">
   <view slot="nav-bar-left" class="back-icon">
     <back-button />
   </view>

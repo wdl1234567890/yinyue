@@ -1,12 +1,15 @@
 // pages/sub-pages/batch-music-list/batch-music-list.js
+let Store = require('../../../common/utils/store/store.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    id:-1,
+    indexs:[2,1,3],
     checkedIds:[],
-    musicListDatas: [{ "id": 1, "cover": "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg", "title": "最近播放", "list": [] }, { "id": 2, "cover": "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg", "title": "已下载歌曲", "list": [] }, { "id": 3, "cover": "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg", "title": "我喜欢的音乐", "list": [] }],
+    musicListDatas: [],
     isAllChecked:false
   },
 
@@ -15,48 +18,42 @@ Page({
    */
   onLoad: function (options) {
     let id = options.id
+    this.setData({
+      id
+    })
+    if (this.data.id == 0) {
+      Store.getLastPlayList().then(res=>{
+        this.setData({
+          musicListDatas:res
+        })
+      })
+    } else if (this.data.id == 1) {
+      Store.getMyMusicList().then(res=>{
+        this.setData({
+          musicListDatas: res
+        })
+      })
+    } else if (this.data.id == 2) {
+      Store.getCollectMusicList().then(res=>{
+        this.setData({
+          musicListDatas: res
+        })
+      })
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  setDataToStorage(){
+    if (this.data.id == 0) {
+      Store.setLastPlayList(this.data.musicListDatas)
+    } else if (this.data.id == 1) {
+      Store.setMyMusicList(this.data.musicListDatas)
+    } else if (this.data.id == 2) {
+      Store.setCollectMusicList(this.data.musicListDatas)
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+  onUnload(){
+    
   },
 
   /**
@@ -110,6 +107,8 @@ Page({
         musicListDatas:this.data.musicListDatas
       })
     }
+
+    this.setDataToStorage()
   },
   tapDown(e){
     let id = e.detail
@@ -129,6 +128,8 @@ Page({
         musicListDatas: this.data.musicListDatas
       })
     }
+
+    this.setDataToStorage()
   },
   tapRemove(e){
     let that = this
@@ -151,6 +152,9 @@ Page({
           that.setData({
             musicListDatas
           })
+
+          that.setDataToStorage()
+
           wx.showToast({
             title: '删除成功！',
             icon:'none'

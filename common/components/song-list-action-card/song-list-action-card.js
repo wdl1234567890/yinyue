@@ -6,38 +6,41 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    showSongListAction:{
-      type:Boolean,
-      value:false
+    showSongListAction: {
+      type: Boolean,
+      value: false
     },
-    musicInfos:{
-      type:Array,
-      value:[]
+    musicInfos: {
+      type: Array,
+      value: []
     }
   },
 
-  async ready(){
-    
-    this.setData({
-      selfSongList: (await Store.getSelfSongList()).slice(2)
-    })
+  ready() {
+    this.getListDatas()
   },
+
 
   /**
    * 组件的初始数据
    */
   data: {
     themeColor: app.globalData.themeColor,
-    showModal:'songListModal',
+    showModal: 'songListModal',
     selfSongList: [],
-    newSongListName:'',
-    checkedIdList:[]
+    otherSongList: [],
+    newSongListName: '',
+    checkedIdList: []
   },
   pageLifetimes: {
-    async show() {
-      this.setData({
-        selfSongList: (await Store.getSelfSongList()).slice(2)
-      })
+    show() {
+      this.getListDatas()
+    }
+  },
+
+  observers:{
+    'showSongListAction':function(value){
+      this.getListDatas()
     }
   },
 
@@ -45,7 +48,21 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    collection(e){
+    getListDatas() {
+      Store.getSelfSongList().then(res => {
+        let items = []
+        let otherSongList = []
+        items.push(res[2])
+        otherSongList.push(res[0])
+        otherSongList.push(res[1])
+        for (let i = 3; i < res.length; i++)items.push(res[i])
+        this.setData({
+          otherSongList,
+          selfSongList: items
+        })
+      })
+    },
+    collection(e) {
       const index = e.detail.index;
       let modal = this.data.showModal
       if (index === 0) {
@@ -70,14 +87,14 @@ Component({
       }
       this.triggerEvent('collection', e)
     },
-    addNewSongList(e){
+    addNewSongList(e) {
       this.setData({
         showModal: 'inputModal',
         newSongListName: this.data.musicInfos[0].singName
       })
       this.triggerEvent('addnewsonglist', e)
     },
-    handleCheckChange(e){
+    handleCheckChange(e) {
       let checked = e.detail.checked
       let id = e.detail.id
       let checkedIdList = this.data.checkedIdList
@@ -90,80 +107,84 @@ Component({
       this.setData({
         checkedIdList
       })
-    
+
       this.triggerEvent('handlecheckchange', e)
     },
-    songListInput(e){
+    songListInput(e) {
       this.setData({
         newSongListName: e.detail.value
       })
       this.triggerEvent('songlistinput', e)
     },
-    isListNameIclude(){
-      for(let i =0;i<this.data.selfSongList.length;i++){
-        if(this.data.selfSongList[i].title==this.data.newSongListName)return true
+    isListNameIclude() {
+      for (let i = 0; i < this.data.selfSongList.length; i++) {
+        if (this.data.selfSongList[i].title == this.data.newSongListName) return true
       }
       return false
     },
-    collectionToSongList(){
+    collectionToSongList() {
 
-      if (this.data.checkedIdList.length==0){
+      if (this.data.checkedIdList.length == 0) {
         wx.showToast({
           title: '还没有选择歌单！',
-          icon:'none'
+          icon: 'none'
         })
         return;
       }
-      
-      let checkedList = this.data.selfSongList.filter(e=>{
-        if(this.data.checkedIdList.indexOf(e.id)!=-1)return true
+
+      let checkedList = this.data.selfSongList.filter(e => {
+        if (this.data.checkedIdList.indexOf(e.id) != -1) return true
         return false
       })
       let musicInfos = this.data.musicInfos.reverse()
-      
-      for (let i = 0; i < checkedList.length;i++){
-        for (let j = 0; j < musicInfos.length;j++){
-          if (!this.isIncludeSongInList(checkedList[i], musicInfos[j])){
+
+      for (let i = 0; i < checkedList.length; i++) {
+        for (let j = 0; j < musicInfos.length; j++) {
+          if (!this.isIncludeSongInList(checkedList[i], musicInfos[j])) {
             checkedList[i].list.unshift(musicInfos[j])
           }
         }
       }
 
-      let newSelfSongList = this.data.selfSongList.map(e=>{
-        for (let i = 0; i < checkedList.length;i++){
-          if (checkedList[i].id==e.id)return checkedList[i]
+      let newSelfSongList = this.data.selfSongList.map(e => {
+        for (let i = 0; i < checkedList.length; i++) {
+          if (checkedList[i].id == e.id) return checkedList[i]
           else return e
         }
       })
       this.setData({
-        selfSongList:newSelfSongList,
-        showSongListAction:false
+        selfSongList: newSelfSongList,
+        showSongListAction: false
       })
 
-      Store.setSelfSongList(newSelfSongList).then(res=>{
+      let copyList = [...newSelfSongList]
+      copyList.unshift(this.data.otherSongList[1])
+      copyList.unshift(this.data.otherSongList[0])
+
+      Store.setSelfSongList(copyList).then(res => {
         wx.showToast({
           title: '已加入歌单！',
-          icon:'none'
+          icon: 'none'
         })
       })
     },
-    isIncludeSongInList(musicList,musicInfo){
-      return musicList.list.find(e=>{
-        if (e.id == musicInfo.id)return true
+    isIncludeSongInList(musicList, musicInfo) {
+      return musicList.list.find(e => {
+        if (e.id == musicInfo.id) return true
         return false
       })
     },
-    songListConfirm(e){
+    songListConfirm(e) {
       let isInclude = this.isListNameIclude()
-      if(isInclude){
+      if (isInclude) {
         wx.showToast({
           title: '该歌单已经存在！',
-          icon:'none'
+          icon: 'none'
         })
         return
       }
-      let newId = this.data.selfSongList.length + 1
-      let value = { title: this.data.newSongListName, cover: this.data.musicInfos[0].cover, id: newId ,list:[]}
+      let newId = Math.max.apply(Math,this.data.selfSongList.map(e=>e.id))+1
+      let value = { title: this.data.newSongListName, cover: this.data.musicInfos[0].cover, id: newId, list: [] }
       Store.addSelfSongList(value).then(res => {
         wx.showToast({
           title: '新建歌单完成!',
@@ -173,8 +194,7 @@ Component({
         oldSelfSongList.push(value)
         this.setData({
           selfSongList: oldSelfSongList,
-          showModal: 'songListModal',
-          newSongListName:''
+          showModal: 'songListModal'
         })
       })
       this.triggerEvent('songlistconfirm', e)

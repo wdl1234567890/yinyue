@@ -19,7 +19,7 @@ Page({
    */
   onLoad:function(options){
     let that=this
-    Store.getStorage("styleLabel").then(res=>{
+    Store.getStyleLabels().then(res=>{
       that.setData({
         choosedStyles:res
       })
@@ -103,18 +103,15 @@ Page({
     })
   },
   tapLabel(e){
-    let that=this
     if (e.detail.isActive){
-      Store.addStorage("styleLabel", e.detail.value).then(res => {
-        that.setData({
-          choosedStyles: res
-        })
+      Store.addStyleLabels(e.detail.value)
+      this.setData({
+        choosedStyles: this.data.choosedStyles.push(e.detail.value)
       })
     }else{
-      Store.removeStorage("styleLabel", e.detail.value).then(res=>{
-        that.setData({
-          choosedStyles: res
-        })
+      Store.removeStyleLabels(e.detail.value)
+      this.setData({
+        choosedStyles: this.data.choosedStyles.splice(this.data.choosedStyles.indexOf(e.detail.value), 1)
       })
     }
   }

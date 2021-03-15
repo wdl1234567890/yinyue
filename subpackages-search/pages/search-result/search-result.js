@@ -163,12 +163,15 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  async onLoad(options) {
+  onLoad(options) {
     let searchValue = options.search ?options.search.trim():''
-    this.setData({
-      searchValue,
-      musicInfo:await Store.getCurrentPlayMusic()
+    Store.getCurrentPlayMusic().then(res=>{
+      this.setData({
+        searchValue,
+        musicInfo: res
+      })
     })
+    
   },
 
   /**
@@ -181,11 +184,11 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  async onShow() {
-    this.setData({
-      musicInfo: await Store.getCurrentPlayMusic(),
-      // showActionModal:false
+  onShow() {
+    Store.getCurrentPlayMusic().then(res=>{
+      musicInfo:res
     })
+
 
   },
 
@@ -228,148 +231,14 @@ Page({
       contentHeight: e.detail
     })
   },
-  // hideModal(e) {
-  //   this.setData({
-  //     showActionModal: false
-  //   })
-  // },
-  // showModal(e) {
-  //   this.setData({
-  //     showActionModal: true
-  //   })
-  // },
-  // tapSwitch(e){
-  //   this.setData({
-  //     musicInfo:this.data.singDatas[e.detail]
-  //   })
-  //   // this.showModal(e)
-  // },
-  // tapAction(e){
-  //   let index = e.currentTarget.dataset.index
-  //   switch(this.data.actions[index].text){
-  //     case "播放":
-  //       // app.globalData.playMusicById(this.data.musicInfo.id)
-  //       this.tapPlayButton()
-  //       break
-  //     case "下一首播放":
-  //       this.nextPlay()
-  //       break
-  //     case "收藏到歌单":
-  //       this.collectionToList()
-  //       break
-  //     case "下载": 
-  //       this.downMusic()
-  //       break
-  //     case "评论":
-  //       wx.navigateTo({
-  //         url: '/subpackages-comment/pages/comment/comment?id=' + this.data.musicInfo.id
-  //       })
-  //       break
-  //     default:
-  //       break
-  //   }
-  // },
 
-  // async collectionToList(e){
-  //   // this.setData({
-  //   //   selfSongList: await Store.getSelfSongList()
-  //   // })
-  //   this.setData({
-  //     showActionModal:false,
-  //     showSongListAction:true
-  //   })
-
-  // },
-  
-  // downMusic() {
-  //   //TODO user is vip?
-  //   if (this.data.musicInfo.isVip) {
-  //     wx.showModal({
-  //       title: '该曲需要开通vip才能下载哦',
-  //       confirmText: '立即开通',
-  //       cancelText: '暂不开通',
-  //       confirmColor:this.data.themeColor,
-  //       success(res) {
-  //         if (res.confirm) {
-  //           wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
-  //         }
-  //       }
-  //     })
-  //   }
-  // },
-
-  // async tapPlayButton(){
-  //   this.setData({
-  //     cmusicInfo: this.data.musicInfo
-  //   })
-
-  //   let musicList = await Store.getCurrentMusicList()
-  //   let isInclude = false
-  //   for (let i = 0; i < musicList.length; i++) {
-  //     if (musicList[i].id == this.data.musicInfo.id) {
-  //       isInclude = true
-  //       break
-  //     }
-  //   }
-  //   if (!isInclude) {
-  //     musicList.unshift(this.data.musicInfo)
-  //     Store.setMusicList(musicList)
-  //   }
-
-  //   wx.navigateTo({
-  //     url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.musicInfo.id
-  //   })
-  // },
-  // collection(e){
-  //   const index = e.detail.index;
-  //   let modal = this.data.showModal
-  //   if (index === 0) {
-
-  //     if (modal == 'songListModal') {
-  //       this.setData({
-  //         showSongListAction: false,
-  //         checkedIdList:[]
-  //       })
-  //     } else if (modal == 'inputModal') {
-  //       this.setData({
-  //         showModal:'songListModal'
-  //       })
-  //     }
-  //   } else if (index === 1) {
-      
-  //     if (modal =='songListModal'){
-
-  //     } else if (modal =='inputModal'){
-  //       this.songListConfirm()
-  //     }
-  //   }
-  // },
-  // async tapPlayMusic(e){
-  //   this.setData({
-  //     musicInfo: await Store.getCurrentPlayMusic()
-  //   })
-  // },
-  // nextPlay(){
-  //   app.globalData.nextPlay(this.data.musicInfo,()=>{
-  //       //关闭弹框
-  //     this.setData({
-  //       showActionModal: false
-  //     })
-  //   },()=>{
-  //     this.setData({
-  //       cmusicInfo: this.data.musicInfo
-  //     })
-  //   },null,this,true)
-    
-  // },
-  async musicPlayItemChangeInner(e){
+  musicPlayItemChangeInner(e){
     if(e!=null &&e.detail!=null){
-      this.setData({
-        musicInfo:await Store.getCurrentPlayMusic()
+      Store.getCurrentPlayMusic().then(res=>{
+        this.setData({
+          musicInfo: res
+        })
       })
-      // wx.navigateTo({
-      //   url: '/subpackages-music/pages/music-play/music-play'
-      // })
     }
     
   },

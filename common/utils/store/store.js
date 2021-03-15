@@ -23,17 +23,19 @@ function addStorage(key,value){
         store = res.data
       },
       complete(res){
-        store.push(value)
-        wx.setStorage({
-          key: key,
-          data: store,
-          success(res){   
-            resolve(store)
-          },
-          fail(res){
-            reject(res)
-          }
-        })
+        if(res.indexOf(value)==-1){
+          store.push(value)
+          wx.setStorage({
+            key: key,
+            data: store,
+            success(res) {
+              resolve(store)
+            },
+            fail(res) {
+              reject(res)
+            }
+          })
+        }
       }
     })
   })
@@ -113,6 +115,42 @@ function isIncludeById(key,id){
   })
 }
 
+function addStorageIfNotIncludedNotFromStorage(list,value,insertMode=0){
+  let item = getObjectByIdFromNotStorage(list, value.id)
+
+  if(item!=null){
+    if(insertMode==0)list.unshift(value)
+    else if(insertMode==1)list.push(value)
+    return true
+  }
+  return false
+
+}
+
+function romoveStorageNotFromStorage(list,id){
+  let item = getObjectByIdFromNotStorage(list,id)
+
+  if (item != null) {
+    list.splice(list.indexOf(item),1)
+    return true
+  }
+
+  return false
+
+}
+
+function addStorageIfNotIncludedNotFromStorageBase(list,value){
+  if(list.indexOf(value)!=-1)return false
+  list.push(value)
+  return true
+}
+
+function romoveStorageNotFromStorageBase(list,value){
+  if (list.indexOf(value) == -1) return false
+  list.splice(list.indexOf(value),1)
+  return true
+}
+
 function removeStorageById(key,id){
   return new Promise((resolve, reject) => {
     wx.getStorage({
@@ -183,8 +221,44 @@ function clearStorage(key){
   
 }
 
+function getObjectById(key,id){
+  return new Promise((resolve,reject)=>{
+    let itemValue = null
+    getStorage(key, []).then(res=>{
+      let value = res
+      itemValue = value.find(item=>{
+        if(item.id==id)return true
+        return false
+      })
+      itemValue = itemValue ? itemValue:null
+      resolve(itemValue)
+    }).catch(res=>{
+      resolve(null)
+    })
+  })
+}
+
+function getObjectByIdFromNotStorage(list,id){
+  if (!list || list.length==0)return null
+  let item = list.find(e=>{
+    if(e.id==id)return true
+    return false
+  })
+  item == item?item:null
+  return item
+}
+
 function getSelfSongList(){
   return getStorage(Const.SELF_SONG_LIST, [])
+}
+
+function isLike(id){
+  return new Promise((resolve,reject)=>{
+    getObjectById(Const.SELF_SONG_LIST,3).then(res=>{
+      let value = getObjectByIdFromNotStorage(res.list,id)
+      resolve(value!=null)
+    })
+  })
 }
 
 function getCurrentPlayMusic() {
@@ -193,25 +267,12 @@ function getCurrentPlayMusic() {
 function getCurrentMusicList() {
   return getStorage(Const.MUSIC_LIST_STORE_KEY,[])
 }
-function getMusicListIsCollectionAll(){
-  return getStorage(Const.MUSIC_LIST_IS_COLLECTION_ALL,false)
-}
 
-function getLoopStatusIndex(){
-  return getStorage(Const.LOOP_STATUS_INDEX, 0)
-}
 
 function getHistorySearch(){
   return getStorage(Const.HISTORY_SEARCH, [])
 }
 
-function getCurrentPlayTime(){
-  return getStorage(Const.CURRENT_PLAY_TIME,0)
-}
-
-function getCurrentPlayStatus(){
-  return getStorage(Const.CURRENT_PLAY_STATUS, false)
-}
 
 function getCollectMusicList(){
   return getStorage(Const.COLLECT_MUSIC_LIST, [])
@@ -221,74 +282,189 @@ function getLastPlayList(){
   return getStorage(Const.LAST_PLAY_LIST,[])
 }
 
-function getStopIntervalNumber(){
-  return getStorage(Const.STOP_INTERVAL_NUMBER,null)
+function setLastPlayList(musicLists){
+  return setStorage(Const.LAST_PLAY_LIST,musicLists)
 }
 
-function setStopIntervalNumber(stopInervalNumber){
-  return setStorage(Const.STOP_INTERVAL_NUMBER,stopInervalNumber)
-}
 function setMusicList(musicList){
   return setStorage(Const.MUSIC_LIST_STORE_KEY,musicList)
 }
 
-function setLoopStatusIndex(loopStatusIndex) {
-  return setStorage(Const.LOOP_STATUS_INDEX, loopStatusIndex)
+function addMusicList(musicList){
+  return addStorageIfNotIncluded(Const.MUSIC_LIST_STORE_KEY,musicList)
 }
+
+function removeMusicList(id){
+  return removeStorageById(Const.MUSIC_LIST_STORE_KEY,id)
+}
+
 
 function setSelfSongList(selfSongList){
   return setStorage(Const.SELF_SONG_LIST, selfSongList)
 }
 
-function setCurrentPlayStatus(status){
-  return setStorage(Const.CURRENT_PLAY_STATUS, status)
+function addSelfSongList(musicList){
+  return addStorageIfNotIncluded(Const.SELF_SONG_LIST,musicList)
+}
+
+function removeSelfSongList(id){
+  return removeStorageById(Const.SELF_SONG_LIST,id)
+}
+
+function addMusicToSelfSongList(id,musicList){
+  return new Promise((resolve,reject)=>{
+    getSelfSongList().then(value=>{
+      let item = getObjectByIdFromNotStorage(value,id)
+      if(item!=null){
+        if(!addStorageIfNotIncludedNotFromStorage(item.list,musicList))resolve(false)
+        else setSelfSongList(value).then(res=>resolve(true)).then(res=>resolve(false))
+      }else{
+        resolve(false)
+      }
+    }).catch(res=>resolve(false))
+  })
+}
+
+function removeMusicFromSelfSongList(id,musicId){
+  return new Promise((resolve, reject) => {
+    getSelfSongList().then(value => {
+      let item = getObjectByIdFromNotStorage(value, id)
+      if (item != null) {
+        if (!romoveStorageNotFromStorage(item.list, musicId))resolve(false)
+        else setSelfSongList(value).then(res => resolve(true)).then(res => resolve(false))
+      } else {
+        resolve(false)
+      }
+    }).catch(res => resolve(false))
+  })
 }
 
 function setCurrentMusic(currentMusic){
   return setStorage(Const.CURRENT_PLAY_MUSIC_STORE_KEY, currentMusic)
 }
 
-function setCurrentPlayTime(time){
-  return setStorage(Const.CURRENT_PLAY_TIME, time)
-}
 
 function setCollectMusicList(musicLists){
   return setStorage(Const.COLLECT_MUSIC_LIST, musicLists)
-}
-
-function setHistorySearch(historySearch){
-  return setStorage(Const.HISTORY_SEARCH,historySearch)
-}
-
-function addSelfSongList(value){
-  return addStorage(Const.SELF_SONG_LIST,value)
-}
-
-function addHistorySearch(value){
-  return addStorage(Const.HISTORY_SEARCH, value)
-}
-
-async function addCurrentPlayTimeStepOne(){
-  let time = await getStorage(Const.CURRENT_PLAY_TIME, 0)
-  time = time+1
-  setStorage(Const.CURRENT_PLAY_TIME, time)
 }
 
 function addCollectMusicList(musicList){
   return addStorageIfNotIncluded(Const.COLLECT_MUSIC_LIST,musicList)
 }
 
-function addLastPlayList(lastPlayList){
-  return addStorageIfNotIncluded(Const.LAST_PLAY_LIST, lastPlayList)
-}
-
 function removeCollectMusicList(id){
   return removeStorageById(Const.COLLECT_MUSIC_LIST,id)
 }
 
-function removeLastPlayList(id){
+function setHistorySearch(historySearch){
+  return setStorage(Const.HISTORY_SEARCH,historySearch)
+}
+
+function addHistorySearch(value){
+  return addStorage(Const.HISTORY_SEARCH, value)
+}
+
+function removeHistorySearch(value){
+  return removeStorage(Const.HISTORY_SEARCH,value)
+}
+
+
+function addLastPlayList(lastPlayList){
+  return addStorageIfNotIncluded(Const.LAST_PLAY_LIST, lastPlayList)
+}
+
+function removeLastPlayList(id) {
   return removeStorageById(Const.LAST_PLAY_LIST, id)
 }
+
+function setMyMusicList(musicLists){
+  return new Promise((resolve, reject) => {
+    getSelfSongList().then(res => {
+      musicLists.unshift(res[2])
+      musicLists.unshift(res[1])
+      musicLists.unshift(res[0])
+      setSelfSongList(musicLists)
+      resolve(true)
+    })
+  })
+
+}
+function getMyMusicList(){
+  return new Promise((resolve,reject)=>{
+    getSelfSongList().then(res => {
+      let myMusicList = []
+      for (let i = 3; i < res.length; i++)myMusicList.push(res[i])
+      resolve(myMusicList)
+    })
+  })
+}
+
+function getIndex(list,id){
+  for(let i=0;i<list.length;i++){
+    if(list[i].id==id)return i
+  }
+  return -1
+}
+
+function updateMyMusicList(musicList){
+  return new Promise((resolve,reject)=>{
+    getSelfSongList().then(res=>{
+      let index = getIndex(res, musicList.id)
+      res.splice(index,1,musicList)
+      return setSelfSongList(res)
+    }).then(res => resolve(true)).catch(res => resolve(false))
+
+  })
+}
+
+function getUserInfo(){
+  return getStorage(Const.USER_INFO,{
+    avator:'',
+    userName:'用户名',
+    styleLabels:[]
+  })
+}
+
+function setUserInfo(userInfo){
+  return setStorage(Const.USER_INFO, userInfo)
+}
+
+function updateUserInfo(avator,userName){
+  return getUserInfo().then(res=>{
+    let cavator = avator ? avator : res.avator
+    let cuserName = userName ? userName : res.userName
+    res.avator = cavator
+    res.userName = cuserName
+    setUserInfo(res)
+  })
+}
+
+function getStyleLabels(){
+  return new Promise((resolve,reject)=>{
+    getUserInfo().then(res => resolve(res.styleLabels)).catch(res=>resolve([]))
+  }) 
+}
+
+function addStyleLabels(value){
+  return new Promise((resolve, reject) => {
+    getUserInfo().then(res => {
+      if(!addStorageIfNotIncludedNotFromStorageBase(res.styleLabels,value))resolve(false)
+      setUserInfo(res)
+      resolve(true)
+    })
+  }) 
+}
+
+function removeStyleLabels(value) {
+  return new Promise((resolve, reject) => {
+    getUserInfo().then(res => {
+      if (!removeStorageIfNotIncludedNotFromStorageBase(res.styleLabels, value)) resolve(false)
+      setUserInfo(res)
+      resolve(true)
+    })
+  })
+}
+
 
 async function getCurrentPlayMusicIndex() {
   let currentMusicList = await getCurrentMusicList()
@@ -299,6 +475,25 @@ async function getCurrentPlayMusicIndex() {
     if (currentMusicList[i].id == currentPlayMusic.id) return i
   }
   return -1;
+}
+
+function getCurrentPlayMusicIndexSync() {
+  let currentMusicList = null
+  let currentPlayMusic = null
+  return new Promise((resolve,reject)=>{
+    getCurrentMusicList().then(res => {
+      currentMusicList = res
+      return getCurrentPlayMusic()
+    }).then(res => {
+      currentPlayMusic = res
+      let length = currentMusicList.length
+      for (let i = 0; i < length; i++) {
+        if (currentMusicList[i].id == currentPlayMusic.id) resolve(i)
+      }
+      resolve(-1)
+    }).catch(res=>resolve(-1))
+  })
+
 }
 
 function isMusicListCollect(id){
@@ -318,39 +513,51 @@ module.exports = {
   addStorage,
   addStorageIfNotIncluded,
   getStorage,
-  removeStorage,
-  removeStorageById,
   isIncludeById,
+  addStorageIfNotIncludedNotFromStorage,
+  romoveStorageNotFromStorage,
+  removeStorageById,
+  removeStorage,
   clearStorage,
+  getObjectById,
+  getObjectByIdFromNotStorage,
   getSelfSongList,
-  getHistorySearch,
   getCurrentPlayMusic,
   getCurrentMusicList,
-  getCurrentPlayMusicIndex,
-  getMusicListIsCollectionAll,
-  getLoopStatusIndex,
-  getCurrentPlayTime,
-  getCurrentPlayStatus,
-  getStopIntervalNumber,
+  getHistorySearch,
   getCollectMusicList,
   getLastPlayList,
-  setSelfSongList,
+  setLastPlayList,
   setMusicList,
-  setHistorySearch,
-  setCurrentMusic,
-  setCurrentPlayStatus,
-  setLoopStatusIndex,
-  setCurrentPlayTime,
-  setStopIntervalNumber,
-  setCollectMusicList,
+  addMusicList,
+  removeMusicList,
+  setSelfSongList,
   addSelfSongList,
-  addCurrentPlayTimeStepOne,
+  removeSelfSongList,
+  addMusicToSelfSongList,
+  removeMusicFromSelfSongList,
+  setCurrentMusic,
+  setCollectMusicList,
   addCollectMusicList,
-  addLastPlayList,
-  addHistorySearch,
   removeCollectMusicList,
+  setHistorySearch,
+  addHistorySearch,
+  removeHistorySearch,
+  addLastPlayList,
   removeLastPlayList,
+  getCurrentPlayMusicIndex,
+  getCurrentPlayMusicIndexSync,
   isMusicListCollect,
   clearCurrentMusicList,
-  clearCurrentMusic
+  clearCurrentMusic,
+  getUserInfo,
+  setUserInfo,
+  updateUserInfo,
+  getStyleLabels,
+  addStyleLabels,
+  removeStyleLabels,
+  isLike,
+  setMyMusicList,
+  getMyMusicList,
+  updateMyMusicList
 }
