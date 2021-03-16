@@ -1,16 +1,17 @@
 <!--pages/index/index.wxml-->
+<wxs src="../../common/utils/func/tools.wxs" module="tools"/>
 <wrapper nav-bar-class="theme-module-color">
   <view slot="nav-bar-left" class="setting-icon">
     <i-icon type="other" size="33" />
   </view>
-  <view slot="nav-bar-middle">
-    <search-bar />
+  <view slot="nav-bar-middle" bindtap="tapToSearchPage">
+    <search-bar disabled="{{false}}"/>
   </view>
   <!--可竖向滚动内容区-->
   <scroll-view scroll-y="true" style="height: 100%;" slot="content">
     <!--轮播-->
     <view class="theme-module-color">
-      <card-swiper swiper-item-class="theme-radius theme-load-slot" indicatorColor="#fadbd9" indicatorActiveColor="{{themeColor}}" />
+      <card-swiper swiper-item-class="theme-radius theme-load-slot" indicatorColor="#fadbd9" indicatorActiveColor="{{themeColor}}" swiper-list="{{banner}}" catchtapitem="tapSwiperItem"/>
     </view>
     <!--功能导航-->
     <view class="theme-module-color nav-icon-container">
@@ -22,49 +23,49 @@
     </view>
     <!--个性化推荐歌单-->
     <view class="theme-module-color personal-song-sheet-recommend">
-      <card card-title-class="theme-padding" cardTitle="推荐歌单">
-        <view class="{{index==0?'theme-margin-left':''}} {{index==6?'theme-margin-right':''}} square-card-margin-right" wx:for="{{[1,2,3,4,5,6,7]}}">
-          <personal-recommend-item thumb="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" size="190" />
+      <card card-title-class="theme-padding" card-title="推荐歌单" catchtapmore="tapMore">
+        <view class="{{index==0?'theme-margin-left':''}} {{index==6?'theme-margin-right':''}} square-card-margin-right" wx:for="{{personalRecommendMusicLists}}">
+          <personal-recommend-item item-id="{{item.id}}" thumb="{{item.cover}}" size="190" info="{{item.title}}"/>
         </view>
       </card>
     </view>
     <!--非个性化推荐歌单-->
     <view class="theme-module-color normal-song-sheet-recommend theme-module-margin flex-row theme-padding">
-      <recommend-card title="热门\n歌曲" recommend-card-class="theme-radius hotRe light bg-orange" content-class="normal-song-sheet-recommend-content" title-class="normal-song-sheet-recommend-title" />
+      <recommend-card bindtapitem="tapNormalRecommend" item-id="{{normalRecommendMusicLists.hotList.id}}" title="{{normalRecommendMusicLists.hotList.title}}" songs-info="{{normalRecommendMusicLists.hotList.listInfos}}" recommend-card-class="theme-radius hotRe light bg-orange" content-class="normal-song-sheet-recommend-content" title-class="normal-song-sheet-recommend-title" />
       <view class="recommend-right-part flex-col">
-        <recommend-card title="新歌推荐" recommend-card-class="theme-radius newRe light bg-blue" content-class="normal-song-sheet-recommend-content" title-class="normal-song-sheet-recommend-right-title" />
-        <recommend-card title="随机歌单" recommend-card-class="theme-radius randomRe light bg-brown" songsInfo="{{[]}}" content-class="normal-song-sheet-recommend-content" title-class="normal-song-sheet-recommend-right-title" />
+        <recommend-card bindtapitem="tapNormalRecommend" title="新歌推荐" recommend-card-class="theme-radius newRe light bg-blue" content-class="normal-song-sheet-recommend-content" title-class="normal-song-sheet-recommend-right-title" item-id="{{normalRecommendMusicLists.newList.id}}" title="{{normalRecommendMusicLists.newList.title}}" songs-info="{{normalRecommendMusicLists.newList.listInfos}}"/>
+        <recommend-card bindtapitem="tapNormalRecommend" title="随机歌单" recommend-card-class="theme-radius randomRe light bg-brown" songsInfo="{{[]}}" content-class="normal-song-sheet-recommend-content" title-class="normal-song-sheet-recommend-right-title" item-id="{{normalRecommendMusicLists.randomList.id}}" title="{{normalRecommendMusicLists.randomList.title}}" songs-info="{{normalRecommendMusicLists.randomList.listInfos}}"/>
       </view>
     </view>
     <!--根据常听的歌手推荐相关的歌曲-->
     <view class="theme-module-color theme-module-margin">
-      <card card-title-class="theme-padding" cardTitle="歌曲推荐">
-        <view wx:for="{{[1,2,3]}}" class="flex-col music-cards-container {{index==0?'theme-margin-left':''}} {{index==2?'song-recommend-last-card-margin':''}} theme-margin-right">
-          <music-card wx:for="{{[1,2,3]}}" size="120" />
+      <card card-title-class="theme-padding" card-title="歌曲推荐" catchtapmore="tapMore">
+        <view wx:for="{{tools.getNumberArray(musicsBySinger.length/3)}}" class="flex-col music-cards-container {{index==0?'theme-margin-left':''}} {{index==2?'song-recommend-last-card-margin':''}} theme-margin-right" wx:fpr-item="it">
+          <music-card wx:for="{{[0,1,2]}}" size="120" cover="{{musicsBySinger[it*3+item].cover}}" sing-name="{{musicsBySinger[it*3+item].singName}}" singer-name="{{musicsBySinger[it*3+item].singerName}}" item-id="{{musicsBySinger[it*3+item].id}}"/>
         </view>
       </card>
     </view>
     <!--歌手栏-->
     <view class="theme-module-color theme-module-margin">
-      <card card-title-class="theme-padding" cardTitle="音乐人">
-        <view wx:for="{{[1,2,3,4,5]}}" class="circular-card-item {{index==0?'theme-margin-left':''}} {{index==4?'theme-margin-right':''}} circular-card-margin-right">
-          <circular-card-item size="170" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" message="歌手" />
+      <card card-title-class="theme-padding" card-title="音乐人" catchtapmore="tapMore">
+        <view wx:for="{{singers}}" class="circular-card-item {{index==0?'theme-margin-left':''}} {{index==4?'theme-margin-right':''}} circular-card-margin-right">
+          <circular-card-item size="170" cover="{{item.avator}}" message="{{item.singerName}}" item-id="{{item.id}}" catchtapitem="tapCircularItem" data-title="音乐人"/>
         </view>
       </card>
     </view>
     <!--风格栏-->
     <view class="theme-module-color theme-module-margin">
-      <card card-title-class="theme-padding" cardTitle="风格">
-        <view wx:for="{{[1,2,3,4,5]}}" class="circular-card-item {{index==0?'theme-margin-left':''}} {{index==4?'theme-margin-right':''}} circular-card-margin-right">
-          <circular-card-item size="170" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" message="古风" />
+      <card card-title-class="theme-padding" card-title="风格" catchtapmore="tapMore">
+        <view wx:for="{{styles}}" class="circular-card-item {{index==0?'theme-margin-left':''}} {{index==4?'theme-margin-right':''}} circular-card-margin-right">
+          <circular-card-item size="170" cover="{{item.cover}}" message="{{item.style}}" item-id="{{item.id}}" data-title="风格" catchtapitem="tapCircularItem"/>
         </view>
       </card>
     </view>
     <!--场景栏-->
     <view class="theme-module-color theme-module-margin">
-      <card card-title-class="theme-padding" cardTitle="场景">
-        <view wx:for="{{[1,2,3,4,5]}}" class="circular-card-item {{index==0?'theme-margin-left':''}} {{index==4?'theme-margin-right':''}} circular-card-margin-right">
-          <circular-card-item size="170" cover="https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg" message="运动" />
+      <card card-title-class="theme-padding" card-title="场景" catchtapmore="tapMore">
+        <view wx:for="{{scenes}}" class="circular-card-item {{index==0?'theme-margin-left':''}} {{index==4?'theme-margin-right':''}} circular-card-margin-right">
+          <circular-card-item size="170" cover="{{item.cover}}" message="{{item.scene}}" item-id="{{item.id}}" data-title="场景" catchtapitem="tapCircularItem"/>
         </view>
       </card>
     </view>

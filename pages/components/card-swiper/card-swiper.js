@@ -18,6 +18,10 @@ Component({
     indicatorColor: {
       type: String,
       value: '#fadbd9'
+    },
+    swiperList:{
+      type:Array,
+      value:[]
     }
   },
 
@@ -25,36 +29,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    cardCur: 0,
-    swiperList: [{
-      id: 0,
-      type: 'image',
-      url: ''
-    }, {
-      id: 1,
-      type: 'image',
-      url: '',
-    }, {
-      id: 2,
-      type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-    }, {
-      id: 3,
-      type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-    }, {
-      id: 4,
-      type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-    }, {
-      id: 5,
-      type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-    }, {
-      id: 6,
-      type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-    }]
+    cardCur: 0
   },
 
   /**
@@ -65,6 +40,9 @@ Component({
       this.setData({
         cardCur: e.detail.current
       })
+    },
+    tapItem(e){
+      this.triggerEvent('tapitem', e.currentTarget.dataset.id)
     }
   }
 })

@@ -1,0 +1,20 @@
+.more-title{
+  margin-left: 20rpx;
+  color: #333;
+  font-size: 34rpx;
+  letter-spacing: 1px;
+}
+.back-icon {
+  margin-left: -12rpx;
+  margin-right: 20rpx;
+}
+.item{
+  flex-shrink: 0;
+  margin-bottom: 30rpx;
+}
+.items-container{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}

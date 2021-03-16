@@ -158,7 +158,6 @@ Page({
     })
   },
   tapRemove(e){
-    console.log("**")
     if (!this.checkIsHasChecked()) return
     let that = this
     wx.showModal({

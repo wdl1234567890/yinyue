@@ -1,4 +1,4 @@
-<view class="recommend-card-container recommend-card-class">
+<view class="recommend-card-container recommend-card-class" bindtap="tapItem">
   <text class="title title-class">{{title}}</text>
   <view class="content content-class" wx:if="{{songsInfo!=null && songsInfo!=undefined && songsInfo.length!=0}}">
     <view wx:for="{{songsInfo}}">{{item}}</view>

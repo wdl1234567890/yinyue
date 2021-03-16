@@ -1,0 +1,21 @@
+<wrapper nav-bar-class="theme-module-color">
+  <!--返回按钮与标题-->
+  <view slot="nav-bar-left" class="back-icon">
+    <back-button />
+  </view>
+  <view slot="nav-bar-middle" class="more-title">{{title}}</view>
+  <scroll-view scroll-y slot="content" class="theme-module-color theme-padding" style="height:100%" bindscrolltolower="scrolltolower">
+    <view class="items-container">
+      <block wx:if="{{title=='推荐歌单' || id!=-1}}">
+        <view wx:for="{{datasList}}" wx:key="id" class="item">
+          <personal-recommend-item item-id="{{item.id}}" thumb="{{item.cover}}" size="215" info="{{item.title}}" />
+        </view>
+      </block>
+      <block wx:else>
+        <view wx:for="{{datasList}}" wx:key="id" class="item">
+          <circular-card-item size="180" cover="{{item.avator?item.avator:item.cover}}" message="{{item.singerName?item.singerName:item.style?item.style:item.scene}}" item-id="{{item.id}}" />
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</wrapper>

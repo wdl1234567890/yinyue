@@ -5,7 +5,7 @@
     <!--标题-->
     <text class="title">{{cardTitle}}</text>
     <!--"更多"按钮-->
-    <view class="card-button" wx:if="{{enabelMore}}">
+    <view class="card-button" wx:if="{{enabelMore}}" bindtap="tapMore">
       <text>更多</text>
       <i-icon type="enter" size="14" style="margin-right: -11rpx" color="#777"/>
     </view>

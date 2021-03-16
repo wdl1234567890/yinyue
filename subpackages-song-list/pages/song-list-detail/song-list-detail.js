@@ -120,7 +120,7 @@ Page({
   onLoad(options) {
     //获取参数里的歌单id
     this.data.musicListInfo.id = options.id
-    //获取参数里的标识，1代表本地歌单，4代表网站歌单，2代表最近播放歌单，3代表已收藏歌单
+    //获取参数里的标识，1代表本地歌单，4代表网站歌单，2代表最近播放歌单，3代表已收藏歌单，5代表歌手歌单
     let flag = options.flag ? options.flag : 4
     this.setData({
       musicListInfo:this.data.musicListInfo,
@@ -151,7 +151,7 @@ Page({
   onShow(){
     let flagConst = [Const.SELF_SONG_LIST, Const.LAST_PLAY_LIST, Const.COLLECT_MUSIC_LIST]
     let musicListInfo = null
-    if (this.data.flag != 4) {
+    if (this.data.flag != 4 && this.data.flag != 5) {
       Store.getObjectById(flagConst[this.data.flag - 1], this.data.musicListInfo.id).then(res => {
         musicListInfo = res
         return Store.isMusicListCollect(musicListInfo.id)
@@ -172,6 +172,21 @@ Page({
 
       Store.isMusicListCollect(musicListInfo.id).then(res => {
         musicListInfo.isCollect = res
+        this.setData({
+          musicListInfo,
+          sortData: musicListInfo.list
+        })
+      })
+    }else if(this.data.flag==5){
+      //request
+      musicListInfo = this.data.singListDatas.find(e => {
+        if (e.id == this.data.musicListInfo.id) return true
+        else return false
+      })
+
+      Store.isMusicListCollect(musicListInfo.id).then(res => {
+        musicListInfo.isCollect = res
+        musicListInfo.title='歌手歌单'
         this.setData({
           musicListInfo,
           sortData: musicListInfo.list

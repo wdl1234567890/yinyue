@@ -7,6 +7,10 @@ Component({
     searchValue: {
       type:String,
       value:''
+    },
+    disabled:{
+      type:Boolean,
+      value:true
     }
   },
 

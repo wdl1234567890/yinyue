@@ -43,11 +43,20 @@ var commentCountShow = function(commentCount){
   else return commentCount
 }
 
+var getNumberArray = function(endNumber){
+  var numberArray=[]
+  for(var i = 0 ; i < endNumber; i++){
+    numberArray[i]=i
+  }
+  return numberArray
+}
+
 
 module.exports = {
   isEmpty: isEmpty,
   isArrayInclude: isArrayInclude,
   timestampToTime: timestampToTime,
   transformSecondToMinute: transformSecondToMinute,
-  commentCountShow: commentCountShow
+  commentCountShow: commentCountShow,
+  getNumberArray: getNumberArray
 }

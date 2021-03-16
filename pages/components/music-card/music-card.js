@@ -4,6 +4,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    itemId:{
+      type:Number,
+      value:-1
+    },
     size:{
       type:Number,
       value:20
@@ -15,6 +19,10 @@ Component({
     singerName:{
       type:String,
       value:"不才"
+    },
+    cover:{
+      type:String,
+      value:''
     }
   },
 

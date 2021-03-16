@@ -30,6 +30,8 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    tapMore(e){
+      this.triggerEvent('tapmore', this.data.cardTitle)
+    }
   }
 })

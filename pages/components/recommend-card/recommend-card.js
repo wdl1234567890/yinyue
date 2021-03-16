@@ -5,6 +5,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    itemId:{
+      type:Number,
+      value:-1
+    },
     title:{
       type: String,
       value: "热门歌单"
@@ -30,6 +34,8 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    tapItem(e){
+      this.triggerEvent('tapitem', this.data.itemId)
+    }
   }
 })

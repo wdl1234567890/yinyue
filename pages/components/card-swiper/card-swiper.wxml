@@ -1,9 +1,9 @@
 <view>
   <swiper class="card-swiper round-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}">
     <swiper-item wx:for="{{swiperList}}" wx:key class="{{cardCur==index?'cur':''}}">
-      <view class="swiper-item swiper-item-class swiper-item-container" style="background-image:url('/static/images/common/music-load.svg');">
-        <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
-        <video src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+      <view class="swiper-item swiper-item-class swiper-item-container" style="background-image:url('/static/images/common/music-load.svg');" bindtap="tapItem" data-id="{{item.id}}">
+        <image src="{{item.cover}}" mode="aspectFill"></image>
+        <!-- <video src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video> -->
       </view>
     </swiper-item>
   </swiper>

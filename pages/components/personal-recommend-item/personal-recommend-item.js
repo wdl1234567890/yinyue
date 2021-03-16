@@ -12,9 +12,13 @@ Component({
       type: String,
       value: ""
     },
+    itemId:{
+      type:Number,
+      value:-1
+    },
     info: {
       type: String,
-      value: "内容正在加载中，请稍后哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈......"
+      value: "内容正在加载中，请稍后......"
     }
   },
 
@@ -29,6 +33,11 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    tapItem(e){
+      wx.navigateTo({
+        url: '/subpackages-song-list/pages/song-list-detail/song-list-detail?id='+this.data.itemId
+      })
+      this.triggerEvent('tapitem',this.data.itemId)
+    }
   }
 })
