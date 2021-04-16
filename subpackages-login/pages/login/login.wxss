@@ -9,6 +9,11 @@
   outline: none!important;
   border: none!important;
 }
+.complete-button{
+  background-color: var(--theme-color);
+  color: #fff;
+  letter-spacing: 4rpx;
+}
 .weixin-icon{
   width: 100rpx;
   height: 100rpx;

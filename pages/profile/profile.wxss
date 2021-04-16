@@ -12,6 +12,13 @@
   transition: opacity 0.3s;
 }
 
+.login-button{
+  color: #fff;
+  letter-spacing: 4px;
+  margin: 0;
+  background-color: var(--theme-color);
+  padding: 0 30rpx!important;
+}
 .song-list-nav-item text {
   padding: 0 6rpx;
   position: relative;

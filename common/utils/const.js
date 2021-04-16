@@ -5,5 +5,6 @@ module.exports = {
   HISTORY_SEARCH:"hitorySearch",
   COLLECT_MUSIC_LIST:"collectMusicList",
   LAST_PLAY_LIST:"lastPlayList",
-  USER_INFO:"userInfo"
+  USER_INFO:"userInfo",
+  TOKEN:"token"
 }

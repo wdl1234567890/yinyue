@@ -2,6 +2,7 @@
 let app = getApp()
 let func = require('../../../common/utils/func/wxml-element.js')
 let Store = require('../../../common/utils/store/store.js')
+let { httpGet, httpPost } = require('../../../network/httpClient.js')
 Page({
 
   /**
@@ -55,7 +56,7 @@ Page({
         title: "歌单",
       }
     ],
-    singDatas:[
+    songDatas:[
       {
         id:1,
         singName:"歌曲1",
@@ -137,7 +138,7 @@ Page({
         isVip: false,
       },
     ],
-    singListDatas: [
+    songListDatas: [
       { 
         id: 1, 
         cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg", 
@@ -156,7 +157,8 @@ Page({
         title: "歌单3",
         count:2
       }
-    ]
+    ],
+    singerDatas:[]
       
   },
 
@@ -165,6 +167,14 @@ Page({
    */
   onLoad(options) {
     let searchValue = options.search ?options.search.trim():''
+    let that = this
+    httpGet("/search/" + encodeURI(searchValue)).then(({songs,songLists,singers}) => {
+      that.setData({
+        songDatas:songs,
+        songListDatas:songLists,
+        singerDatas:singers
+      })
+    })
     Store.getCurrentPlayMusic().then(res=>{
       this.setData({
         searchValue,

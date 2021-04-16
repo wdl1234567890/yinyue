@@ -2,7 +2,7 @@
 let systemInfo = wx.getSystemInfoSync()
 let menuButtonBoundingClientRect = wx.getMenuButtonBoundingClientRect()
 let Store = require('./common/utils/store/store.js')
-
+let { httpGet, httpPost } = require('./network/httpClient.js')
 let musicListData= [
   {
     id: 1,
@@ -103,9 +103,6 @@ let musicListData= [
     isVip: false
   }
 ]
-
-
-
 App({
   
   globalData: {
@@ -125,6 +122,31 @@ App({
   },
 
   onLaunch(e){
+    // const innerAudioContext = wx.createInnerAudioContext()
+    // innerAudioContext.autoplay = true
+    // innerAudioContext.src = 'https://img.tukuppt.com/newpreview_music/08/99/49/5c897788e421b53181.mp3'
+    // innerAudioContext.onPlay(() => {
+    //   console.log('开始播放')
+    // })
+    // innerAudioContext.onError((res) => {
+    //   console.log(res.errMsg)
+    //   console.log(res.errCode)
+    // })
+    // innerAudioContext.onEnded(res => {
+    //   console.log("****")
+    // })
+
+    const backgroundAudioManager = wx.getBackgroundAudioManager()
+
+    backgroundAudioManager.title = '此时此刻'
+    backgroundAudioManager.epname = '此时此刻'
+    backgroundAudioManager.singer = '许巍'
+    backgroundAudioManager.coverImgUrl = 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000'
+    // 设置了 src 之后会自动播放
+    backgroundAudioManager.src = 'https://img.tukuppt.com/newpreview_music/08/99/49/5c897788e421b53181.mp3'
+    // backgroundAudioManager.play()
+    backgroundAudioManager.onPlay(res=>{console.log("yyyy")})
+    
     this.globalData.calPlayTime = this.calPlayTime
     this.globalData.playMusic = this.playMusic
     this.globalData.pausePlayMusic = this.pausePlayMusic
@@ -134,7 +156,7 @@ App({
     this.globalData.stopPlayMusic = this.stopPlayMusic
     this.globalData.nextPlay = this.nextPlay
     this.initSelfSongList()
-    this.initUserInfo()
+    // this.initUserInfo()
   },
 
   //初始化自建歌单信息
@@ -389,23 +411,14 @@ App({
     let musicInfo = await Store.getCurrentPlayMusic()
 
     if (id == musicInfo.id) {
-      // console.log(musicInfo.singTime == ctime)
       if (musicInfo.singTime == ctime) {
         newItem = musicInfo
       } else {
-        //if (this.globalData.endSomething != null) this.globalData.endSomething.apply(this.globalData.obj)
         this.calPlayTime()
         return
       }
     } else {
-      //TODO request 
-      for (let i = 0; i < musicListData.length; i++) {
-        if (musicListData[i].id == id) {
-          newItem = musicListData[i]
-          break
-        }
-      }
-
+      newItem = await httpGet('/song/'+id)
     }
 
 
@@ -423,25 +436,9 @@ App({
       })
     }
 
-    // this.setData({
-    // musicInfo= newItemf
     this.globalData.currentPlayTime = -1
-    // playStatus: true,
-    // perSecondProgress: this.data.progressLength / newItem.singTime
-    // })
-
-    // let currentMusic = await Store.getCurrentPlayMusic()
-
-    // if (newItem != musicInfo) {
-      // this.setData({
-      // this.globalData.currentPlayTime= 0
-      // })
-      // Store.setCurrentPlayTime(0)
-      // let stopNumber = await Store.getStopIntervalNumber()
-      // clearInterval(this.data.stopIntervalNum)
-      if (this.globalData.stopIntervalNumber != null) clearInterval(this.globalData.stopIntervalNumber)
-      this.globalData.stopIntervalNumber = null
-    // }
+    if (this.globalData.stopIntervalNumber != null) clearInterval(this.globalData.stopIntervalNumber)
+    this.globalData.stopIntervalNumber = null
 
     let that = this
     Store.setCurrentMusic(newItem).then(res=>{

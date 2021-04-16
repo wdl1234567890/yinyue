@@ -114,13 +114,14 @@ Component({
     },
     sendComment(e){
       //request back list
-      let content = this.data.commentInput
+      let content = this.data.commentInput.trim()
       if(content==''){
         wx.showToast({
           title: '是不是忘记输入内容啦~',
           icon:'none'
         })
-        return;
+      }else{
+        this.triggerEvent('sendcomment',content)
       }
     },
    musicPlayItemChange(e){

@@ -48,6 +48,7 @@
     "wrapper": "/common/components/wrapper/wrapper",
     "i-icon": "/extend/iview-weapp/icon/index"
   },
+  "requiredBackgroundModes":["audio"],
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

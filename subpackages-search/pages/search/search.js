@@ -2,6 +2,8 @@
 let app = getApp()
 let Store = require('../../../common/utils/store/store.js')
 let func = require('../../../common/utils/func/wxml-element.js')
+let {debounce} = require('../../../common/utils/func/func-utils.js')
+let { httpGet, httpPost } = require('../../../network/httpClient.js')
 Page({
 
   /**
@@ -230,6 +232,22 @@ Page({
     })
     wx.navigateTo({
       url: '/subpackages-search/pages/search-result/search-result?search=' + searchValue
+    })
+  },
+  getHotSearchKeys(){
+    let that = this
+    httpGet("/search/hotKey").then(hotSearch => {
+      that.setData({
+        hotSearch
+      })
+    })
+  },
+  getRecommendKeys(){
+    let that = this
+    httpGet("/recommend/recommendKey").then(recommendLabels => {
+      that.setData({
+        recommendLabels
+      })
     })
   }
 })

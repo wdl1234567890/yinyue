@@ -1,7 +1,7 @@
 <wxs src="../../../common/utils/func/tools.wxs" module="tools" />
 <wrapper nav-bar-class="theme-module-color" mode="login">
   <view slot="nav-bar-left" class="close-icon">
-    <i-icon type="close" size="25" color="#333" />
+    <back-button />
   </view>
   <view style="height:100%;" slot="content" class="theme-module-color content-container">
     <!--步骤条-->
@@ -21,9 +21,14 @@
     <view>
       <!--第一步：点击登录按钮-->
       <view class="flex-row login-container" wx:if="{{0==current}}">
-        <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="login-button" plain size="mini">
-          <image src="/static/images/common/weixin.png" class="weixin-icon"></image>
-        </button>
+        <block wx:if="{{!hasUserInfo}}">
+          <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserInfo" data-flag="0" size="mini" class="login-button" plain> 
+            <image src="/static/images/common/weixin.png" class="weixin-icon"></image>
+           </button>
+          <button wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo" data-flag="1" size="mini" class="login-button" plain>
+            <image src="/static/images/common/weixin.png" class="weixin-icon"></image>
+          </button>
+        </block>
       </view>
       <!--第二步：完善基本信息-->
       <view class="flex-col style-container theme-padding" wx:if="{{1==current}}">
@@ -33,10 +38,10 @@
           <!--性别-->
           <view class="flex-row">
             <view class="flex-row radio-item" catchtap="sexChange" data-index="0">
-              <my-radio checked="{{checkedIndex==0}}" inner-handle="{{false}}" size="15"/>男
+              <my-radio checked="{{checkedIndex==0}}" inner-handle="{{false}}" size="15" />男
             </view>
             <view class="flex-row radio-item" catchtap="sexChange" data-index="1">
-              <my-radio checked="{{checkedIndex==1}}" inner-handle="{{false}}" size="15"/>女
+              <my-radio checked="{{checkedIndex==1}}" inner-handle="{{false}}" size="15" />女
             </view>
           </view>
           <!--年龄-->
@@ -54,17 +59,18 @@
           <view class="choosed-container flex-col">
             <text>已选</text>
             <view class="flex-row">
-              <info-label isActive="true" wx:for="{{choosedStyles}}" value="{{item}}" wx:key="index"/>
+              <info-label isActive="true" wx:for="{{choosedStyles}}" value="{{item}}" wx:key="index" />
             </view>
           </view>
           <!--可选标签-->
           <view class="all-style-container flex-col">
             <text>风格标签</text>
             <view class="flex-row">
-              <info-label enabel-active wx:for="{{styleLabels}}" value="{{item}}" bindtaplabel="tapLabel" wx:key="index" isActive="{{tools.isArrayInclude(choosedStyles,item)}}"/>
+              <info-label enabel-active wx:for="{{styleLabels}}" value="{{item}}" bindtaplabel="tapLabel" wx:key="index" isActive="{{tools.isArrayInclude(choosedStyles,item)}}" />
             </view>
           </view>
         </view>
+        <button class="complete-button" bindtap="complete">完成</button>
       </view>
     </view>
   </view>

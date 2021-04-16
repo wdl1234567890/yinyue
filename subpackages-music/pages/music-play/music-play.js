@@ -3,6 +3,7 @@ const app = getApp()
 let func = require('../../../common/utils/func/wxml-element.js')
 const ctx1 = wx.createCanvasContext('circular-play-cd')
 let Store = require('../../../common/utils/store/store.js')
+let { httpGet, httpPost } = require('../../../network/httpClient.js')
 Page({
 
   /**
@@ -132,6 +133,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+
+    
+
     let musicId = options.id
     let musicList = []
     let musicInfo = {}
@@ -142,10 +146,10 @@ Page({
       let progressRadius=playCdSize/2-3
       let progressLength = 2 * Math.PI * progressRadius
       
-      this.calPerSecondProgress()
+      this.calPerSecondProgressAndGetLyric()
       app.globalData.doSomething = this.drawPlayProgress
       app.globalData.obj = this
-      app.globalData.endSomething = this.calPerSecondProgress
+      app.globalData.endSomething = this.calPerSecondProgressAndGetLyric
 
       Promise.all([Store.getCurrentMusicList(), Store.getCurrentPlayMusic()]).then(res=>{
         musicList = res[0]
@@ -158,21 +162,21 @@ Page({
           progressRadius,
           progressLength
         })
-        if (musicId != -1) {
-          app.globalData.playMusicById(musicId)
-        }
-        else {
+        // if (musicId != -1) {
+        //   app.globalData.playMusicById(musicId)
+        // }
+        // else {
 
-          let perSecondProgress = progressLength / musicInfo.singTime
-          let playStatus = app.globalData.stopIntervalNumber != null
-          this.setData({
-            musicInfo,
-            perSecondProgress,
-            playStatus
-          })
-          this.drawPlayProgress()
-        }
-        this.setLikeStatus()
+        //   let perSecondProgress = progressLength / musicInfo.singTime
+        //   let playStatus = app.globalData.stopIntervalNumber != null
+        //   this.setData({
+        //     musicInfo,
+        //     perSecondProgress,
+        //     playStatus
+        //   })
+        //   this.drawPlayProgress()
+        // }
+        // this.setLikeStatus()
       })
     })
     
@@ -403,7 +407,12 @@ Page({
       })
     }
   },
- calPerSecondProgress(){
+  getLyric(musicInfo){
+    httpGet(musicInfo.url).then(data=>{
+      musicInfo.lyric=data.replace('/[*]/','')
+   })
+ },
+ calPerSecondProgressAndGetLyric(){
     let musicInfo = []
    Store.getCurrentPlayMusic().then(res=>{
      musicInfo = res

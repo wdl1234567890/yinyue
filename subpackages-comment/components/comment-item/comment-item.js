@@ -1,12 +1,13 @@
 // subpackages-comment/components/comment-item/comment-item.js
 const app = getApp()
+let { httpGet, httpPost, httpPut } = require('../../../network/httpClient.js')
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
     itemId:{
-      type:Number,
+      type:String,
       value:-1
     },
     replyCount:{
@@ -104,17 +105,24 @@ Component({
     changeUp(e){
       let isUp = this.data.isUp
       if(isUp){
-        this.setData({
-          upCount: this.data.upCount-1
+        httpPut('/comment/cancelThumb/' + this.data.itemId).then(data=>{
+          this.setData({
+            upCount: this.data.upCount - 1,
+            isUp: !isUp
+          })
         })
+        
       }else{
-        this.setData({
-          upCount: this.data.upCount+1
+        httpPut('/comment/thumb/' + this.data.itemId).then(res=>{
+          this.setData({
+            upCount: this.data.upCount + 1,
+            isUp: !isUp
+          })
         })
+        
       }
-      this.setData({
-        isUp:!isUp
-      })
+      
+      
     }
   }
 })

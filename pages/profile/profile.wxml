@@ -1,3 +1,4 @@
+<wxs src="../../common/utils/func/tools.wxs" module="tools" />
 <wrapper nav-bar-class="profile-top-bar {{topBarchange?'theme-module-color':'theme-bg'}}">
   <view slot="nav-bar-left" class="setting-icon">
     <i-icon type="other" size="33" />
@@ -9,22 +10,25 @@
     <text class="one-row-flow">{{userInfo.userName}}</text>
   </view>
   <!--隐形歌单导航条-->
-<tab-bar tab-bar-class="fixed-song-list-nav-bar song-list-cp-nav-container theme-padding" bindclicktabitem="clickTabItem" currentTabId="{{currentSongListId}}" tabTitles="{{songListNav}}" wx:if="{{navBarIsTop}}" slot="other"/>
+  <tab-bar tab-bar-class="fixed-song-list-nav-bar song-list-cp-nav-container theme-padding" bindclicktabitem="clickTabItem" currentTabId="{{currentSongListId}}" tabTitles="{{songListNav}}" wx:if="{{navBarIsTop}}" slot="other" />
   <!--可竖向滚动内容区-->
-  <scroll-view scroll-y="true" upper-threshold="8" scroll-with-animation bindscroll="scrolling" bindscrolltoupper="scrolltoupper" style="height:100%" class="element-distance theme-bg" scroll-top="{{scrollDiff}}" bindscrolltolower="scrolltolower"
-    slot="content">
+  <scroll-view scroll-y="true" upper-threshold="8" scroll-with-animation bindscroll="scrolling" bindscrolltoupper="scrolltoupper" style="height:100%" class="element-distance theme-bg" scroll-top="{{scrollDiff}}" bindscrolltolower="scrolltolower" slot="content">
     <!--个人基本信息显示-->
-    <view class="theme-padding" class="user-info-container theme-padding"  catchtap="goToProfileDetail">
+    <view class="theme-padding" class="user-info-container theme-padding" catchtap="goToProfileDetail">
       <three-column-bar>
         <view slot="left" class="avator-icon">
           <circular-item src="{{userInfo.avator}}" size="114" />
         </view>
         <view slot="middle" class="base-info-container">
-          <text class="user-name one-row-flow">{{userInfo.userName}}</text>
-
-          <info-label padding="5rpx 13rpx" size="20" value="{{isVip?'VIP会员':'开通VIP'}}" textColor="#fff" labelColor="{{themeColor}}" catchtap="goToPayment"/>
+          <block wx:if="{{!tools.isEmpty(userInfo)}}">
+            <text class="user-name one-row-flow">{{userInfo.userName}}</text>
+            <info-label padding="5rpx 13rpx" size="20" value="{{isVip?'VIP会员':'开通VIP'}}" textColor="#fff" labelColor="{{themeColor}}" catchtap="goToPayment" />
+          </block>
+          <block wx:else>
+              <button bindtap="login" size="mini" class="login-button"> 登录 </button>
+          </block>
         </view>
-        <view slot="right" class="">
+        <view slot="right" wx:if="{{!tools.isEmpty(userInfo)}}">
           <i-icon type="enter" size="20" />
         </view>
       </three-column-bar>
@@ -33,30 +37,30 @@
     <!--喜欢，下载，最近，评论，会员-->
     <view class="theme-module-color theme-margin theme-radius module-padding nav-icon-container element-distance">
       <view wx:for="{{[1,2]}}" class="flex-row nav-icon-row-container" style="margin-bottom:{{in==0?50:0}}rpx" wx:for-index="in" wx:for-item="it">
-        <nav-icon size="110" wx:for="{{[1,2,3]}}" icon="{{iconNavs[in*3+index].icon}}" label="{{iconNavs[in*3+index].text}}" size="140" catchtap="tapNavItem" data-index="{{in*3+index}}"/>
+        <nav-icon size="110" wx:for="{{[1,2,3]}}" icon="{{iconNavs[in*3+index].icon}}" label="{{iconNavs[in*3+index].text}}" size="140" catchtap="tapNavItem" data-index="{{in*3+index}}" />
       </view>
     </view>
     <!--歌单导航条-->
     <tab-bar class="element-distance" tab-bar-class="theme-padding song-list-nav-container" bindclicktabitem="clickTabItem" currentTabId="{{currentSongListId}}" tabTitles="{{songListNav}}" />
     <!--最近播放过的歌单-->
     <view class="theme-module-margin theme-module-color theme-margin theme-radius module-padding element-distance">
-      <song-list-card music-lists="{{allMusicListInfo[0].list}}" title="{{allMusicListInfo[0].title}}" catchtapitemswitch="tapItemSwitch"  data-index="0" catchtapswitch="tapSwitch" flag="{{2}}"/>
+      <song-list-card music-lists="{{allMusicListInfo[0].list}}" title="{{allMusicListInfo[0].title}}" catchtapitemswitch="tapItemSwitch" data-index="0" catchtapswitch="tapSwitch" flag="{{2}}" />
     </view>
     <!--自创歌单-->
     <view class="theme-module-margin theme-module-color theme-margin theme-radius module-padding element-distance">
-      <song-list-card flag="{{1}}" show-add-button music-lists="{{allMusicListInfo[1].list}}" title="{{allMusicListInfo[1].title}}" catchtapadd="tapAdd" catchtapitemswitch="tapItemSwitch"  data-index="1" catchtapswitch="tapSwitch"/>
+      <song-list-card flag="{{1}}" show-add-button music-lists="{{allMusicListInfo[1].list}}" title="{{allMusicListInfo[1].title}}" catchtapadd="tapAdd" catchtapitemswitch="tapItemSwitch" data-index="1" catchtapswitch="tapSwitch" />
     </view>
     <!--收藏歌单-->
     <view class="theme-module-margin theme-module-color theme-margin theme-radius module-padding element-distance">
-      <song-list-card flag="{{3}}" music-lists="{{allMusicListInfo[2].list}}" title="{{allMusicListInfo[2].title}}" catchtapitemswitch="tapItemSwitch" data-index="2" catchtapswitch="tapSwitch"/>
+      <song-list-card flag="{{3}}" music-lists="{{allMusicListInfo[2].list}}" title="{{allMusicListInfo[2].title}}" catchtapitemswitch="tapItemSwitch" data-index="2" catchtapswitch="tapSwitch" />
     </view>
   </scroll-view>
 </wrapper>
 
 <!--新建歌单弹框-->
-<song-list-action  visible="{{showAddInput}}" wx:if="{{showAddInput}}" bind:click="tapButton" actions="{{[{name: '取   消',color:'#fff'},{name: '完   成',color:themeColor}]}}">
+<song-list-action visible="{{showAddInput}}" wx:if="{{showAddInput}}" bind:click="tapButton" actions="{{[{name: '取   消',color:'#fff'},{name: '完   成',color:themeColor}]}}">
   <view class="song-list-add-new">
-    <input placeholder="输入新建歌单标题" focus bindinput="songListInput" bindconfirm="songListConfirm"/>
+    <input placeholder="输入新建歌单标题" focus bindinput="songListInput" bindconfirm="songListConfirm" />
   </view>
 </song-list-action>
 
@@ -68,7 +72,7 @@
   <view slot="content" class="theme-module-color theme-padding">
     <view class="action-item" wx:for="{{switchInfos.actions}}" wx:key="id" catchtap="tapAction" data-index="{{index}}">
       <three-column-bar>
-        <i-icon type="{{item.icon}}" color="#666" size="24" slot="left" class="action-icon"/>
+        <i-icon type="{{item.icon}}" color="#666" size="24" slot="left" class="action-icon" />
         <text slot="middle">{{item.text}}</text>
       </three-column-bar>
     </view>

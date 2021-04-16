@@ -1,11 +1,12 @@
 // subpackages-comment/pages/comment/comment.js
+let { httpGet, httpPost, httpPostWithToken } = require('../../../network/httpClient.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    singInfo:{
+    songOrListInfo:{
       id:-1,
       info:"info",
       cover:"https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
@@ -106,14 +107,18 @@ Page({
 
     //flag:1,从播放页面进入;2,从个人评论主页进入
     let flag = options.flag
-
-    let singInfo = this.data.singInfo
-    singInfo.id = options.id
+    let that = this
+    let songOrListInfo = {}
+    songOrListInfo.id = options.id
     this.setData({
       flag,
-      singInfo,
-      replyComment: this.data.singInfo,
-      willReplyItem: this.data.singInfo
+      songOrListInfo,
+      replyComment: this.data.songOrListInfo,
+      willReplyItem: this.data.songOrListInfo
+    })
+
+    httpGet('/comment/songOrList/' + songOrListInfo.id).then(commentData=>{
+      that.setData({commentData})
     })
   },
 
@@ -169,7 +174,8 @@ Page({
     let currentItem = this.data.commentData[e.detail]
     currentItem.info="info"
     let id = currentItem.id
-    //TODO request 
+    let that = this
+
     this.setData({
       replyComment: currentItem,
       showCommentModal:true,
@@ -177,23 +183,28 @@ Page({
       inputFocus: false,
       inputValue:""
     })
+    httpGet('/comment/commenr/' + id).then(replyData=>{
+      that.setData({
+        replyData
+      })
+    })
   },
   hideModal(e) {
     this.data.replyComment.info=undefined
     this.setData({
       showCommentModal: false,
-      replyComment: this.data.singInfo,
-      willReplyItem: this.data.singInfo,
+      replyComment: this.data.songOrListInfo,
+      willReplyItem: this.data.songOrListInfo,
       inputFocus:false,
       inputValue:""
     })
   },
   tapItem(e){
     let willReplyItem
-    let index = e.detail.id
+    let index = e.currentTarget.dataset.id
     let isTop = e.detail.isTop
 
-    if (this.data.replyComment != this.data.singInfo && isTop){
+    if (this.data.replyComment != this.data.songOrListInfo && isTop){
       this.setData({
         inputFocus: false,
         willReplyItem: this.data.replyComment
@@ -201,19 +212,19 @@ Page({
       return
     }
 
-    if (this.data.willReplyItem == this.data.singInfo && this.data.replyComment == this.data.singInfo &&!this.data.inputFocus){
+    if (this.data.willReplyItem == this.data.songOrListInfo && this.data.replyComment == this.data.songOrListInfo &&!this.data.inputFocus){
       willReplyItem = this.data.commentData[index]
-    } else if (this.data.willReplyItem == this.data.singInfo && this.data.replyComment == this.data.singInfo && this.data.inputFocus) {
-      willReplyItem = this.data.singInfo
+    } else if (this.data.willReplyItem == this.data.songOrListInfo && this.data.replyComment == this.data.songOrListInfo && this.data.inputFocus) {
+      willReplyItem = this.data.songOrListInfo
     }
-     else if (this.data.willReplyItem != this.data.singInfo && this.data.replyComment == this.data.singInfo){
-      willReplyItem = this.data.singInfo
+     else if (this.data.willReplyItem != this.data.songOrListInfo && this.data.replyComment == this.data.songOrListInfo){
+      willReplyItem = this.data.songOrListInfo
     } else if (this.data.willReplyItem == this.data.replyComment && !this.data.inputFocus) {
       willReplyItem = this.data.replyData[index]
     } else if (this.data.willReplyItem == this.data.replyComment && this.data.inputFocus) {
       willReplyItem = this.data.replyComment
     } 
-    else if (this.data.willReplyItem != this.data.replyComment && this.data.replyComment != this.data.singInfo) {
+    else if (this.data.willReplyItem != this.data.replyComment && this.data.replyComment != this.data.songOrListInfo) {
       willReplyItem = this.data.replyComment
     }
     
@@ -234,7 +245,26 @@ Page({
   },
   goToMusicPlayPage(e){
     wx.navigateTo({
-      url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.singInfo.id
+      url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.songOrListInfo.id
+    })
+  },
+  sendComment(e){
+    let content = e.detail
+    let songOrListId = this.data.songOrListInfo.id
+    let fromId = this.data.willReplyItem.id
+    let data = {}
+    data.songOrListId = songOrListId
+    data.fromComment.id = fromId
+    httpPostWithToken('/comment', data).then(res=>{
+      wx.showToast({
+        title: '评论已发送',
+        icon:'none'
+      })
+    }).catch(res=>{
+      wx.showToast({
+        title: '评论发送失败',
+        icon: 'none'
+      })
     })
   }
 })

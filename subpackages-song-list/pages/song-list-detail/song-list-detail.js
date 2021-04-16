@@ -3,6 +3,7 @@ let app = getApp()
 let func = require('../../../common/utils/func/wxml-element.js')
 let Const = require('../../../common/utils/const.js')
 let Store = require('../../../common/utils/store/store.js')
+let { httpGet, httpPost } = require('../../../network/httpClient.js')
 Page({
 
   /**
@@ -163,35 +164,18 @@ Page({
         })
       })
 
-    } else if (this.data.flag == 4) {
+    } else if (this.data.flag == 4 || this.data.flag == 5) {
       //request
-      musicListInfo = this.data.singListDatas.find(e => {
-        if (e.id == this.data.musicListInfo.id) return true
-        else return false
-      })
-
-      Store.isMusicListCollect(musicListInfo.id).then(res => {
-        musicListInfo.isCollect = res
-        this.setData({
-          musicListInfo,
-          sortData: musicListInfo.list
+      httpGet('/songList/' + this.data.musicListInfo.id).then(musicListInfo=>{
+        Store.isMusicListCollect(musicListInfo.id).then(res => {
+          musicListInfo.isCollect = res
+          this.setData({
+            musicListInfo,
+            sortData: musicListInfo.list
+          })
         })
       })
-    }else if(this.data.flag==5){
-      //request
-      musicListInfo = this.data.singListDatas.find(e => {
-        if (e.id == this.data.musicListInfo.id) return true
-        else return false
-      })
 
-      Store.isMusicListCollect(musicListInfo.id).then(res => {
-        musicListInfo.isCollect = res
-        musicListInfo.title='歌手歌单'
-        this.setData({
-          musicListInfo,
-          sortData: musicListInfo.list
-        })
-      })
     }
   },
 

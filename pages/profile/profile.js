@@ -76,6 +76,7 @@ Page({
 
     let that = this
 
+
     //获取页面元素距离顶部的高度
     let query = wx.createSelectorQuery()
     query.selectAll(".element-distance").boundingClientRect(res => {
@@ -120,13 +121,15 @@ Page({
   //初始化用户信息
   initUserInfo(){
     Store.getUserInfo().then(res => {
+      if (res.avator && res.userName){
+        this.data.userInfo.avator = res.avator
+        this.data.userInfo.userName = res.userName
+        this.data.userInfo.choosedStyles = res.choosedStyles
+        this.setData({
+          userInfo: this.data.userInfo
+        })
+      }
       
-      this.data.userInfo.avator = res.avator
-      this.data.userInfo.userName = res.userName
-      this.data.userInfo.choosedStyles = res.choosedStyles
-      this.setData({
-        userInfo: this.data.userInfo
-      })
     })
   },
 
@@ -282,9 +285,12 @@ Page({
     })
   },
   goToProfileDetail(e){
-    wx.navigateTo({
-      url: '/pages/sub-pages/profile-detail/profile-detail'
-    })
+    if (Object.keys(this.data.userInfo).length > 0){
+      console.log(this.data.userInfo)
+      wx.navigateTo({
+        url: '/pages/sub-pages/profile-detail/profile-detail'
+      })
+    }
   },
   tapNavItem(e){
     let index = e.currentTarget.dataset.index
@@ -574,6 +580,12 @@ Page({
           },
         })
       }
+    })
+  },
+  login(e){
+    
+    wx.navigateTo({
+      url: '/subpackages-login/pages/login/login'
     })
   }
 })

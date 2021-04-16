@@ -3,6 +3,7 @@
     "i-steps": "/extend/iview-weapp/steps/index",
     "i-step": "/extend/iview-weapp//step/index",
     "info-label":"/common/components/info-label/info-label",
-    "my-radio":"/common/components/my-radio/my-radio"
+    "my-radio":"/common/components/my-radio/my-radio",
+    "back-button": "/common/components/back-button/back-button"
   }
 }

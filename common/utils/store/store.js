@@ -360,6 +360,10 @@ function setHistorySearch(historySearch){
   return setStorage(Const.HISTORY_SEARCH,historySearch)
 }
 
+function setToken(token) {
+  return setStorage(Const.TOKEN, token)
+}
+
 function addHistorySearch(value){
   return addStorage(Const.HISTORY_SEARCH, value)
 }
@@ -496,6 +500,10 @@ function getCurrentPlayMusicIndexSync() {
 
 }
 
+function getToken(){
+  return getStorage(Const.TOKEN,'')
+}
+
 function isMusicListCollect(id){
   return isIncludeById(Const.COLLECT_MUSIC_LIST,id)
 }
@@ -506,6 +514,14 @@ function clearCurrentMusicList(){
 
 function clearCurrentMusic() {
   return clearStorage(Const.CURRENT_PLAY_MUSIC_STORE_KEY)
+}
+
+function clearUserInfo(){
+  return clearStorage(Const.USER_INFO)
+}
+
+function clearToken(){
+  return clearStorage(Const.TOKEN)
 }
 
 module.exports = {
@@ -553,11 +569,15 @@ module.exports = {
   getUserInfo,
   setUserInfo,
   updateUserInfo,
+  clearUserInfo,
   getStyleLabels,
   addStyleLabels,
   removeStyleLabels,
   isLike,
   setMyMusicList,
   getMyMusicList,
-  updateMyMusicList
+  updateMyMusicList,
+  setToken,
+  getToken,
+  clearToken
 }

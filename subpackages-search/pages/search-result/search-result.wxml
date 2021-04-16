@@ -8,6 +8,6 @@
   </view>
   <!--滚动内容区-->
   <view slot="content" class="theme-module-color">
-    <search-tab-card tabTitles="{{tabTitles}}" contentHeight="{{contentHeight}}" sing-datas="{{singDatas}}" sing-list-datas="{{singListDatas}}" catchmusicplayitemchange="musicPlayItemChangeInner"/>
+    <search-tab-card tabTitles="{{tabTitles}}" contentHeight="{{contentHeight}}" sing-datas="{{songDatas}}" sing-list-datas="{{songListDatas}}" catchmusicplayitemchange="musicPlayItemChangeInner"/>
   </view>
 </wrapper>

@@ -1,6 +1,7 @@
 // pages/index/index.js
 let app = getApp()
 let func = require('../../common/utils/func/wxml-element.js')
+let {httpGet, httpPost} = require('../../network/httpClient.js')
 Page({
 
   /**
@@ -8,13 +9,18 @@ Page({
    */
   data: {
     themeColor: app.globalData.themeColor,
-    banner: [],
     personalRecommendMusicLists:[],
     normalRecommendMusicLists:{},
     musicsBySinger:[],
+
+    banner: [],
     singers:[],
     styles:[],
-    scenes:[]
+    scenes:[],
+    hotList:[],
+    newList:[],
+    randomList:[],
+    recommendSongs:[]
   },
 
   /**
@@ -334,5 +340,58 @@ Page({
     wx.navigateTo({
       url: '/subpackages-search/pages/search/search'
     })
+  },
+
+  getHotAndNewAndRandom(){
+    let that = this
+    httpGet("/recommend/hotAndNewAndRandom").then(({ hotList, newList, randomList })=>{
+      that.setData({
+        hotList,
+        newList,
+        randomList
+      })
+    })
+  },
+  getAllStyle(){
+    let that = this
+    httpGet("/style").then(styles => {
+      that.setData({
+        styles
+      })
+    })
+  },
+  getAllScene() {
+    let that = this
+    httpGet("/scene").then(scenes => {
+      that.setData({
+        scenes
+      })
+    })
+  },
+  getAllSinger() {
+    let that = this
+    httpGet("/singer").then(singers => {
+      that.setData({
+        singers
+      })
+    })
+  },
+  getBanner(){
+    let that = this
+    httpGet("/recommend/banner").then(banner => {
+      that.setData({
+        banner
+      })
+    })
+  },
+
+  getRecommendSongs(){
+    let that = this
+    httpGet("/recommend/songs").then(recommendSongs => {
+      that.setData({
+        recommendSongs
+      })
+    })
   }
+  
 })
