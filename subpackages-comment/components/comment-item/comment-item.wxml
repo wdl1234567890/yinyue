@@ -1,5 +1,5 @@
 <wxs src="../../../common/utils/func/tools.wxs" module="tools" />
-<view class="comment-item-container">
+<view class="comment-item-container" catchtap="tapItem">
   <!--评论者的信息-->
   <view class="comment-title">
     <three-column-bar>
@@ -8,19 +8,19 @@
       <!--昵称和评论发布的时间-->
       <view slot="middle" class="name-and-time-container">
         <text class="user-name one-row-flow">{{userName}}</text>
-        <text class="comment-time">{{tools.timestampToTime(commentDate)}}</text>
+        <text class="comment-time">{{commentDate}}</text>
       </view>
       <!--点赞-->
-      <view slot="right" class="thumb-up-container">
+      <view slot="right" class="thumb-up-container" wx:if="{{enableUpThumb}}">
         <text class="thumb-up-count {{isUp?'is-up':''}}">{{upCount}}</text>
-        <i-icon type="praise" size="20" color="#999" wx:if="{{!isUp}}" bindtap="changeUp"/>
-        <i-icon type="praise" size="20" color="{{themeColor}}" wx:else bindtap="changeUp"/>
+        <i-icon type="praise" size="20" color="#999" wx:if="{{!isUp}}" catchtap="changeUp"/>
+        <i-icon type="praise" size="20" color="{{themeColor}}" wx:else catchtap="changeUp"/>
       </view>
     </three-column-bar>
   </view>
   <!--评论内容-->
   <view class="comment-container" style="border-bottom:{{isShowBorder?'1rpx solid #eee':'none'}}">
-    <view class="comment-content" catchtap="tapItem">
+    <view class="comment-content">
       <block wx:if="{{!isMore && shortComment!=''}}">
         <text space="nbsp" decode>{{shortComment}}</text><text space="nbsp" decode class="more-button" catchtap="changeIsMore">更多</text>
       </block>
@@ -32,7 +32,7 @@
     <!--依据不同情况显示不同内容或者不显示-->
     <!--如果本条评论有回复-->
     <block wx:if="{{replyCount}}">
-      <view class="comment-to-comment" bindtap="showReply">
+      <view class="comment-to-comment" catchtap="showReply">
         <text>{{replyCount}}条回复</text>
         <i-icon type="enter" size="12" color="{{themeColor}}" />
       </view>
@@ -41,8 +41,8 @@
     <block wx:if="{{!tools.isEmpty(replyFromInfo)}}">
       <view class="comment-from-comment">
         <text>
-          <text class="comment-name">@{{replyFromInfo.userName}}:</text>
-        {{replyFromInfo.comment}}
+          <text class="comment-name">@{{replyFromInfo.user.userName}}:</text>
+        {{replyFromInfo.content}}
         </text>
       </view>
     </block>

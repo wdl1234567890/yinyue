@@ -6,7 +6,7 @@
   </view>
   <!--歌曲名与歌手-->
   <view class="song-info-container">
-    <text class="song-name">{{musicInfo.singName}}</text>
+    <text class="song-name">{{musicInfo.songName}}</text>
     <text class="singer-name"> - {{musicInfo.singerName}}</text>
   </view>
   <!--播放按钮-->

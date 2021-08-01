@@ -33,40 +33,40 @@
       <!--第二步：完善基本信息-->
       <view class="flex-col style-container theme-padding" wx:if="{{1==current}}">
         <!--完善年龄，性别信息-->
-        <view class="base-info-container">
-          <view class="base-info-title">基本信息</view>
+        <!-- <view class="base-info-container"> -->
+          <!-- <view class="base-info-title">基本信息</view> -->
           <!--性别-->
-          <view class="flex-row">
+          <!-- <view class="flex-row">
             <view class="flex-row radio-item" catchtap="sexChange" data-index="0">
               <my-radio checked="{{checkedIndex==0}}" inner-handle="{{false}}" size="15" />男
             </view>
             <view class="flex-row radio-item" catchtap="sexChange" data-index="1">
               <my-radio checked="{{checkedIndex==1}}" inner-handle="{{false}}" size="15" />女
             </view>
-          </view>
+          </view> -->
           <!--年龄-->
-          <view>
+          <!-- <view>
             <picker mode="date" value="{{date}}" start="1900-09-01" end="2100-09-01" bindchange="dateChange">
               <button class="birth" size="mini">
                 选择生日 {{date}}
               </button>
             </picker>
-          </view>
-        </view>
+          </view> -->
+        <!-- </view> -->
         <!--选择听歌风格-->
         <view class="style-info-container">
           <!--已选-->
           <view class="choosed-container flex-col">
             <text>已选</text>
             <view class="flex-row">
-              <info-label isActive="true" wx:for="{{choosedStyles}}" value="{{item}}" wx:key="index" />
+              <info-label isActive="true" wx:for="{{choosedStyles}}" value="{{item.name}}" data-id="{{item.id}}" wx:key="index" />
             </view>
           </view>
           <!--可选标签-->
           <view class="all-style-container flex-col">
             <text>风格标签</text>
             <view class="flex-row">
-              <info-label enabel-active wx:for="{{styleLabels}}" value="{{item}}" bindtaplabel="tapLabel" wx:key="index" isActive="{{tools.isArrayInclude(choosedStyles,item)}}" />
+              <info-label enabel-active="{{!(choosedStyles.length>=6&&!tools.isArrayInclude(choosedStyles,item))}}" wx:for="{{styleLabels}}" value="{{item.name}}" data-id="{{item.id}}" bindtaplabel="tapLabel" wx:key="id" is-active="{{tools.isArrayInclude(choosedStyles,item)}}" />
             </view>
           </view>
         </view>

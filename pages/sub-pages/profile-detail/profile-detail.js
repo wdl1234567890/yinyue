@@ -1,5 +1,6 @@
 // pages/sub-pages/profile-detail/profile-detail.js
 let Store = require('../../../common/utils/store/store.js')
+let { httpGetWithToken, httpPost } = require('../../../network/httpClient.js')
 Page({
 
   /**
@@ -8,9 +9,10 @@ Page({
   data: {
     showActionModal:false,
     userInfo:{
-      avator:'',
-      userName:'',
-      choosedStyles:[]
+      userName: "用户名",
+      avator: "",
+      isVip: false,
+      styles:[]
     },
     actions: [
       {
@@ -36,14 +38,6 @@ Page({
    */
   onLoad: function (options) {
     let that = this
-    // this.data.userInfo.avator = 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-    // this.data.userInfo.userName = '茯苓'
-    // this.data.userInfo.choosedStyles = ["流行", "古风", "摇滚"]
-
-    // this.setData({
-    //   userInfo:this.data.userInfo
-    // })
-
     //获取顶部导航栏改变样式的高度参数
     let query = wx.createSelectorQuery()
     query.selectAll(".element-distance").boundingClientRect(res => {
@@ -58,13 +52,9 @@ Page({
 
   //初始化用户信息
   initUserInfo(){
-    Store.getUserInfo().then(res=>{
-      this.data.userInfo.avator = res.avator
-      this.data.userInfo.userName = res.userName
-      this.data.userInfo.choosedStyles = res.choosedStyles
-
+    httpGetWithToken('user-service//user/info').then(userInfo => {
       this.setData({
-        userInfo: this.data.userInfo
+        userInfo
       })
     })
   },

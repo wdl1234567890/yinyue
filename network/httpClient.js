@@ -1,5 +1,5 @@
 let Store = require('../common/utils/store/store.js')
-const urlPre = 'http://localhost'
+const urlPre = 'http://81.69.232.23:8020/'
 function httpGet(url){
   url = urlPre + url
   return new Promise((resolve,reject)=>{
@@ -91,30 +91,32 @@ function httpPut(url, data) {
 
 }
 
-function httpGetWithToken(url) {
-  url = urlPre + url
-  return (new Promise((resolve, reject) => {
+function httpGetWithToken(url,required=true) {
+  if (required)url = urlPre + url + '/withtoken'
+  else url = urlPre + url
+  return new Promise((resolve, reject) => {
     Store.getToken().then(res => {
       if (res != null && res != undefined && res != '') {
-        return Promise.resolve(res)
-      } else {
+        resolve(res)
+        return
+      } else if (required){
         wx.showModal({
           title: '请先登录',
           confirmText: '登录',
           success(res1) {
-            if (res.confirm) {
+            if (res1.confirm) {
               wx.navigateTo({
                 url: '/subpackages-login/pages/login/login',
               })
             }
           }
         })
-        return Promise.resolve('')
       }
-
+      resolve('')
     })
-  })).then(token => {
-    if (res == null || res == undefined || res == '') {
+    
+  }).then(token => {
+    if (required && (token == null || token == undefined || token == '') ){
       return Promise.resolve('')
     }
     return new Promise((resolve, reject) => {
@@ -122,7 +124,7 @@ function httpGetWithToken(url) {
         url,
         method: 'GET',
         header: {
-          token: res
+          token
         },
         success(res) {
           let data = res.data
@@ -162,30 +164,31 @@ function httpGetWithToken(url) {
 
 }
 
-function httpPostWithToken(url, data) {
-  url = urlPre + url
+function httpPostWithToken(url, data, required = true) {
+  url = urlPre + url + '/withtoken'
   return (new Promise((resolve, reject) => {
     Store.getToken().then(res=>{
       if(res != null && res != undefined && res != ''){
-        return Promise.resolve(res)
+        resolve(res)
+        return
       }else{
         wx.showModal({
           title: '请先登录',
           confirmText: '登录',
           success(res1){
-            if (res.confirm){
+            if (res1.confirm){
               wx.navigateTo({
                 url: '/subpackages-login/pages/login/login',
               })
             }
           }
         })
-        return Promise.resolve('')
+        resolve('')
       }
       
     })
   })).then(token=>{
-    if (res == null || res == undefined || res == '') {
+    if (token == null || token == undefined || token == '') {
       return Promise.resolve('')
     }
     return new Promise((resolve,reject)=>{
@@ -194,7 +197,7 @@ function httpPostWithToken(url, data) {
         method: 'POST',
         data,
         header: {
-          token: res
+          token
         },
         success(res) {
           let data = res.data
@@ -234,30 +237,31 @@ function httpPostWithToken(url, data) {
 
 }
 
-function httpPutWithToken(url, data) {
-  url = urlPre + url
+function httpPutWithToken(url, data, required = true) {
+  url = urlPre + url + '/withtoken'
   return (new Promise((resolve, reject) => {
     Store.getToken().then(res => {
       if (res != null && res != undefined && res != '') {
-        return Promise.resolve(res)
+        resolve(res)
+        return
       } else {
         wx.showModal({
           title: '请先登录',
           confirmText: '登录',
           success(res1) {
-            if (res.confirm) {
+            if (res1.confirm) {
               wx.navigateTo({
                 url: '/subpackages-login/pages/login/login',
               })
             }
           }
         })
-        return Promise.resolve('')
+        resolve('')
       }
 
     })
   })).then(token => {
-    if (res == null || res == undefined || res == '') {
+    if (token == null || token == undefined || token == '') {
       return Promise.resolve('')
     }
     return new Promise((resolve, reject) => {
@@ -266,7 +270,7 @@ function httpPutWithToken(url, data) {
         method: 'PUT',
         data,
         header: {
-          token: res
+          token
         },
         success(res) {
           let data = res.data
@@ -306,11 +310,85 @@ function httpPutWithToken(url, data) {
 
 }
 
+function httpDeleteWithToken(url,data){
+  url = urlPre + url + '/withtoken'
+  return (new Promise((resolve, reject) => {
+    Store.getToken().then(res => {
+      if (res != null && res != undefined && res != '') {
+        resolve(res)
+        return
+      } else {
+        wx.showModal({
+          title: '请先登录',
+          confirmText: '登录',
+          success(res1) {
+            if (res1.confirm) {
+              wx.navigateTo({
+                url: '/subpackages-login/pages/login/login',
+              })
+            }
+          }
+        })
+        resolve('')
+      }
+
+    })
+  })).then(token => {
+    if (token == null || token == undefined || token == '') {
+      return Promise.resolve('')
+    }
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url,
+        method: 'DELETE',
+        data,
+        header: {
+          token
+        },
+        success(res) {
+          let data = res.data
+          if (res.statusCode == 200 && data.success) {
+            if (data.code == 20000) resolve(data.data)
+            else if (data.code == 40002 || data.code == 40003) {
+              Store.clearUserInfo()
+              Store.clearToken()
+              wx.showModal({
+                title: '登录已过期，请重新登录',
+                confirmText: '登录',
+                success(res1) {
+                  wx.navigateTo({
+                    url: '/subpackages-login/pages/login/login'
+                  })
+                }
+              })
+            }
+          } else {
+            wx.showToast({
+              title: data.message,
+              icon: 'none'
+            })
+            reject(data.message)
+          }
+        },
+        fail(res) {
+          wx.showToast({
+            title: '请求数据失败',
+            icon: 'none'
+          })
+          reject('请求数据失败')
+        }
+      })
+    })
+  })
+}
+
 module.exports = {
   httpGet,
   httpPost,
   httpPut,
   httpGetWithToken,
   httpPostWithToken,
-  httpPutWithToken
+  httpPutWithToken,
+  httpDeleteWithToken,
+  urlPre
 }

@@ -1,5 +1,4 @@
 .search-container{
-  width: 600rpx;
   padding: 16rpx 30rpx;
   background-color: rgba(246, 246, 246, 1);
   border-radius: 50rpx;

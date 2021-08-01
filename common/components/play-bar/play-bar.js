@@ -24,21 +24,33 @@ Component({
 
     themeColor: app.globalData.themeColor,
     showSingListModal: false,
-    playStatus:app.globalData.stopIntervalNumber!=null
+    playStatus: !app.globalData.backgroundAudioManager.paused
   },
 
   onReady(){
     // app.globalData.doSomething = this.doSomething
-    
+    app.globalData.endSomething = this.endPlay
+    app.globalData.obj = this
+    this.onPause()
+    this.onPlay()
     Store.getCurrentPlayMusic().then(res=>{
       let musicInfo = res
-      let playStatus = app.globalData.stopIntervalNumber != null
+      let playStatus = !app.globalData.backgroundAudioManager.paused
       this.setData({
         musicInfo,
         playStatus
       })
     })
-
+    app.globalData.backgroundAudioManager.onPlay(() => {
+      this.setData({
+        playStatus : !app.globalData.backgroundAudioManager.paused
+      })
+     })
+    app.globalData.backgroundAudioManager.onPause(() => {
+      this.setData({
+        playStatus : !app.globalData.backgroundAudioManager.paused
+      })
+     })
   },
 
   detached(){
@@ -51,15 +63,21 @@ Component({
     show() {
       app.globalData.endSomething = this.endPlay
       app.globalData.obj = this
+      this.onPause()
+      this.onPlay()
       Store.getCurrentPlayMusic().then(res=>{
         let musicInfo = res
-        let playStatus = app.globalData.stopIntervalNumber != null
+        let playStatus = !app.globalData.backgroundAudioManager.paused
         this.setData({
           musicInfo,
           playStatus
         })
       })
       
+    },
+    hide(){
+      this.cancelOnPause()
+      this.cancelOnPlay()
     }
   },
   /**
@@ -84,7 +102,7 @@ Component({
     endPlay(){
       Store.getCurrentPlayMusic().then(res=>{
         let musicInfo = res
-        let playStatus = app.globalData.stopIntervalNumber != null
+        let playStatus = !app.globalData.backgroundAudioManager.paused
         this.setData({
           musicInfo,
           playStatus
@@ -113,16 +131,39 @@ Component({
       let playStatus = this.data.playStatus
       if(playStatus) {
         // clearInterval(this.data.stopIntervalNum)
-        app.globalData.pausePlayMusic()
-        // this.setData({playStatus:false})
+        // app.globalData.pausePlayMusic()
+        app.globalData.backgroundAudioManager.pause()
       } else {
-        app.globalData.playMusic() 
+        // app.globalData.playMusic() 
+        app.globalData.backgroundAudioManager.play()
       }
       playStatus = !playStatus
       this.setData({
         playStatus
       })
 
+    },
+
+    onPause() {
+      app.globalData.backgroundAudioManager.onPause(() => {
+        this.setData({
+          playStatus: false
+        })
+      })
+    },
+
+    onPlay() {
+      app.globalData.backgroundAudioManager.onPlay(() => {
+        this.setData({
+          playStatus: true
+        })
+      })
+    },
+    cancelOnPlay() {
+      app.globalData.backgroundAudioManager.onPlay(() => { })
+    },
+    cancelOnPause() {
+      app.globalData.backgroundAudioManager.onPause(() => { })
     }
   }
 })

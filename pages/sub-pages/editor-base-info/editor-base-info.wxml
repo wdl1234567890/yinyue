@@ -16,7 +16,7 @@
     <view class="edit-item">
       <three-column-bar>
         <text slot="left">用户名</text>
-        <input slot="right" class="user-name" placeholder="用户名" value="{{userInfo.userName}}" bindinput="tapEditUserName"/>
+        <input slot="right" class="user-name" placeholder="{{userInfo.userName}}" value="{{userInfo.userName}}" bindinput="tapEditUserName"/>
       </three-column-bar>
     </view>
     <!--选择听歌风格-->
@@ -25,14 +25,14 @@
       <view class="choosed-container flex-col">
         <text>已选</text>
         <view class="flex-row">
-          <info-label isActive="true" wx:for="{{userInfo.choosedStyles}}" value="{{item}}" wx:key="index" />
+          <info-label is-active="true" wx:for="{{userInfo.styles}}" value="{{item.name}}" wx:key="index" />
         </view>
       </view>
       <!--可选标签-->
       <view class="all-style-container flex-col">
         <text>风格标签</text>
         <view class="flex-row">
-          <info-label enabel-active wx:for="{{styleLabels}}" value="{{item}}" bindtaplabel="tapLabel" wx:key="index" isActive="{{tools.isArrayInclude(userInfo.choosedStyles,item)}}" />
+          <info-label enabel-active="{{!(userInfo.styles.length>=6&&!tools.isArrayInclude(userInfo.styles,item))}}" wx:for="{{styleLabels}}" value="{{item.name}}" bindtaplabel="tapLabel" data-styleId="{{item.id}}" wx:key="id" is-active="{{tools.isArrayInclude(userInfo.styles,item)}}"/>
         </view>
       </view>
     </view>

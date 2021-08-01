@@ -10,6 +10,11 @@
   letter-spacing: 1px;
   line-height: 40rpx;
   margin-left: 18rpx;
+  max-width: 450rpx;
+  display: block;
+}
+.trash{
+  margin-left: 20rpx;
 }
 .comment-date{
   margin-top: 18rpx;
@@ -55,6 +60,7 @@
   font-size: 25rpx;
   letter-spacing: 1px;
   line-height: 37rpx;
+  
 }
 .comment-name {
   color: var(--theme-color);

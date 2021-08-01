@@ -1,4 +1,6 @@
 // subpackages-payment/pages/payment/payment.js
+let Store = require('../../../common/utils/store/store.js')
+let { urlPre,httpGetWithToken, httpGet, httpPost } = require('../../../network/httpClient.js')
 Page({
 
   /**
@@ -10,24 +12,18 @@ Page({
     vipMonthCards:[
       {
         id:1,
-        title:'连续包月',
-        sumPrice:8,
-        perMonthPrice:8
-      },
-      {
-        id:2,
         title: '1个月',
         sumPrice: 8,
         perMonthPrice: 8
       },
       {
-        id:3,
+        id:2,
         title: '6个月',
         sumPrice: 45,
         perMonthPrice: 7.5
       },
       {
-        id:4,
+        id:3,
         title: '12个月',
         sumPrice: 88,
         perMonthPrice: 7.3
@@ -110,5 +106,28 @@ Page({
     this.setData({
       paymentId: e.detail
     })
+  },
+  tapPay(e){
+    if(this.data.paymentId == 1){
+      httpGetWithToken('user-service//user/info').then(userInfo=>{
+        Store.getToken().then(token=>{
+          console.log(this.data.vipMonthCards[this.data.vipMonthId])
+          let url = 'http://159.75.231.211:8030/payment/user/' + token + '/allAmount/' + this.data.vipMonthCards[this.data.vipMonthId].sumPrice + '/vipKeepMonthCount/' + this.data.vipMonthCards[this.data.vipMonthId].title.replace('个月', '') + '/withToken'
+          wx.showModal({
+            title: '复制以下网址到浏览器打开完成支付',
+            content: url,
+            confirmText:'复制',
+            success(e) {
+              wx.setClipboardData({
+                data: url
+              })
+            }
+          })
+        })
+      })
+      
+    }else{
+      
+    }
   }
 })

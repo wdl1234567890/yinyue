@@ -2,6 +2,7 @@
 let app = getApp()
 let Const = require('../../../common/utils/const.js')
 let Store = require('../../../common/utils/store/store.js')
+let { httpPutWithToken, httpGetWithToken, httpGet, httpPost } = require('../../../network/httpClient.js')
 Page({
 
   /**
@@ -9,7 +10,7 @@ Page({
    */
   data: {
     flag:0,
-    singDatas:[],
+    songDatas:[],
     checkedIds:[],
     showSongListAction:false,
     musicInfos:[],
@@ -29,8 +30,9 @@ Page({
       })
     }
     this.setData({
+      id,
       flag: options.flag ?options.flag:0,
-      singDatas: app.globalData.searchResult
+      songDatas: app.globalData.searchResult
     })
   },
 
@@ -43,8 +45,8 @@ Page({
   
   allChecked(e){
     let checkedIds = []
-    if (this.data.checkedIds.length!=this.data.singDatas.length){
-      checkedIds = this.data.singDatas.map(e => {
+    if (this.data.checkedIds.length!=this.data.songDatas.length){
+      checkedIds = this.data.songDatas.map(e => {
         return e.id
       })
     }
@@ -84,7 +86,7 @@ Page({
     if (!this.checkIsHasChecked()) return
     let currentPlayMusic =  {}
     let index = 0
-    let musicInfos = this.data.singDatas.reverse().filter(e => {
+    let musicInfos = this.data.songDatas.reverse().filter(e => {
       if (this.data.checkedIds.indexOf(e.id) != -1) return true
       return false
     })
@@ -111,7 +113,7 @@ Page({
     
     if (!this.checkIsHasChecked())return
 
-    let musicInfos = this.data.singDatas.filter(e=>{
+    let musicInfos = this.data.songDatas.filter(e=>{
       if(this.data.checkedIds.indexOf(e.id)!=-1)return true
       return false
     })
@@ -121,26 +123,77 @@ Page({
     })
   },
   tapDownload(e){
+    let that = this
     if (!this.checkIsHasChecked()) return
-    let isHasVip = this.data.singDatas.find(e => {
-      if (this.data.checkedIds.indexOf(e.id) != -1 && e.isVip)return true
-      return false
-    })
-    if(isHasVip){
-      wx.showModal({
-        title: "购买VIP",
-        content: '包含VIP歌曲，是否购买VIP?',
-        confirmText: "购买VIP",
-        confirmColor: this.data.themeColor,
-        success(e) {
-          if (e.confirm) {
-            wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
-          }
-        }
-      })
-    }else{
+    // httpGetWithToken('user-service//user/info').then(userInfo => {
+    //   return Promise.resolve(userInfo)
+    // }).then(userInfo=>{
+    //   if (userInfo != ''){
+        httpGetWithToken('user-service/user/info').then(userInfo => {
+          if (userInfo == '')return
+          let isHasVip = that.data.songDatas.find(e => {
+            if (that.data.checkedIds.indexOf(e.id) != -1 && e.isVip) return true
+            return false
+          })
+          if (isHasVip && !userInfo.isVip) {
+            wx.showModal({
+              title: "购买VIP",
+              content: '包含VIP歌曲，是否购买VIP?',
+              confirmText: "购买VIP",
+              confirmColor: that.data.themeColor,
+              success(e) {
+                if (e.confirm) {
+                  wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
+                }
+              }
+            })
+          } else {
+            that.data.checkedIds.forEach(checkedId => {
+              let item = that.data.songDatas.find(songData => songData.id == checkedId)
+              let downloadObj = wx.downloadFile({
+                url: item.url,
+                success(res) {
+                  console.log(res)
+                  if (res.statusCode === 200) {
+                    let tempFilePath = res.tempFilePath
+                    let downLoadMusicInfo = {
+                      url: tempFilePath,
+                      songName: item.songName,
+                      singerName: item.singerName
+                    }
+                    Store.addDownloadMusic(downLoadMusicInfo).then(res => {
+                      wx.showToast({
+                        title: item.songName + '-' + item.singerName+' 下载完成',
+                        icon: 'none'
+                      })
+                      httpPuttWithToken('recommend-service//recommend/action/download/song/' + that.data.musicInfo.id + '/score')
+                    })
+                  }
+                },
+                fail(res) {
+                  console.log(res)
+                  wx.showToast({
+                    title: item.songName + '-' + item.singerName +' 下载失败',
+                    icon: 'none'
+                  })
+                }
+              })
+              downloadObj.onProgressUpdate((res) => {
+                let progress = res.progress
+                let totalBytes = res.totalBytesExpectedToWrite
+                if (progress == 0) wx.showToast({
+                  title: item.songName + '-' + item.singerName +' 开始下载',
+                  icon: 'none'
+                })
+              })
 
-    }
+            })
+
+          }
+        })
+    //   }
+     
+    // })
     
   },
   handleCheckChange(e){
@@ -165,14 +218,14 @@ Page({
       content: '确定要删除所选歌曲吗?',
       success(res){
         if(res.confirm){
-          let singDatas = that.data.singDatas.filter(e => {
+          let songDatas = that.data.songDatas.filter(e => {
             if (that.data.checkedIds.indexOf(e.id) != -1) return false
             return true
           })
           that.setData({
-            singDatas
+            songDatas
           })
-          that.data.musicListInfo.list = singDatas
+          that.data.musicListInfo.list = songDatas
           Store.updateMyMusicList(that.data.musicListInfo).then(res => {
             wx.showToast({
               title: '删除成功！',

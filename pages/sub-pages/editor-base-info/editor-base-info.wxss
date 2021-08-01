@@ -9,6 +9,11 @@
   letter-spacing: 1px;
 }
 
+.all-style-container>view{
+  height: 300rpx;
+  overflow-y: auto;
+}
+
 .edit-item{
   padding: 40rpx var(--theme-gap);
   border-bottom: 1px solid #eee;

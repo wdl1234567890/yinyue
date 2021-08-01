@@ -6,7 +6,7 @@ Component({
    */
   properties: {
     itemId:{
-      type:Number,
+      type:String,
       value:-1
     },
     icon:{

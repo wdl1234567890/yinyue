@@ -66,7 +66,7 @@ Component({
 
   ready() {
     let that = this
-
+    
     //获取内容容器的高度
     func.getScrollHeight(this).then(contentHeight => {
       that.setData({
@@ -154,6 +154,10 @@ Component({
     },
     tapSave(e){
       this.triggerEvent('tapsave', null)
+    },
+    tapPay(e){
+      
+      this.triggerEvent('tappay', null)
     }
   }
 })

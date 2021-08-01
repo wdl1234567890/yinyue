@@ -3,7 +3,8 @@ const app = getApp()
 let func = require('../../../common/utils/func/wxml-element.js')
 const ctx1 = wx.createCanvasContext('circular-play-cd')
 let Store = require('../../../common/utils/store/store.js')
-let { httpGet, httpPost } = require('../../../network/httpClient.js')
+let { httpGetWithToken, httpGet, httpPost, httpPutWithToken } = require('../../../network/httpClient.js')
+let funcUtils = require('../../../common/utils/func/func-utils.js')
 Page({
 
   /**
@@ -12,112 +13,70 @@ Page({
   data: {
 
     musicListData: [
-      {
-        id: 1,
-        singName: '我在赶去找你的路上',
-        singerName: '小时姑娘',
-        singTime: 240,
-        lyric: '我在赶去找你的路上 - 小时姑娘\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
-        commentCount: 1000,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-        isVip:true
-      },
-      {
-        id: 2,
-        singName: '歌曲2',
-        singerName: '歌手2',
-        isVip: true,
-        singTime: 260,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-        lyric: '歌曲2 - 歌手2\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
-        commentCount: 900,
-        isVip: true
-      },
-      {
-        id: 3,
-        singName: '歌曲3',
-        singerName: '歌手3',
-        isVip: false,
-        singTime: 100,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-        lyric: '歌曲3 - 歌手3\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
-        commentCount: 10,
-        isVip: false
-      },
-      {
-        id: 4,
-        singName: '歌曲4',
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-        singerName: '歌手4',
-        isVip: false,
-        singTime: 190,
-        lyric: '歌曲4 - 歌手4\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
-        commentCount: 1000,
-        isVip: false
-      },
-      {
-        id: 5,
-        singName: '歌曲5',
-        singerName: '歌手5',
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-        isVip: true,
-        singTime: 244,
-        lyric: '歌曲5 - 歌手5\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
-        commentCount: 104,
-        isVip: true
-      },
-      {
-        id: 6,
-        singName: '歌曲6',
-        singerName: '歌手6',
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-        isVip: false,
-        singTime: 205,
-        lyric: '歌曲6 - 歌手6\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
-        commentCount: 20,
-        isVip: false,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-      },
-      {
-        id: 7,
-        singName: '歌曲7',
-        singerName: '歌手7',
-        isVip: false,
-        singTime: 220,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-        lyric: '歌曲7 - 歌手7\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
-        commentCount: 195,
-        isVip: false
-      },
-      {
-        id: 8,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-        singName: '歌曲8',
-        singerName: '歌手8',
-        isVip: false,
-        singTime: 209,
-        lyric: '歌曲8 - 歌手8\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
-        commentCount: 580,
-        isVip: false
-      },
-      {
-        id: 9,
-        singName: '歌曲9',
-        singerName: '歌手9',
-        isVip: false,
-        singTime: 120,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-        lyric: '歌曲9 - 歌手9\n词：Running Fool\n曲：Running Fool\n编曲：Running Fool\n制作人：Running Fool\n和声编写：Running Fool\n和声：Running Fool\n混音师：澍\n母带工程师：王天培\n出品：Round K Star Studio\n封面：Running Fool\n策划/监制：卜小可\nOne two three\n你在人海中孤单脆弱\n没人能懂你的沉重\n陷入黑暗无处能躲\n没人能懂你的沉默\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n你说话我听你讲\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强\n我在找你的路上\n我在赶去找你的路上\n带着星星和太阳\n给你赤子的目光\n我在赶去找你的路上\n带着你爱的模样\n陪伴你所有倔强',
-        commentCount: 1744,
-        isVip: false
-      }
     ],
     musicInfo:{
       id:-1,
-      singName:'歌名',
-      singerName:'歌手',
+      songName:'歌名',
+      singerName:'歌手'
     },
-    
+    lyric:
+    `
+    Hey, what'cha doin' to me babe?
+嘿 你对我做了什么
+I'm really feeing your swag...
+我被你迷得神魂颠倒
+You got me twisted like that.
+你让我不受控制
+Now, I'm smoking on your vibes
+居然开始和你一起吞云吐雾
+Got me straight hittin' the floor
+让我跌落低谷
+But got me flyin' so high.
+却让人如此沉沦
+You're so sweet, to me
+你可真诱人啊
+You're my sticky-icky-icky-icky-icky
+我被你牢牢粘 粘 粘 粘住
+put me fast asleep
+你能让我安然入睡
+You're so sweet, to me
+你可真诱人啊
+Got me higher-higher-higher than I've ever been
+从来没有如此快 快 快乐
+Don't ever leave,
+别离我而去
+What'cha doin' to me?
+你对我做了什么
+While you watch me put on a show
+当你欣赏我的表演
+Sit let's flip the role
+我们角色对换
+I'll have you losing control.
+我也让你情不自已
+I'll grind you down and light you up
+我会让你臣服于我的光芒
+next thing you know, won't know what's up
+接下来做什么 这是个秘密
+That's how it goes,
+那开始吧
+Got that? Good, now watch it grow.
+懂了吗 很好 那好好看着
+You're so sweet, to me
+你可真诱人啊
+You're my sticky-icky-icky-icky-icky
+我被你牢牢粘 粘 粘 粘住
+put me fast asleep
+你能让我安然入睡
+You're so sweet, to me
+你可真诱人啊
+Got me higher-higher-higher than I've ever been
+从来没有如此快 快 快乐
+Don't ever leave,
+别离我而去
+What'cha doin' to me?
+你对我做了什么
+    `,
+    currentPlayTime:-1,
     stopIntervalNum:null,
     themeColor: app.globalData.themeColor,
     showSingListModal: false,
@@ -133,21 +92,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
-    
-
+    this.onPause()
+    this.onPlay()
+    let that = this
     let musicId = options.id
+    console.log(musicId)
     let musicList = []
     let musicInfo = {}
-    let currentPlayTime = app.globalData.currentPlayTime
+    // let currentPlayTime = app.globalData.currentPlayTime
     let loopStatusIndex = app.globalData.loopStatusIndex
     func.getElementHeight(this, '#canvas').then(playCdSize => {
       //计算每秒钟的进度
       let progressRadius=playCdSize/2-3
       let progressLength = 2 * Math.PI * progressRadius
       
-      this.calPerSecondProgressAndGetLyric()
-      app.globalData.doSomething = this.drawPlayProgress
+      // this.calPerSecondProgressAndGetLyric()
+      // app.globalData.doSomething = this.drawPlayProgress
       app.globalData.obj = this
       app.globalData.endSomething = this.calPerSecondProgressAndGetLyric
 
@@ -155,34 +115,58 @@ Page({
         musicList = res[0]
         musicInfo = res[1]
         this.setData({
-          currentPlayTime,
+          // currentPlayTime,
           musicList,
           loopStatusIndex,
           radius: playCdSize / 2,
           progressRadius,
           progressLength
         })
-        // if (musicId != -1) {
-        //   app.globalData.playMusicById(musicId)
-        // }
-        // else {
-
-        //   let perSecondProgress = progressLength / musicInfo.singTime
-        //   let playStatus = app.globalData.stopIntervalNumber != null
-        //   this.setData({
-        //     musicInfo,
-        //     perSecondProgress,
-        //     playStatus
-        //   })
-        //   this.drawPlayProgress()
-        // }
-        // this.setLikeStatus()
+        
+        if (musicId != -1) {
+          console.log(app.globalData.backgroundAudioManager.duration)
+          app.globalData.playMusicById(musicId)
+          this.onMusicTimeUpdate()
+          let perSecondProgress = progressLength / musicInfo.songTime
+          let playStatus = !app.globalData.backgroundAudioManager.paused
+          this.setData({
+            songTime: musicInfo.songTime,
+            musicInfo,
+            perSecondProgress,
+            playStatus
+          })
+        }
+        else {
+          let perSecondProgress = progressLength / musicInfo.songTime
+          let playStatus = !app.globalData.backgroundAudioManager.paused
+          console.log(app.globalData.backgroundAudioManager.duration)
+          this.setData({
+            songTime: musicInfo.songTime,
+            musicInfo,
+            perSecondProgress,
+            playStatus
+          })
+          this.onMusicTimeUpdate()
+        }
+        this.setLikeStatus()
       })
     })
-    
+    app.globalData.backgroundAudioManager.onCanplay(res=>{
+      let songTime = musicInfo.songTime
+      let perSecondProgress = that.data.progressLength / songTime
+      that.setData({
+        perSecondProgress,
+        songTime
+      })
+    })
   },
 
-
+  onShow(){
+    let playStatus = !app.globalData.backgroundAudioManager.paused
+    this.setData({ 
+      playStatus
+    })
+  },
   /**
    * 生命周期函数--监听页面卸载
    */
@@ -190,6 +174,9 @@ Page({
     app.globalData.doSomething = null
     app.globalData.obj = null
     app.globalData.endSomething = null
+    this.cancelOnTimeUpdate()
+    this.cancelOnPlay()
+    this.cancelOnPause()
   },
 
   /**
@@ -199,6 +186,23 @@ Page({
 
   },
 
+  onPause(){
+    app.globalData.backgroundAudioManager.onPause(()=>{
+      this.setData({
+        playStatus:false
+      })
+    })
+  },
+
+  onPlay() {
+    app.globalData.backgroundAudioManager.onPlay(() => {
+      this.setData({
+        playStatus: true
+      })
+    })
+  },
+
+
   //计算并绘制当前播放进度条
   drawPlayProgress(){
     if(this.data.currentPlayTime==-1){
@@ -207,11 +211,10 @@ Page({
       })
       return
     }
-    let playStatus = app.globalData.stopIntervalNumber != null
-    let currentPlayTime = app.globalData.currentPlayTime
+    let playStatus = !app.globalData.backgroundAudioManager.paused
+    let currentPlayTime = this.data.currentPlayTime
     this.setData({
       playStatus,
-      currentPlayTime
     })
     if (currentPlayTime == 0) return
     //当前进度条弧长
@@ -232,7 +235,7 @@ Page({
 
     //开始绘制
     this.drawPlayCd(drawDeg, yuanX, yuanY)
-    
+
   },
 
 
@@ -304,15 +307,31 @@ Page({
     app.globalData.loopStatusIndex=loopStatusIndex
   },
   likeChange(e){
+    let that = this
     let likeStatus = this.data.likeStatus
     this.setData({
       likeStatus: !likeStatus
     })
-
     if (!likeStatus){
-      Store.addMusicToSelfSongList(3, this.data.musicInfo)
+          Store.addMusicToSelfSongList(3, this.data.musicInfo).then(res => {
+            Store.getToken(token => {
+              if (token != '') {
+                httpPutWithToken('recommend-service//recommend/action/collect/song/' + that.data.musicInfo.id + '/score')
+              }
+            })
+          
+           })
+      
     }else{
-      Store.removeMusicFromSelfSongList(3, this.data.musicInfo.id)
+          Store.removeMusicFromSelfSongList(3, this.data.musicInfo.id).then(res => {
+            Store.getToken(token => {
+              if (token != '') {
+                httpPutWithToken('recommend-service//recommend/cancelAction/collect/song/' + that.data.musicInfo.id + '/score')
+              }
+            })
+            
+          })
+      
     }
 
   },
@@ -347,28 +366,45 @@ Page({
   nextSong(e){    
 
     app.globalData.nextSong()
-    Store.getCurrentMusicList().then(res=>{
-      if(res.length==1){
-        this.clearAndDrawBackground()
-        app.globalData.currentPlayTime = -1
-        this.setData({
-          currentPlayTime: 0
-        })
-      }
+    // Store.getCurrentMusicList().then(res=>{
+    //   if(res.length==1){
+    //     this.clearAndDrawBackground()
+    //     // app.globalData.currentPlayTime = -1
+    //     this.setData({
+    //       currentPlayTime: 0,
+    //       songTime: app.globalData.backgroundAudioManager.duration
+    //     })
+    //     this.calPerSecondProgressAndGetLyric()
+    //   }
+    // })
+    this.clearAndDrawBackground()
+    this.setData({
+      currentPlayTime: 0
+      // songTime: app.globalData.backgroundAudioManager.duration
     })
+    this.calPerSecondProgressAndGetLyric()
   },
   preSong(e){
-    app.globalData.currentPlayTime = -1
+    // app.globalData.currentPlayTime = -1
     app.globalData.preSong()
-    Store.getCurrentMusicList().then(res=>{
-      if(res.length==1){
-        this.clearAndDrawBackground()
-        app.globalData.currentPlayTime = -1
-        this.setData({
-          currentPlayTime: 0
-        })
-      }
+    // Store.getCurrentMusicList().then(res=>{
+    //   if(res.length==1){
+    //     this.clearAndDrawBackground()
+    //     // app.globalData.currentPlayTime = -1
+    //     this.setData({
+    //       currentPlayTime: 0,
+    //       songTime: app.globalData.backgroundAudioManager.duration
+    //     })
+    //     this.calPerSecondProgressAndGetLyric()
+    //   }
+    // })
+    this.clearAndDrawBackground()
+    // app.globalData.currentPlayTime = -1
+    this.setData({
+      currentPlayTime: 0
+      // songTime: app.globalData.backgroundAudioManager.duration
     })
+    this.calPerSecondProgressAndGetLyric()
   },
   
   musicPlayItemChangeInner(e){
@@ -379,6 +415,13 @@ Page({
           musicInfo
         })
         this.setLikeStatus()
+        console.log("((((")
+        console.log(musicInfo)
+        app.globalData.playMusicById(musicInfo.id)
+      })
+      Store.getToken(token=>{
+        if (token=='')return
+        httpPutWithToken('recommend-service//recommend/action/play/song/' + this.data.musicInfo.id + '/score')
       })
     }
     
@@ -394,30 +437,71 @@ Page({
 
   downMusic(e){
     //TODO user is vip?
-    if (this.data.musicInfo.isVip) {
-      wx.showModal({
-        title: '该曲需要开通vip才能下载哦',
-        confirmText: '立即开通',
-        cancelText: '暂不开通',
-        success(res) {
-          if (res.confirm) {
-            wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
+    let that = this
+    httpGetWithToken('user-service//user/info').then(userInfo=>{
+      if(userInfo == '')return
+      if (that.data.musicInfo.isVip && !userInfo.isVip) {
+        wx.showModal({
+          title: '该曲需要开通vip才能下载哦',
+          confirmText: '立即开通',
+          cancelText: '暂不开通',
+          success(res) {
+            if (res.confirm) {
+              wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
+            }
+
           }
-        }
-      })
-    }
+        })
+      }
+       else{
+        let downloadObj = wx.downloadFile({
+          url: that.data.musicInfo.url,
+          success(res) {
+            if (res.statusCode === 200) {
+              let tempFilePath = res.tempFilePath
+              let downLoadMusicInfo = {
+                url: tempFilePath,
+                songName: that.data.musicInfo.songName,
+                singerName: that.data.musicInfo.singerName
+              }
+              Store.addDownloadMusic(downLoadMusicInfo).then(res => {
+                wx.showToast({
+                  title: that.data.musicInfo.songName + '-' + that.data.musicInfo.singerName+' 下载完成',
+                  icon: 'none'
+                })
+                httpPutWithToken('recommend-service//recommend/action/download/song/'+that.data.musicInfo.id+'/score')
+              })
+            }
+          },
+          fail(res) {
+            wx.showToast({
+              title: that.data.musicInfo.songName + '-' + that.data.musicInfo.singerName +' 下载失败',
+              icon: 'none'
+            })
+          }
+        })
+        downloadObj.onProgressUpdate((res) => {
+          let progress = res.progress
+          let totalBytes = res.totalBytesExpectedToWrite
+          if (progress == 0) wx.showToast({
+            title: that.data.musicInfo.songName + '-' + that.data.musicInfo.singerName +' 开始下载',
+            icon: 'none'
+          })
+        })
+      }
+    })
+    
   },
-  getLyric(musicInfo){
-    httpGet(musicInfo.url).then(data=>{
-      musicInfo.lyric=data.replace('/[*]/','')
-   })
- },
+  tapShare(e){
+    httpPutWithToken('recommend-service//recommend/action/share/song/' + this.data.musicInfo.id + '/score')
+  },
+  
  calPerSecondProgressAndGetLyric(){
     let musicInfo = []
    Store.getCurrentPlayMusic().then(res=>{
      musicInfo = res
-     let perSecondProgress = this.data.progressLength / musicInfo.singTime
-     let playStatus = app.globalData.stopIntervalNumber != null
+     let perSecondProgress = this.data.progressLength / musicInfo.songTime
+     let playStatus = !app.globalData.backgroundAudioManager.paused
      this.clearAndDrawBackground()
      this.setData({
        musicInfo,
@@ -429,7 +513,31 @@ Page({
    })
    
   },
-  canvasTouchend(e){
-    console.log(e)
+  onMusicTimeUpdate(){
+    
+    let callback = ()=>{
+      // if (musicInfo.songTime != app.globalData.backgroundAudioManager.duration) {
+      //   this.data.musicInfo.songTime = musicInfo.songTime
+      //   this.setData({ musicInfo: this.data.musicInfo })
+      // }
+      this.setData({
+        currentPlayTime: parseInt(app.globalData.backgroundAudioManager.currentTime)
+      })
+      this.drawPlayProgress()
+    }
+    let throttle = funcUtils.throttle(callback, this, 1000)
+    callback()
+    app.globalData.backgroundAudioManager.onTimeUpdate(() => {
+      throttle()
+    })
+  },
+  cancelOnTimeUpdate(){
+    app.globalData.backgroundAudioManager.onTimeUpdate(()=>{})
+  },
+  cancelOnPlay(){
+    app.globalData.backgroundAudioManager.onPlay(() => { })
+  },
+  cancelOnPause() {
+    app.globalData.backgroundAudioManager.onPause(() => { })
   }
 })

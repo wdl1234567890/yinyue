@@ -1,4 +1,4 @@
-<wrapper nav-bar-class="theme-module-color" mode="payment" sum-price="{{vipMonthCards[vipMonthId].sumPrice}}">
+<wrapper nav-bar-class="theme-module-color" mode="payment" sum-price="{{vipMonthCards[vipMonthId].sumPrice}}" bindtappay="tapPay">
   <view slot="nav-bar-left" class="back-icon">
     <back-button/>
   </view>

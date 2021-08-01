@@ -3,7 +3,7 @@ let app = getApp()
 let Store = require('../../../common/utils/store/store.js')
 let func = require('../../../common/utils/func/wxml-element.js')
 let {debounce} = require('../../../common/utils/func/func-utils.js')
-let { httpGet, httpPost } = require('../../../network/httpClient.js')
+let { httpGet, httpPost, httpGetWithToken } = require('../../../network/httpClient.js')
 Page({
 
   /**
@@ -11,134 +11,17 @@ Page({
    */
   data: {
     searchValue:'',
-    hotSearch:[
-      {
-        id:1,
-        searchValue: "祖娅纳惜"
-      },
-      {
-        id: 2,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 3,
-        searchValue: "泽野弘之"
-      },
-      {
-        id: 4,
-        searchValue: "Good Love Your Love"
-      },
-      {
-        id: 5,
-        searchValue: "産声"
-      },
-      {
-        id: 6,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 7,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 8,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 9,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 10,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      },
-      {
-        id: 11,
-        searchValue: "暗恋是一个人的事情"
-      }
-    ],
-    historyLabels: ["天竺鼠车车", "天问", "天竺鼠车车","天竺鼠车车"],
-    recommendLabels:["天问","孤梦","天涯客","泽野弘之","张哲瀚"]
+    hotSearch: [],
+    historyLabels: ["历史搜索"], 
+    recommendLabels:["推荐搜索"]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    Store.getHistorySearch().then(res=>{
-      this.setData({
-        historyLabels: res
-      })
-    })
-    
+    this.getHotSearchKeys()
+    this.getRecommendKeys()
   },
 
   /**
@@ -152,7 +35,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    Store.getHistorySearch().then(res => {
+      this.setData({
+        historyLabels: res
+      })
+    })
   },
 
   /**
@@ -189,11 +76,11 @@ Page({
   onShareAppMessage: function () {
 
   },
-  taplabel(e){
-    this.setData({
-      searchValue:''
-    })
-  },
+  // taplabel(e){
+  //   // this.setData({
+  //   //   searchValue:''
+  //   // })
+  // },
   removeLabel(e){
     this.setData({
       historyLabels:e.detail
@@ -225,18 +112,12 @@ Page({
       url: '/subpackages-search/pages/search-result/search-result?search=' + value
     })
   },
-  tapHotItem(e){
-    let searchValue = e.currentTarget.dataset.value
-    this.setData({
-      searchValue:''
-    })
-    wx.navigateTo({
-      url: '/subpackages-search/pages/search-result/search-result?search=' + searchValue
-    })
+  taplabel(e){
+    this.search({ detail: e.currentTarget.dataset.value})
   },
   getHotSearchKeys(){
     let that = this
-    httpGet("/search/hotKey").then(hotSearch => {
+    httpGet("search-service//search/hotKey").then(hotSearch => {
       that.setData({
         hotSearch
       })
@@ -244,7 +125,7 @@ Page({
   },
   getRecommendKeys(){
     let that = this
-    httpGet("/recommend/recommendKey").then(recommendLabels => {
+    httpGetWithToken("search-service//search/recommendKey",false).then(recommendLabels => {
       that.setData({
         recommendLabels
       })

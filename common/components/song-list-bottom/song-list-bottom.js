@@ -137,13 +137,15 @@ Component({
       }
       
     },
-    tapPlay(e) {
+   tapPlay(e) {
       let index = e.currentTarget.dataset.index
       let item = this.data.musicList[index]
       app.globalData.playMusicById(item.id)
       this.triggerEvent('hidemodal')
-      this.triggerEvent('musicplayitemchange', item.id)
       // this.musicPlayItemChange(item.id)
+     Store.setCurrentMusic(item).then(res=>{
+        this.triggerEvent('musicplayitemchange', item.id)
+      })
       this.setData({
         showSingListModal: false
       })

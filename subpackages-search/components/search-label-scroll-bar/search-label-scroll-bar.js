@@ -12,7 +12,7 @@ Component({
     },
     labels:{
       type: Array,
-      value:[]
+      value: []
     },
     enableRemove:{
       type:Boolean,

@@ -12,7 +12,7 @@ Page({
     checkedIndex: -1,
     current: 0,
     themeColor: app.globalData.themeColor,
-    styleLabels: ["流行", "古风", "摇滚", "乡村", "AGC", "英文", "草原"],
+    styleLabels: [],
     choosedStyles: []
   },
 
@@ -28,66 +28,22 @@ Page({
       })
     }
 
-    Store.getStyleLabels().then(res => {
-      that.setData({
-        choosedStyles: res
-      })
+    // Store.getStyleLabels().then(res => {
+    //   that.setData({
+    //     choosedStyles: res
+    //   })
+    // })
+
+    httpGet('style-service//style').then(styleLabels => {
+      this.setData({ styleLabels })
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  },
   getUserInfo(res) {
     let that = this
     let flag = res.currentTarget.dataset.flag
     if (flag == 0) {
-      (new Promise((resolve,reject)=>{
+      new Promise((resolve,reject)=>{
         wx.getUserProfile({
           desc: '用户信息将用作展示',
           success: (res) => {
@@ -96,31 +52,41 @@ Page({
             resolve({userName,avator})
           }
         })
-      })).then(userInfos=>{
-        wx.login({
-          success(res) {
-            if (res.code) {
-              userInfos.code = res.code
-              return Promise.resolve(userInfos)
+      }).then(userInfos=>{
+        return new Promise((resolve,reject)=>{
+          wx.login({
+            success(res) {
+              if (res.code) {
+                userInfos.code = res.code
+                resolve(userInfos)
+              }else{
+                reject(res)
+              }
+            },
+            fail(res){
+              reject(res)
             }
-          }
+          })
         })
       }).then(userInfos=>{
-        httpGet('/login?code=' + userInfos.code + '&userName=' + userInfos.userName + '&avator=' + userInfos.avator).then(data=>{
-          return Promise.resolve(data)
+        return new Promise((resolve, reject)=>{
+          httpGet('login-service//login?code=' + userInfos.code + '&userName=' + userInfos.userName + '&avator=' + userInfos.avator).then(data => {
+            resolve(data)
+          })
         })
+       
       }).then(data=>{
         let token = data.token
-        let user = data.userInfo
-        let styles = data.styles
+        // let user = data.user
+        // let styles = data.user.styles
         let isFirstLogin = data.result
-        let userInfo = {
-          avator: user.avator,
-          userName: user.userName,
-          choosedStyles: styles
-        }
-        
-        Store.setUserInfo(userInfo)
+
+        // let userInfo = {
+        //   avator: user.avator,
+        //   userName: user.userName,
+        //   choosedStyles: styles
+        // }
+        // Store.setUserInfo(userInfo)
         Store.setToken(token)
 
         if (isFirstLogin){
@@ -162,20 +128,37 @@ Page({
     })
   },
   tapLabel(e) {
+
     if (e.detail.isActive) {
-      Store.addStyleLabels(e.detail.value)
+      if (this.data.choosedStyles.length >= 6) {
+        wx.showToast({
+          title: '风格标签最多只能选择6个',
+          icon: 'none'
+        })
+        return
+      }
+      // Store.addStyleLabels(e.detail.value)
+      this.data.choosedStyles.push({id:e.currentTarget.dataset.id,name:e.detail.value})
       this.setData({
-        choosedStyles: this.data.choosedStyles.push(e.detail.value)
+        choosedStyles: this.data.choosedStyles
       })
     } else {
-      Store.removeStyleLabels(e.detail.value)
+      // Store.removeStyleLabels(e.detail.value)
+      this.data.choosedStyles = this.data.choosedStyles.filter(style => style.id != e.currentTarget.dataset.id)
       this.setData({
-        choosedStyles: this.data.choosedStyles.splice(this.data.choosedStyles.indexOf(e.detail.value), 1)
+        choosedStyles: this.data.choosedStyles
       })
     }
   },
   complete(e){
-    httpPutWithToken('/user/styles',this.data.choosedStyles).then(res=>{
+    if (this.data.choosedStyles.length < 3){
+      wx.showToast({
+        title: '至少选择三个及以上风格',
+        icon:'none'
+      })
+      return
+    }
+    httpPutWithToken('user-service//user/styles',this.data.choosedStyles.map(style=>style.id)).then(res=>{
       wx.showToast({
         title: '登录成功',
         icon:'none'

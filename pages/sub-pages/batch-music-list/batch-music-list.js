@@ -21,23 +21,33 @@ Page({
     this.setData({
       id
     })
-    if (this.data.id == 0) {
-      Store.getLastPlayList().then(res=>{
-        this.setData({
-          musicListDatas:res
-        })
-      })
-    } else if (this.data.id == 1) {
-      Store.getMyMusicList().then(res=>{
-        this.setData({
+    this.getMusicListDatas(id)
+  },
+
+  getMusicListDatas(id){
+    let that = this
+    if(id == 0){
+      Store.getLastPlayList().then(res => {
+        that.setData({
           musicListDatas: res
         })
       })
-    } else if (this.data.id == 2) {
-      Store.getCollectMusicList().then(res=>{
-        this.setData({
+    }else if(id == 1){
+      Store.getMyMusicList().then(res => {
+        that.setData({
           musicListDatas: res
         })
+      })
+    }else if(id == 2){
+      Store.getCollectMusicList().then(res => {
+        that.setData({
+          musicListDatas: res
+        })
+      })
+    }else{
+      wx.showToast({
+        title: '获取数据失败',
+        icon:'none'
       })
     }
   },
@@ -92,17 +102,21 @@ Page({
   tapUp(e){
     let id = e.detail
     let index = -1
+    console.log(id)
+    
     let musicListDatas = this.data.musicListDatas
+    console.log(musicListDatas.length)
     for (let i = 0; i < musicListDatas.length;i++){
       if (musicListDatas[i].id == id){
         index = i
         break
       }
     }
-
+    console.log(index)
     if(index!=-1 && index!=0){
       this.data.musicListDatas.splice(index - 1, 0, this.data.musicListDatas[index])
       this.data.musicListDatas.splice(index+1,1)
+      console.log(this.data.musicListDatas)
       this.setData({
         musicListDatas:this.data.musicListDatas
       })

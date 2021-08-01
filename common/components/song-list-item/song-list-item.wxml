@@ -1,10 +1,10 @@
-<view catchtap="tapItem">
+<view catchtap="tapItem" bindtap="tapIcon">
   <three-column-bar three-column-bar-class="song-list-three-column">
     <square-item slot="left" size="{{thumbSize}}" src="{{srcUrl}}" />
     <view slot="middle" class="song-list-item-info">
-      <text class="song-list-item-name one-row-flow song-list-name-class">{{topTitle}}</text>
+      <text class="song-list-item-name song-list-name-class">{{topTitle}}</text>
       <text class="song-list-item-count song-list-bottom-text-class">{{bottomTitle}}</text>
     </view>
-    <i-icon slot="right" type="{{icon}}" size="21" wx:if="{{isActionIcon}}" catchtap="tapIcon"/>
+    <i-icon slot="right" type="{{icon}}" size="21" wx:if="{{isActionIcon}}"/>
   </three-column-bar>
 </view>

@@ -2,6 +2,7 @@
 let app = getApp()
 let Store = require('../../common/utils/store/store.js')
 let func = require('../../common/utils/func/wxml-element.js')
+let { httpGetWithToken, httpPost } = require('../../network/httpClient.js')
 Page({
 
   /**
@@ -23,7 +24,6 @@ Page({
     scrollDiff: 0,
     navBarIsTop:false,
     topBarchange:false,
-    isVip:false,
     themeColor: app.globalData.themeColor,
     iconNavs:[
       {
@@ -48,7 +48,7 @@ Page({
       },
       {
         icon: 'label_fill',
-        text: '标签'
+        text: '其他'
       }
     ],
     songListNav:[
@@ -65,7 +65,23 @@ Page({
         title: "收藏歌单"
       }
     ],
-    allMusicListInfo:[]
+    allMusicListInfo:[
+      {
+        title: "最近播放",
+        songs: [
+        ]
+      },
+      {
+        title:"我的歌单",
+        songs:[
+        ]
+      },
+      {
+        title: "收藏歌单",
+        songs: [
+        ]
+      },
+    ]
     
   },
 
@@ -120,16 +136,10 @@ Page({
 
   //初始化用户信息
   initUserInfo(){
-    Store.getUserInfo().then(res => {
-      if (res.avator && res.userName){
-        this.data.userInfo.avator = res.avator
-        this.data.userInfo.userName = res.userName
-        this.data.userInfo.choosedStyles = res.choosedStyles
-        this.setData({
-          userInfo: this.data.userInfo
-        })
-      }
-      
+    httpGetWithToken('user-service//user/info').then(userInfo=>{
+      this.setData({
+        userInfo
+      })
     })
   },
 
@@ -144,7 +154,7 @@ Page({
       //初始化我的歌单
       myMusicListInfo = {
         title: '我的歌单',
-        list: res
+        songs: res
       }
       return Store.getCollectMusicList()
 
@@ -152,14 +162,14 @@ Page({
       //初始化收藏歌单信息
       collectionMusicListInfo = {
         title: '收藏歌单',
-        list: res
+        songs: res
       }
       return Store.getLastPlayList()
     }).then(res=>{
       //初始化最近播放歌单信息
       lastPlayMusicListInfo = {
         title: '最近播放',
-        list: res
+        songs: res
       }
       return Promise.resolve(true)
     }).then(res=>{
@@ -311,7 +321,9 @@ Page({
       })
     break
       case 'message_fill':
-
+        wx.navigateTo({
+          url: '/subpackages-comment/pages/profile-comment/profile-comment'
+        })
     break
       case 'integral_fill':
       wx.navigateTo({
@@ -319,6 +331,10 @@ Page({
       })
     break
       case 'label_fill':
+      wx.showToast({
+        title: '该功能暂未开放',
+        icon:'none'
+      })
     break
     default:
     break
@@ -395,23 +411,26 @@ Page({
       return
     }
 
-    let myMusicList = this.data.allMusicListInfo[1].list
-
-    let isIncludeTitle = myMusicList.find(e=>{
-      if(e.title == this.data.newSongListName)return true
-      return false
-    })
-    if (isIncludeTitle){
-      wx.showToast({
-        title: '歌单已经存在！',
-        icon: 'none'
+    let myMusicList = this.data.allMusicListInfo[1].songs
+    let newMusicList = {}
+    if (myMusicList != null && myMusicList.length > 0){
+      let isIncludeTitle = myMusicList.find(e => {
+        if (e.title == this.data.newSongListName) return true
+        return false
       })
-      return
+      if (isIncludeTitle) {
+        wx.showToast({
+          title: '歌单已经存在！',
+          icon: 'none'
+        })
+        return
+      }
+      newMusicList = { id: Math.max.apply(Math, myMusicList.map(e => e.id)) + 1, cover: '', title: this.data.newSongListName, songs: [] }
+    }else{
+      newMusicList = { id: 4, cover: '', title: this.data.newSongListName, songs: [] }
     }
-
-    let newMusicList = { id: Math.max.apply(Math, myMusicList.map(e => e.id)) + 1, cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg', title: this.data.newSongListName,list:[]}
     myMusicList.push(newMusicList)
-    this.data.allMusicListInfo[1].list=myMusicList
+    this.data.allMusicListInfo[1].songs=myMusicList
     this.setData({
       allMusicListInfo: this.data.allMusicListInfo,
       showAddInput: false,
@@ -551,7 +570,7 @@ Page({
       success(res){
         if (res.confirm) {
           
-          that.data.allMusicListInfo[that.data.switchInfos.musicListCardIndex].list.splice(that.data.switchInfos.index,1)
+          that.data.allMusicListInfo[that.data.switchInfos.musicListCardIndex].songs.splice(that.data.switchInfos.index,1)
           that.setData({
             allMusicListInfo: that.data.allMusicListInfo
           })

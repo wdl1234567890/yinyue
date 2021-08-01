@@ -1,8 +1,8 @@
 <wxs src="../../common/utils/func/tools.wxs" module="tools" />
 <wrapper nav-bar-class="profile-top-bar {{topBarchange?'theme-module-color':'theme-bg'}}">
-  <view slot="nav-bar-left" class="setting-icon">
+  <!-- <view slot="nav-bar-left" class="setting-icon">
     <i-icon type="other" size="33" />
-  </view>
+  </view> -->
   <view slot="nav-bar-middle" class="show-top-info-container flex-row {{topBarchange?'show-thumb-avator':'not-show-thumb-avator'}}">
     <view class="show-top-image">
       <circular-item src="{{userInfo.avator}}" size="60" />
@@ -22,7 +22,7 @@
         <view slot="middle" class="base-info-container">
           <block wx:if="{{!tools.isEmpty(userInfo)}}">
             <text class="user-name one-row-flow">{{userInfo.userName}}</text>
-            <info-label padding="5rpx 13rpx" size="20" value="{{isVip?'VIP会员':'开通VIP'}}" textColor="#fff" labelColor="{{themeColor}}" catchtap="goToPayment" />
+            <info-label padding="5rpx 13rpx" size="20" value="{{userInfo.isVip?'VIP会员-续费':'开通VIP'}}" textColor="#fff" labelColor="{{themeColor}}" catchtap="goToPayment" />
           </block>
           <block wx:else>
               <button bindtap="login" size="mini" class="login-button"> 登录 </button>
@@ -44,15 +44,15 @@
     <tab-bar class="element-distance" tab-bar-class="theme-padding song-list-nav-container" bindclicktabitem="clickTabItem" currentTabId="{{currentSongListId}}" tabTitles="{{songListNav}}" />
     <!--最近播放过的歌单-->
     <view class="theme-module-margin theme-module-color theme-margin theme-radius module-padding element-distance">
-      <song-list-card music-lists="{{allMusicListInfo[0].list}}" title="{{allMusicListInfo[0].title}}" catchtapitemswitch="tapItemSwitch" data-index="0" catchtapswitch="tapSwitch" flag="{{2}}" />
+      <song-list-card music-lists="{{allMusicListInfo[0].songs}}" title="{{allMusicListInfo[0].title}}" catchtapitemswitch="tapItemSwitch" data-index="0" catchtapswitch="tapSwitch" flag="{{2}}" />
     </view>
     <!--自创歌单-->
     <view class="theme-module-margin theme-module-color theme-margin theme-radius module-padding element-distance">
-      <song-list-card flag="{{1}}" show-add-button music-lists="{{allMusicListInfo[1].list}}" title="{{allMusicListInfo[1].title}}" catchtapadd="tapAdd" catchtapitemswitch="tapItemSwitch" data-index="1" catchtapswitch="tapSwitch" />
+      <song-list-card flag="{{1}}" show-add-button music-lists="{{allMusicListInfo[1].songs}}" title="{{allMusicListInfo[1].title}}" catchtapadd="tapAdd" catchtapitemswitch="tapItemSwitch" data-index="1" catchtapswitch="tapSwitch" />
     </view>
     <!--收藏歌单-->
     <view class="theme-module-margin theme-module-color theme-margin theme-radius module-padding element-distance">
-      <song-list-card flag="{{3}}" music-lists="{{allMusicListInfo[2].list}}" title="{{allMusicListInfo[2].title}}" catchtapitemswitch="tapItemSwitch" data-index="2" catchtapswitch="tapSwitch" />
+      <song-list-card flag="{{3}}" music-lists="{{allMusicListInfo[2].songs}}" title="{{allMusicListInfo[2].title}}" catchtapitemswitch="tapItemSwitch" data-index="2" catchtapswitch="tapSwitch" />
     </view>
   </scroll-view>
 </wrapper>

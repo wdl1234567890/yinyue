@@ -2,9 +2,12 @@
 let systemInfo = wx.getSystemInfoSync()
 let menuButtonBoundingClientRect = wx.getMenuButtonBoundingClientRect()
 let Store = require('./common/utils/store/store.js')
-let { httpGet, httpPost } = require('./network/httpClient.js')
-let musicListData= [
-  {
+let func = require('./common/utils/func/func-utils.js')
+let {
+  httpGet,
+  httpPost
+} = require('./network/httpClient.js')
+let musicListData = [{
     id: 1,
     singName: '我在赶去找你的路上',
     singerName: '小时姑娘',
@@ -104,50 +107,31 @@ let musicListData= [
   }
 ]
 App({
-  
+
   globalData: {
+    backgroundAudioManager: wx.getBackgroundAudioManager(),
     themeBg: "rgba(253, 253, 253, 0.418)",
     themeModuleColor: "rgba(253, 253, 253, 1)",
     themeColor: "rgba(255,181,185,1)",
     systemInfo,
     menuButtonBoundingClientRect,
     topNavMargin: (menuButtonBoundingClientRect.top - systemInfo.statusBarHeight) * 2 + menuButtonBoundingClientRect.height + systemInfo.statusBarHeight,
-    currentPlayTime:-1,
-    loopStatusIndex :0,
-    stopIntervalNumber:null,
-    doSomething:null,
-    obj:null,
-    endSomething:null,
-    searchResult:[]
+    currentPlayTime: -1,
+    loopStatusIndex: 0,
+    // stopIntervalNumber: null,
+    doSomething: null,
+    obj: null,
+    endSomething: null,
+    searchResult: []
   },
 
-  onLaunch(e){
-    // const innerAudioContext = wx.createInnerAudioContext()
-    // innerAudioContext.autoplay = true
-    // innerAudioContext.src = 'https://img.tukuppt.com/newpreview_music/08/99/49/5c897788e421b53181.mp3'
-    // innerAudioContext.onPlay(() => {
-    //   console.log('开始播放')
-    // })
-    // innerAudioContext.onError((res) => {
-    //   console.log(res.errMsg)
-    //   console.log(res.errCode)
-    // })
-    // innerAudioContext.onEnded(res => {
-    //   console.log("****")
-    // })
+  onLaunch(e) {
+    // this.globalData.backgroundAudioManager.title = '此时此刻'
+    // this.globalData.backgroundAudioManager.singer = '许巍'
+    // this.globalData.backgroundAudioManager.coverImgUrl = 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000'
+    // this.globalData.backgroundAudioManager.src = 'https://img.tukuppt.com/newpreview_music/08/99/75/5c8994da1484642590.mp3'
 
-    const backgroundAudioManager = wx.getBackgroundAudioManager()
-
-    backgroundAudioManager.title = '此时此刻'
-    backgroundAudioManager.epname = '此时此刻'
-    backgroundAudioManager.singer = '许巍'
-    backgroundAudioManager.coverImgUrl = 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000'
-    // 设置了 src 之后会自动播放
-    backgroundAudioManager.src = 'https://img.tukuppt.com/newpreview_music/08/99/49/5c897788e421b53181.mp3'
-    // backgroundAudioManager.play()
-    backgroundAudioManager.onPlay(res=>{console.log("yyyy")})
-    
-    this.globalData.calPlayTime = this.calPlayTime
+    // this.globalData.calPlayTime = this.calPlayTime
     this.globalData.playMusic = this.playMusic
     this.globalData.pausePlayMusic = this.pausePlayMusic
     this.globalData.playMusicById = this.playMusicById
@@ -156,54 +140,97 @@ App({
     this.globalData.stopPlayMusic = this.stopPlayMusic
     this.globalData.nextPlay = this.nextPlay
     this.initSelfSongList()
-    // this.initUserInfo()
+    this.initBgAudioContainer()
+    let mul = [{ "id": "0cfa0b34345c5e7040b4d74b4f35500a", "cover": "https://api88.net/api/qqmusic/?key=10e1fc1c5c09db47&cache=1&type=pic&id=002VXpy94Cifii", "songName": "Try A Little Harder", "singerName": "Johnny Yono", "isVip": false, "commentCount": 0, "url": "https://api88.net/api/qqmusic/?key=10e1fc1c5c09db47&type=url&id=002VXpy94Cifii&size=", songTime: 329 }, { "id": "29be773531dccf3e2e85e39ccc03199b", "cover": "https://api88.net/api/qqmusic/?key=10e1fc1c5c09db47&cache=1&type=pic&id=000LHwJa30Wut2", "songName": "Only In A Dream", "singerName": "Paul van Dyk", "isVip": true, "commentCount": 0, "url": "https://api88.net/api/qqmusic/?key=10e1fc1c5c09db47&type=url&id=000LHwJa30Wut2&size=", songTime: 250 }]
+    Store.setMusicList(mul)
+    Store.setCurrentMusic(mul[0])
+  },
+
+
+
+  //初始化背景音乐播放容器
+  initBgAudioContainer() {
+    
+    let backgroundAudioManager = this.globalData.backgroundAudioManager
+    let musicInfo = null
+    backgroundAudioManager.onEnded(res => {
+      if (this.globalData.loopStatusIndex == 1) {
+        musicInfo = {
+          url:backgroundAudioManager.src,
+          songName: backgroundAudioManager.title,
+          singerName: backgroundAudioManager.singer ,
+          cover: backgroundAudioManager.coverImgUrl
+        }
+        
+        this.playBgMusic(musicInfo)
+        // this.musicPlayItemChange(musicInfo.id)
+      } else {
+        this.nextSong()
+      }
+      //* if (this.globalData.doSomething != null) this.globalData.doSomething.apply(this.globalData.obj)
+    })
+
+  },
+
+  playBgMusic(musicInfo){
+    // if (this.globalData.backgroundAudioManager == null) this.globalData.backgroundAudioManager = wx.getBackgroundAudioManager()
+    let backgroundAudioManager = this.globalData.backgroundAudioManager
+    backgroundAudioManager.title = musicInfo.songName
+    backgroundAudioManager.singer = musicInfo.singerName
+    backgroundAudioManager.coverImgUrl = musicInfo.cover
+    backgroundAudioManager.src = musicInfo.url
+    backgroundAudioManager.play()
+    Store.getCurrentPlayMusic().then(music=>{
+      if(music.id != musicInfo.id){
+        let that = this
+        Store.setCurrentMusic(musicInfo).then(res => {
+          if (that.globalData.endSomething != null) that.globalData.endSomething.apply(that.globalData.obj)
+        })
+      }
+    })
+  },
+
+  pauseBgMusic(){
+    if (this.globalData.backgroundAudioManager != null) {
+      this.globalData.backgroundAudioManager.pause()
+    }
   },
 
   //初始化自建歌单信息
-  initSelfSongList(){
+  initSelfSongList() {
     let lastList = {
       id: 1,
       cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
       title: "最近播放",
-      list: []
+      songs: []
     }
     let downloadList = {
       id: 2,
       cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
       title: "已下载歌曲",
-      list: []
+      songs: []
     }
     let likeList = {
       id: 3,
       cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
       title: "我喜欢的音乐",
-      list: []
+      songs: []
     }
-    let listInfos=[
+    let listInfos = [
       lastList,
       downloadList,
       likeList
     ]
-    Store.getSelfSongList().then(res=>{
+    Store.getSelfSongList().then(res => {
       if (res.length == 0) {
         Store.setSelfSongList(listInfos)
       }
     })
-    
-  },
 
-  //方便测试
-  initUserInfo(){
-    let userInfo={
-     avator:'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-     userName : '茯苓',
-     choosedStyles : ["流行", "古风", "摇滚"]
-    }
-    Store.setUserInfo(userInfo)
   },
 
   //下一首播放
-  async nextPlay(musicInfo, okCallback = null, onePlayCallback = null,setedCallBack=null,obj =null,onePlay=true){
+  async nextPlay(musicInfo, okCallback = null, onePlayCallback = null, setedCallBack = null, obj = null, onePlay = true) {
     let oldMusicList
     let currentPlayMusic
 
@@ -249,7 +276,7 @@ App({
                 icon: 'none'
               })
             }
-            
+
             return
           }
           break
@@ -270,13 +297,13 @@ App({
       }
     }
     //更新歌单列表缓存
-    Store.setMusicList(oldMusicList).then(res=>{
-      if(setedCallBack){
+    Store.setMusicList(oldMusicList).then(res => {
+      if (setedCallBack) {
         setedCallBack.apply(obj, oldMusicList)
       }
     })
-   
-    if(okCallback){
+
+    if (okCallback) {
       okCallback.apply(obj)
       // //关闭弹框
       // this.setData({
@@ -289,7 +316,7 @@ App({
         icon: 'none'
       })
     }
-    if (onePlay){
+    if (onePlay) {
       if (Object.keys(currentPlayMusic).length == 0) {
         // app.globalData.playMusicById(currentPlayMusic.id)
         // this.setData({
@@ -301,28 +328,34 @@ App({
         if (onePlayCallback) onePlayCallback.apply(obj)
       }
     }
-    
+
   },
 
   //继续播放
-  async playMusic(){
-    this.musicPlayItemChange((await Store.getCurrentPlayMusic()).id)
+  async playMusic() {
+    if(this.globalData.backgroundAudioManager.paused)
+    this.globalData.backgroundAudioManager.play()
   },
 
   //播放某一首歌曲
-  playMusicById(id) {
-    this.musicPlayItemChange(id)
+  async playMusicById(id) {
+    let newMusicInfo = (await Store.getCurrentMusicList()).find(music=>music.id == id)
+    this.playBgMusic(newMusicInfo)
+    // this.musicPlayItemChange(id)
   },
   //暂停播放
-  pausePlayMusic(){
-    if (this.globalData.stopIntervalNumber != null) clearInterval(this.globalData.stopIntervalNumber)
-    this.globalData.stopIntervalNumber = null
+  pausePlayMusic() {
+    if (!this.globalData.backgroundAudioManager.paused){
+      this.globalData.backgroundAudioManager.pause()
+    }
+    // if (this.globalData.stopIntervalNumber != null) clearInterval(this.globalData.stopIntervalNumber)
+    // this.globalData.stopIntervalNumber = null
   },
 
   //停止播放
   stopPlayMusic() {
     this.pausePlayMusic()
-    this.globalData.currentPlayTime = -1
+    // this.globalData.currentPlayTime = -1
     Store.clearCurrentMusicList()
     Store.clearCurrentMusic()
     this.globalData.endSomething = null
@@ -331,34 +364,34 @@ App({
   },
 
   //计时回调
- async timer(){
-   this.globalData.currentPlayTime = this.globalData.currentPlayTime + 1
-   // Store.addCurrentPlayTimeStepOne()
-   let musicInfo = await Store.getCurrentPlayMusic()
+  async timer() {
+    //  this.globalData.currentPlayTime = this.globalData.currentPlayTime + 1
+    // Store.addCurrentPlayTimeStepOne()
+    let musicInfo = await Store.getCurrentPlayMusic()
 
-   if (musicInfo.singTime == this.globalData.currentPlayTime) {
-     if (this.globalData.loopStatusIndex == 1) {
-       this.musicPlayItemChange(musicInfo.id)
-     } else {
-       this.nextSong()
-     }
-     if (this.globalData.doSomething != null) this.globalData.doSomething.apply(this.globalData.obj)
-     return
-   }
-   if (this.globalData.doSomething != null) this.globalData.doSomething.apply(this.globalData.obj)
+    if (musicInfo.singTime == this.globalData.currentPlayTime) {
+      if (this.globalData.loopStatusIndex == 1) {
+        this.musicPlayItemChange(musicInfo.id)
+      } else {
+        this.nextSong()
+      }
+      if (this.globalData.doSomething != null) this.globalData.doSomething.apply(this.globalData.obj)
+      return
+    }
+    if (this.globalData.doSomething != null) this.globalData.doSomething.apply(this.globalData.obj)
   },
 
   //全局播放计时器
-  calPlayTime(){
-    let that = this
-    // if (await Store.getStopIntervalNumber() == null) {
-    if (this.globalData.stopIntervalNumber == null) {
-      this.globalData.stopIntervalNumber = setInterval(this.timer, 1000)
-      this.timer()
-      // Store.setStopIntervalNumber(stopIntervalNumber)
-    }
-    
-  },
+  // calPlayTime(){
+  //   let that = this
+  //   // if (await Store.getStopIntervalNumber() == null) {
+  //   if (this.globalData.stopIntervalNumber == null) {
+  //     this.globalData.stopIntervalNumber = setInterval(this.timer, 1000)
+  //     this.timer()
+  //     // Store.setStopIntervalNumber(stopIntervalNumber)
+  //   }
+
+  // },
   //播放下一首
   async nextSong() {
     let nextIndex = -1
@@ -370,7 +403,7 @@ App({
 
     if (this.globalData.loopStatusIndex == 2) {
       if (musicList.length != 1) {
-        while ((nextIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
+        while ((nextIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) {}
       } else {
         nextIndex = currentPlayIndex
       }
@@ -378,8 +411,8 @@ App({
     } else {
       nextIndex = currentPlayIndex + 1 >= musicList.length ? 0 : currentPlayIndex + 1
     }
-   
-    this.musicPlayItemChange(musicList[nextIndex].id)
+    this.playBgMusic(musicList[nextIndex])
+    // this.musicPlayItemChange(musicList[nextIndex].id)
 
   },
 
@@ -394,7 +427,7 @@ App({
 
     if (this.globalData.loopStatusIndex == 2) {
       if (musicList.length != 1) {
-        while ((preIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) { }
+        while ((preIndex = Math.floor(Math.random() * musicList.length)) == currentPlayIndex) {}
       } else {
         preIndex = currentPlayIndex
       }
@@ -402,7 +435,8 @@ App({
     } else {
       preIndex = currentPlayIndex - 1 <= -1 ? musicList.length - 1 : currentPlayIndex - 1
     }
-    this. musicPlayItemChange(musicList[preIndex].id)
+    this.playBgMusic(musicList[preIndex])
+    // this.musicPlayItemChange(musicList[preIndex].id)
   },
   //播放指定id的歌曲
   async musicPlayItemChange(id) {
@@ -414,11 +448,11 @@ App({
       if (musicInfo.singTime == ctime) {
         newItem = musicInfo
       } else {
-        this.calPlayTime()
+        // this.calPlayTime()
         return
       }
     } else {
-      newItem = await httpGet('/song/'+id)
+      newItem = await httpGet('/song/' + id)
     }
 
 
@@ -430,20 +464,22 @@ App({
         cancelText: '暂不开通',
         success(res) {
           if (res.confirm) {
-            wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
+            wx.navigateTo({
+              url: '/subpackages-payment/pages/payment/payment'
+            })
           }
         }
       })
     }
 
-    this.globalData.currentPlayTime = -1
-    if (this.globalData.stopIntervalNumber != null) clearInterval(this.globalData.stopIntervalNumber)
-    this.globalData.stopIntervalNumber = null
+    // this.globalData.currentPlayTime = -1
+    // if (this.globalData.stopIntervalNumber != null) clearInterval(this.globalData.stopIntervalNumber)
+    // this.globalData.stopIntervalNumber = null
 
     let that = this
-    Store.setCurrentMusic(newItem).then(res=>{
+    Store.setCurrentMusic(newItem).then(res => {
       if (that.globalData.endSomething != null) that.globalData.endSomething.apply(that.globalData.obj)
     })
-    this.calPlayTime()
+    // this.calPlayTime()
   }
 })

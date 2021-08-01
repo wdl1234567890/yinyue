@@ -23,7 +23,7 @@
               <view wx:if="{{item.isVip}}" class="vip-icon">VIP</view>
             </view>
             <view slot="middle" class="flex-row sing-and-singer-container">
-              <text class="item-sing-name">{{item.singName}}</text>
+              <text class="item-sing-name">{{item.songName}}</text>
               <text class="item-singer-name">-{{item.singerName}}</text>
             </view>
             <i-icon type="close" size="20" slot="right" color="#999" catchtap="removeListItem" data-index="{{index}}"/>

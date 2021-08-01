@@ -68,4 +68,5 @@
   text-align: left;
   display: flex;
   flex-direction: column;
+  max-width: 80vw;
 }

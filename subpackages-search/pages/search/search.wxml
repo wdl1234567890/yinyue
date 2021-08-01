@@ -9,19 +9,19 @@
   <scroll-view scroll-y="true" style="height: 100%" class="theme-module-color" slot="content">
     <!--历史搜索-->
     <view class="theme-margin history-container">
-      <search-label-scroll-bar title="历史" labels="{{historyLabels}}" enable-remove catchtaplabel="taplabel" catchremovelabel="removeLabel"/>
+      <search-label-scroll-bar title="历史" labels="{{historyLabels}}" enable-remove catchtaplabel="search" catchremovelabel="removeLabel"/>
     </view>
-    <!--推荐索搜-->
+    <!--推荐搜索-->
     <view class="theme-margin recommend-search-container">
-      <search-label-scroll-bar title="推荐" labels="{{recommendLabels}}" catchtaplabel="taplabel"/>
+      <search-label-scroll-bar title="推荐" labels="{{recommendLabels}}" catchtaplabel="search"/>
     </view>
     <!--热门搜索-->
     <view class="theme-margin flex-col hot-search-container">
       <view class="hot-search-title">热搜榜</view>
       <view class="flex-row hot-search-content-container">
-        <view wx:for="{{hotSearch}}" wx:key="id" class="flex-row hot-search-item" catchtap="tapHotItem" data-value="{{item.searchValue}}">
+        <view wx:for="{{hotSearch}}" wx:key="id" class="flex-row hot-search-item" catchtap="taplabel" data-value="{{item.oneKey}}">
           <text class="song-sort-id {{index<=2?'song-sort-id-theme-color':'song-sort-id-color'}}">{{index+1}}</text>
-          <text class="song-name one-row-flow" style="font-weight:{{index<=2?'bold':''}}">{{item.searchValue}}</text>
+          <text class="song-name one-row-flow" style="font-weight:{{index<=2?'bold':''}}">{{item.oneKey}}</text>
         </view>
       </view>
     </view>

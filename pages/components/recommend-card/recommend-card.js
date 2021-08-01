@@ -6,19 +6,16 @@ Component({
    */
   properties: {
     itemId:{
-      type:Number,
+      type:String,
       value:-1
     },
     title:{
       type: String,
-      value: "热门歌单"
+      value: ""
     },
     songsInfo:{
       type: Array,
       value: [
-        "梦中的旅行家-RaJor",
-        "错位时空-小玄子",
-        "非我-凤凰大人"
       ]
     }
   },

@@ -1,6 +1,7 @@
 // subpackages-search/components/single-item/single-item.js
 let app=getApp()
 let Store = require('../../../common/utils/store/store.js')
+let { httpPutWithToken, httpGet, httpPost, httpGetWithToken  } = require('../../../network/httpClient.js')
 Component({
   /**
    * 组件的属性列表
@@ -11,10 +12,10 @@ Component({
       value:2
     },
     itemId:{
-      type:Number,
+      type:String,
       value:-1
     },
-    singName:{
+    songName:{
       type:String,
       value:"歌名"
     },
@@ -33,6 +34,10 @@ Component({
     commentCount:{
       type:Number,
       value:0
+    },
+    url:{
+      type:String,
+      value:''
     }
   },
 
@@ -46,34 +51,34 @@ Component({
     actions: [
       {
         id: 1,
-        icon: 'camera',
+        icon: 'playon',
         text: '播放',
       },
       {
         id: 2,
-        icon: 'camera',
+        icon: 'play',
         text: '下一首播放',
       },
       {
         id: 3,
-        icon: 'camera',
+        icon: 'collection',
         text: '收藏到歌单',
       },
       {
         id: 4,
-        icon: 'camera',
+        icon: 'unfold',
         text: '下载',
       },
       {
         id: 5,
-        icon: 'camera',
+        icon: 'message',
         text: '评论',
       }
     ]
   },
 
   ready(){
-    let musicInfo = { id: this.data.itemId, cover: this.data.cover, singName: this.data.singName, singerName: this.data.singerName, isVip: this.data.isVip, commentCount:this.data.commentCount }
+    let musicInfo = { id: this.data.itemId, cover: this.data.cover, songName: this.data.songName, singerName: this.data.singerName, isVip: this.data.isVip, commentCount:this.data.commentCount,url:this.data.url }
     this.setData({
       musicInfo
     })
@@ -117,12 +122,17 @@ Component({
         }
         if (!isInclude) {
           musicList.unshift(this.data.musicInfo)
-          Store.setMusicList(musicList)
+          Store.setMusicList(musicList).then(res=>{
+
+          })
         }
-        wx.navigateTo({
-          url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.itemId
+        Store.setCurrentMusic(this.data.musicInfo).then(res => {
+          wx.navigateTo({
+            url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.itemId
+          })
+          this.triggerEvent('musicplayitemchange', this.data.musicInfo)
         })
-        this.triggerEvent('musicplayitemchange', this.data.musicInfo)
+        
       })
     },
     tapPlayButton() {
@@ -141,10 +151,14 @@ Component({
           Store.setMusicList(musicList)
         }
 
-        wx.navigateTo({
-          url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.itemId
+        Store.setCurrentMusic(this.data.musicInfo).then(res => {
+          wx.navigateTo({
+            url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.itemId
+          })
+          this.triggerEvent('musicplayitemchange', this.data.musicInfo)
         })
-        this.triggerEvent('musicplayitemchange', this.data.musicInfo)
+
+
       })
       
     },
@@ -167,25 +181,68 @@ Component({
       })
     },
     downMusic() {
-      //TODO user is vip?
-      if (this.data.isVip) {
-        wx.showModal({
-          title: '该曲需要开通vip才能下载哦',
-          confirmText: '立即开通',
-          cancelText: '暂不开通',
-          confirmColor: this.data.themeColor,
-          success(res) {
-            if (res.confirm) {
-              wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
+      let that = this
+      httpGetWithToken('user-service//user/info').then(userInfo => {
+        // if(userInfo=='')return
+        if (that.data.isVip && !userInfo.isVip) {
+          wx.showModal({
+            title: '该曲需要开通vip才能下载哦',
+            confirmText: '立即开通',
+            cancelText: '暂不开通',
+            confirmColor: this.data.themeColor,
+            success(res) {
+              if (res.confirm) {
+                wx.navigateTo({ url: '/subpackages-payment/pages/payment/payment' })
+              }
+
             }
-          }
-        })
-      }
+          })
+        }
+        else {
+          console.log(that.data)
+          let downloadObj = wx.downloadFile({
+            url: that.data.url,
+            success(res) {
+              if (res.statusCode === 200) {
+                let tempFilePath = res.tempFilePath
+                let downLoadMusicInfo = {
+                  url: tempFilePath,
+                  songName: that.data.musicInfo.songName,
+                  singerName: that.data.musicInfo.singerName
+                }
+                Store.addDownloadMusic(downLoadMusicInfo).then(res => {
+                  wx.showToast({
+                    title: that.data.musicInfo.songName + '-' + that.data.musicInfo.singerName+' 下载完成',
+                    icon: 'none'
+                  })
+                  // httpPuttWithToken('recommend-service//recommend/action/download/song/' + that.data.itemId + '/score')
+                })
+              }
+            },
+            fail(res) {
+              wx.showToast({
+                title: that.data.musicInfo.songName + '-' + that.data.musicInfo.singerName +' 下载失败',
+                icon: 'none'
+              })
+            }
+          })
+          downloadObj.onProgressUpdate((res) => {
+            let progress = res.progress
+            let totalBytes = res.totalBytesExpectedToWrite
+            if (progress == 0) wx.showToast({
+              title: that.data.musicInfo.songName + '-' + that.data.musicInfo.singerName +' 开始下载',
+              icon: 'none'
+            })
+          })
+        }
+      })
+
     },
     tapAction(e) {
       let index = e.currentTarget.dataset.index
       switch (this.data.actions[index].text) {
         case "播放":
+          httpPuttWithToken('recommend-service//recommend/action/play/song/' + this.data.itemId + '/score/withtoken')
           this.tapPlayButton()
           break
         case "下一首播放":
@@ -206,7 +263,7 @@ Component({
           let that = this
           wx.showModal({
             title: '删除歌曲',
-            content: '是否要删除：'+ this.data.musicInfo.singName,
+            content: '是否要删除：'+ this.data.musicInfo.songName,
             success(res){
               if(res.confirm){
                 that.setData({

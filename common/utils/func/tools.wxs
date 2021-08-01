@@ -6,13 +6,14 @@ var isEmpty = function(data){
 }
 var isArrayInclude=function(array,value){
   for (var i = 0; i < array.length;i++){
+    if (array[i].id && value.id && array[i].id === value.id)return true
     if(array[i]===value)return true
   }
   return false
 }
 
 var timestampToTime = function(timestamp) {
-  
+  var timestamp = parseInt(timestamp)
   var date = getDate(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
   var Y = date.getFullYear() + '年';
   var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
@@ -50,6 +51,9 @@ var getNumberArray = function(endNumber){
   return numberArray
 }
 
+var randomNumber = function(){
+  return getDate().getTime()
+}
 
 module.exports = {
   isEmpty: isEmpty,
@@ -57,5 +61,6 @@ module.exports = {
   timestampToTime: timestampToTime,
   transformSecondToMinute: transformSecondToMinute,
   commentCountShow: commentCountShow,
-  getNumberArray: getNumberArray
+  getNumberArray: getNumberArray,
+  randomNumber: randomNumber
 }

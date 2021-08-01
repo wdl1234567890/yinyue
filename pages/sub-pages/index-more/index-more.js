@@ -1,147 +1,28 @@
 // pages/sub-pages/index-more/index-more.js
+let { httpGet, httpPost } = require('../../../network/httpClient.js')
+let app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    themeColor: app.globalData.themeColor,
     title:'标题',
+    subTitle:'',
     id:-1,
-    datasList:[],
-    titleFlag:{
-      "推荐歌单":"personalRecommendMusicLists",
-      "音乐人":"singers",
-      "风格":"styles",
-      "场景":"scenes",
+    datasList: [],
+    page:1,
+    urls:{
+      "推荐歌单":"recommend-service//recommend/personal/list",
+      "音乐人":"singer-service//singer/page/",
+      "风格":"style-service//style/page/",
+      "场景":"scene-service//scene",
     },
-    personalRecommendMusicLists: [
-      {
-        id: 1,
-        title: '歌单标题',
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-      },
-      {
-        id: 2,
-        title: '歌单标题',
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-      },
-      {
-        id: 3,
-        title: '歌单标题',
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-      },
-      {
-        id: 4,
-        title: '歌单标题',
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-      },
-      {
-        id: 5,
-        title: '歌单标题',
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-      }
-    ],
-    singers: [
-      {
-        id: 1,
-        avator: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        singerName: '不才'
-      },
-      {
-        id: 2,
-        avator: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        singerName: '刘宇宁'
-      },
-      {
-        id: 3,
-        avator: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        singerName: '张哲瀚'
-      },
-      {
-        id: 4,
-        avator: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        singerName: '小时姑娘'
-      },
-      {
-        id: 5,
-        avator: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        singerName: '叶里'
-      },
-      {
-        id: 6,
-        avator: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        singerName: '张哲瀚'
-      },
-      {
-        id: 7,
-        avator: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        singerName: '小时姑娘'
-      },
-      {
-        id: 8,
-        avator: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        singerName: '叶里'
-      }
-    ],
-    styles: [
-      {
-        id: 1,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        style: '古风'
-      },
-      {
-        id: 2,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        style: '流行'
-      },
-      {
-        id: 3,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        style: '草原'
-      },
-      {
-        id: 4,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        style: '摇滚'
-      },
-      {
-        id: 5,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        style: '日语'
-      },
-      {
-        id: 6,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        style: '粤语'
-      }
-    ],
-    scenes: [
-      {
-        id: 1,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        scene: '运动'
-      },
-      {
-        id: 2,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        scene: '咖啡厅'
-      },
-      {
-        id: 3,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        scene: '图书馆'
-      },
-      {
-        id: 4,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        scene: '大自然'
-      },
-      {
-        id: 5,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-        scene: '午休'
-      }
-    ]
+    hasIdUrls:{
+      "风格": "song-list-service//songList/style/",
+      "场景": "song-list-service//songList/scene/",
+    }
   },
 
   /**
@@ -150,19 +31,43 @@ Page({
   onLoad: function (options) {
     this.setData({
       title:options.title,
-      id:options.id?options.id:-1
+      id:options.id?options.id:-1,
+      subTitle: options.sub?options.sub:''
     })
     this.getInfo()
   },
 
   getInfo(){
-    let flag = this.data.titleFlag[this.data.title]
+    let title = this.data.title
     let id = this.data.id
-    let datasList = this.data[flag]
-    this.data.datasList.push(...datasList)
-    this.setData({
-      datasList: this.data.datasList
-    })
+    if(id == -1){
+      if ((title == '风格' || title == '音乐人') || (title == '推荐歌单' || title == '场景') && this.data.datasList.length <= 0) {
+        let url = this.data.urls[title]
+        if (title == '风格' || title == '音乐人') {
+          url = url + this.data.page
+        }
+        httpGet(url).then(data => {
+          this.data.datasList.push(...data)
+          this.setData({
+            datasList: this.data.datasList
+          })
+          if (title == '风格' || title == '音乐人'){
+            this.setData({
+              page: this.data.page + 1
+            })
+          }
+        })
+      }
+    } else if (this.data.datasList == null || this.data.datasList.length <= 0){
+      let url = this.data.hasIdUrls[title]
+      url = url + id +'/songLists'
+      httpGet(url).then(data => {
+        this.data.datasList.push(...data)
+        this.setData({
+          datasList: this.data.datasList
+        })
+      })
+    }
   },
 
   scrolltolower(e){
@@ -171,6 +76,30 @@ Page({
     })
     this.getInfo()
     wx.hideLoading()
+  },
+
+  tapCircularItem(e) {
+    let id = e.detail
+    let title = e.currentTarget.dataset.title
+    switch (title) {
+      case "音乐人":
+        wx.navigateTo({
+          url: '/subpackages-song-list/pages/song-list-detail/song-list-detail?flag=5' + '&id=' + id
+        })
+        break
+      case "风格":
+        wx.navigateTo({
+          url: '/pages/sub-pages/index-more/index-more?title=' + title + '&id=' + id + '&sub=' + e.currentTarget.dataset.sub
+        })
+        break
+      case "场景":
+        wx.navigateTo({
+          url: '/pages/sub-pages/index-more/index-more?title=' + title + '&id=' + id + '&sub=' + e.currentTarget.dataset.sub
+        })
+        break
+      default:
+        break
+    }
   },
 
   /**

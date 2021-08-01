@@ -10,6 +10,14 @@
 .song-list-container{
   padding-top: 15rpx;
 }
+.not-found{
+  text-align: center;
+  color: #333;
+  font-size: 25rpx;
+  letter-spacing: 1px;
+  line-height: 50rpx;
+  margin-top: 40rpx;
+}
 .play-all-text{
   color: #333;
   font-size: 32rpx;

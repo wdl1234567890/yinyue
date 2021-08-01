@@ -1,6 +1,7 @@
 // subpackages-search/components/song-list-action-card/song-list-action-card.js
 let app = getApp()
-let Store = require('../../../common/utils/store/store.js')
+let Store = require('../../utils/store/store.js')
+let { httpPutWithToken, httpGet, httpPost } = require('../../../network/httpClient.js')
 Component({
   /**
    * 组件的属性列表
@@ -141,7 +142,8 @@ Component({
       for (let i = 0; i < checkedList.length; i++) {
         for (let j = 0; j < musicInfos.length; j++) {
           if (!this.isIncludeSongInList(checkedList[i], musicInfos[j])) {
-            checkedList[i].list.unshift(musicInfos[j])
+            checkedList[i].songs.unshift(musicInfos[j])
+            checkedList[i].cover = musicInfos[j].cover
           }
         }
       }
@@ -156,7 +158,13 @@ Component({
         selfSongList: newSelfSongList,
         showSongListAction: false
       })
-
+      
+      Store.getToken(token=>{
+        if (token != null && token != '' && token != undefined) newSelfSongList.forEach(song => {
+          httpPutWithToken('recommend-service//recommend/action/collect/song/' + song.id + '/score')
+        })
+      })
+      
       let copyList = [...newSelfSongList]
       copyList.unshift(this.data.otherSongList[1])
       copyList.unshift(this.data.otherSongList[0])
@@ -169,7 +177,8 @@ Component({
       })
     },
     isIncludeSongInList(musicList, musicInfo) {
-      return musicList.list.find(e => {
+      if (musicList.songs==null||musicList.songs.length==0)return false
+      return musicList.songs.find(e => {
         if (e.id == musicInfo.id) return true
         return false
       })
@@ -184,7 +193,7 @@ Component({
         return
       }
       let newId = Math.max.apply(Math,this.data.selfSongList.map(e=>e.id))+1
-      let value = { title: this.data.newSongListName, cover: this.data.musicInfos[0].cover, id: newId, list: [] }
+      let value = { title: this.data.newSongListName, cover: '', id: newId, songs: [] }
       Store.addSelfSongList(value).then(res => {
         wx.showToast({
           title: '新建歌单完成!',

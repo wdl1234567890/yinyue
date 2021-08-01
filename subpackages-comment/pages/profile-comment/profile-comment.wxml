@@ -7,7 +7,10 @@
     <!-- <comment-item wx:for="{{commentData}}" bindshowreply="showReply" wx:key="id" reply-count="{{item.replyCount}}" reply-from-info="{{item.replyFromInfo}}" comment-date="{{item.commentDate}}" comment="{{item.comment}}" user-name="{{item.userName}}" up-count="{{item.upCount}}"
       avator="{{item.avator}}" is-up="{{item.isUp}}" item-id="{{index}}" bindtapitem="tapItem" isFocus="{{inputFocus}}"/> -->
     <view wx:for="{{commentDatas}}" wx:key="id" class="comment-item-container">
-      <profile-comment-item is-up="{{item.isUp}}" item-id="{{item.id}}" up-count="{{item.upCount}}" comment-date="{{item.commentDate}}" comment="{{item.comment}}" music-info="{{item.musicInfo}}" reply-from-info="{{item.replyFromInfo}}"/>
+      <profile-comment-item item-id="{{item.id}}" up-count="{{item.thumbUpCount}}" comment-date="{{item.createTime}}" comment="{{item.content}}" music-info="{{item.song}}" reply-from-info="{{item.fromComment}}" song-list-info="{{item.songList}}" bindremovecomment="removeComment" data-id="{{index}}"/>
+    </view>
+    <view wx:if="{{!commentData||commentData.length==0}}" class="no-comment">
+      还没有任何评论~
     </view>
   </scroll-view>
 </wrapper>

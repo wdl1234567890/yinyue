@@ -4,11 +4,11 @@
     <back-button />
   </view>
   <view slot="nav-bar-middle" class="nav-title">已选择{{checkedIds.length}}项</view>
-  <text slot="nav-bar-right" class="all-select" catchtap="allChecked">{{checkedIds.length==musicListDatas.length?'取消全选':'全选'}}</text>
+  <text slot="nav-bar-right" class="all-select" catchtap="allChecked">{{checkedIds.length==musicListDatas.length&&musicListDatas.length!=0?'取消全选':'全选'}}</text>
 
   <scroll-view scroll-y slot="content" class="theme-module-color theme-padding" style="height:100%">
     <view wx:for="{{musicListDatas}}" wx:key="id" class="music-list-item">
-      <batch-music-list-item item-id="{{item.id}}" title="{{item.title}}" count="{{item.count}}" cover="{{item.cover}}" checked="{{tools.isArrayInclude(checkedIds,item.id)}}" catchhandlecheckchange="handleCheckChange" catchtapup="tapUp" catchtapdown="tapDown" flag="{{indexs[id]}}"/>
+      <batch-music-list-item item-id="{{item.id}}" title="{{item.title}}" count="{{item.songs.length}}" cover="{{item.cover}}" checked="{{tools.isArrayInclude(checkedIds,item.id)}}" catchhandlecheckchange="handleCheckChange" catchtapup="tapUp" catchtapdown="tapDown" flag="{{indexs[id]}}"/>
     </view>
     <view wx:if="{{musicListDatas.length==0}}" class="no-content">还没有任何内容</view>
   </scroll-view>

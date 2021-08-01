@@ -3,7 +3,7 @@
   <view slot="nav-bar-left" class="back-icon">
     <back-button />
   </view>
-  <view slot="nav-bar-middle" class="more-title">{{title}}</view>
+  <view slot="nav-bar-middle" class="more-title">{{subTitle?subTitle:title}}</view>
   <scroll-view scroll-y slot="content" class="theme-module-color theme-padding" style="height:100%" bindscrolltolower="scrolltolower">
     <view class="items-container">
       <block wx:if="{{title=='推荐歌单' || id!=-1}}">
@@ -13,7 +13,7 @@
       </block>
       <block wx:else>
         <view wx:for="{{datasList}}" wx:key="id" class="item">
-          <circular-card-item size="180" cover="{{item.avator?item.avator:item.cover}}" message="{{item.singerName?item.singerName:item.style?item.style:item.scene}}" item-id="{{item.id}}" />
+          <circular-card-item size="180" cover="{{item.cover}}" is-message="{{title!='音乐人'}}" message-circular-color="{{title=='风格'?themeColor:'#87CEFA'}}" message="{{item.name}}" item-id="{{item.id}}" data-sub="{{item.name}}" data-title="{{title}}" catchtapitem="tapCircularItem"/>
         </view>
       </block>
     </view>

@@ -1,7 +1,8 @@
 // pages/index/index.js
 let app = getApp()
 let func = require('../../common/utils/func/wxml-element.js')
-let {httpGet, httpPost} = require('../../network/httpClient.js')
+let { httpGet, httpPost, httpGetWithToken} = require('../../network/httpClient.js')
+let Store = require('../../common/utils/store/store.js')
 Page({
 
   /**
@@ -12,28 +13,29 @@ Page({
     personalRecommendMusicLists:[],
     normalRecommendMusicLists:{},
     musicsBySinger:[],
-
-    banner: [],
+    banner:[],
     singers:[],
     styles:[],
     scenes:[],
-    hotList:[],
-    newList:[],
-    randomList:[],
-    recommendSongs:[]
+    hotSongList:{},
+    newSongList:{},
+    randomSongList:{},
+    recommendSongs: [],
+    recommendSongLists:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.initBanner()
+    this.getBanner()
+    this.getHotAndNewAndRandom()
+    this.getAllStyle()
+    this.getAllScene()
+    this.getAllSinger()
+    this.getRecommendSongs()
     this.initPersonalRecommendMusicLists()
-    this.initNormalRecommendMusicLists()
-    this.initMusicsBySinger()
-    this.initSingers()
-    this.initStyles()
-    this.initScenes()
+    
   },
   /**
    * 用户点击右上角分享
@@ -42,253 +44,24 @@ Page({
 
   },
 
-  //初始化首页轮播图
-  initBanner() {
-    this.setData({
-      banner: [{
-        id: 1,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-      }, {
-        id: 2,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-      }, {
-        id: 3,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-      }, {
-        id: 4,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-      }, {
-        id: 5,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-      }, {
-        id: 6,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-      }, {
-        id: 7,
-        cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-      }]
-    })
-  },
 
   //初始化个性化推荐歌单
   initPersonalRecommendMusicLists(){
-    this.setData({
-      personalRecommendMusicLists:[
-        {
-          id:1,
-          title:'歌单标题',
-          cover:'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-        },
-        {
-          id: 2,
-          title: '歌单标题',
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-        },
-        {
-          id: 3,
-          title: '歌单标题',
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-        },
-        {
-          id: 4,
-          title: '歌单标题',
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-        },
-        {
-          id: 5,
-          title: '歌单标题',
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
+    let that = this
+    httpGetWithToken("recommend-service//recommend/personal/list", false).then(recommendSongLists => {
+      that.setData({
+        recommendSongLists
+      })
+      Store.getToken(res=>{
+        if(token != ''){
+          recommendSongLists.unshift({ id: -2, title: '个人推荐' })
+          that.setData({
+            recommendSongLists
+          })
         }
-      ]
+      })
     })
-  },
-
-  //初始化非个性化推荐歌单
-  initNormalRecommendMusicLists(){
-    this.setData({
-      normalRecommendMusicLists:{
-        hotList:{
-          id:1,
-          title:'热门\n歌曲',
-          listInfos:['梦中的旅行家-RaJor','错位时空-小玄子','非我-凤凰大人']
-        },
-        newList:{
-          id: 2,
-          title: '新歌推荐',
-          listInfos: ['梦中的旅行家-RaJor', '错位时空-小玄子', '非我-凤凰大人']
-        },
-        randomList:{
-          id: 3,
-          title: '随机歌单'
-        }
-      }
-    })
-  },
-
-  //初始化根据常听的歌手推荐相关的歌曲
-  initMusicsBySinger(){
-    this.setData({
-      musicsBySinger:[
-        {
-          id:1,
-          cover:'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-          singName:'我死我生',
-          singerName:'不才'
-        },
-        {
-          id: 2,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-          singName: '我死我生',
-          singerName: '不才'
-        },
-        {
-          id: 3,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-          singName: '我死我生',
-          singerName: '不才'
-        },
-        {
-          id: 4,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-          singName: '我死我生',
-          singerName: '不才'
-        },
-        {
-          id: 5,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-          singName: '我死我生',
-          singerName: '不才'
-        },
-        {
-          id: 6,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-          singName: '我死我生',
-          singerName: '不才'
-        },
-        {
-          id: 7,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-          singName: '我死我生',
-          singerName: '不才'
-        },
-        {
-          id: 8,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-          singName: '我死我生',
-          singerName: '不才'
-        },
-        {
-          id: 9,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-          singName: '我死我生',
-          singerName: '不才'
-        }
-      ]
-    })
-  },
-
-  //初始化歌手栏
-  initSingers(){
-    this.setData({
-      singers:[
-        {
-          id:1,
-          avator:'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          singerName:'不才'
-        },
-        {
-          id: 2,
-          avator: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          singerName: '刘宇宁'
-        },
-        {
-          id: 3,
-          avator: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          singerName: '张哲瀚'
-        },
-        {
-          id: 4,
-          avator: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          singerName: '小时姑娘'
-        },
-        {
-          id: 5,
-          avator: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          singerName: '叶里'
-        }
-      ]
-    })
-  },
-
-  //初始化风格栏
-  initStyles(){
-    this.setData({
-      styles:[
-        {
-          id: 1,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          style: '古风'
-        },
-        {
-          id: 2,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          style: '流行'
-        },
-        {
-          id: 3,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          style: '草原'
-        },
-        {
-          id: 4,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          style: '摇滚'
-        },
-        {
-          id: 5,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          style: '日语'
-        },
-        {
-          id: 6,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          style: '粤语'
-        }
-      ]
-    })
-  },
-
-  //初始化场景栏
-  initScenes(){
-    this.setData({
-      scenes: [
-        {
-          id: 1,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          scene: '运动'
-        },
-        {
-          id: 2,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          scene: '咖啡厅'
-        },
-        {
-          id: 3,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          scene: '图书馆'
-        },
-        {
-          id: 4,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          scene: '大自然'
-        },
-        {
-          id: 5,
-          cover: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
-          scene: '午休'
-        }
-      ]
-    })
+    
   },
 
   //进入更多页面
@@ -314,12 +87,12 @@ Page({
       break
       case "风格":
         wx.navigateTo({
-          url: '/pages/sub-pages/index-more/index-more?title=' + title + '&id='+id
+          url: '/pages/sub-pages/index-more/index-more?title=' + title + '&id=' + id + '&sub=' + e.currentTarget.dataset.sub
         })
       break
       case "场景":
         wx.navigateTo({
-          url: '/pages/sub-pages/index-more/index-more?title=' + title + '&id=' + id
+          url: '/pages/sub-pages/index-more/index-more?title=' + title + '&id=' + id + '&sub=' + e.currentTarget.dataset.sub
         })
       break
       default:
@@ -329,6 +102,9 @@ Page({
   //点击banner
   tapSwiperItem(e){
     let id = e.detail
+    wx.navigateTo({
+      url: '/subpackages-song-list/pages/song-list-detail/song-list-detail?id=' + id
+    })
   },
   tapNormalRecommend(e){
     let id = e.detail
@@ -344,17 +120,17 @@ Page({
 
   getHotAndNewAndRandom(){
     let that = this
-    httpGet("/recommend/hotAndNewAndRandom").then(({ hotList, newList, randomList })=>{
+    httpGet("recommend-service//recommend/hotAndNewAndRandom").then(({ hotSongList, newSongList, randomSongList })=>{
       that.setData({
-        hotList,
-        newList,
-        randomList
+        hotSongList,
+        newSongList,
+        randomSongList
       })
     })
   },
   getAllStyle(){
     let that = this
-    httpGet("/style").then(styles => {
+    httpGet("style-service//style/page/1").then(styles => {
       that.setData({
         styles
       })
@@ -362,7 +138,7 @@ Page({
   },
   getAllScene() {
     let that = this
-    httpGet("/scene").then(scenes => {
+    httpGet("scene-service//scene").then(scenes => {
       that.setData({
         scenes
       })
@@ -370,7 +146,7 @@ Page({
   },
   getAllSinger() {
     let that = this
-    httpGet("/singer").then(singers => {
+    httpGet("singer-service//singer/page/1").then(singers => {
       that.setData({
         singers
       })
@@ -378,7 +154,7 @@ Page({
   },
   getBanner(){
     let that = this
-    httpGet("/recommend/banner").then(banner => {
+    httpGet("recommend-service//recommend/banner").then(banner => {
       that.setData({
         banner
       })
@@ -387,9 +163,10 @@ Page({
 
   getRecommendSongs(){
     let that = this
-    httpGet("/recommend/songs").then(recommendSongs => {
+    httpGetWithToken("recommend-service//recommend/songs",false).then(recommendSongs => {
+      
       that.setData({
-        recommendSongs
+        recommendSongs: recommendSongs.slice(0, 9)
       })
     })
   }

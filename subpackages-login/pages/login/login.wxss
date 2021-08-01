@@ -13,6 +13,7 @@
   background-color: var(--theme-color);
   color: #fff;
   letter-spacing: 4rpx;
+  margin-top: 50rpx;
 }
 .weixin-icon{
   width: 100rpx;
@@ -63,6 +64,10 @@
   flex-wrap: wrap; 
   align-items: center;
 
+}
+.all-style-container{
+  max-height: 400rpx;
+  overflow-y: auto;
 }
 .radio-item my-radio{
   margin-right: 12rpx;

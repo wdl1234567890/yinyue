@@ -15,6 +15,7 @@
       </view>
       <i-icon type="editor" color="#666" size="20" catchtap="tapEditor" class="editor-icon"/>
       <text class="person-name one-row-flow">{{userInfo.userName}}</text>
+      <text wx:if="{{userInfo.isVip}}" class="vip-expired-date one-row-flow">VIP过期时间：{{userInfo.vipExpiredDate}}</text>
     </view>
     <!--音乐风格标签-->
     <view class="style-label">
@@ -23,7 +24,7 @@
           <view wx:for="{{userInfo.choosedStyles}}" class="style-label-item">{{item}}</view>
         </view> -->
         <view class="flex-row" style="align-items: center;">
-          <info-label isActive="true" wx:for="{{userInfo.choosedStyles}}" value="{{item}}" wx:key="index" />
+          <info-label isActive="true" wx:for="{{userInfo.styles}}" value="{{item.name}}" wx:key="index" />
         </view>
       </profile-detail-card>
     </view>

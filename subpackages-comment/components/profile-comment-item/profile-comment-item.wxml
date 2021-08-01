@@ -6,7 +6,8 @@
       <!--封面-->
       <square-item size="80" src="{{musicInfo.cover}}" slot="left" />
       <!--歌名和歌手名-->
-      <text class="song-singer-name one-row-flow" slot="middle">单曲 [{{musicInfo.singName}}] - {{musicInfo.singerName}}</text>
+      <text class="song-singer-name one-row-flow" slot="middle" wx:if="{{musicInfo}}">单曲 [{{musicInfo.songName}}] - {{musicInfo.singerName}}</text>
+      <text class="song-singer-name one-row-flow" slot="middle" wx:if="{{songListInfo}}">歌单 [{{songListInfo.title}}]</text>
       <!-- <view slot="middle" class="name-and-time-container">
         <text class="user-name one-row-flow">{{userName}}</text>
         <text class="comment-time">{{tools.timestampToTime(commentDate)}}</text>
@@ -16,6 +17,7 @@
         <text class="thumb-up-count {{isUp?'is-up':''}}">{{upCount}}</text>
         <i-icon type="praise" size="20" color="#999" wx:if="{{!isUp}}" catchtap="changeUp"/>
         <i-icon type="praise" size="20" color="{{themeColor}}" wx:else catchtap="changeUp"/>
+        <i-icon type="trash" size="20" color="#999" class="trash" catchtap="removeComment"/>
       </view>
     </three-column-bar>
   </view>
@@ -42,14 +44,14 @@
     <block wx:if="{{!tools.isEmpty(replyFromInfo)}}">
       <view class="comment-from-comment">
         <text>
-          <text class="comment-name">@{{replyFromInfo.userName}}:</text>
-        {{replyFromInfo.comment}}
+          <text class="comment-name">@{{replyFromInfo.user.userName}}:</text>
+        {{replyFromInfo.content}}
         </text>
       </view>
     </block>
   </view>
   <!--评论时间-->
   <view class="comment-date" style="border-bottom:{{isShowBorder?'1rpx solid #eee':'none'}}">
-    <text class="comment-time">{{tools.timestampToTime(commentDate)}}</text>
+    <text class="comment-time">{{commentDate}}</text>
   </view>
 </view>

@@ -1,38 +1,40 @@
+<wxs src="../../../common/utils/func/tools.wxs" module="tools" />
 <wrapper nav-bar-class="theme-module-color" mode="comment" focus="{{inputFocus}}" will-reply-item="{{willReplyItem}}" input-value="{{inputValue}}" bindfocus="focusEvent" bindblur="blurEvent" bindsendcomment="sendComment">
   <view slot="nav-bar-left" class="back-icon">
     <back-button />
   </view>
-  <view slot="nav-bar-middle" class="comment-title">评论({{commentData.replyCount}})</view>
+  <view slot="nav-bar-middle" class="comment-title">评论({{commentCount?commentCount:0}})</view>
   <button open-type="share" plain slot="nav-bar-right" class="share-button">
     <i-icon type="share" size="25" color="#888" />
   </button>
   <scroll-view scroll-y slot="content" class="theme-module-color content-container">
     <!--歌曲card-->
     <view class="music-card" wx:if="{{flag==2}}" catchtap="goToMusicPlayPage">
-      <song-list-item is-action-icon icon="enter" src-url="{{songInfo.cover}}" top-title="{{songInfo.singName}}" bottom-title="{{songInfo.singerName}}"/>
+      <song-list-item is-action-icon icon="enter" src-url="{{songOrListInfo.cover}}" top-title="{{songOrListInfo.songName}}" bottom-title="{{songOrListInfo.singerName}}" is-active="{{false}}"/>
     </view>
     <!--评论item-->
     <view wx:for="{{commentData}}" wx:key="id" class="comment-item">
-      <comment-item  bindshowreply="showReply" reply-count="{{item.replyCount}}" reply-from-info="{{item.replyFromInfo}}" comment-date="{{item.commentDate}}" comment="{{item.comment}}" user-name="{{item.userName}}" up-count="{{item.upCount}}"
-      avator="{{item.avator}}" is-up="{{item.isUp}}" data-id="{{index}}" item-id="{{item.id}}" bindtapitem="tapItem" isFocus="{{inputFocus}}"/>
+      <comment-item  bindshowreply="showReply" reply-count="{{item.replyCount}}" reply-from-info="{{item.fromComment}}" comment-date="{{item.createTime}}" comment="{{item.content}}" user-name="{{item.user.userName}}" up-count="{{item.thumbUpCount}}"
+      avator="{{item.user.avator}}" data-id="{{index}}" item-id="{{item.id}}" bindtapitem="tapItem" isFocus="{{inputFocus}}"/>
+    </view>
+    <view wx:if="{{!commentData||commentData.length==0}}" class="no-comment">
+      还没有任何评论~
     </view>
   </scroll-view>
 </wrapper>
 <!--回复评论底部弹框-->
-<bottom-modal isShow="{{showCommentModal}}" bottom-modal-container-class="bottom-modal-container">
+<bottom-modal wx:if="{{showCommentModal}}" isShow="{{showCommentModal}}" bottom-modal-container-class="bottom-modal-container">
   <view bindtap="hideModal" class="flex-row back-container" slot="title">
     <i-icon type="return" size="25" color="#333" class="back-icon" />
     <text class="reply-count">回复({{replyComment.replyCount}})</text>
   </view>
   <view slot="content">
     <view class="user-comment theme-module-color theme-padding">
-      <comment-item is-show-border="{{false}}" reply-from-info="{{replyComment.replyFromInfo}}" comment-date="{{replyComment.commentDate}}" comment="{{replyComment.comment}}" user-name="{{replyComment.userName}}" up-count="{{replyComment.upCount}}" avator="{{replyComment.avator}}"
-        is-up="{{replyComment.isUp}}" data-id="{{replyComment.id}}" item-id="{{replyComment.id}}" bindtapitem="tapItem" is-top isFocus="{{inputFocus}}"/>
+      <comment-item is-show-border="{{false}}" reply-from-info="{{replyComment.fromComment}}" comment-date="{{replyComment.createTime}}" comment="{{replyComment.content}}" user-name="{{replyComment.user.userName}}" up-count="{{replyComment.thumbUpCount}}" avator="{{replyComment.user.avator}}" data-id="{{replyComment.id}}" item-id="{{replyComment.id}}" bindtapitem="tapItem" is-top isFocus="{{inputFocus}}" enable-up-thumb="{{false}}"/>
       <view class="all-reply-title">全部回复</view>
     </view>
     <scroll-view class="all-reply theme-module-color" scroll-y>
-      <comment-item wx:for="{{replyData}}" wx:key="id" reply-count="{{item.replyCount}}" reply-from-info="{{item.replyFromInfo}}" comment-date="{{item.commentDate}}" comment="{{item.comment}}" user-name="{{item.userName}}" up-count="{{item.upCount}}" avator="{{item.avator}}"
-        is-up="{{item.isUp}}" data-id="{{index}}" item-id="{{item.id}}" bindtapitem="tapItem" isFocus="{{inputFocus}}" />
+      <comment-item wx:for="{{replyData}}" wx:key="id" reply-from-info="{{item.fromComment}}" comment-date="{{item.createTime}}" comment="{{item.content}}" user-name="{{item.user.userName}}" up-count="{{item.thumbUpCount}}" avator="{{item.user.avator}}" data-id="{{index}}" item-id="{{item.id}}" bindtapitem="tapItem" isFocus="{{inputFocus}}" />
     </scroll-view>
   </view>
 </bottom-modal>

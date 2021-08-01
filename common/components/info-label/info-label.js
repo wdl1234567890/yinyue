@@ -66,8 +66,11 @@ Component({
         this.setData({
           isActive: !this.data.isActive
         })
+        this.triggerEvent('taplabel', { value: this.data.value, isActive: this.data.isActive })
+      }else{
+        this.triggerEvent('taplabel', { value: this.data.value, isActive: true })
       }
-      this.triggerEvent('taplabel', {value:this.data.value,isActive:this.data.isActive})
+      
     }
   }
 })

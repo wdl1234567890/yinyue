@@ -37,7 +37,7 @@
   border-bottom-right-radius: 100rpx;
 }
 .avator-name-container{
-  height: 300rpx;
+  height: 400rpx;
   border-radius: 20rpx;
   background-color: rgba(253, 253, 253, 0.9);
   position: relative;
@@ -56,6 +56,12 @@
   letter-spacing: 1px;
 }
 
+.vip-expired-date{
+  color:#ddd;
+  font-size: 26rpx;
+  letter-spacing: 1px;
+  margin-top: 30rpx;
+}
 
 .style-label-item{
   padding: 10rpx 15rpx;

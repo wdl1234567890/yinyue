@@ -20,6 +20,14 @@ Component({
     size:{
       type:Number,
       value:200
+    },
+    isMessage:{
+      type:Boolean,
+      value:false
+    },
+    messageCircularColor:{
+      type:String,
+      value: app.globalData.themeColor
     }
   },
 

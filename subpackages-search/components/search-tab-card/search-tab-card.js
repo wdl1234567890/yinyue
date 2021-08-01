@@ -13,13 +13,17 @@ Component({
       type:Number,
       value:200
     },
-    singDatas:{
+    songDatas:{
       type:Array,
       value:[]
     },
-    singListDatas:{
+    songListDatas:{
       type:Array,
       value:[]
+    },
+    singerDatas:{
+      type: Array,
+      value: []
     }
   },
 

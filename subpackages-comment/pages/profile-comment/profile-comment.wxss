@@ -14,3 +14,11 @@
 .comment-item-container{
   padding-top: 20rpx;
 }
+.no-comment{
+  color: #333;
+  font-size: 25rpx;
+  letter-spacing: 1px;
+  line-height: 30rpx;
+  margin-top: 300rpx;
+  text-align: center;
+}

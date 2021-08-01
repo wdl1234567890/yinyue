@@ -1,4 +1,5 @@
 <view class="circular-card-container" style="width:{{size}}rpx" bindtap="tapItem">
-  <circular-item src="{{cover}}" size="{{size}}" circular-item-class="cover-item"/>
+  <circular-item src="{{cover}}" size="{{size}}" circular-item-class="cover-item" wx:if="{{!isMessage}}"/>
+  <view class="message-circular-container" style="width:{{size}}rpx;height:{{size}}rpx;line-height:{{size}}rpx;border-radius:{{size}}rpx;font-size:{{size/5}}rpx;background-color:{{messageCircularColor}}" wx:else>{{message}}</view>
   <text class="message">{{message}}</text>
 </view>

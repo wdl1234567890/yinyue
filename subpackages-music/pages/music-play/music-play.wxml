@@ -6,10 +6,7 @@
   </view>
   <!--歌名和歌手信息-->
   <view slot="nav-bar-middle" class="song-nane-container">
-    <!-- <i-notice-bar loop speed="2500" color="#333" i-class="song-nane">
-      
-    </i-notice-bar>-->
-    <view class="song-nane">{{musicInfo.singName}}</view>
+    <view class="song-nane">{{musicInfo.songName}}</view>
     <text class="singer-name">{{musicInfo.singerName}}</text>
   </view>
   <!--歌词转换按钮-->
@@ -20,7 +17,7 @@
     <view hidden="{{showLyric}}">
       <!--歌曲时间-->
       <view class="song-time">{{tools.transformSecondToMinute(currentPlayTime)}}/
-        <text style="color:#777">{{tools.transformSecondToMinute(musicInfo.singTime)}}</text>
+        <text style="color:#777">{{tools.transformSecondToMinute(musicInfo.songTime)}}</text>
       </view>
       <!--播放圆盘-->
       <view class="flex-row play-cd">
@@ -34,7 +31,7 @@
     </view>
     <!--歌词-->
     <scroll-view scroll-y class="lyric-container theme-padding" style="height:{{windowWidth*(90/100)}}px;" hidden="{{!showLyric}}">
-      <text user-select space="nbsp" decode>{{musicInfo.lyric}}</text>
+      <text user-select space="nbsp" decode>{{lyric}}</text>
     </scroll-view>
     <!--播放操作条-->
     <view class="play-bar theme-margin" style="bottom:{{windowHeight*(16/100)}}px">
@@ -56,7 +53,7 @@
         <view class="comment-count">{{tools.commentCountShow(musicInfo.commentCount)}}</view>
         <image src="/static/images/music-play/message.png" mode="aspectFill"></image>
       </view>
-      <button open-type="share" plain class="share-button">
+      <button open-type="share" plain class="share-button" bindtap="tapShare">
         <image src="/static/images/music-play/share.png" mode="aspectFill"></image>
       </button>
 

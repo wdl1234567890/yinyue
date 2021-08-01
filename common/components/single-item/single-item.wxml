@@ -2,8 +2,8 @@
 <view>
   <three-column-bar>
     <view slot="left" class="single-item-info-container" bindtap="tapPlay">
-      <text class="song-name one-row-flow">{{singName}}</text>
-      <view class="vip-and-singer-name-container">
+      <text class="song-name one-row-flow">{{songName}}</text>
+      <view class="vip-and-singer-name-container one-row-flow">
         <view wx:if="{{isVip}}" class="vip-icon">VIP</view>
         <text class="singer-name one-row-flow">{{singerName}}</text>
       </view>
@@ -15,9 +15,9 @@
 </view>
 
 <!-- 歌曲底部操作功能弹框 -->
-<bottom-modal isShow="{{showActionModal}}" bindbgtap="hideModal" title-container-class="actions-title-container">
+<bottom-modal wx:if="{{showActionModal}}" isShow="{{showActionModal}}" bindbgtap="hideModal" title-container-class="actions-title-container">
   <view slot="title" class="flex-column theme-padding song-card-container" style="width:100%">
-    <song-list-item src-url="{{cover}}" top-title="{{singName}}" bottom-title="{{singerName}}"/>
+    <song-list-item src-url="{{cover}}" top-title="{{songName}}" bottom-title="{{singerName}}"/>
   </view>
   <view slot="content" class="theme-module-color theme-padding">
     <view class="action-item" wx:for="{{actions}}" wx:key="id" catchtap="tapAction" data-index="{{index}}">

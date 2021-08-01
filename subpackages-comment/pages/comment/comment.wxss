@@ -12,6 +12,14 @@
   font-size: 34rpx;
   letter-spacing: 1px;
 }
+.no-comment{
+  color: #333;
+  font-size: 25rpx;
+  letter-spacing: 1px;
+  line-height: 30rpx;
+  margin-top: 300rpx;
+  text-align: center;
+}
 .music-card{
   padding: 40rpx var(--theme-gap);
   margin-bottom: 20rpx;

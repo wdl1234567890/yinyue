@@ -29,6 +29,22 @@
   width: 300rpx;
 
 }
+
+.comment-count {
+  letter-spacing: 1px;
+  color: #777;
+  font-size: 20rpx;
+  position: absolute;
+  top: -10rpx;
+  right: 30rpx;
+}
+.comment-container{
+  border-right:1rpx solid #eee;
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+
+}
 .select-item-icon{
   margin-right: 20rpx;
 }

@@ -23,7 +23,7 @@ function addStorage(key,value){
         store = res.data
       },
       complete(res){
-        if(res.indexOf(value)==-1){
+        if (store.indexOf(value)==-1){
           store.push(value)
           wx.setStorage({
             key: key,
@@ -40,6 +40,22 @@ function addStorage(key,value){
     })
   })
   
+}
+
+function isInclude(key, value) {
+  return new Promise((resolve, reject) => {
+    wx.getStorage({
+      key: key,
+      success(res) {
+        let data = res.data
+        resolve(data.indexOf(value) != -1)
+      },
+      fail(res) {
+        resolve(false)
+      }
+    })
+
+  })
 }
 
 function addStorageIfNotIncluded(key, value) {
@@ -118,7 +134,7 @@ function isIncludeById(key,id){
 function addStorageIfNotIncludedNotFromStorage(list,value,insertMode=0){
   let item = getObjectByIdFromNotStorage(list, value.id)
 
-  if(item!=null){
+  if(item==null){
     if(insertMode==0)list.unshift(value)
     else if(insertMode==1)list.push(value)
     return true
@@ -255,7 +271,7 @@ function getSelfSongList(){
 function isLike(id){
   return new Promise((resolve,reject)=>{
     getObjectById(Const.SELF_SONG_LIST,3).then(res=>{
-      let value = getObjectByIdFromNotStorage(res.list,id)
+      let value = getObjectByIdFromNotStorage(res.songs,id)
       resolve(value!=null)
     })
   })
@@ -316,7 +332,7 @@ function addMusicToSelfSongList(id,musicList){
     getSelfSongList().then(value=>{
       let item = getObjectByIdFromNotStorage(value,id)
       if(item!=null){
-        if(!addStorageIfNotIncludedNotFromStorage(item.list,musicList))resolve(false)
+        if(!addStorageIfNotIncludedNotFromStorage(item.songs,musicList))resolve(false)
         else setSelfSongList(value).then(res=>resolve(true)).then(res=>resolve(false))
       }else{
         resolve(false)
@@ -329,9 +345,14 @@ function removeMusicFromSelfSongList(id,musicId){
   return new Promise((resolve, reject) => {
     getSelfSongList().then(value => {
       let item = getObjectByIdFromNotStorage(value, id)
+      
       if (item != null) {
-        if (!romoveStorageNotFromStorage(item.list, musicId))resolve(false)
-        else setSelfSongList(value).then(res => resolve(true)).then(res => resolve(false))
+        if (!romoveStorageNotFromStorage(item.songs, musicId)){
+          resolve(false)
+          return
+        }
+        value[getIndex(value,id)]=item
+        setSelfSongList(value).then(res => resolve(true)).then(res => resolve(false))
       } else {
         resolve(false)
       }
@@ -368,6 +389,14 @@ function addHistorySearch(value){
   return addStorage(Const.HISTORY_SEARCH, value)
 }
 
+function addUpThumbList(value){
+  return addStorage(Const.UP_THUMB_LIST, value)
+}
+
+function cancelUpThumbList(value) {
+  return removeStorage(Const.UP_THUMB_LIST, value)
+}
+
 function removeHistorySearch(value){
   return removeStorage(Const.HISTORY_SEARCH,value)
 }
@@ -384,10 +413,11 @@ function removeLastPlayList(id) {
 function setMyMusicList(musicLists){
   return new Promise((resolve, reject) => {
     getSelfSongList().then(res => {
-      musicLists.unshift(res[2])
-      musicLists.unshift(res[1])
-      musicLists.unshift(res[0])
-      setSelfSongList(musicLists)
+      let musicListsCopy = [ ...musicLists]
+      musicListsCopy.unshift(res[2])
+      musicListsCopy.unshift(res[1])
+      musicListsCopy.unshift(res[0])
+      setSelfSongList(musicListsCopy)
       resolve(true)
     })
   })
@@ -431,6 +461,17 @@ function getUserInfo(){
 
 function setUserInfo(userInfo){
   return setStorage(Const.USER_INFO, userInfo)
+}
+
+function addDownloadMusic(music) {
+  return new Promise((resolve, reject) => {
+    getSelfSongList().then(res => {
+      res[1].songs.unshift(music)
+      setSelfSongList(res)
+      resolve(true)
+    })
+  })
+
 }
 
 function updateUserInfo(avator,userName){
@@ -481,6 +522,10 @@ async function getCurrentPlayMusicIndex() {
   return -1;
 }
 
+function isUpThumbList(value){
+  return isInclude(Const.UP_THUMB_LIST, value)
+}
+
 function getCurrentPlayMusicIndexSync() {
   let currentMusicList = null
   let currentPlayMusic = null
@@ -502,6 +547,10 @@ function getCurrentPlayMusicIndexSync() {
 
 function getToken(){
   return getStorage(Const.TOKEN,'')
+}
+
+function getUpThumbList() {
+  return getStorage(Const.UP_THUMB_LIST, [])
 }
 
 function isMusicListCollect(id){
@@ -529,6 +578,7 @@ module.exports = {
   addStorage,
   addStorageIfNotIncluded,
   getStorage,
+  isInclude,
   isIncludeById,
   addStorageIfNotIncludedNotFromStorage,
   romoveStorageNotFromStorage,
@@ -579,5 +629,10 @@ module.exports = {
   updateMyMusicList,
   setToken,
   getToken,
-  clearToken
+  clearToken,
+  addDownloadMusic,
+  getUpThumbList,
+  isUpThumbList,
+  addUpThumbList,
+  cancelUpThumbList
 }

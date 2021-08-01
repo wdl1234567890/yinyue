@@ -5,7 +5,6 @@
 .show-top-info-container {
   align-items: center;
   width: 694rpx;
-  left: -54rpx;
   display: flex;
   justify-content: center;
   position: relative;

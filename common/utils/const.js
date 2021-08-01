@@ -6,5 +6,6 @@ module.exports = {
   COLLECT_MUSIC_LIST:"collectMusicList",
   LAST_PLAY_LIST:"lastPlayList",
   USER_INFO:"userInfo",
-  TOKEN:"token"
+  TOKEN:"token",
+  UP_THUMB_LIST:"upThumbList"
 }

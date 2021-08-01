@@ -5,7 +5,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    singName:{
+    songName:{
       type:String,
       value:"歌名"
     },
@@ -18,7 +18,7 @@ Component({
       value:false
     },
     itemId:{
-      type:Number,
+      type:String,
       value:-1
     },
     checked:{

@@ -14,20 +14,25 @@
       </view>
       <!--单曲列表-->
       <view style="margin-top: 40rpx">
-        <view class="single-item" wx:for="{{singDatas}}">
-          <single-item item-id="{{item.id}}" cover="{{item.cover}}" sing-name="{{item.singName}}" singer-name="{{item.singerName}}" data-index="{{index}}" is-vip="{{item.isVip}}" catchmusicplayitemchange="musicplayitemchange" comment-count="{{item.commentCount}}"/>
+        <view class="single-item" wx:for="{{songDatas}}">
+          <single-item item-id="{{item.id}}" cover="{{item.cover}}" song-name="{{item.songName}}" singer-name="{{item.singerName}}" data-index="{{index}}" is-vip="{{item.isVip}}" catchmusicplayitemchange="musicplayitemchange" comment-count="{{item.commentCount}}"/>
         </view>
+        <view wx:if="{{songDatas.length==0}}" class="not-found">找不到相关内容</view>
       </view>
     </view>
     <!--歌手-->
     <view slot="tab1" class="singer-container">
-
+      <view class="song-list-item" wx:for="{{singerDatas}}" wx:key="id">
+        <song-list-item src-url="{{item.cover}}" top-title="{{item.title}}" bottomTitle="{{'歌手:'+item.name}}" item-id="{{item.id}}"/>
+      </view>
+      <view wx:if="{{singerDatas.length==0}}" class="not-found">找不到相关内容</view>
     </view>
     <!--歌单-->
     <view slot="tab2" class="song-list-container">
-      <view class="song-list-item" wx:for="{{singListDatas}}" wx:key="id">
-        <song-list-item src-url="{{item.cover}}" top-title="{{item.title}}" bottomTitle="{{item.count+'首'}}" item-id="{{item.id}}"/>
+      <view class="song-list-item" wx:for="{{songListDatas}}" wx:key="id">
+        <song-list-item src-url="{{item.cover}}" top-title="{{item.title}}" bottomTitle="{{item.songCount+'首'}}" item-id="{{item.id}}"/>
       </view>
+      <view wx:if="{{songListDatas.length==0}}" class="not-found">找不到相关内容</view>
     </view>
   </tab-card>
 </view>

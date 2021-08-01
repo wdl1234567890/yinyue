@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/profile/profile",
+    "subpackages-search/pages/search-result/search-result",
     "subpackages-comment/pages/profile-comment/profile-comment",
     "subpackages-comment/pages/comment/comment",
     "pages/sub-pages/profile-detail/profile-detail",
@@ -10,7 +11,6 @@
     "subpackages-music/pages/music-play/music-play",
     "subpackages-song-list/pages/song-list-detail/song-list-detail",
     "subpackages-search/pages/search/search",
-    "subpackages-search/pages/search-result/search-result",
     "subpackages-search/pages/batch-action-page/batch-action-page",
     "pages/sub-pages/edit-music-list/edit-music-list",
     "pages/sub-pages/batch-music-list/batch-music-list",

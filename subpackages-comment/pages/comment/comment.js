@@ -9,90 +9,14 @@ Page({
     songOrListInfo:{
       id:-1,
       info:"info",
-      cover:"https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
-      singName:"歌曲名",
-      singerName:"歌手"
+      cover:null,
+      songName:null,
+      singerName:null
     },
+    commentCount:0,
     showCommentModal:false,
-    commentData:[
-      {
-        id:1,
-        replyCount: 0,
-        replyFromInfo:{},
-        commentDate: 1614501113887,
-        comment:"这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！",
-        userName:"茯苓",
-        upCount:10,
-        avator:"https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
-        isUp:true
-
-      },
-      {
-        id: 2,
-        replyCount: 0,
-        replyFromInfo: {},
-        commentDate: 1614501113887,
-        comment: "这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！",
-        userName: "茯苓",
-        upCount: 12,
-        avator: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
-        isUp: false
-
-      },
-      {
-        id: 3,
-        replyCount: 1,
-        replyFromInfo: {},
-        commentDate: 1614501113887,
-        comment: "这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！",
-        userName: "茯苓",
-        upCount: 1,
-        avator: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
-        isUp: true
-
-      },
-      {
-        id: 4,
-        replyCount: 0,
-        replyFromInfo: {},
-        commentDate: 1614501113887,
-        comment: "这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！",
-        userName: "茯苓",
-        upCount: 0,
-        avator: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
-        isUp: false
-
-      }
-    ],
-    replyData: [
-      {
-        id: 1,
-        replyCount: 0,
-        replyFromInfo: {},
-        commentDate: 1614501113887,
-        comment: "这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！",
-        userName: "茯苓1号",
-        upCount: 10,
-        avator: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
-        isUp: true
-
-      },
-      {
-        id: 2,
-        replyCount: 0,
-        replyFromInfo: {
-          userName:"茯苓1号",
-          comment:"哈哈哈哈"
-        },
-        commentDate: 1614501113887,
-        comment: "这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！这首歌也太好听了吧！！！",
-        userName: "茯苓2号",
-        upCount: 12,
-        avator: "https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg",
-        isUp: false
-
-      }
-    ],
+    commentData:[],
+    replyData: [],
     replyComment: null,
     inputFocus:false,
     willReplyItem:null,
@@ -110,68 +34,32 @@ Page({
     let that = this
     let songOrListInfo = {}
     songOrListInfo.id = options.id
+    songOrListInfo.cover=options.cover
+    songOrListInfo.singerName=options.singerName
+    songOrListInfo.songName=options.songName
+    songOrListInfo.info='info'
+    console.log(songOrListInfo)
     this.setData({
       flag,
       songOrListInfo,
-      replyComment: this.data.songOrListInfo,
-      willReplyItem: this.data.songOrListInfo
+      replyComment: songOrListInfo,
+      willReplyItem: songOrListInfo
     })
 
-    httpGet('/comment/songOrList/' + songOrListInfo.id).then(commentData=>{
-      that.setData({commentData})
+    httpGet('comment-service//comment/songOrList/' + songOrListInfo.id).then(commentData=>{
+      let commentCount = 0
+      commentData.forEach(comment => commentCount = commentCount + 1 + comment.replyCount)
+      that.setData(
+        {
+          commentData,
+          commentCount
+        }
+      )
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
   showReply(e){
-    let currentItem = this.data.commentData[e.detail]
+    let currentItem = this.data.commentData[e.currentTarget.dataset.id]
     currentItem.info="info"
     let id = currentItem.id
     let that = this
@@ -183,13 +71,14 @@ Page({
       inputFocus: false,
       inputValue:""
     })
-    httpGet('/comment/commenr/' + id).then(replyData=>{
+    httpGet('comment-service//comment/comment/' + id).then(replyData=>{
       that.setData({
         replyData
       })
     })
   },
   hideModal(e) {
+    let that = this
     this.data.replyComment.info=undefined
     this.setData({
       showCommentModal: false,
@@ -198,12 +87,21 @@ Page({
       inputFocus:false,
       inputValue:""
     })
+    httpGet('comment-service//comment/songOrList/' + this.data.songOrListInfo.id).then(commentData => {
+      let commentCount = 0
+      commentData.forEach(comment => commentCount = commentCount + 1 + comment.replyCount)
+      that.setData(
+        {
+          commentData,
+          commentCount
+        }
+      )
+    })
   },
   tapItem(e){
     let willReplyItem
     let index = e.currentTarget.dataset.id
     let isTop = e.detail.isTop
-
     if (this.data.replyComment != this.data.songOrListInfo && isTop){
       this.setData({
         inputFocus: false,
@@ -244,25 +142,59 @@ Page({
     })
   },
   goToMusicPlayPage(e){
-    wx.navigateTo({
-      url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.songOrListInfo.id
-    })
+    if (this.data.songOrListInfo.singerName){
+      wx.navigateTo({
+        url: '/subpackages-music/pages/music-play/music-play?id=' + this.data.songOrListInfo.id
+      })
+    }else{
+      wx.navigateTo({
+        url: '/subpackages-song-list/pages/song-list-detail/song-list-detail?flag=5' + '&id=' + this.data.songOrListInfo.id
+      })
+    }
+    
   },
   sendComment(e){
     let content = e.detail
     let songOrListId = this.data.songOrListInfo.id
-    let fromId = this.data.willReplyItem.id
+    let fromId = this.data.willReplyItem.id != -1 ? this.data.willReplyItem.id : songOrListId
     let data = {}
+    let that = this
     data.songOrListId = songOrListId
-    data.fromComment.id = fromId
-    httpPostWithToken('/comment', data).then(res=>{
+    data.fromComment = {
+      id: fromId
+    }
+    data.metaObj={
+      firstFromId: this.data.replyComment.id
+    }
+    data.content = content
+    httpPostWithToken('comment-service//comment', data).then(res=>{
       wx.showToast({
-        title: '评论已发送',
+        title: '评论成功',
         icon:'none'
+      })
+      httpGet('comment-service//comment/songOrList/' + that.data.songOrListInfo.id).then(commentData => {
+        let commentCount = 0
+        commentData.forEach(comment => commentCount = commentCount + 1 + comment.replyCount)
+        that.setData(
+          {
+            commentData,
+            commentCount
+          }
+        )
+      })
+      httpGet('comment-service//comment/comment/' + that.data.replyComment.id).then(replyData => {
+        that.data.replyComment.replyCount=replyData.length
+        that.setData({
+          replyData,
+          replyComment: that.data.replyComment
+        })
+      })
+      that.setData({
+        inputValue:''
       })
     }).catch(res=>{
       wx.showToast({
-        title: '评论发送失败',
+        title: '评论失败',
         icon: 'none'
       })
     })
